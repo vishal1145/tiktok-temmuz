@@ -1,0 +1,1563 @@
+<template>
+  <div class="main-content">
+    <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
+    <b-row>
+      <b-col md="9"
+        ><div class="font-weight-bold fa-2x text-light">Profile</div></b-col
+      >
+    </b-row>
+
+    <hr class="mt-1" />
+
+    <div class="main-div">
+      <b-card title="Profile" class="for-profile">
+        <b-form>
+          <b-row class="my-3">
+            <!-- <img
+                v-if="selectedLogo"
+                :src="selectedLogo"
+                style="
+                  max-height: 120px !important;
+                  width: auto;
+                  margin: 0px 0px 8px;
+                  object-fit: cover;s
+                  padding: 20px;
+                  border-radius: 3%;
+                  border: 1px solid #111827;
+                "
+              /> -->
+
+            <b-col md="12">
+              Basic Deatils:
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-baseline">
+                  <i class="fa fa-envelope mr-2 mb-0 p-0" aria-hidden="true"></i
+                  >{{ emailUser }}
+                  <p v-if="this.verified !== false" class="text-success ml-2">
+                    <span class="badge badge-primary blueVerfiy"
+                      >verified<i
+                        class="fa fa-check-circle blueVerfiy2"
+                        style="padding-left: 4px"
+                        aria-hidden="true"
+                      ></i
+                    ></span>
+                  </p>
+                  <p
+                    v-else
+                    @click="clickEmailVarified()"
+                    class="ml-2 ul-cursor--pointer blueFover"
+                  >
+                    verify now
+                  </p>
+                </div>
+                <div class="d-flex flex-column">
+                  <div class="d-flex align-items-baseline">
+                    <i class="fa fa-phone mr-2" aria-hidden="true"></i>
+                    {{ phoneUser }}
+                    <p v-if="isOtp !== null" class="text-success ml-2">
+                      <span class="badge badge-primary blueVerfiy"
+                        >verified<i
+                          class="fa fa-check-circle blueVerfiy2"
+                          aria-hidden="true"
+                          style="padding-left: 4px"
+                        ></i
+                      ></span>
+                    </p>
+                    <p
+                      @click="clickOtpVarified()"
+                      v-else
+                      class="ml-2 ul-cursor--pointer blueFover"
+                    >
+                      verify now
+                    </p>
+                  </div>
+
+                  <b-form-group label-for="input-2" v-if="clickOtp">
+                    <b-form-input
+                      v-model="forOtp"
+                      @input="handelForOtp"
+                      type="number"
+                      placeholder="Enter opt"
+                    ></b-form-input>
+                  </b-form-group>
+                </div>
+              </div>
+            </b-col>
+            <b-col md="12" class="mb-2">
+              Referral Link:
+              <div class="d-flex flex-row border rounded p-2">
+                <a :href="referralLink" class="referral-link" target="_blank">{{
+                  referralLink
+                }}</a>
+                <p
+                  class="ul-card__border-radius border text-10 mb-0 px-2 py-0 ul-cursor--pointer ml-2 d-flex justify-content-center align-items-center"
+                  @click="copyReferralLink()"
+                  style="border-radius: 5px"
+                >
+                  Copy
+                </p>
+              </div>
+            </b-col>
+            <b-col md="12">
+              <img
+                id="logo"
+                :src="selectedLogo"
+                class="mb-3"
+                style="
+                  border: 1px solid #111827;
+                  padding: 4px;
+                  border-radius: 3%;
+                  object-fit: fill;
+                  width: 8rem;
+                  height: 8rem;
+                "
+              />
+            </b-col>
+
+            <b-col md="6">
+              <input
+                id="chooseLogo"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setImage"
+              />
+              <div class="spinner spinner-primary mr-3" v-if="logoloader"></div>
+              <b-button
+                v-if="!logoloader"
+                variant="primary ripple"
+                @click="chooseImage()"
+              >
+                Change Picture</b-button
+              >
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6">
+              <b-form-group label="First Name" label-for="input-1">
+                <b-form-input
+                  v-model="form.fName"
+                  type="text"
+                  required
+                  placeholder="First Name"
+                  :formatter="formatYear"
+                  v-on:keypress="isLetter($event)"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+
+            <b-col md="6">
+              <b-form-group label="Last Name" label-for="input-1">
+                <b-form-input
+                  v-model="form.lName"
+                  type="text"
+                  required
+                  placeholder="Last Name"
+                  :formatter="formatYear"
+                  v-on:keypress="isLetter($event)"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6 mb-25">
+              <b-form-group label="Address" label-for="input-3">
+                <b-form-input
+                  v-model="form.address"
+                  type="text"
+                  required
+                  placeholder="Enter Address"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6 mb-25">
+              <b-form-group label="State" label-for="input-2">
+                <b-form-input
+                  v-model="form.state"
+                  type="text"
+                  required
+                  placeholder="Enter state"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col md="6 mb-25">
+              <b-form-group label="City" label-for="input-1">
+                <b-form-input
+                  v-model="form.city"
+                  type="text"
+                  required
+                  placeholder="Enter city"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col md="6 mb-25">
+              <b-form-group label="Pin" label-for="input-2">
+                <b-form-input
+                  v-model="form.pin_code"
+                  type="number"
+                  @keydown="checkLength"
+                  required
+                  placeholder="Enter pin"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+
+            <div style="margin: 0 auto">
+              <div class="spinner spinner-primary mr-3" v-if="isLoading"></div>
+            </div>
+          </b-row>
+          <b-row>
+            <b-col md="12" class="">
+              <div
+                class="spinner spinner-primary mr-3"
+                v-if="updateloader"
+              ></div>
+              <b-button
+                v-if="!updateloader"
+                variant="primary ripple"
+                @click="updateUser()"
+                >Update</b-button
+              >
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-card>
+      <b-card title="Documents" class="for-profile">
+        <b-form>
+          <b-row>
+            <b-col>
+              <h5
+                style="
+                  font-weight: 600;
+                  font-size: 18px;
+                  color: rgb(156, 163, 175);
+                "
+              >
+                Aadhar Card
+              </h5>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6" class="my-3">
+              <input
+                id="aadhar"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                @change="setAadhar"
+                style="display: none"
+              />
+              <b-button @click="chooseAadhar()" class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    Aadhar Front
+                  </p>
+                </span></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="aadharFrontCheckbox"
+                id="changeAadharImg"
+                @change="chooseAadhar()"
+              >
+                Aadhar Front
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6" class="my-3">
+              <input
+                id="aadharback"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setAadharback"
+              />
+              <b-button @click="chooseAadharBack()" class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    Aadhar Back
+                  </p>
+                </span></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="aadharBackCheckbox"
+                id="changeAadharImgBack"
+                @change="chooseAadharBack()"
+              >
+                Aadhar Back
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="selectedImage"
+                :src="selectedImage"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="selectedImageBack"
+                :src="selectedImageBack"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <h5
+                style="
+                  font-weight: 600;
+                  font-size: 18px;
+                  margin-top: 40px;
+                  color: rgb(156, 163, 175);
+                "
+                class="p-0 mb-0"
+              >
+                Driving Licence
+              </h5>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6" class="my-3">
+              <input
+                id="drivinglincense"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setDrivingLincense"
+              />
+              <b-button
+                @click="chooseDrivingLincense()"
+                class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    DrivingLicence Front
+                  </p>
+                </span></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="drivingLincenseFrontCheckbox"
+                variant="primary ripple"
+                id="changeLincenceImg"
+                @change="chooseDrivingLincense()"
+              >
+                DrivingLicence Front
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6" class="my-3">
+              <input
+                id="drivinglincenseback"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setDrivingLincenseBack"
+              />
+              <b-button
+                @click="chooseDrivingLincenseBack()"
+                class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    DrivingLicence Back
+                  </p>
+                </span></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="drivingLincenseBackCheckbox"
+                variant="primary ripple"
+                id="changeLincenceImgBack"
+                @change="chooseDrivingLincenseBack()"
+              >
+                DrivingLicence Back
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="drivinglincenseImage"
+                :src="drivinglincenseImage"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="drivinglincenseImageBack"
+                :src="drivinglincenseImageBack"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <h5
+                style="
+                  font-weight: 600;
+                  font-size: 18px;
+                  margin-top: 40px;
+                  color: rgb(156, 163, 175);
+                "
+                class="p-0 mb-0"
+              >
+                Passport
+              </h5>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6" class="my-3">
+              <input
+                id="passport"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setPassport"
+              />
+              <b-button @click="choosePassport()" class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    Passport Front
+                  </p></span
+                ></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="passportFrontCheckbox"
+                id="changePassportImg"
+                @change="choosePassport()"
+              >
+                Passport Front
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6" class="my-3">
+              <input
+                id="passportback"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                style="display: none"
+                @change="setPassportBack"
+              />
+              <b-button @click="choosePassportBack()" class="col-12 for-border"
+                ><span class="d-flex"
+                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
+                    Passport Back
+                  </p>
+                </span></b-button
+              >
+
+              <!-- <b-form-checkbox
+                v-model="passportBackCheckbox"
+                id="changePassportImgBack"
+                @change="choosePassportBack()"
+              >
+                Passport Back
+              </b-form-checkbox> -->
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="passportImage"
+                :src="passportImage"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+            <b-col md="6">
+              <img
+                v-if="passportImageBack"
+                :src="passportImageBack"
+                style="max-height: 120px !important; width: auto"
+              />
+            </b-col>
+          </b-row>
+
+          <b-row class="mt-4">
+            <b-col md="12 mb-30">
+              <div class="spinner spinner-primary mr-3" v-if="docloader"></div>
+              <b-button
+                v-if="!docloader"
+                variant="primary ripple"
+                @click="updateDocuments()"
+                >Upload File</b-button
+              >
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-card>
+    </div>
+    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
+    <!-- <b-card title="Profile">
+      <b-form>
+       
+        <hr />
+
+        <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
+        <b-row>
+          <b-col md="12 mb-30" class="update">
+            <b-button
+              v-if="!updateloader"
+              variant="primary ripple"
+              class="col-md-1 mb-3"
+              @click="updateUser()"
+              >Update</b-button
+            >
+
+            <p style="position: absolute; right: 20px">
+              <i class="text-primary i-Lock-2"></i>
+              <a href="#" v-b-modal.modal-center style="font-size: 15px"
+                >Change password</a
+              >
+
+              <b-modal id="modal-center" centered title="Change Password">
+                <div v-if="showMail">
+                  <h5>Email</h5>
+                  <b-form-input
+                    class="col-6"
+                    v-model="form.email"
+                    type="text"
+                    required
+                    disabled
+                    placeholder="Enter Email"
+                  ></b-form-input>
+                </div>
+
+                <div v-if="!showMail">
+                  <h5>Old Password</h5>
+                  <b-form-input
+                    class="col-6"
+                    type="password"
+                    v-model="oldpassword"
+                    required
+                    placeholder="*****"
+                  ></b-form-input>
+
+                  <div class="mt-3">
+                    <h5>New Password</h5>
+                    <b-form-input
+                      class="col-6"
+                      type="password"
+                      v-model="newpassword"
+                      required
+                      placeholder="*****"
+                    ></b-form-input>
+                  </div>
+
+                  <div class="mt-3">
+                    <h5>Confirm Password</h5>
+                    <b-form-input
+                      class="col-6"
+                      type="password"
+                      v-model="confirmpassword"
+                      required
+                      placeholder="*****"
+                    ></b-form-input>
+                  </div>
+                </div>
+                <div slot="modal-footer" class="w-100">
+                  <div
+                    class="spinner spinner-primary float-right"
+                    v-if="submitloader"
+                  ></div>
+                  <b-button
+                    variant="primary"
+                    v-if="!showMail && !submitloader"
+                    size="sm"
+                    class="float-right"
+                    @click="changePassword()"
+                  >
+                    Update
+                  </b-button>
+                  <b-button
+                    variant="primary"
+                    size="sm"
+                    class="float-right mr-3"
+                    @click="reset()"
+                    v-if="showMail && !submitloader"
+                  >
+                    Send Mail
+                  </b-button>
+                  <div>
+                    <a
+                      href="#"
+                      variant="primary"
+                      @click="viaEmail()"
+                      v-if="!showMail"
+                      >Via Email</a
+                    >
+                    <a
+                      href="#"
+                      variant="primary"
+                      @click="viaOldPassword()"
+                      v-if="showMail"
+                      >Via Old Password</a
+                    >
+                  </div>
+                </div>
+              </b-modal>
+            </p>
+          </b-col>
+        </b-row>
+      </b-form>
+
+      <div></div>
+    </b-card> -->
+  </div>
+</template>
+<script>
+import message from "../../../message";
+export default {
+  metaInfo: {
+    title: "Profile",
+  },
+  components: {},
+  data() {
+    return {
+      referralLink: "",
+      clickOtp: false,
+      verified: null,
+      isOtp: null,
+      imgSrc: null,
+      aadharFrontCheckbox: false,
+      aadharBackCheckbox: false,
+      drivingLincenseBackCheckbox: false,
+      passportFrontCheckbox: false,
+      passportBackCheckbox: false,
+      drivingLincenseFrontCheckbox: false,
+      selectedImage: false,
+      passportImage: false,
+      passportImageBack: false,
+      drivinglincenseImage: false,
+      drivinglincenseImageBack: false,
+      forOtp: "",
+      updateloader: false,
+      logoloader: false,
+      docloader: false,
+      loader: false,
+      form: {
+        fName: "",
+        lName: "",
+
+        address: "",
+        url: "",
+        city: "",
+        state: "",
+        pin_code: "",
+      },
+      back_aadhar_card: "",
+      image: "",
+      aadhar_card: "",
+      driving_lincense: "",
+      back_driving_lincense: "",
+      haspassport: "True",
+      passport: "",
+      back_passport: "",
+      emailUser: "",
+      phoneUser: "",
+      email: "",
+      isLoading: false,
+      showMail: false,
+      isGetotpHide: false,
+      newpassword: "",
+      oldpassword: "",
+      confirmpassword: "",
+      submitloader: false,
+      id: null,
+    };
+  },
+  created() {
+    var storedUser = localStorage.getItem("userInfo");
+
+    var parsedUser = JSON.parse(storedUser);
+    this.id = parsedUser.data.id;
+    this.emailUser = parsedUser.data.email;
+    this.phoneUser = parsedUser.data.phone;
+    // this.userId=parsedUser.data.id;
+    if (this.id) {
+      // this.isEdit = true;
+      this.getProfileDetails();
+    }
+    // this.getCompanyData();
+  },
+  // computed(){
+  //   console.log(this.forOtp)
+  //   if(this.forOtp.length==6){
+  //     this.$apiService
+  //       .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
+  //       .then((res) => {
+  //         if (!res.apidata.isError) {
+  //           this.$toaster.makeToast(
+  //             "success",
+  //             "Verify successfully"
+  //           );
+  //           window.location.reload();
+
+  //           this.loader = false;
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         this.loader = false;
+  //         this.$toaster.makeToast("warning", "Some think error");
+  //       });
+
+  //   }
+  // },
+  methods: {
+    isLetter(e) {
+      let char = String.fromCharCode(e.keyCode); // Get the character
+      if (/^[A-Za-z]+$/.test(char)) return true;
+      // Match with regex
+      else e.preventDefault(); // If not match, don't add to input text
+    },
+    formatYear(e) {
+      return String(e).substring(0, 250);
+    },
+    copyReferralLink() {
+      const el = document.createElement("textarea");
+      el.value = this.referralLink;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      this.$toaster.makeToast("success", "Referral link copied to clipboard!");
+    },
+    viaEmail() {
+      this.showMail = true;
+      this.clearModalForm();
+    },
+    clickBookCar() {
+      this.$router.push("/app/sessions/searchCar");
+    },
+    clickAddAmount() {
+      this.$router.push("/app/mydesk/transaction");
+    },
+
+    clickOtpVarified() {
+      this.clickOtp = true;
+      this.loader = true;
+
+      this.$apiService
+        .getCall(`phone/verify/?userId=${this.id}&phone=${this.phoneUser}`)
+        .then((res) => {
+          if (!res.apidata.isError) {
+            this.$toaster.makeToast("success", "Otp sent successfully");
+
+            this.loader = false;
+          }
+        })
+        .catch((error) => {
+          this.loader = false;
+          this.$toaster.makeToast("warning", "Some think error");
+        });
+    },
+    handelForOtp(e) {
+      if (this.forOtp.length == 4) {
+        this.loader = true;
+        this.clickOtp = false;
+
+        this.$apiService
+          .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
+          .then((res) => {
+            if (!res.apidata.isError) {
+              this.$toaster.makeToast("success", "Verify successfully");
+              window.location.reload();
+
+              this.loader = false;
+            }
+          })
+          .catch((error) => {
+            this.loader = false;
+            this.$toaster.makeToast("warning", "Some think error");
+          });
+      }
+    },
+    clickEmailVarified() {
+      this.loader = true;
+      const reqData = {
+        email: this.emailUser,
+      };
+      this.$apiService
+        .postCall(`email/verify/`, reqData)
+        .then((res) => {
+          if (!res.apidata.isError) {
+            this.$toaster.makeToast(
+              "success",
+              "Email verification link sent successfully"
+            );
+
+            this.loader = false;
+          }
+        })
+        .catch((error) => {
+          this.loader = false;
+          this.$toaster.makeToast("warning", "Some think error");
+        });
+    },
+    checkLength(event) {
+      if (this.form.pin_code.toString().length >= 6 && event.keyCode !== 8) {
+        // event.preventDefault();
+        this.form.pin_code = this.form.pin_code.toString().substring(0, 5);
+      }
+    
+    },
+
+    async getProfileDetails() {
+      try {
+        let response = await this.$apiService.getCall(`account/?id=${this.id}`);
+
+        let userData = response.apidata;
+        this.form.fName = userData.first_name;
+        this.form.lName = userData.last_name;
+        this.form.address = userData.local_address;
+        this.form.state = userData.state;
+        this.form.city = userData.city;
+        this.form.pin_code = userData.pin_code;
+        this.verified = userData.is_verified;
+        this.isOtp = userData.otp;
+        this.referralLink = userData.referral_url;
+        // Update images
+        this.selectedLogo = userData.image;
+        this.selectedImage = userData.aadhar_card;
+        if (this.selectedImage) {
+          this.aadharFrontCheckbox = true;
+        }
+        this.selectedImageBack = userData.back_aadhar_card;
+        if (this.selectedImageBack) {
+          this.aadharBackCheckbox = true;
+        }
+        this.drivinglincenseImage = userData.driving_lincense;
+        if (this.drivinglincenseImage) {
+          this.drivingLincenseFrontCheckbox = true;
+        }
+        this.drivinglincenseImageBack = userData.back_driving_lincense;
+        if (this.drivinglincenseImageBack) {
+          this.drivingLincenseBackCheckbox = true;
+        }
+        this.passportImage = userData.passport;
+        if (this.passportImage) {
+          this.passportFrontCheckbox = true;
+        }
+        this.passportImageBack = userData.back_passport;
+        if (this.passportImageBack) {
+          this.passportBackCheckbox = true;
+        }
+
+        // Other fields
+        this.form.email = userData.email;
+        this.form.phone = userData.phone;
+        this.form.is_verified = userData.is_verified;
+        this.form.accessStatus = userData.accessStatus;
+        this.form.haspassport = userData.haspassport;
+        this.form.image = userData.image;
+        this.form.role = userData.role;
+        this.form.is_superuser = userData.is_superuser;
+        this.form.is_staff = userData.is_staff;
+        this.form.is_active = userData.is_active;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    viaOldPassword() {
+      this.showMail = false;
+    },
+
+    setPassport(event) {
+      this.loader = true;
+      let formData = new FormData();
+      const file = event.target.files[0];
+
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.passport = res.apidata.path;
+
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Passport front has been uploaded successfully"
+          );
+          this.passportFrontCheckbox = true;
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Passport back has been uploaded error"
+          );
+        });
+
+      if (file) {
+        // Read the selected file and display it as an image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.passportImage = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.passportImage = null;
+        this.passportFrontCheckbox = false;
+      }
+    },
+
+    setPassportBack(event) {
+      this.loader = true;
+      let formData = new FormData();
+      const file = event.target.files[0];
+
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.back_passport = res.apidata.path;
+
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Passport back has been uploaded successfully"
+          );
+          this.passportBackCheckbox = true;
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Passport back has been uploaded error"
+          );
+        });
+
+      if (file) {
+        // Read the selected file and display it as an image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.passportImageBack = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.passportImageBack = null;
+        this.passportBackCheckbox = false;
+      }
+    },
+
+    setDrivingLincense(event) {
+      this.loader = true;
+      let formData = new FormData();
+
+      const file = event.target.files[0];
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.driving_lincense = res.apidata.path;
+
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Driving license front has been uploaded successfully"
+          );
+          this.drivingLincenseFrontCheckbox = true;
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Driving license back has been uploaded error"
+          );
+        });
+
+      if (file) {
+        // Read the selected file and display it as an image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.drivinglincenseImage = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.drivinglincenseImage = null;
+        this.drivingLincenseFrontCheckbox = false;
+      }
+    },
+    setDrivingLincenseBack(event) {
+      this.loader = true;
+      let formData = new FormData();
+
+      const file = event.target.files[0];
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.back_driving_lincense = res.apidata.path;
+
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Driving lincense back has been uploaded successfully"
+          );
+          this.drivingLincenseBackCheckbox = true;
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Driving lincense back has been uploaded error"
+          );
+        });
+
+      if (file) {
+        // Read the selected file and display it as an image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.drivinglincenseImageBack = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.drivinglincenseImageBack = null;
+        this.drivingLincenseBackCheckbox = false;
+      }
+    },
+
+    setAadhar(event) {
+      this.loader = true;
+      let formData = new FormData();
+      const file = event.target.files[0];
+      formData.append("picture", file);
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.aadhar_card = res.apidata.path;
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Aadhar front has been uploaded successfully"
+          );
+          this.aadharFrontCheckbox = true;
+        })
+        .catch(() => {
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Aadhar front has been uploaded error"
+          );
+        });
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.selectedImage = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.selectedImage = null;
+        this.aadharFrontCheckbox = false;
+      }
+    },
+    chooseAadhar() {
+      const fileInput = document.getElementById("aadhar");
+      if (fileInput.files.length > 0) {
+        this.aadharFrontCheckbox = true;
+      } else {
+        this.aadharFrontCheckbox = false;
+      }
+      fileInput.click();
+    },
+
+    // setAadhar(event) {
+    //   this.loader = true;
+    //   let formData = new FormData();
+    //   const file = event.target.files[0];
+    //   formData.append("picture", file);
+    //   console.log(file);
+
+    //   this.$apiService
+    //     .postFileCall("uploadimage/", formData)
+    //     .then((res) => {
+    //       this.aadhar_card = res.apidata.path;
+
+    //       this.loader = false;
+    //       this.$toaster.makeToast("success", "Aadhar  uploaded successfully");
+    //     })
+    //     .catch(() => {
+    //       // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.loader = false;
+    //       this.$toaster.makeToast("warning", "Aadhar  uploaded error");
+    //     });
+    //   debugger;
+    //   if (file) {
+    //     // Read the selected file and display it as an image
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //       this.selectedImage = reader.result;
+    //     };
+
+    //     reader.readAsDataURL(file);
+    //     debugger;
+    //   } else {
+    //     this.selectedImage = null;
+    //   }
+    // },
+
+    setAadharback(event) {
+      this.loader = true;
+      let formData = new FormData();
+      const file = event.target.files[0];
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.back_aadhar_card = res.apidata.path;
+
+          this.loader = false;
+          this.$toaster.makeToast(
+            "success",
+            "Aadhar back has been uploaded successfully"
+          );
+          this.aadharBackCheckbox = true;
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+          this.$toaster.makeToast(
+            "warning",
+            "Aadhar back has been uploaded error"
+          );
+        });
+
+      if (file) {
+        // Read the selected file and display it as an image
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.selectedImageBack = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        this.selectedImageBack = null;
+        this.aadharBackCheckbox = false;
+      }
+    },
+    setImage(e) {
+      this.logoloader = true;
+      let formData = new FormData();
+      const file = e.target.files[0];
+
+      formData.append("picture", file);
+
+      this.$apiService
+        .postFileCall("uploadimage/", formData)
+        .then((res) => {
+          this.form.url = res.apidata.path;
+
+          this.logoloader = false;
+          this.$toaster.makeToast("success", "Photo has been updated");
+        })
+        .catch(() => {
+          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.logoloader = false;
+          this.$toaster.makeToast("warning", "Photo has been update failed");
+        });
+
+      if (!file.type.includes("image/")) {
+        alert("Please select an image file");
+        return;
+      }
+      if (typeof FileReader === "function") {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.imgSrc = event.target.result;
+          document.getElementById("logo").src = this.imgSrc;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Sorry, FileReader API not supported");
+      }
+    },
+
+    chooseAadharBack() {
+      const fileGet = document.getElementById("aadharback");
+      if (fileGet.files.length > 0) {
+        this.aadharBackCheckbox = true;
+      } else {
+        this.aadharBackCheckbox = false;
+      }
+      fileGet.click();
+    },
+    // chooseAadhar() {
+    //   document.getElementById("aadhar").click();
+    // },
+    chooseDrivingLincenseBack() {
+      const getBack = document.getElementById("drivinglincenseback");
+      if (getBack.files.length > 0) {
+        this.drivingLincenseBackCheckbox = true;
+      } else {
+        this.drivingLincenseBackCheckbox = false;
+      }
+      getBack.click();
+    },
+    chooseDrivingLincense() {
+      const getFront = document.getElementById("drivinglincense");
+      if (getFront.files.length > 0) {
+        this.drivingLincenseFrontCheckbox = true;
+      } else {
+        this.drivingLincenseFrontCheckbox = false;
+      }
+      getFront.click();
+    },
+    choosePassport() {
+      const passportFront = document.getElementById("passport");
+      if (passportFront.files.length > 0) {
+        this.passportFrontCheckbox = true;
+      } else {
+        this.passportFrontCheckbox = false;
+      }
+      passportFront.click();
+    },
+    choosePassportBack() {
+      const passportBack = document.getElementById("passportback");
+      if (passportBack.files.length > 0) {
+        this.passportBackCheckbox = true;
+      } else {
+        this.passportBackCheckbox = false;
+      }
+      passportBack.click();
+    },
+    chooseImage() {
+      document.getElementById("chooseLogo").click();
+    },
+    updateUser() {
+      this.updateloader = true;
+      let formData = new FormData();
+      formData.append("first_name", this.form.fName);
+      formData.append("last_name", this.form.lName);
+      formData.append("local_address", this.form.address);
+
+      formData.append("image", this.form.url || this.selectedLogo);
+
+      formData.append("city", this.form.city);
+      formData.append("state", this.form.state);
+      formData.append("pin_code", this.form.pin_code);
+
+      if (!this.form.fName && !this.form.lName) {
+        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+        this.updateloader = false;
+        return;
+      }
+
+      this.$apiService
+        .putCall(`account/updateUserAPIView/${this.id}`, formData)
+        .then((res) => {
+          this.updateloader = false;
+          this.$toaster.makeToast("success", "Details updated successfully");
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        })
+        .catch((error) => {
+          this.updateloader = false;
+          this.$toaster.makeToast("warning", "Details updated error");
+        });
+    },
+
+    updateDocuments() {
+      this.docloader = true;
+      let formData = new FormData();
+      if (this.selectedImage != null) {
+        formData.append("aadhar_card", this.aadhar_card || this.selectedImage);
+      }
+
+      if (this.drivinglincenseImage != null) {
+        formData.append(
+          "driving_lincense",
+          this.driving_lincense || this.drivinglincenseImage
+        );
+      }
+
+      formData.append("haspassport", this.haspassport);
+      if (this.passportImage != null) {
+        formData.append("passport", this.passport || this.passportImage);
+      }
+
+      if (this.selectedImageBack != null) {
+        formData.append(
+          "back_aadhar_card",
+          this.back_aadhar_card || this.selectedImageBack
+        );
+      }
+
+      if (this.drivinglincenseImageBack != null) {
+        formData.append(
+          "back_driving_lincense",
+          this.back_driving_lincense || this.drivinglincenseImageBack
+        );
+      }
+
+      if (this.passportImageBack != null) {
+        formData.append(
+          "back_passport",
+          this.back_passport || this.passportImageBack
+        );
+      }
+
+      if (
+        formData.has("aadhar_card") &&
+        formData.has("back_aadhar_card") &&
+        formData.has("driving_lincense") &&
+        formData.has("back_driving_lincense")
+      ) {
+        this.$apiService
+          .putCall(`account/updateDocumentAPIView/${this.id}`, formData)
+          .then((res) => {
+            if (!res.isError && formData) {
+              this.docloader = false;
+              this.$toaster.makeToast(
+                "success",
+                "Documents updated successfully"
+              );
+            } else {
+              this.docloader = false;
+              this.$toaster.makeToast("warning", "Documents updated failed");
+            }
+          })
+          .catch((error) => {
+            this.docloader = false;
+            this.$toaster.makeToast("warning", "Documents updated failed");
+          });
+      } else {
+        this.docloader = false;
+        this.$toaster.makeToast(
+          "warning",
+          "Aadhar Card,Driving Lincense is mandatory "
+        );
+      }
+    },
+    getCompanyData() {
+      this.isLoading = true;
+      this.$apiService
+        .getCall("getCompanyData")
+        .then((res) => {
+          this.form = res.apidata.data;
+          if (this.form.logo) {
+            this.$apiService
+              .postCall("download", { urlPath: this.form.logo })
+              .then((res) => {
+                document.getElementById("logo").src =
+                  "data:image/jpeg;base64," + res.apidata.fileData;
+                this.isLoading = false;
+              })
+              .catch((error) => {
+                this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+                this.isLoading = false;
+              });
+          }
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.log(error);
+        });
+    },
+    async getCarDetails() {
+      try {
+        this.loader = true;
+        let response = await this.$apiService.getCall(`account/?id=${this.id}`);
+        this.form.fName = response.apidata.form.fName;
+
+        this.loader = false;
+      } catch (error) {
+        this.loader = false;
+        console.log(error);
+      }
+    },
+    changePassword() {
+      this.submitloader = true;
+      if (this.newpassword && this.oldpassword && this.confirmpassword) {
+        if (this.newpassword != this.confirmpassword) {
+          this.$toaster.makeToast("warning", message.VALIDATION_ERROR);
+          this.submitloader = false;
+          return;
+        }
+
+        if (this.newpassword.length < 5) {
+          this.$toaster.makeToast("warning", message.PASSWORDNOT_OK);
+          this.submitloader = false;
+          return;
+        }
+
+        if (this.confirmpassword.length < 5) {
+          this.$toaster.makeToast("warning", message.PASSWORDNOT_OK);
+          this.submitloader = false;
+          return;
+        }
+
+        let requestData = {
+          newpassword: this.newpassword,
+          oldpassword: this.oldpassword,
+          confirmpassword: this.confirmpassword,
+        };
+        this.$apiService
+          .postCall("change-password", requestData)
+          .then((res) => {
+            if (res.error) {
+              this.$toaster.makeToast("warning", message.MISMATCH_ERROR);
+              this.submitloader = false;
+              return;
+            }
+
+            this.$toaster.makeToast("success", message.UPDATE_MESSAGE);
+            this.clearModalForm();
+            this.$bvModal.hide("modal-center");
+            this.submitloader = false;
+          })
+          .catch((error) => {
+            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+            this.submitloader = false;
+          });
+      } else {
+        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+        this.submitloader = false;
+      }
+    },
+    clearModalForm() {
+      this.newpassword = "";
+      this.confirmpassword = "";
+      this.oldpassword = "";
+    },
+    reset() {
+      this.submitloader = true;
+      // if (this.email) {
+      //   this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+      //   this.submitloader = false;
+      //   return;
+      // }
+
+      this.$apiService
+        .postCall("forget-password", { email: this.form.email })
+        .then((res) => {
+          if (res.error) {
+            this.notFound = true;
+            this.$toaster.makeToast("warning", message.NOT_FOUND);
+            this.submitloader = false;
+          } else {
+            this.$toaster.makeToast(
+              "success",
+              message.EMAIL_VERIFICATION_MESSAGE
+            );
+            this.notFound = false;
+            this.submitloader = false;
+            this.$bvModal.hide("modal-center");
+            setTimeout(() => {
+              this.$router.push("/app/sessions/signIn");
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.submitloader = false;
+          console.log(error);
+        });
+    },
+  },
+};
+</script>
+<style scoped>
+#logo {
+  /* max-width: 20.66667%;
+  min-width: 25.66667%; */
+  /* max-height: 10rem; */
+  /* min-height: 10rem; */
+}
+
+/* #doc {
+  max-width: 8.66667%;
+  min-width: 8.66667%;
+  max-height: 5rem;
+  min-height: 5rem;
+} */
+
+#loader {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  z-index: 10;
+}
+
+.for-border {
+  border: 1px solid rgb(156, 163, 175);
+}
+
+.update {
+  display: flex;
+  align-items: center;
+}
+
+.custom-checked {
+  border-color: aqua;
+  color: yellow;
+}
+.main-div {
+  gap: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.for-profile {
+  width: 49%;
+}
+
+@media (max-width: 768px) {
+  .main-div {
+    flex-direction: column;
+  }
+
+  .main-content-wrap {
+    padding: 0 !important;
+  }
+  .for-profile {
+    width: 100%;
+  }
+  .referral-link {
+    overflow-wrap: break-word;
+    color: blue; /* Set link color to blue */
+    text-decoration: underline;
+    font-size: 6.5px;
+    /* Add underline to the link */
+  }
+}
+
+.blueVerfiy {
+  background-color: #3b82f6;
+  /* color: #3b82f6; */
+}
+.blueVerfiy2[data-v-6cdc9553] {
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding-left: 3px;
+}
+.blueFover {
+  color: #3b82f6;
+}
+.referral-link {
+  overflow-wrap: break-word;
+  color: blue; /* Set link color to blue */
+  text-decoration: underline; /* Add underline to the link */
+}
+
+/* Style for the container to improve readability and appearance */
+</style>

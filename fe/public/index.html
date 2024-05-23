@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js">
+    </script>
+    <!-- <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/65da0e508d261e1b5f64e5e1/1hndsfrf3';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "l7dwoq689j");
+    </script>
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '376438431710010');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=376438431710010&ev=PageView&noscript=1" /></noscript> -->
+    <style>
+        .loading_wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+            display: block;
+            position: absolute;
+        }
+
+        .loader_logo {
+            height: 80px;
+            width: 80px;
+            position: absolute;
+            left: calc(50% - 50px);
+            top: 38%;
+        }
+
+        .loader_logo img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            border: 3px solid rgba(102, 51, 153, 0.45);
+            position: absolute;
+            left: calc(50% - 35px);
+            top: 50%;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border-top-color: #a855f7;
+            animation: loader 1s ease-in-out infinite;
+            -webkit-animation: loader 1s ease-in-out infinite;
+        }
+
+        @keyframes loader {
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes loader {
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <title>GenieFood</title>
+</head>
+
+<body class="text-left">
+    <noscript>
+        <strong>
+            We're sorry but gull-vue doesn't work properly without
+            JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <!-- built files will be auto injected -->
+    <div class="loading_wrap" id="loading_wrap">
+        <!-- <div class="loader_logo">
+                logo
+                <img src="<%= BASE_URL %>img/logo.png" class="" alt="logo" />
+            </div> -->
+
+        <div class="loading"></div>
+    </div>
+
+    <div id="app"></div>
+</body>
+
+</html>
