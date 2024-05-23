@@ -6,8 +6,8 @@
         <img
           :src="logo"
           alt=""
-          width="70"
-          height="70"
+          width="100"
+          height="40"
           class="d-inline-block align-text-top"
         />
         <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a>

@@ -26,9 +26,10 @@ export default {
   metaInfo() {
     return {
       // if no subcomponents specify a metaInfo.title, this title will be used
-      title: " GenieFood",
+      title: " TikTok Ajans TikTok Türkiye Resmi Ajansı - Temmuz Ajans",
+      description:"TikTok Ajans Temmuz Agency - TikTok LIVE Türkiye Resmi Ajansı'na dahil olan yayıncılar, kazançlarını ve izlenmelerini 10 kata kadar yükseltiyor.",
       // all titles will be injected into this template
-      titleTemplate: "%s | GenieFood",
+      titleTemplate: "TikTok Ajans TikTok Türkiye Resmi Ajansı - Temmuz Ajans ",
       bodyAttrs: {
         class: [this.themeName, "text-left"]
       },

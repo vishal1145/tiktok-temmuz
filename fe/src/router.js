@@ -781,9 +781,9 @@ const routes = [
         component: () => import("./views/app/sessions/bookCars"),
       },
       {
-        path: "adminLogIn",
-        name: "adminLogIn",
-        component: () => import("./views/app/sessions/adminLogIn"),
+        path: "signIn",
+        name: "signIn",
+        component: () => import("./views/app/sessions/signIn"),
       },
 
       {

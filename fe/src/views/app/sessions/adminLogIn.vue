@@ -164,6 +164,13 @@
       </span>
       </button>
     </div> -->
+    <div class="d-flex flex-row gap-3" style="
+    gap: 11px;
+">    <button class="btn11 btn btn-primary" @click="changeLanguage('en')">English</button>
+    <button  class="btn11 btn " @click="changeLanguage('tr')">Türkçe</button> </div>
+
+
+
     <div class="auth-contents">
       <div class="card o-hidden">
         <div class="row">
@@ -172,7 +179,7 @@
               <div class="auth-logo text-center mb-30">
                 <img :src="logo" />
               </div>
-              <h1 class="mb-3 text-18">Sign In</h1>
+              <h1 class="mb-3 text-18">{{ $t('Sign In') }}</h1>
 
               <b-form @submit.prevent="signInSubmit" id="secondForm">
                 <!-- <b-form-group label="Name">
@@ -204,18 +211,17 @@
                   </b-form-input>
                 </b-form-group> -->
 
-                <b-form-group label="Email">
-                  <b-form-input
-                    class="form-control form-control-rounded"
-                    label="Email"
-                    maxlength="50"
-                    type="email"
-                    v-model="email"
-                  >
-                  </b-form-input>
-                </b-form-group>
+                <b-form-group :label="$t('Email')">
+    <b-form-input
+      class="form-control form-control-rounded"
+      maxlength="50"
+      type="email"
+      v-model="email"
+    >
+    </b-form-input>
+  </b-form-group>
 
-                <b-form-group label="Password">
+                <b-form-group :label="$t('Password')">
                   <div
                     class="position-absolute for-eye"
                     @click="togglePasswordVisibility"
@@ -259,11 +265,15 @@
                     v-model="referral"
                   >
                   </b-form-input>
-                </div> -->
+                </div> --> 
+      
 
                 <b-col md="12 ml-5" v-if="isLoading">
                   <div class="spinner spinner-primary ml-5"></div>
                 </b-col>
+
+                <!-- <p>{{ $t('welcome') }}</p> -->
+  
                 <b-button
                   type="submit"
                   block
@@ -271,7 +281,7 @@
                   v-if="!isLoading"
                   :disabled="submitStatus === 'PENDING' || $v.$invalid"
                   class="btn-rounded"
-                  >Sign In</b-button
+                  >{{ $t('Sign In') }}</b-button
                 >
 
                 <div class="mt-3 text-center">
@@ -403,6 +413,9 @@ export default {
         "}" +
         style.appendChild(document.createTextNode(cssRule));
       document.head.appendChild(style);
+    },
+    changeLanguage(locale) {
+      this.$i18n.locale = locale;
     },
     signInSubmit() {
       
@@ -654,6 +667,8 @@ export default {
 <style scoped>
 .auth-layout-wrap {
   /* position: relative; */
+  align-items: end;
+    padding: 10px;
   backdrop-filter: blur(100px); /* You can adjust the blur amount as needed */
 }
 .spinner.sm {
@@ -824,6 +839,17 @@ export default {
     margin-left: 0;
     box-shadow: 0 1px 15px grey, 0 1px 6px rgba(0, 0, 0, 0.04);
   }} */
+
+  .btn-primary {
+    color: #fff;
+    background-color: #a855f7ab;
+    border-color: #a855f7ab !important;
+}
+
+.btn11 {
+    padding: 0.15rem 0.25rem;
+    font-size: 11px;
+}
 </style>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");

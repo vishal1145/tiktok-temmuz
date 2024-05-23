@@ -13,7 +13,7 @@ export default (to, from, next) => {
   // }
   else{
     // next("/app/sessions/home");
-    next("/app/sessions/adminLogIn");
+    next("/app/sessions/signIn");
     
 
   }

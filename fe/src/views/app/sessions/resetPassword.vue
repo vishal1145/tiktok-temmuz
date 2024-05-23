@@ -6,8 +6,8 @@
           <img
           src="@/assets/images/Zoombacar_nav_logo.png"
             alt=""
-            width="70"
-          height="70"
+            width="100"
+          height="40"
             class="d-inline-block align-text-top"
           />
       

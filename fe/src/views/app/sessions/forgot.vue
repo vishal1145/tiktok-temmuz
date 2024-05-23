@@ -9,8 +9,8 @@
           <img
           :src="logo"
             alt=""
-            width="70"
-          height="70"
+            width="100"
+          height="40"
             class="d-inline-block align-text-top"
           />
           <a @click="openPopup()" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Forget Password</a>
@@ -37,7 +37,7 @@
               <h1 class="mb-3 text-18">Forgot Password</h1>
               <form>
                 <div class="form-group">
-                  <label for="email">Email address</label>
+                  <label for="email">{{$t("Email address")}}</label>
                   <input
                     id="email"
                     v-model="userEmail"

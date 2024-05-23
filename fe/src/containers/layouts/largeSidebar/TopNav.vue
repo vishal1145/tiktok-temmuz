@@ -1548,7 +1548,7 @@ export default {
     logoutUser() {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("accesstoken");
-      this.$router.push("/app/sessions/adminLogIn");
+      this.$router.push("/app/sessions/signIn");
       setTimeout(() => {
         window.location.reload();
       }, 500);
@@ -1615,8 +1615,8 @@ export default {
         });
     },
     openSignUpPopup() {
-      // this.$bvModal.show("modal-signUp");
-      // this.$router.push('userSignUp')
+      this.$bvModal.show("modal-signUp");
+      this.$router.push('userSignUp')
       this.$router.push("userSignUp");
       this.$bvModal.hide("modal-signIn");
       this.$bvModal.hide("modal-forget-passwords");
@@ -1829,7 +1829,7 @@ export default {
   margin-left: 1.5em !important;
   /* width: 111px !important; */
 
-  height: 40px !important;
+  height: 28px !important;
 }
 
 #dropdown-1__BV_toggle_ {

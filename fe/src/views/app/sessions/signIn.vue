@@ -7,8 +7,8 @@
         <img
           :src="logo"
           alt=""
-          width="70"
-          height="70"
+          width="100"
+          height="40"
           class="d-inline-block align-text-top"
         />
         <a
@@ -17,7 +17,7 @@
           style="cursor: pointer; text-decoration: underline"
           class="text-primary"
         >
-          Sign In
+        {{ $t('Sign In') }}
         </a>
         <div v-else class="dropdown">
           <b-dropdown
@@ -116,9 +116,10 @@
               <div class="auth-logo text-center mb-30">
                 <img :src="logo" />
               </div>
-              <h1 class="mb-3 text-18">Sign In</h1>
+              <h1 class="mb-3 text-18">        {{ $t('Sign In') }}
+</h1>
               <b-form @submit.prevent="formSubmit" id="firstForm">
-                <b-form-group label="Email Address" class="text-12">
+                <b-form-group :label="$t('Email Address')" class="text-12">
                   <b-form-input
                     class="form-control-rounded"
                     type="text"
@@ -128,7 +129,7 @@
                   ></b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Password" class="text-12">
+                <b-form-group :label="$t('Password')" class="text-12">
                   <div
                     class="position-absolute for-eye"
                     @click="togglePasswordVisibility"
@@ -172,7 +173,7 @@
                     :disabled="loading"
                     v-if="!isLoading"
                   >
-                    SignIn
+                     {{$t('Sign In')}}
                   </b-button>
                 </div>
 
@@ -184,7 +185,7 @@
                   @click="openSignUpPopup"
                   variant="primary mt-2"
                   class="btn-rounded"
-                  >Create an account</b-button
+                  >  {{$t('Create an account')}}</b-button
                 >
               </b-form>
 
@@ -193,7 +194,7 @@
                   @click="openforgetPasswordPopup()"
                   style="text-decoration: underline; cursor: pointer"
                   class="text-primary"
-                  >Forgot Password</a
+                  >  {{$t('Forgot Password')}}</a
                 >
                 <!-- <router-link to="forgot" tag="a" class="text-muted">
                   <u>Forgot Password?</u>
@@ -277,7 +278,7 @@
     <b-modal
       id="modal-signUp"
       size="sm"
-      title="Sign Up"
+      :title="$t('Sign Up')"
       style="height: 100px"
       hide-header
       hide-footer
@@ -289,13 +290,13 @@
               <div class="auth-logo text-center mb-30">
                 <img :src="logo" />
               </div>
-              <h1 class="mb-3 text-18">Sign Up</h1>
+              <h1 class="mb-3 text-18">{{$t('Sign Up')}}</h1>
 
               <b-form @submit.prevent="signUpSubmit" id="secondForm">
-                <b-form-group label="Phone">
+                <b-form-group :label="$t('Phone')">
                   <b-form-input
                     class="form-control form-control-rounded"
-                    label="Phone"
+                    :label="$t('Phone')"
                     type="tel"
                     v-model="phone"
                     maxlength="10"
@@ -303,7 +304,7 @@
                   </b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Email">
+                <b-form-group :label="$t('Email')">
                   <b-form-input
                     class="form-control form-control-rounded"
                     label="Name"
@@ -314,7 +315,7 @@
                   </b-form-input>
                 </b-form-group>
 
-                <b-form-group label="Password">
+                <b-form-group :label="$t('Password')">
                   <div
                     class="position-absolute for-eye"
                     @click="togglePasswordVisibility"
@@ -350,7 +351,7 @@
                   v-if="!isLoading"
                   :disabled="submitStatus === 'PENDING' || $v.$invalid"
                   class="btn-rounded"
-                  >Sign Up</b-button
+                  > {{ $t('Sign Up ') }}</b-button
                 >
 
                 <div class="mt-3 text-center">
@@ -358,7 +359,7 @@
                     @click="openPopup"
                     style="text-decoration: underline; cursor: pointer"
                     class="text-primary"
-                    >Sign In</a
+                    >  {{$t('Sign In')}}</a
                   >
                   <!-- <router-link to="signIn" tag="a" class="text-muted">
                     <u>Sign In</u>
@@ -396,10 +397,10 @@
           <div class="col-md-12">
             <div class="p-4">
               <div class="auth-logo text-center mb-30"><img :src="logo" /></div>
-              <h1 class="mb-3 text-18">Forgot Password</h1>
+              <h1 class="mb-3 text-18"> {{$t('Forgot Password')}}</h1>
               <form>
                 <div class="form-group">
-                  <label for="email">Email address</label>
+                  <label for="email">{{$t("Email address")}}</label>
                   <input
                     id="email"
                     v-model="userEmail"
@@ -413,7 +414,7 @@
                     variant="danger"
                     class="error col mt-1"
                     v-if="notFound"
-                    >Email not found</b-alert
+                    > {{$t("Email not found")}}</b-alert
                   >
                 </div>
                 <div
@@ -427,12 +428,12 @@
                   class="btn btn-primary btn-block btn-rounded mt-3"
                   @click="reset()"
                 >
-                  Send mail
+                {{$t("Send mail")}} 
                 </button>
               </form>
               <div class="mt-3 text-center">
                 <router-link to="signIn" tag="a" class="text-muted">
-                  <u>Sign In</u>
+                  <u> {{$t("Sign In")}} </u>
                 </router-link>
               </div>
             </div>
@@ -444,7 +445,7 @@
     <div
       class="auth-content px-5"
       :style="{
-        backgroundImage: 'url(' + bgImage + ')',
+        backgroundImage: 'url(https://temmuzajans.com/wp-content/uploads/2023/02/global-connections.webp)',
         objectFit: 'cover',
         opacity: '0.8',
       }"
@@ -453,61 +454,11 @@
         class="d-flex flex-column justify-content-center align-content-center text-center for-img align-items-center"
       >
         <p class="fa-2x font-weight-900 p-0 m-0 for-ftext">
-          Rent a car in Delhi
+          "Temmuz Agency"
         </p>
-        <p class="for-text">Book your drive now!</p>
+        <p class="for-text">TikTok LIVE Resmi Ajans Partneri</p>
 
-        <div class="d-flex mt-2 smallScreen flex-column flex-sm-row">
-          <div
-            @mouseenter="openDatePicker"
-            class="for-time"
-            style="cursor: pointer"
-          >
-            <div
-              class="d-flex flex-row justify-content-between rounded-lg-sm align-center align-items-center smallScreen borderRadius"
-            >
-              <div class="border-right px-3 p-1">
-                {{ formatSelectedDate(dateRange.startDate) }}
-              </div>
-              <!-- <div v-if="dateRange">
-                {{ dateRange }}
-              </div> -->
-              <div class="px-3 py-1">
-                {{ formatSelectedDate(dateRange.endDate) }}
-              </div>
-              <date-range-picker
-                ref="datePicker"
-                :singleDatePicker="false"
-                v-model="dateRange"
-              >
-              </date-range-picker>
-
-              <!-- <v2-datepicker
-                lang="en"
-                ref="startDate"
-                v-model="selectedDate"
-                @change="getCalenderData()"
-                placeholder="From Date"
-                v-show="isDatePickerVisible"
-              ></v2-datepicker> -->
-            </div>
-          </div>
-
-          <b-button
-            @click="clickGetCar()"
-            class="borderRadius"
-            variant="success"
-            style="
-              background-color: green;
-              padding: 20px 60px;
-              border: none;
-              font-size: 14px;
-              border-top-right-radius: 20px;
-              border-bottom-right-radius: 20px;
-            "
-            >Get Car</b-button
-          >
-        </div>
+       
         <b-row>
           <b-col> </b-col>
         </b-row>
@@ -1334,20 +1285,23 @@ export default {
 }
 .for-img {
   width: 100%;
-  height: 400px;
+  height: 90vh;
 }
 .for-ftext {
   z-index: 100;
   font-size: 35px;
+  color:#fff
 }
 .for-text {
   z-index: 100;
   font-size: 25px;
   font-weight: bold;
+  color:#fff
+
 }
 
 .form-control {
-  border: 5px solid red !important;
+  border: 5px solid rgba(255, 0, 0, 0) !important;
 }
 .carousel-control-next {
   right: 25px;
