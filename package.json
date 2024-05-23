@@ -1,0 +1,19 @@
+{
+  "name": "tiktok-temmuz",
+  "version": "1.0.0",
+  "description": "tiktook-temmuz",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishal1145/tiktok-temmuz.git"
+  },
+  "author": "temmuz-company",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishal1145/tiktok-temmuz/issues"
+  },
+  "homepage": "https://github.com/vishal1145/tiktok-temmuz#readme"
+}
