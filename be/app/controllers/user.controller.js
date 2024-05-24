@@ -1,5 +1,6 @@
 const {
   getUserById,
+  getAllUsers,
   getEventsStaffUsers,
   updateContactImage,
   updatePassword,
@@ -14,6 +15,15 @@ exports.getUserById = async (req, res) => {
     res.status(200).send({ data: userInfo, success: true });
   } catch (err) {
     res.status(400).send({ success: false, message: "User not found" });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const {users} = await getAllUsers();
+    res.status(200).send({ data: users, success: true });
+  } catch (err) {
+    res.status(400).send({ success: false, message: "Users not found" });
   }
 };
 

@@ -3,10 +3,12 @@ const newEmailUpdateModel = require("../models/new_email_update.model");
 const { decrypt, compare, sendForgetPasswordMail } = require("../util");
 
 exports.getUserById = async (_id) => {
-  return await UserModel.findById(_id)
-  
-    .populate("service_category")
-    .populate("location");
+  return await UserModel.findById(_id);
+};
+
+exports.getAllUsers = async (_id) => {
+  const users = await UserModel.find({role:"user"});
+  return {users};
 };
 
 
