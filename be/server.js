@@ -8,9 +8,7 @@ const eventRoutes = require("./app/routes/event.route");
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    // origin: "https://app.popup.us.com"
-    // origin: "http://localhost:3000"
-    origin: process.env.API_URL
+    origin: '*',
   }
 });
 const { create, getMessageById, createOffer, updateOffer } = require("./app/services/groups_messages.services");
