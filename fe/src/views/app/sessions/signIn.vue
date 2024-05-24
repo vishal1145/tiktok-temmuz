@@ -806,74 +806,93 @@ export default {
     },
 
     formSubmit() {
-      debugger;
-      // this.login({ email: this.email, password: this.password });
-      this.$store.commit("clearError");
-      this.loader = true;
-      this.$store.commit("setLoading", false);
-      let requestData = {
+    debugger;
+    // this.login({ email: this.email, password: this.password });
+    this.$store.commit("clearError");
+    this.loader = true;
+    this.$store.commit("setLoading", false);
+    let requestData = {
         user_name: this.email,
         password: this.password,
-      };
+    };
 
-      this.$apiService
+    this.$apiService
         .postCall("auth/login", requestData)
         .then((user) => {
-          if (user.error) {
-            console.log("error", user.error.response.data);
-            if (user.error || user.error.response || user.error.response.message === "Invalid user") {
-  this.loader = false;
-  console.log("Invalid user error detected");
+            if (user.error) {
+                console.log("error", user.error.response.data);
+                if (
+                    user.error ||
+                    user.error.response ||
+                    user.error.response.message === "Invalid user"
+                ) {
+                    this.loader = false;
+                    console.log("Invalid user error detected");
 
+                    this.makeToast(
+                        "warning",
+                        "User email or password is incorrect"
+                    );
 
-  this.makeToast("warning", "User email or password is incorrect");
+                    localStorage.removeItem("userInfo");
 
+                    console.log(user.error.response.data.msg);
 
-  localStorage.removeItem("userInfo");
+                    this.$store.commit("setError", {
+                        message: user.error.response.data.msg,
+                    });
+                } else {
+                    this.$bvModal.show("modal-attachment");
+                    this.loader = false;
+                }
+            } else {
+                this.loader = false;
 
-  console.log(user.error.response.data.msg);
+                this.makeToast("success", "Successfully Logged In");
+                this.$bvModal.hide("modal-signIn");
 
-  this.$store.commit("setError", {
-    message: user.error.response.data.msg,
-  });
-} else {
-              this.$bvModal.show("modal-attachment");
-              this.loader = false;
+                // Check if "Remember Me" checkbox is checked
+                const rememberMeChecked = document.getElementById("remember-me").checked;
+                // Set expiry time accordingly
+                const expiryTime = rememberMeChecked ? 30 * 24 * 60 * 60 * 1000 : 1 * 60 * 60 * 1000;
 
+                setTimeout(() => {
+                    this.$router.push("/app/myDesk/users");
+                }, 500);
+
+                localStorage.setItem("accesstoken", user.apidata.access_token);
+                const newUser = { data: user.apidata.data };
+                localStorage.setItem("userInfo", JSON.stringify(newUser));
+                this.$store.commit("setUser", { uid: user.apidata.uid });
+
+                // Set expiry time for the token in cookies
+                this.setCookie("accesstoken", user.apidata.access_token, expiryTime);
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300000);
             }
-          } else {
-            this.loader = false;
-            
-            this.makeToast("success", "Successfully Logged In");
-            this.$bvModal.hide("modal-signIn");
-
-
-            setTimeout(() => {
-              this.$router.push("/app/myDesk/users");
-            }, 500);
-
-      
-
-            localStorage.setItem("accesstoken", user.apidata.access_token);
-            const newUser = { data: user.apidata.data };
-            localStorage.setItem("userInfo", JSON.stringify(newUser));
-            this.$store.commit("setUser", { uid: user.apidata.uid });
-            setTimeout(() => {
-              window.location.reload();
-            }, 300000);
-          }
-          this.isLoading = false;
+            this.isLoading = false;
         })
         .catch(function (error) {
-          // Handle Errors here.
-          // var errorCode = error.code;
-          // var errorMessage = error.message;
-          // console.log(error);
-          localStorage.removeItem("userInfo");
-          this.$store.commit("setError", { message: error });
-          // ...
+            // Handle Errors here.
+            // var errorCode = error.code;
+            // var errorMessage = error.message;
+            // console.log(error);
+            localStorage.removeItem("userInfo");
+            this.$store.commit("setError", { message: error });
+            // ...
         });
-    },
+},
+
+setCookie(name, value, milliseconds) {
+    const date = new Date();
+    date.setTime(date.getTime() + milliseconds);
+    const expires = "; expires=" + date.toUTCString();
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+},
+
+
 
     signUpSubmit() {
       debugger;
