@@ -58,6 +58,7 @@ app.use(
 );
 app.use("/order", authenticatingUser, require("./routes/order.route"));
 app.use("/public", require("./routes/public.route"));
+app.use("/publisher", require("./routes/publisher.route"));
 app.use("/review", require("./routes/review.route"));
 app.use("/notification", require("./routes/notification.route"));
 app.use("/customer", require("./routes/cust_list.route"));

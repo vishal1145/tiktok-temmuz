@@ -6,7 +6,7 @@ exports.getUserById = async (_id) => {
   return await UserModel.findById(_id);
 };
 
-exports.getAllUsers = async (_id) => {
+exports.getAllUsers = async () => {
   const users = await UserModel.find({role:"user"});
   return {users};
 };
