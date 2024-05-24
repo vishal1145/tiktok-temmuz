@@ -1,13 +1,18 @@
 <template>
   <div
-    class="main-header smallflex justify-content-around align-content-around"
+    class="main-header smallflex  align-content-around d-flex flex-row justify-content-between"
   >
     <div class="nav-logo" @click="clickLogo()" style="cursor: pointer">
       <img src="@/assets/images/food_nav.png" />
     </div>
+
+ 
+
+
+
     <!-- <div
       class="onlyFormobileView"
-      v-if="userName !== null && userName !== undefined && role !== 'Admin'"
+      
     >
       <b-dropdown
         id="dropdown-1"
@@ -44,7 +49,7 @@
             >
           </div>
           
-          <a class="dropdown-item" v-if="this.role !== 'Admin'">
+          <a class="dropdown-item">
             <li class="nav-item" data-item="profiledata" :data-submenu="false">
               <router-link
                 tag="a"
@@ -62,7 +67,7 @@
               </router-link></li
           ></a>
 
-          <div v-if="role === 'User'">
+          <div >
             <a
               @click.prevent="moveNext"
               class="dropdown-item"
@@ -81,7 +86,7 @@
           ></a>
         </div>
       </b-dropdown>
-    </div> -->
+    </div>  -->
     <!-- <div class="onlyFormobileView">
       <div
         v-if="
@@ -101,18 +106,14 @@
         </div>
       </div>
     </div> -->
+   
+ 
 
-    <div
-      v-if="this.role === 'Admin' || this.role === 'User'"
-      class="hiddenWallet"
-      :class="{ admin: role === 'User' }"
-    >
-      <div @click="sideBarToggle" class="menu-toggle">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
+    <div>
+        <a class="dropdown-item" href="#" @click.prevent="logoutUser"
+            >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
+          ></a>
+  </div>
     <!-- <div
       v-if="userName == null && userName == undefined"
       class="dropdown pt-2 onlyFormobileView"
@@ -562,9 +563,9 @@
     </b-modal>
     <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
 
-    <div class="d-flex align-items-center">
+    <!-- <div class="d-flex align-items-center"> -->
       <!-- Mega menu -->
-      <div
+      <!-- <div
         :class="{ show: isMegaMenuOpen }"
         class="dropdown mega-menu d-none d-md-block"
         v-on-clickaway="closeMegaMenu"
@@ -667,20 +668,20 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- / Mega menu -->
-      <div class="search-bar" @click="toggleSearch" v-if="isHide">
+      <!-- <div class="search-bar" @click="toggleSearch" v-if="isHide">
         <input type="text" placeholder="Search" />
         <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
-    <div style="margin: auto"></div>
+ 
 
-    <div
+    <!-- <div
       class="header-part-right pr-3 hiddenWallet"
       :class="{ admin: role === 'User' || role == undefined }"
-    >
+    > -->
       <!-- Full screen toggle -->
 
       <!-- <i
@@ -759,7 +760,7 @@
           </div>
         </b-dropdown>
       </div> -->
-
+<!-- 
       <div
         v-if="
           userName !== null &&
@@ -776,12 +777,12 @@
             notificationData.length
           }}</strong>
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="d-flex justify-content-center align-content-center"
         v-if="userName !== null && userName !== undefined && role !== 'Admin'"
       >
-        <div class="mr-2 align-self-center">
+        <div class="mr-2 align-self-center"> -->
           <!-- <i class="fa fa-car mr-2 text-primary" aria-hidden="true"></i> -->
           <!-- <a
             class="text-primary"
@@ -790,12 +791,12 @@
           >
           Book Car</a
           > -->
-          <b-button variant="primary ripple" @click="clickBookCar()">
+          <!-- <b-button variant="primary ripple" @click="clickBookCar()">
             <i class="fa fa-car mr-2 text-white" aria-hidden="true"></i> Book
             Car</b-button
           >
-        </div>
-        <div class="">
+        </div> -->
+        <!-- <div class=""> -->
           <!-- <i class="fa fa-car mr-2 text-p    <b-button variant="primary ripple" @click="clickAddAmount()">
             Wallet</b-button
           > rimary" aria-hidden="true"></i> -->
@@ -830,7 +831,7 @@
             </div>
           </div> -->
 
-          <div class="dropdown">
+          <!-- <div class="dropdown">
             <b-dropdown
               id="dropdown-6"
               :text="`Current - ₹ ${formatPrice(totalBalance)}`"
@@ -869,14 +870,14 @@
                 See more
               </div>
             </b-dropdown>
-          </div>
-        </div>
-      </div>
+          </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
 
       <!-- Notificaiton -->
 
-      <div class="dropdown">
-        <b-dropdown
+      <!-- <div class="dropdown"> -->
+        <!-- <b-dropdown
           id="dropdown-1"
           text="Dropdown Button"
           class="m-md-2 badge-top-container"
@@ -884,45 +885,45 @@
           no-caret
           variant="link"
           v-if="scrollHide"
-        >
-          <template slot="button-content" v-if="scrollHide">
+        > -->
+          <!-- <template slot="button-content" v-if="scrollHide">
             <span class="badge badge-primary">3</span>
             <i class="i-Bell text-muted header-icon"></i>
-          </template>
+          </template> -->
           <!-- Notification dropdown -->
-          <vue-perfect-scrollbar
+          <!-- <vue-perfect-scrollbar
             :settings="{ suppressScrollX: true, wheelPropagation: false }"
             :class="{ open: getSideBarToggleProperties.isSideNavOpen }"
             ref="myData"
             class="dropdown-menu-right rtl-ps-none notification-dropdown ps scroll"
             v-if="scrollHide"
-          >
+          > -->
             <!-- <div class="dropdown-menu-right rtl-ps-none notification-dropdown"> -->
-            <div class="dropdown-item d-flex">
+            <!-- <div class="dropdown-item d-flex">
               <div class="notification-icon">
                 <i class="i-Speach-Bubble-6 text-primary mr-1"></i>
               </div>
               <div class="notification-details flex-grow-1">
-                <p class="m-0 d-flex align-items-center">
-                  <span>New message</span>
+                <p class="m-0 d-flex align-items-center"> -->
+                  <!-- <span>New message</span> -->
                   <!-- <span class="badge badge-pill badge-primary ml-1 mr-1">new</span> -->
-                  <span class="flex-grow-1"></span>
-                  <span class="text-small text-muted ml-auto">10 sec ago</span>
-                </p>
+                  <!-- <span class="flex-grow-1"></span>
+                  <span class="text-small text-muted ml-auto">10 sec ago</span> -->
+                <!-- </p>
                 <p class="text-small text-muted m-0">
                   James: Hey! are you busy?
                 </p>
-              </div>
-            </div>
+              </div> -->
+            <!-- </div>
             <div class="dropdown-item d-flex">
               <div class="notification-icon">
                 <i class="i-Receipt-3 text-success mr-1"></i>
-              </div>
-              <div class="notification-details flex-grow-1">
+              </div> -->
+              <!-- <div class="notification-details flex-grow-1">
                 <p class="m-0 d-flex align-items-center">
-                  <span>New order received</span>
+                  <span>New order received</span> -->
                   <!-- <span class="badge badge-pill badge-success ml-1 mr-1">new</span> -->
-                  <span class="flex-grow-1"></span>
+                  <!-- <span class="flex-grow-1"></span>
                   <span class="text-small text-muted ml-auto">2 hours ago</span>
                 </p>
                 <p class="text-small text-muted m-0">1 Headphone, 3 iPhone x</p>
@@ -934,9 +935,9 @@
               </div>
               <div class="notification-details flex-grow-1">
                 <p class="m-0 d-flex align-items-center">
-                  <span>Product out of stock</span>
+                  <span>Product out of stock</span> -->
                   <!-- <span class="badge badge-pill badge-danger ml-1 mr-1">3</span> -->
-                  <span class="flex-grow-1"></span>
+                  <!-- <span class="flex-grow-1"></span>
                   <span class="text-small text-muted ml-auto"
                     >10 hours ago</span
                   >
@@ -952,18 +953,18 @@
               </div>
               <div class="notification-details flex-grow-1">
                 <p class="m-0 d-flex align-items-center">
-                  <span>Server Up!</span>
+                  <span>Server Up!</span> -->
                   <!-- <span class="badge badge-pill badge-success ml-1 mr-1">3</span> -->
-                  <span class="flex-grow-1"></span>
+                  <!-- <span class="flex-grow-1"></span>
                   <span class="text-small text-muted ml-auto"
                     >14 hours ago</span
                   >
                 </p>
                 <p class="text-small text-muted m-0">
                   Server rebooted successfully
-                </p>
-              </div>
-            </div>
+                </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
             <!-- </div> -->
           </vue-perfect-scrollbar>
         </b-dropdown>
@@ -971,7 +972,7 @@
       <!-- Notificaiton End -->
 
       <!-- User avatar dropdown -->
-      <div v-if="userName == null && userName == undefined" class="dropdown">
+      <!-- <div v-if="userName == null && userName == undefined" class="dropdown"> -->
         <!-- <a
           @click="openPopup"
           class="btn btn-primary w-100 text-white d-flex flex-row"
@@ -981,89 +982,11 @@
           </div>
           <div class="ml-2">Sign In</div>
         </a> -->
-      </div>
+      <!-- </div> -->
 
-      <div v-else class="dropdown">
-        <b-dropdown
-          id="dropdown-1"
-          text="Dropdown Button"
-          class="m-md-2 user col align-self-end"
-          toggle-class="text-decoration-none"
-          no-caret
-          variant="link"
-          ref="dropdown"
-        >
-          <template slot="button-content">
-            <img
-              :src="userLogo"
-              id="profilelogo"
-              style="object-fit: cover"
-              alt
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            />
-          </template>
-
-          <div class="dropdown-menu-right" aria-labelledby="userDropdown">
-            <div class="dropdown-header">
-              <i class="fa fa-user" aria-hidden="true"
-                ><span class="ml-2" style="font-size: 0.813rem">{{
-                  this.userFullName!='null null'?this.userFullName:"Admin"
-                }}</span></i
-              >
-            </div>
-            <!-- <a class="dropdown-item">Account settings</a> -->
-            <a class="dropdown-item" v-if="this.role !== 'Admin'">
-              <li
-                class="nav-item"
-                data-item="profiledata"
-                :data-submenu="false"
-              >
-                <router-link
-                  tag="a"
-                  class
-                  to="/app/profiledata/profile"
-                  @click.prevent="hideDropdown()"
-                >
-                  <a class="nav-item-hold" href="#" @click="hideDropdown()">
-                    <!-- <i class="nav-icon i-Drop"></i> -->
-                    <span class="nav-text" style="color: black">{{
-                      $t("Profile")
-                    }}</span>
-                  </a>
-                  <div class="triangle"></div>
-                </router-link></li
-            ></a>
-
-            <div v-if="role === 'User'">
-              <a
-                @click.prevent="moveNext"
-                class="dropdown-item"
-                style="cursor: pointer"
-                >Transaction</a
-              >
-
-              <a
-                class="dropdown-item"
-                href="#"
-                @click.prevent="clickBookingCar()"
-                >Booking</a
-              >
-              <!-- <router-link to="/app/mydesk/transaction">{{ moveNextPage ? 'Transaction' : '' }}</router-link> -->
-            </div>
-
-            <a class="dropdown-item" href="#" @click.prevent="logoutUser"
-              >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
-            ></a>
-          </div>
-        </b-dropdown>
-      </div>
+     
     </div>
-    <search-component
-      :isSearchOpen.sync="isSearchOpen"
-      @closeSearch="toggleSearch"
-    ></search-component>
+
   </div>
 
   <!-- header top menu end -->

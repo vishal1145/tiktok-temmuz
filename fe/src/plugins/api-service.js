@@ -5,7 +5,8 @@ export default {
       data() {
         return {
           // apiUrl: 'http://localhost:8000/'
-          apiUrl: 'https://deliveryapi.algofolks.com/' 
+          // apiUrl: 'https://deliveryapi.algofolks.com/' 
+          apiUrl:'https://tiktok.algofolks.com/'
           // apiUrl:'https://bew.zoombacars.in/'
           
         };

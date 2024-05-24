@@ -1,25 +1,25 @@
 <template>
-  <div class="main-div">
+  <div class="main-div d-flex flex-row justify-content-between">
     <!-- :style="{ backgroundImage: 'url(' + bgImage + ')' }" -->
     <!-- <top-nav></top-nav> -->
-    <nav class="navbar container-fluid for-nav">
-      <div class="container-fluid d-flex justify-content-between">
-        <img
+    <!-- <nav class="navbar container-fluid for-nav">
+      <div class="container-fluid d-flex justify-content-between"> -->
+        <!-- <img
           :src="logo"
           alt=""
           width="100"
           height="40"
           class="d-inline-block align-text-top"
-        />
-        <a
+        /> -->
+        <!-- <a
           v-if="userName == null && userName == undefined"
           @click="openPopup"
           style="cursor: pointer; text-decoration: underline"
           class="text-primary"
         >
         {{ $t('Sign In') }}
-        </a>
-        <div v-else class="dropdown">
+        </a> -->
+        <!-- <div v-else class="dropdown">
           <b-dropdown
             id="dropdown-1"
             text="Dropdown Button"
@@ -50,7 +50,7 @@
                   }}</span></i
                 >
               </div>
-              <!-- <a class="dropdown-item">Account settings</a> -->
+              <<a class="dropdown-item">Account settings</a>
               <a
                 class="dropdown-item"
                 v-if="this.role !== 'Admin' && this.role"
@@ -62,7 +62,7 @@
                 >
                   <router-link tag="a" class to="/app/profiledata/profile">
                     <a class="nav-item-hold" href="#">
-                      <!-- <i class="nav-icon i-Drop"></i> -->
+                      <i class="nav-icon i-Drop"></i> 
                       <span class="nav-text" style="color: black">{{
                         $t("Profile")
                       }}</span>
@@ -84,83 +84,117 @@
                 @click.prevent="logoutUser"
                 >Sign out</a
               >
-              <!-- <a
+              <a
                 v-else
                 @click="openPopup"
                 style="cursor: pointer"
                 class="dropdown-item"
               >
                 Sign In
-              </a> -->
+              </a> 
             </div>
           </b-dropdown>
         </div>
-        <!-- <p @click="redirectMainPage" class="cursor-pointer" v-if="userName !== null && userName !== undefined">{{ userName }}</p>
+        <p @click="redirectMainPage" class="cursor-pointer" v-if="userName !== null && userName !== undefined">{{ userName }}</p>
         <a v-else @click="openPopup" style="text-decoration: underline; cursor: pointer" class="text-primary">
           Sign In
-        </a> -->
+        </a> 
       </div>
-    </nav>
-    <b-modal
+    </nav> -->
+
+    <b-col lg="6" xl="6" mt="3" class="DisplayNone">
+      <div
+      class="auth-content px-5"
+      :style="{
+        backgroundImage: 'url(https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/auth-login-illustration-light.png)',
+        objectFit: 'cover',
+ 
+      }"
+    >
+      <div
+        class="d-flex flex-column justify-content-center align-content-center text-center for-img align-items-center"
+      >
+        <!-- <p class="fa-2x font-weight-900 p-0 m-0 for-ftext animasyonmetin">
+          Temmuz Agency
+        </p> -->
+        <!-- <p class="for-text">TikTok LIVE Resmi Ajans Partneri</p> -->
+
+       
+        <b-row>
+          <b-col> </b-col>
+        </b-row>
+      </div>
+    </div>
+
+    
+    </b-col>
+
+    <b-col lg="6" xl="6" mt="3" class="align-self-center h-100">
+     
+  <div>
+ 
+    <div
       id="modal-signIn"
       title="Sign In"
       size="sm"
-      style="height: 100px"
       hide-footer
       hide-header
+      v-if="activeChild === 1"
     >
-      <div class="card o-hidden">
+      <div class="o-hidden">
         <div class="row">
           <div class="col-md-12">
-            <div class="p-4">
-              <div class="auth-logo text-center mb-30">
+            <div class="p-4 px-5 paddingLaptop">
+              <div class="auth-logo text-left mb-30">
                 <img :src="logo" />
               </div>
-              <h1 class="mb-3 text-18">        {{ $t('Sign In') }}
-</h1>
+
+              <h3 class="mb-1 hw">Welcome to Temmuz! 👋</h3>
+              <p class="mb-3 pw">Please sign-in to your account and start the adventure</p>
               <b-form @submit.prevent="formSubmit" id="firstForm">
-                <b-form-group :label="$t('Email Address')" class="text-12">
+                <b-form-group :label="$t('Email Address')" class="text-12 pw">
                   <b-form-input
-                    class="form-control-rounded"
+                    class="form-control-rounded pw"
                     type="text"
                     v-model="email"
                     email
                     required
                   ></b-form-input>
                 </b-form-group>
-
-                <b-form-group :label="$t('Password')" class="text-12">
-                  <div
-                    class="position-absolute for-eye"
-                    @click="togglePasswordVisibility"
-                  >
+                <b-form-group :label="$t('Password')" class="text-12 pw my-2">
+                  <div class="position-absolute for-eye" @click="togglePasswordVisibility">
                     <i v-if="showPassword" class="fa fa-eye"></i>
                     <i v-else class="fa fa-eye-slash"></i>
                   </div>
                   <b-form-input
-                    class="form-control-rounded"
+                    class="form-control-rounded pw"
                     :type="showPassword ? 'text' : 'password'"
                     v-model="password"
                   ></b-form-input>
                 </b-form-group>
-                <!-- <b-form-group label="Phone" class="text-12">
-                  <b-form-input
-                    class="form-control-rounded"
-                    type="number"
-                    v-model="phone"
-                  ></b-form-input>
-                </b-form-group>
-                <b-form-group label="Otp" class="text-12">
-                  <b-form-input
-                    class="form-control-rounded"
-                    type="number"
-                    v-model="otp"
-                  ></b-form-input>
-                </b-form-group> -->
 
-                <!-- <b-button block to="/" variant="primary btn-rounded mt-2"
-                  >Sign In</b-button
-                > -->
+                <div class="mb-2 d-flex flex-row justify-content-between" >
+            <div class="form-check pw">
+              <input class="form-check-input" type="checkbox" id="remember-me">
+              <label class="form-check-label ml-1" for="remember-me">
+                Remember Me
+              </label>
+            </div>
+
+            <div>
+              <div class="mt-3 text-center">
+                <a
+                  @click="showChild(3)"
+                  style="text-decoration: underline; cursor: pointer"
+                  class="text-primary"
+                >
+                  {{ $t('Forgot Password') }}
+                </a>
+              </div>
+            </div>
+
+
+          </div>
                 <div>
                   <b-col md="12 ml-5" v-if="isLoading">
                     <div class="spinner spinner-primary ml-5"></div>
@@ -168,92 +202,241 @@
                   <b-button
                     type="submit"
                     tag="button"
-                    class="btn-rounded btn-block mt-2"
+                    class="btn-rounded btn-block mt-2 "
                     variant="primary mt-2"
                     :disabled="loading"
                     v-if="!isLoading"
                   >
-                     {{$t('Sign In')}}
+                    {{ $t('Sign In') }}
                   </b-button>
                 </div>
-
                 <div v-once class="typo__p" v-if="loading">
                   <div class="spinner sm spinner-primary mt-3"></div>
                 </div>
+
+
+                <p class="pw text-center py-2">
+      New on our platform? 
+      <a href="#" @click.prevent="showChild(2)" class="text-primary text-decoration-underline">
+        {{ $t('Create an account') }}
+      </a>
+    </p>
+
+                <!-- New on our platform? Create an account
                 <b-button
                   block
-                  @click="openSignUpPopup"
+                  @click="showChild(2)"
                   variant="primary mt-2"
                   class="btn-rounded"
-                  >  {{$t('Create an account')}}</b-button
                 >
+                  {{ $t('Create an account') }}
+                </b-button> -->
               </b-form>
+      
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-              <div class="mt-3 text-center">
-                <a
-                  @click="openforgetPasswordPopup()"
-                  style="text-decoration: underline; cursor: pointer"
-                  class="text-primary"
-                  >  {{$t('Forgot Password')}}</a
+   
+    <div
+      id="modal-signUp"
+      size="sm"
+      :title="$t('Sign Up')"
+      hide-header
+      hide-footer
+      v-else-if="activeChild === 2"
+    >
+      <div  class="o-hidden">
+        <div class="row">
+          <b-col md="12">
+            <div class="p-4 px-5 paddingLaptop">
+              <div class="auth-logo text-left mb-30">
+                <img :src="logo" />
+              </div>
+
+
+              <h3 class="mb-1 hw">Adventure starts here 🚀</h3>
+              <p class="mb-3 pw">Make your app management easy and fun!
+
+</p>
+        
+
+              <b-form-group :label="$t('Username')" class="pw"> 
+                  <b-form-input
+                    class="form-control form-control-rounded pw"
+                    :label="$t('User Name')"
+                    v-model="user_name"
+                    maxlength="10"
+                  ></b-form-input>
+                </b-form-group>   <b-form-group class="pw" :label="$t('Email')">
+                  <b-form-input
+                    class="form-control form-control-rounded"
+                    label="Name"
+                    maxlength="50"
+                    type="email"
+                    v-model="email"
+                  ></b-form-input>
+                </b-form-group>
+              <b-form @submit.prevent="signUpSubmit" id="secondForm">
+                <b-form-group  class="pw" :label="$t('Phone')">
+                  <b-form-input
+                    class="form-control form-control-rounded"
+                    :label="$t('Phone')"
+                    type="tel"
+                    v-model="phone"
+                    maxlength="10"
+                  ></b-form-input>
+
+                 
+                </b-form-group>
+             
+                <b-form-group class="pw" :label="$t('Password')">
+                  <div class="position-absolute for-eye" @click="togglePasswordVisibility">
+                    <i v-if="showPassword" class="fa fa-eye"></i>
+                    <i v-else class="fa fa-eye-slash"></i>
+                  </div>
+                  <b-form-input
+                    class="form-control form-control-rounded"
+                    label="Password"
+                    :type="showPassword ? 'text' : 'password'"
+                    v-model.trim="$v.password.$model"
+                  ></b-form-input>
+                  <b-alert
+                    show
+                    variant="danger"
+                    class="error col mt-1"
+                    v-if="!$v.password.minLength"
+                  >
+                    Minimum {{ $v.password.$params.minLength.min }} charaters.
+                  </b-alert>
+                </b-form-group>
+
+                <div class="form-check pw pb-2 py-1 pr-2">
+              <input class="form-check-input marginTopSix" type="checkbox" id="remember-me">
+              <label class="form-check-label ml-1" for="remember-me">
+                <p class="pw text-center  ">
+                  I agree to
+      <a href="https://temmuzajans.com/tiktok-ajansi-nedir" class="text-decoration-underline">
+        {{ $t(' privacy policy & terms') }}
+      </a>
+    </p>
+              </label>
+            </div>
+
+                <b-col md="12 ml-5" v-if="isLoading">
+                  <div class="spinner spinner-primary ml-5"></div>
+                </b-col>
+                <b-button
+                  type="submit"
+                  block
+                  variant="primary"
+                  v-if="!isLoading"
+                  :disabled="submitStatus === 'PENDING' || $v.$invalid"
+                  class="btn-rounded"
                 >
-                <!-- <router-link to="forgot" tag="a" class="text-muted">
-                  <u>Forgot Password?</u>
-                </router-link> -->
+                  {{ $t('Sign Up ') }}
+                </b-button>
+                <div class="mt-3 text-center">
+                  <!-- <a
+                    @click="showChild(1)"
+                    style="text-decoration: underline; cursor: pointer"
+                    class="text-primary"
+                  >
+                    {{ $t('Sign In') }}
+                  </a> -->
+
+                  <p class="pw text-center pb-2">
+                    Already have an account? 
+      <a href="#" @click.prevent="showChild(1)" class="text-primary text-decoration-underline">
+        {{ $t('Sign in instead') }}
+      </a>
+    </p>
+                </div>
+                <p v-once class="typo__p" v-if="submitStatus === 'OK'">
+                  {{ makeToastTwo('success') }}
+                  {{ this.$router.push('/') }}
+                </p>
+                <p v-once class="typo__p" v-if="submitStatus === 'ERROR'">
+                  {{ makeToast('danger') }}
+                </p>
+                <div v-once class="typo__p" v-if="submitStatus === 'PENDING'"></div>
+              </b-form>
+            </div>
+          </b-col>
+        </div>
+      </div>
+    </div>
+
+  
+    <div
+      id="modal-forget-passwords"
+      size="sm"
+      title="Forgot Password"
+      hide-header
+      hide-footer
+      v-else-if="activeChild === 3"
+    >
+      <div class="o-hidden">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="p-4 paddingLaptop">
+              <div class="auth-logo text-left mb-30">
+                <img :src="logo" />
+              </div>
+              <h3 class="mb-1 hw">Forgot Password? 🔒</h3>
+              <p class="mb-3 pw">Enter your email and we'll send you instructions to reset your password
+
+</p>
+              <form>
+                <div class="form-group">
+                  <label for="email">{{ $t('Email address') }}</label>
+                  <input
+                    id="email"
+                    v-model="userEmail"
+                    placeholder="abc@gmail.com"
+                    class="form-control form-control-rounded"
+                    type="email"
+                  />
+                  <b-alert
+                    show
+                    variant="danger"
+                    class="error col mt-1"
+                    v-if="notFound"
+                  >
+                    {{ $t('Email not found') }}
+                  </b-alert>
+                </div>
+                <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
+                <button
+                  v-if="!loader"
+                  type="button"
+                  class="btn btn-primary btn-block btn-rounded mt-3"
+                  @click="reset"
+                >
+                  {{ $t('Send Reset Link') }}
+                </button>
+              </form>
+              <div class="mt-3 text-center">
+                <router-link to="signIn" tag="a" class="text-muted" >
+                  <u   @click="showChild(1)">{{ $t('Back To Login') }}</u>
+
+                  
+                </router-link>
               </div>
             </div>
           </div>
-
-          <!-- <b-col
-            md="6"
-            class="text-center"
-            style="backgroundsize: cover"
-            :style="{ backgroundImage: 'url(' + signInImage + ')' }"
-          >
-            <div class="pr-3 auth-right">
-              <router-link
-                to="signUp"
-                class="
-                  btn
-                  btn-rounded
-                  btn-outline-primary
-                  btn-outline-email
-                  btn-block
-                  btn-icon-text
-                "
-                href="signup.html"
-              >
-                <i class="i-Mail-with-At-Sign"></i> Sign up with Email
-              </router-link>
-              <a
-                class="
-                  btn
-                  btn-rounded
-                  btn-outline-primary
-                  btn-outline-google
-                  btn-block
-                  btn-icon-text
-                "
-              >
-                <i class="i-Google-Plus"></i> Sign up with Google
-              </a>
-              <a
-                class="
-                  btn
-                  btn-rounded
-                  btn-outline-primary
-                  btn-block
-                  btn-icon-text
-                  btn-outline-facebook
-                "
-              >
-                <i class="i-Facebook-2"></i> Sign up with Facebook
-              </a>
-            </div>
-          </b-col> -->
         </div>
       </div>
-    </b-modal>
-    <b-modal
+    </div>
+  </div>
+
+
+    </b-col>
+ 
+
+    <!-- <b-modal
       id="modal-attachment"
       size="lg"
       title="Account Suspended"
@@ -274,196 +457,12 @@
           8790519679
         </b-col>
       </b-row>
-    </b-modal>
-    <b-modal
-      id="modal-signUp"
-      size="sm"
-      :title="$t('Sign Up')"
-      style="height: 100px"
-      hide-header
-      hide-footer
-    >
-      <div class="card o-hidden">
-        <div class="row">
-          <b-col md="12">
-            <div class="p-4">
-              <div class="auth-logo text-center mb-30">
-                <img :src="logo" />
-              </div>
-              <h1 class="mb-3 text-18">{{$t('Sign Up')}}</h1>
+    </b-modal> -->
 
-              <b-form @submit.prevent="signUpSubmit" id="secondForm">
-                <b-form-group :label="$t('Phone')">
-                  <b-form-input
-                    class="form-control form-control-rounded"
-                    :label="$t('Phone')"
-                    type="tel"
-                    v-model="phone"
-                    maxlength="10"
-                  >
-                  </b-form-input>
-                </b-form-group>
 
-                <b-form-group :label="$t('Email')">
-                  <b-form-input
-                    class="form-control form-control-rounded"
-                    label="Name"
-                    maxlength="50"
-                    type="email"
-                    v-model="email"
-                  >
-                  </b-form-input>
-                </b-form-group>
 
-                <b-form-group :label="$t('Password')">
-                  <div
-                    class="position-absolute for-eye"
-                    @click="togglePasswordVisibility"
-                  >
-                    <i v-if="showPassword" class="fa fa-eye"></i>
-                    <i v-else class="fa fa-eye-slash"></i>
-                  </div>
-                  <b-form-input
-                    class="form-control form-control-rounded"
-                    label="Password"
-                    :type="showPassword ? 'text' : 'password'"
-                    v-model.trim="$v.password.$model"
-                  >
-                  </b-form-input>
-
-                  <b-alert
-                    show
-                    variant="danger"
-                    class="error col mt-1"
-                    v-if="!$v.password.minLength"
-                    >Minimum
-                    {{ $v.password.$params.minLength.min }} charaters.</b-alert
-                  >
-                </b-form-group>
-
-                <b-col md="12 ml-5" v-if="isLoading">
-                  <div class="spinner spinner-primary ml-5"></div>
-                </b-col>
-                <b-button
-                  type="submit"
-                  block
-                  variant="primary"
-                  v-if="!isLoading"
-                  :disabled="submitStatus === 'PENDING' || $v.$invalid"
-                  class="btn-rounded"
-                  > {{ $t('Sign Up ') }}</b-button
-                >
-
-                <div class="mt-3 text-center">
-                  <a
-                    @click="openPopup"
-                    style="text-decoration: underline; cursor: pointer"
-                    class="text-primary"
-                    >  {{$t('Sign In')}}</a
-                  >
-                  <!-- <router-link to="signIn" tag="a" class="text-muted">
-                    <u>Sign In</u>
-                  </router-link> -->
-                </div>
-
-                <p v-once class="typo__p" v-if="submitStatus === 'OK'">
-                  {{ makeToastTwo("success") }}
-                  {{ this.$router.push("/") }}
-                </p>
-                <p v-once class="typo__p" v-if="submitStatus === 'ERROR'">
-                  {{ makeToast("danger") }}
-                </p>
-                <div
-                  v-once
-                  class="typo__p"
-                  v-if="submitStatus === 'PENDING'"
-                ></div>
-              </b-form>
-            </div>
-          </b-col>
-        </div>
-      </div>
-    </b-modal>
-    <b-modal
-      id="modal-forget-passwords"
-      size="sm"
-      title="Forgot Password"
-      style="height: 100px"
-      hide-header
-      hide-footer
-    >
-      <div class="card o-hidden">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="p-4">
-              <div class="auth-logo text-center mb-30"><img :src="logo" /></div>
-              <h1 class="mb-3 text-18"> {{$t('Forgot Password')}}</h1>
-              <form>
-                <div class="form-group">
-                  <label for="email">{{$t("Email address")}}</label>
-                  <input
-                    id="email"
-                    v-model="userEmail"
-                    placeholder="abc@gmail.com"
-                    class="form-control form-control-rounded"
-                    type="email"
-                  />
-
-                  <b-alert
-                    show
-                    variant="danger"
-                    class="error col mt-1"
-                    v-if="notFound"
-                    > {{$t("Email not found")}}</b-alert
-                  >
-                </div>
-                <div
-                  class="spinner spinner-primary"
-                  style="margin-left: 7rem"
-                  v-if="loader"
-                ></div>
-                <button
-                  v-if="!loader"
-                  type="button"
-                  class="btn btn-primary btn-block btn-rounded mt-3"
-                  @click="reset()"
-                >
-                {{$t("Send mail")}} 
-                </button>
-              </form>
-              <div class="mt-3 text-center">
-                <router-link to="signIn" tag="a" class="text-muted">
-                  <u> {{$t("Sign In")}} </u>
-                </router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-    <div
-      class="auth-content px-5"
-      :style="{
-        backgroundImage: 'url(https://temmuzajans.com/wp-content/uploads/2023/02/global-connections.webp)',
-        objectFit: 'cover',
-        opacity: '0.8',
-      }"
-    >
-      <div
-        class="d-flex flex-column justify-content-center align-content-center text-center for-img align-items-center"
-      >
-        <p class="fa-2x font-weight-900 p-0 m-0 for-ftext">
-          "Temmuz Agency"
-        </p>
-        <p class="for-text">TikTok LIVE Resmi Ajans Partneri</p>
-
-       
-        <b-row>
-          <b-col> </b-col>
-        </b-row>
-      </div>
-    </div>
+<!--  
     <div
       id="carouselExampleControls"
       class="carousel slide"
@@ -500,7 +499,7 @@
                             >Book Now</b-button
                           >
 
-                          <!-- <i
+                        <i
                         class="fa fa-trash"
                         style="
                           font-size: 16px;
@@ -509,7 +508,7 @@
                           cursor: pointer;
                         "
                         @click="deleteTemplate(row.id)"
-                      ></i> -->
+                      ></i> 
                         </div>
                       </div>
                     </div>
@@ -534,11 +533,11 @@
                           />
                           <div>{{ row.fuel_type }}</div>
                         </div>
-                        <!-- <div class="d-flex align-items-center mb-2 gap-between"><img class="svg_icon blue_icon"
+                         <div class="d-flex align-items-center mb-2 gap-between"><img class="svg_icon blue_icon"
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnOHPJeBer0rc5sn-TjI7W8gmP2dJ4IlFusdmFYx9Clg&s"
                       alt="">
                     <div>{{ row.engine }}</div>
-                  </div> -->
+                  </div> 
                       </div>
                       <div class="col-md-6">
                         <div class="card">
@@ -555,7 +554,7 @@
 
                     <div class="hr"></div>
                     {{ row.power }}
-                    <!-- , {{ row.car_features }} -->
+            {{ row.car_features }} 
                   </div>
                 </div>
               </div>
@@ -581,7 +580,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>
+    </div> -->
 
     <!-- <b-modal
       id="modal-attachmentCar"
@@ -645,6 +644,7 @@ export default {
       currentDate: new Date(),
       showPassword: false,
       otp: "",
+      user_name:"",
       phone: "",
       email: "",
       password: "",
@@ -677,6 +677,7 @@ export default {
       firstSelectedDate: null,
       secondSelectedDate: null,
       isDatePickerVisible: false,
+      activeChild: 1
     };
   },
   validations: {
@@ -747,6 +748,13 @@ export default {
     // redirectMainPage() {
     //   this.$router.push("/");
     // },
+
+    showChild(childNumber) {
+      debugger;
+   
+      this.activeChild = childNumber;  
+      
+    },
     moveNext() {
       this.$router.push("/app/mydesk/transaction");
     },
@@ -801,36 +809,50 @@ export default {
       debugger;
       // this.login({ email: this.email, password: this.password });
       this.$store.commit("clearError");
-      this.isLoading = true;
+      this.loader = true;
       this.$store.commit("setLoading", false);
       let requestData = {
-        email: this.email,
+        user_name: this.email,
         password: this.password,
       };
 
       this.$apiService
-        .postCall("login", requestData)
+        .postCall("auth/login", requestData)
         .then((user) => {
           if (user.error) {
             console.log("error", user.error.response.data);
-            if (user.error.response.data.error == "Invalid credentials.") {
-              this.isLoading = false;
-              this.makeToast("warning", "User email or password is incorrect");
-              localStorage.removeItem("userInfo");
-              this.$store.commit("setError", {
-                message: user.error.response.data.msg,
-              });
-            } else {
+            if (user.error || user.error.response || user.error.response.message === "Invalid user") {
+  this.loader = false;
+  console.log("Invalid user error detected");
+
+
+  this.makeToast("warning", "User email or password is incorrect");
+
+
+  localStorage.removeItem("userInfo");
+
+  console.log(user.error.response.data.msg);
+
+  this.$store.commit("setError", {
+    message: user.error.response.data.msg,
+  });
+} else {
               this.$bvModal.show("modal-attachment");
+              this.loader = false;
+
             }
           } else {
+            this.loader = false;
             
             this.makeToast("success", "Successfully Logged In");
             this.$bvModal.hide("modal-signIn");
 
-            // setTimeout(() => {
-            //   this.$router.push("/");
-            // }, 500);
+
+            setTimeout(() => {
+              this.$router.push("/app/myDesk/users");
+            }, 500);
+
+      
 
             localStorage.setItem("accesstoken", user.apidata.access_token);
             const newUser = { data: user.apidata.data };
@@ -838,7 +860,7 @@ export default {
             this.$store.commit("setUser", { uid: user.apidata.uid });
             setTimeout(() => {
               window.location.reload();
-            }, 500);
+            }, 300000);
           }
           this.isLoading = false;
         })
@@ -863,15 +885,17 @@ export default {
         // this.$store.commit("setLoading", true);
         // this.$store.commit("clearError");
         const requestData = {
+          role: "Admin",
           email: this.email,
           password: this.password,
           // "first_name": this.fName,
-          phone: this.phone,
+          contact_number: this.phone,
+          user_name:this.user_name,
         };
       
       
         this.$apiService
-          .postCall("account/", requestData)
+          .postCall("auth/register", requestData)
           .then((user) => {
           
             // this.$router.push("signIn");
@@ -879,7 +903,7 @@ export default {
             if (!user.error) {
               setTimeout(() => {
                 // this.submitStatus = "OK";
-                this.$router.push("/");
+               this.$router.push("/app/myDesk/users");
               }, 2000);
               this.$toaster.makeToast(
                 "success",
@@ -1036,26 +1060,26 @@ export default {
       this.$bvModal.show("modal-signUp");
       this.$bvModal.hide("modal-signIn");
     },
-    getAllCarData() {
-      this.loader = true;
-      this.$apiService
-        .getCall("carsAPIView/")
-        .then((res) => {
-          if (!res.error) {
-            this.rows = res.apidata;
+    // getAllCarData() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall("carsAPIView/")
+    //     .then((res) => {
+    //       if (!res.error) {app
+    //         this.rows = res.apidata;
             
-            this.loader = false;
-          } else {
-            this.loader = false;
-            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
-    },
+    //         this.loader = false;
+    //       } else {
+    //         this.loader = false;
+    //         this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.loader = false;
+    //     });
+    // },
     parseImage(imageString) {
       try {
         const imageUrl = JSON.parse(imageString)[0];
@@ -1285,18 +1309,22 @@ export default {
 }
 .for-img {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
 }
 .for-ftext {
   z-index: 100;
-  font-size: 35px;
-  color:#fff
+  font-size: 42px;
+  color:#ffffff;
+  letter-spacing: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .for-text {
   z-index: 100;
   font-size: 25px;
   font-weight: bold;
-  color:#fff
+  color:#ffffff;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 
 }
 
@@ -1360,7 +1388,23 @@ export default {
     padding: 20px;
     background-color: #fff;
   }
+  .DisplayNone
+  {
+    display: none;
+  }
 }
+
+
+@media screen and (min-width: 1024px) {
+
+.paddingLaptop {
+  padding-left: 74px !important;
+  padding-right: 74px !important;
+}
+
+}
+
+
 
 .colX {
   flex-basis: 0;
@@ -1371,6 +1415,14 @@ export default {
   align-self: center;
 }
 
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+}
+
 /*
 @media screen and (max-width: 768px) {
   
@@ -1378,4 +1430,74 @@ export default {
   top: 15%;
 }
 } */
+
+@keyframes color-change {
+  0% {
+    color: #a53caa;
+  }
+  50% {
+    color: #e1d5ee;
+  }
+  50%
+  {
+    color:#ab8dd3;
+  }
+  50%
+  {
+    color:#dc7ebd;
+  }
+  50%
+  {
+    color:#7972d4;
+  }
+  100% {
+    color: #675cc8;
+  }
+}
+
+.animasyonmetin {
+  animation: color-change 5s ease-in-out infinite;
+}
+
+.hw {
+
+    margin-top: 0;
+    margin-bottom: 0rem;
+    font-weight: 500;
+    line-height: 1.37;
+    color: #5d596c;
+  font-size: 1.2475rem;
+
+
+    font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;;
+}
+
+.pw
+{ margin-top:4px;
+
+  
+  color:#6f6b7d;
+  font-size: 0.9375rem;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;;
+
+}
+.form-check-input {
+    --bs-form-check-bg: #fff;
+    flex-shrink: 0;
+    width: 1.01em;
+    height: 1.3em;
+    margin-top: 0.135em;
+    vertical-align: top;
+    /* appearance: none; */
+    /* background-color: var(--bs-form-check-bg);
+    background-image: var(--bs-form-check-bg-image); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 2px solid #dbdade;
+    border-radius: 4.6px;
+}
+
+.marginTopSix
+{    margin-top: 6px;}
 </style>
