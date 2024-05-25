@@ -1,7 +1,41 @@
 <template>
   <div class="main-content">
     <div class="font-weight-bold fa-2x text-light">Users</div>
-    <hr class="mt-1" />
+    <hr class="mt-1" />  
+
+    <b-modal
+      v-model="modalVisible"
+      id="modal-add"
+      size="md"
+      title="Add Publisher"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+    <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">{{
+        isEdit ? 'In Progress' : 'In Progress'
+      }}</label>
+      <b-row class="px-3">
+    
+            <b-form-textarea
+              v-model="description"
+              required
+              placeholder="Description"
+              style="height: 60px"
+              type="text"
+              id="input-description"
+            ></b-form-textarea>
+          </b-form-group> -->
+
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <b-button class="mb-2 mr-2" @click="closeModal12()">Close</b-button>
+       
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
     <!-- <div class="wrapper"> -->
     <b-modal id="modal-lg" size="lg" title="Documents" style="height: 100px">
       <!-- <div style="position: absolute; right: 10px" class="dropdown">
@@ -105,15 +139,16 @@
         </b-col>
       </b-row>
     </b-modal>
- <div  class="d-flex flex-row justify-content-between pb-2">
-     <b-col md="3" style="
+ <div  class="d-flex flex-row justify-content-between pb-2 d-none">
+     <b-col class="d-none" md="3" style="
     padding-right: 0px !important;
     padding-left: 0px !important;
+    clas
 ">
         <multiselect @input="handleChange" v-model="selected" placeholder="Select users" :options="[...allUsers]"
           :multiple="false" :limit="1"></multiselect>
       </b-col>
-      <div class="for-gap">
+      <div class="for-gap d-none">
       <button @click="clearFilters" class="btn btn-primary">Clear Filter</button>
     </div>
 
@@ -194,15 +229,15 @@
             >
           </template> -->
           <template>
-            <b-button
+            <!-- <b-button
               v-if="props.row.accessStatus == false"
               variant="primary ripple"
               @click="clickBlock(props.row.id)"
               style="height: 33px; width: 7em"
               class="mr-3"
               >Block</b-button
-            >
-            <b-button
+            > -->
+            <!-- <b-button
               class="mr-3"
               style="height: 33px; width: 7em"
               v-else
@@ -210,11 +245,11 @@
               @click="clickUnBlock(props.row.id)"
             >
               Unblock</b-button
-            >
+            > -->
           </template>
           <template>
             <a
-              @click="clickViewUsers(props.row.id)"
+            @click="openModal12"
               class="mr-3"
               variant="primary ripple"
               style="font-size: 16px; cursor: pointer"
@@ -318,6 +353,16 @@
         </span>
       </template> -->
     </vue-good-table>
+
+    
+
+    <div v-if="modalVisible">
+    <div class="modal-content">
+      <span class="close" @click="closeModal12">&times;</span>
+      <h2>Modal Title</h2>
+      <p>This modal is still in progress...</p>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -353,6 +398,7 @@ export default {
 
   data() {
     return {
+    modalVisible: false,
       logo: require("@/assets/images/faces/17.jpg"),
       use_id:null,
       matchUser: "",
@@ -385,18 +431,18 @@ export default {
           label: "Email",
           field: "email",
         },
-        {
-          label: "Mobile Number",
-          field: "contact_number",
-        },
+        // {
+        //   label: "Mobile Number",
+        //   field: "contact_number",
+        // },
         // {
         //   label: "FAS Tag",
         //   field: "fastag",
         // },
-        // {
-        //   label: "Action",
-        //   field: "button",
-        // },
+        {
+          label: "Action",
+          field: "button",
+        },
 
         // {
         //   label: "Balance",
@@ -456,7 +502,14 @@ export default {
   this.selected ="Select User"
 
     },
-
+    openModal12() {
+      // Set the flag to true to show the modal
+      this.modalVisible = true;
+    },
+    closeModal12() {
+      // Set the flag to false to hide the modal
+      this.modalVisible = false;
+    },
     openModal(rowData) {
       this.aadharFront = rowData.aadhar_card;
       this.aadharBack = rowData.back_aadhar_card;
@@ -955,6 +1008,7 @@ handleChange(user) {
     
     
     }
+
 
 
 
