@@ -17,9 +17,9 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const user = await login(req.body)
+        const user = await login(req.body);
         if (user) {
-            res.status(200).send({ success: true, access_token: getToken(user) })
+            res.status(200).send({ success: true, access_token: getToken(user), user_id: user._id, role: user.role })
         } else {
             res.status(404).send({ message: "Invalid user" })
         }
