@@ -222,12 +222,12 @@
             ></a>
           </template>
         </span>
-        <span v-else-if="props.column.field === 'information'">
+        <span v-else-if="props.column.field === 'email'">
           <template>
             <div class="d-flex flex-column">
               <div class="d-flex">
                 {{ props.row.email }}
-                <span
+                <!-- <span
                   v-if="props.row.is_verified"
                   class="text-success pl-1 m-0"
                   style="font-size: 11px"
@@ -252,9 +252,9 @@
                       style="padding-left: 4px"
                     ></i
                   ></span>
-                </span>
+                </span> -->
               </div>
-              <div>{{ props.row.phone }}</div>
+              <div>{{ props.row.contact_number }}</div>
             </div>
           </template>
         </span>
@@ -293,6 +293,8 @@
             </div>
           </template>
         </span>
+
+        
       </template>
 
       <!-- <template slot="table-row" slot-scope="props">
@@ -371,30 +373,30 @@ export default {
       isModalOpen: false,
 
       columns: [
-        {
-          label: "",
-          field: "img",
-        },
+        // {
+        //   label: "",
+        //   field: "img",
+        // },
         {
           label: "Name",
-          field: "full_name",
+          field: "user_name",
         },
         {
-          label: "Email/Mobile",
-          field: "information",
+          label: "Email",
+          field: "email",
         },
         {
-          label: "Created at",
-          field: "date_joined",
+          label: "Mobile Number",
+          field: "contact_number",
         },
         // {
         //   label: "FAS Tag",
         //   field: "fastag",
         // },
-        {
-          label: "Action",
-          field: "button",
-        },
+        // {
+        //   label: "Action",
+        //   field: "button",
+        // },
 
         // {
         //   label: "Balance",
@@ -429,17 +431,32 @@ export default {
       isEdit: false,
       loader: false,
       isHide: false,
-      matchUser:""
+      matchUser:"",
+     
+            user_name: "",
+            contact_number: "",
+            email: "",
+ 
+         
+
     };
   },
   created() {
-    // this.getAllUsers();
+    this.getAllUsers()
     this.getAllTransaction();
     this.role = parsedUser.data.role;
     this.originalRows = [...this.rows];
    
   },
   methods: {
+
+    clearFilters()
+    {
+      this.getAllUsers();
+  this.selected ="Select User"
+
+    },
+
     openModal(rowData) {
       this.aadharFront = rowData.aadhar_card;
       this.aadharBack = rowData.back_aadhar_card;
@@ -513,29 +530,32 @@ export default {
 //     }
 // },
 
+handleChange(user) {
+  debugger;
+
+  // Filter the rows based on the user_name
+  const matchedRows = this.rows.filter((row) => row.user_name === user);
+
+  // Update the rows with the filtered results
+  this.rows = matchedRows;
+
+
+  // Log the matched rows to the console
+  console.log("Matched Rows:", matchedRows);
+},
+
+
+
+
 // handleChange(user) {
 //   console.log(user);
-//   const use_id = this.usersInfo.find((e) => e.fullName == user);
-//   console.log(use_id);
-//   if (use_id) {
-//     const matchedRows = this.rows.filter((row) => row.id === use_id.id);
-//     console.log(matchedRows);
-//     this.rows = matchedRows;
-
+//   const use_id1 = this.usersInfo.find((e) => e.user_name == user);
+//   console.log(use_id1);
+//   if (use_id1) {
+//    this.use_id =use_id1.id;
 //   }
+
 // },
-
-
-
-handleChange(user) {
-  console.log(user);
-  const use_id1 = this.usersInfo.find((e) => e.fullName == user);
-  console.log(use_id1);
-  if (use_id1) {
-   this.use_id =use_id1.id;
-  }
-
-},
 
 
 
@@ -642,40 +662,74 @@ handleChange(user) {
           this.$toaster.makeToast("warning", "Have Server error");
         });
     },
-    // getAllUsers() {
-    //   this.loader = true;
-    //   this.$apiService
-    //     .getCall("account/")
-    //     .then((res) => {
-    //       let rowData = [];
+//  getAllUsers() {
+//       this.loader = true;
+//       this.$apiService
+//         .getCall("account/")
+//         .then((res) => {
+//           let rowData = [];
 
-    //       if (res.apidata.length > 0) {
-    //         // rowData = res.apidata;
-    //         rowData = res.apidata.filter((value) => !value.is_superuser);
-    //         // rowData.forEach((element) => {
-    //         //   element.time = element.time
-    //         //     ? moment(element.time).format("DD/MM/YYYY")
-    //         //     : "";
-    //         // });
-    //         rowData.forEach((value) => {
-    //           value.date_joined = value.date_joined
-    //             ? moment(value.date_joined).format("DD/MM/YYYY")
-    //             : "";
-    //           value.full_name =
-    //             value.first_name || value.last_name
-    //               ? value.first_name + " " + value.last_name
-    //               : "";
-    //         });
-    //       }
-    //       this.rows = rowData;
+//           if (res.apidata.length > 0) {
+//             // rowData = res.apidata;
+//             rowData = res.apidata.filter((value) => !value.is_superuser);
+//             // rowData.forEach((element) => {
+//             //   element.time = element.time
+//             //     ? moment(element.time).format("DD/MM/YYYY")
+//             //     : "";
+//             // });
+//             rowData.forEach((value) => {
+//               value.date_joined = value.date_joined
+//                 ? moment(value.date_joined).format("DD/MM/YYYY")
+//                 : "";
+//               value.full_name =
+//                 value.first_name || value.last_name
+//                   ? value.first_name + " " + value.last_name
+//                   : "";
+//             });
+//           }
+//           this.rows = rowData;
 
-    //       this.loader = false;
-    //     })
-    //     .catch((error) => {
-    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //       this.loader = false;
-    //     });
-    // },
+//           this.loader = false;
+//         })
+//         .catch((error) => {
+//           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+//           this.loader = false;
+//         });
+//     },
+
+
+
+
+
+
+    getAllUsers() {
+  this.loader = true;
+  this.$apiService
+    .getCall("user/get-all-users")
+    .then((response) => {
+      // console.log("Response:", response);
+      if (response && response.isError === false && response.apidata && response.apidata.data) {
+        const userData = response.apidata.data;
+        // console.log("User data:", userData);
+        this.rows = userData;
+        this.allUsers = userData.map((e) => e.user_name);
+        // this.$toaster.makeToast("success", "User data fetched successfully");
+      } else {
+        this.$toaster.makeToast("warning", "Failed to fetch user data");
+      }
+      this.loader = false;
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+      this.$toaster.makeToast("error", "Error fetching user data");
+      this.loader = false;
+    });
+}
+
+
+
+
+,
     generateID() {
       this.clearform();
       this.generateIDloader = true;
@@ -793,10 +847,10 @@ handleChange(user) {
       this.generateIDloader = false;
       this.$bvModal.hide("modal-lg");
     },
-    clearFilters() {
-  this.selected ="Select User"
-  this.use_id = null;
-},
+//     clearFilters() {
+//   this.selected ="Select User"
+//   this.use_id = null;
+// },
 
   },
 };

@@ -80,7 +80,7 @@
             </router-link>
           </li> -->
 
-          <li v-if="isAdmin !== 'User'"
+          <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'users' }"
             class="nav-item"
@@ -214,7 +214,8 @@
             </router-link>
           </li> -->
          
-          <li v-if="isAdmin !== 'User'"
+         
+          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'settingRoute' }"
             class="nav-item"
@@ -1343,10 +1344,10 @@ export default {
     };
   },
   created() {
-    var storedUser = localStorage.getItem("userInfo");
+    var storedUser = localStorage.getItem("role"); 
 
-    var parsedUser = JSON.parse(storedUser);
-    this.isAdmin=parsedUser.data.role;
+    // var parsedUser = JSON.parse(storedUser);
+    this.isAdmin=storedUser;
 
     // this.isAdmin= "Admin";;
    

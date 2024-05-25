@@ -402,88 +402,87 @@
               <p class="mb-3 pw">Enter your email and we'll send you instructions to reset your password
 
 </p>
-              <form>
-
-                <div>
-    
-    <div v-if="!otpSent">
-      <div class="form-group">
-        <label for="email">{{ $t('Email address') }}</label>
-        <input
-          id="email"
-          v-model="userEmail"
-          placeholder="abc@gmail.com"
-          class="form-control form-control-rounded"
-          type="email"
-        />
-        <b-alert
-          show
-          variant="danger"
-          class="error col mt-1"
-          v-if="notFound"
-        >
-          {{ $t('Email not found') }}
-        </b-alert>
-      </div>
-      <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
-      <button
-        v-if="!loader"
-        type="button"
-        class="btn btn-primary btn-block btn-rounded mt-3"
-        @click="reset"
+<form>
+  <div v-if="!otpSent">
+    <div class="form-group">
+      <label for="email">{{ $t('Email address') }}</label>
+      <input
+        id="email"
+        v-model="userEmail"
+        placeholder="abc@gmail.com"
+        class="form-control form-control-rounded"
+        type="email"
+      />
+      <b-alert
+        show
+        variant="danger"
+        class="error col mt-1"
+        v-if="notFound"
       >
-        {{ $t('Send Otp') }}
-      </button>
+        {{ $t('Email not found') }}
+      </b-alert>
     </div>
-
-   
-
-    <div v-else>
-  <div class="form-group">
-    <label for="password">{{ $t('Password') }}</label>
-    <input
-      id="password"
-      v-model="password"
-      :placeholder="$t('Enter your password')"
-      class="form-control form-control-rounded"
-      type="password"
-    />
-  </div>
-  <div class="form-group">
-    <label for="otp">{{ $t('OTP') }}</label>
-    <input
-      id="otp"
-      v-model="otp"
-      :placeholder="$t('Enter OTP')"
-      class="form-control form-control-rounded"
-      type="number"
-    />
-    <b-alert
-      show
-      variant="danger"
-      class="error col mt-1"
-      v-if="otpInvalid"
+    <button
+      v-if="!loader"
+      type="button"
+      class="btn btn-primary btn-block btn-rounded mt-3"
+      @click="reset"
     >
-      {{ $t('Invalid OTP') }}
-    </b-alert>
-  </div>
-  <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
-  <button
-    v-if="!loader"
-    type="button"
-    class="btn btn-primary btn-block btn-rounded mt-3"
-    @click="verifyOtp"
-  >
-    {{ $t('Verify Otp') }}
-  </button>
-</div>
-
-
-  
+      {{ $t('Send Otp') }}
+    </button>
   </div>
 
-                
-              </form>
+  <div v-else-if="otpSent && !otpVerified">
+    <div class="form-group">
+      <label for="otp">{{ $t('OTP') }}</label>
+      <input
+        id="otp"
+        v-model="otp"
+        :placeholder="$t('Enter OTP')"
+        class="form-control form-control-rounded"
+        type="number"
+      />
+      <b-alert
+        show
+        variant="danger"
+        class="error col mt-1"
+        v-if="otpInvalid"
+      >
+        {{ $t('Invalid OTP') }}
+      </b-alert>
+    </div>
+    <button
+      v-if="!loader"
+      type="button"
+      class="btn btn-primary btn-block btn-rounded mt-3"
+      @click="verifyOtp"
+    >
+      {{ $t('Verify Otp') }}
+    </button>
+  </div>
+
+  <div v-else-if="otpVerified">
+    <div class="form-group">
+      <label for="password">{{ $t('New Password') }}</label>
+      <input
+        id="password"
+        v-model="newPassword"
+        :placeholder="$t('Enter your new password')"
+        class="form-control form-control-rounded"
+        type="password"
+      />
+    </div>
+    <button
+      v-if="!loader"
+      type="button"
+      class="btn btn-primary btn-block btn-rounded mt-3"
+      @click="updatePassword"
+    >
+      {{ $t('Update Password') }}
+    </button>
+  </div>
+</form>
+
               <div class="mt-3 text-center">
                 <router-link to="signIn" tag="a" class="text-muted" >
                   <u   @click="showChild(1)">{{ $t('Back To Login') }}</u>
@@ -939,6 +938,7 @@ export default {
     let requestData = {
         user_name: this.email,
         password: this.password,
+        
     };
 
     this.$apiService
@@ -981,11 +981,28 @@ export default {
               
                 const expiryTime = rememberMeChecked ? 30 * 24 * 60 * 60 * 1000 : 1 * 60 * 60 * 1000;
 
-                setTimeout(() => {
-                    this.$router.push("/app/myDesk/users");
-                }, 500);
+              
 
                 localStorage.setItem("accesstoken", user.apidata.access_token);
+                localStorage.setItem("role", user.apidata.role);
+                localStorage.setItem("user_id", user.apidata.user_id);  
+                
+              if(user.apidata.role == "admin") 
+              {
+                    setTimeout(() => {
+                    this.$router.push("/app/myDesk/users");
+                }, 500);
+              }
+              else{
+                {
+                    setTimeout(() => {
+                    this.$router.push("/app/setting/publisher");
+                }, 500);
+              }
+              }
+
+            
+
                 const newUser = { data: user.apidata.data };
                 localStorage.setItem("userInfo", JSON.stringify(newUser));
                 this.$store.commit("setUser", { uid: user.apidata.uid });
@@ -1029,7 +1046,7 @@ setCookie(name, value, milliseconds) {
         // this.$store.commit("setLoading", true);
         // this.$store.commit("clearError");
         const requestData = {
-          role: "Admin",
+          role: "user",
           email: this.email,
           password: this.password,
           // "first_name": this.fName,
@@ -1047,13 +1064,15 @@ setCookie(name, value, milliseconds) {
             if (!user.error) {
               setTimeout(() => {
                 // this.submitStatus = "OK";
-               this.$router.push("/app/myDesk/users");
+               this.$router.push("/app/setting/publisher");
               }, 2000);
               this.$toaster.makeToast(
                 "success",
                 "User successfully registered"
               );
+              localStorage.setItem("role", "user");
               localStorage.setItem("accesstoken", user.apidata.access_token);
+
               const newUser = { data: user.apidata.data };
               localStorage.setItem("userInfo", JSON.stringify(newUser));
               this.loader = false;
@@ -1134,6 +1153,7 @@ setCookie(name, value, milliseconds) {
           "success",
           "Mail send successfully! check your mail"
         );
+        
         this.notFound = false;
         // Set otpSent to true to hide the email input and show the OTP input
         this.otpSent = true;

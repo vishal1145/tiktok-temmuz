@@ -1480,6 +1480,11 @@ export default {
     logoutUser() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("accesstoken");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+
+
+    
     this.$router.push("/app/sessions/signIn");
 
   
