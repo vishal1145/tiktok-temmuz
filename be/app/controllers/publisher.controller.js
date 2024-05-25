@@ -9,7 +9,7 @@ const {
 
 exports.getAllPublisher = async (req, res) => {
   const publishers = await getAllPublisher()
-  res.status(400).send({ data: publishers, success: true })
+  res.status(200).send({ data: publishers, success: true })
 };
 
 exports.getAllUsersPublishers = async (req, res) => {
