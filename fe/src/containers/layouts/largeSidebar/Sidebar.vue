@@ -221,11 +221,11 @@
             data-item="addBackEndData"
             :data-submenu="false"
           >
-            <router-link tag="a" class to="/app/setting/faq">
+            <router-link tag="a" class to="/app/setting/publisher">
               <a class="nav-item-hold" href="#">
                
                 <i class="nav-icon  i-Big-Data"></i>
-                <span class="nav-text">{{ $t("FAQ") }}</span>
+                <span class="nav-text">{{ $t("Publisher") }}</span>
               </a>
 
               <div class="triangle"></div>

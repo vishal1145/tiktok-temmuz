@@ -200,9 +200,9 @@ const routes = [
             component: () => import("./views/app/setting/settingRoute"),
           },
           {
-            path: "faq",
-            name: "faq",
-            component: () => import("./views/app/setting/faq"),
+            path: "publisher",
+            name: "publisher",
+            component: () => import("./views/app/setting/publisher"),
           },
           {
             path: "documents",
@@ -672,10 +672,10 @@ const routes = [
             path: "pricing-table",
             component: () => import("./views/app/pages/pricingTable"),
           },
-          {
-            path: "faq",
-            component: () => import("./views/app/pages/faq"),
-          },
+          // {
+          //   path: "publisher",
+          //   component: () => import("./views/app/pages/publisher"),
+          // },
         ],
       },
 
