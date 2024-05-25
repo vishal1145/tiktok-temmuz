@@ -104,15 +104,17 @@
 
     <b-col lg="6" xl="6" mt="3" class="DisplayNone">
       <div
-      class="auth-content px-5"
+      class="auth-content px-5 backgroundNorepeat backgr"
       :style="{
+        
         backgroundImage: 'url(https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/auth-login-illustration-light.png)',
         objectFit: 'cover',
+        
  
       }"
     >
       <div
-        class="d-flex flex-column justify-content-center align-content-center text-center for-img align-items-center"
+        class="d-flex flex-column justify-content-center  backgroundNorepeat align-content-center text-center for-img align-items-center"
       >
         <!-- <p class="fa-2x font-weight-900 p-0 m-0 for-ftext animasyonmetin">
           Temmuz Agency
@@ -1475,7 +1477,8 @@ setCookie(name, value, milliseconds) {
 }
 .for-img {
   width: 100%;
-  height: 654px;
+  height: 100vh;
+
 }
 .for-ftext {
   z-index: 100;
@@ -1666,4 +1669,9 @@ setCookie(name, value, milliseconds) {
 
 .marginTopSix
 {    margin-top: 6px;}
+
+.backgroundNorepeat
+{
+  background-repeat: no-repeat;
+}
 </style>
