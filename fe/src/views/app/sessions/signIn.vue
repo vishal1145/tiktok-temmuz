@@ -836,8 +836,9 @@ export default {
     password: this.password, 
     otp: this.otp,
   };
-  
+
  
+  
   if (!this.userEmail || !this.password || !this.otp) {
     this.$toaster.makeToast("warning", "Please fill in all fields.");
     this.loader = false;
@@ -846,15 +847,17 @@ export default {
 
   this.$apiService
     .postCall("auth/verify-otp", reqData)
-    .then((res) => {
-      if (res.error) {
-      
-        this.$toaster.makeToast("warning", res.message); 
+    .then((user) => {
+      if (user.error) {
+        this.$toaster.makeToast("warning",  "Please enter a valid OTP."); 
       } else {
-      
-        this.$toaster.makeToast("success", "OTP verified successfully!");
-        // this.$router.push("/app/myDesk/users");
-        window.location.reload();
+        if ( user.error.response.data.message === "Otp Invalid") {
+          this.$toaster.makeToast("warning", "Please enter a valid OTP.");
+        } else {
+          this.$toaster.makeToast("success", "OTP verified successfully!");
+          // this.$router.push("/app/myDesk/users");
+          window.location.reload();
+        }
       }
       this.loader = false;
     })
@@ -864,7 +867,8 @@ export default {
       console.error("API Error:", error);
       this.loader = false;
     });
-},
+}
+,
     // validatePhone(event) {
     //   const value = event.target.value;
     //   // Only keep numeric characters
@@ -1047,27 +1051,27 @@ setCookie(name, value, milliseconds) {
               }, 2000);
               this.$toaster.makeToast(
                 "success",
-                "User successfully registered, Verification link sent to your mail"
+                "User successfully registered"
               );
               localStorage.setItem("accesstoken", user.apidata.access_token);
               const newUser = { data: user.apidata.data };
               localStorage.setItem("userInfo", JSON.stringify(newUser));
               this.loader = false;
               return;
-            }
+            }this.loader = false;
             if (
-              user.error.response.data.email ==
-              "user with this email already exists."
+              user.error.response.data.msg ==
+              "User already exit"
             ) {
-              console.log("eror", user.error.response.data.email);
-              this.$toaster.makeToast("warning", "User email already exists");
-              this.loader = false;
+            //  alert("eror", user.error.response.data.msg);
+              this.$toaster.makeToast("warning", "email already exists");
+              
               return;
             } else if (
-              user.error.response.data.phone ==
-              "user with this phone already exists."
+              user.error.response.data.message ==
+              "Bad request"
             ) {
-              this.$toaster.makeToast("warning", "User phone already exists");
+              this.$toaster.makeToast("warning", "User Name already exists");
               this.loader = false;
               return;
             }
@@ -1451,7 +1455,7 @@ setCookie(name, value, milliseconds) {
 }
 .for-img {
   width: 100%;
-  height: 100vh;
+  height: 654px;
 }
 .for-ftext {
   z-index: 100;
