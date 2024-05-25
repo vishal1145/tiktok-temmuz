@@ -52,19 +52,26 @@
             ></b-form-textarea>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
-          <b-form-group label="Select Images" label-for="input-images" v-if="!imgLoader">
+        <b-col md="6">
+          <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
               @input="handleImageSelection"
               placeholder="Choose files or drop them here"
               drop-placeholder="Drop files here..."
-               accept=".png,.jpg,.jpeg"
-             
+              accept=".png,.jpg,.jpeg"
             ></b-form-file>
-           
           </b-form-group>
-           <div class="spinner spinner-primary loader" v-if="imgLoader"></div>
+        </b-col>
+        <b-col md="6" class="justify-content-end d-flex align-items-center">
+          <img
+            v-if="uplodedImages"
+            :src="this.uplodedImages"
+            alt=""
+            class="img-fluid"
+            height="50"
+            width="50"
+          />
         </b-col>
 
         <!-- <b-form-group label="" label-for="input-description">
@@ -81,23 +88,137 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <b-button class="mb-2 mr-2" @click="closeModal()">Close</b-button>
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
+              >Close</b-button
+            >
             <b-button
+              v-if="!imgLoader"
               class="mb-2"
               variant="primary ripple"
               @click="addPublisher()"
               >Add</b-button
             >
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
           </div>
         </b-col>
       </b-row>
     </b-modal>
+    <b-modal
+      v-model="showAddModalEdit"
+      id="modal-add"
+      size="md"
+      title="Add Publisher"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Edit publisher
+      </label>
+      <b-row class="px-3">
+        <b-col md="12">
+          <b-form-group label="Enter publisher name" label-for="input-title">
+            <b-form-textarea
+              disabled
+              v-model="getpublisherName"
+              required
+              placeholder="Enter name"
+              style="height: 34px"
+              type="text"
+              id="input-name"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Contact number" label-for="input-title">
+            <b-form-textarea
+              v-model="getphoneNumber"
+              required
+              placeholder="Phone number"
+              style="height: 34px"
+              type="number"
+              id="input-phoneNumber"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Agency center code" label-for="input-title">
+            <b-form-textarea
+              v-model="getcenterCode"
+              required
+              placeholder="Agency center code"
+              style="height: 34px"
+              type="number"
+              id="input-agency"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col md="6">
+          <b-form-group label="Select Images" label-for="input-images">
+            <b-form-file
+              v-model="getImages"
+              @input="handleImageSelection"
+              placeholder="Choose files or drop them here"
+              drop-placeholder="Drop files here..."
+              accept=".png,.jpg,.jpeg"
+            ></b-form-file>
+          </b-form-group>
+        </b-col>
+        <b-col md="6" class="justify-content-end d-flex align-items-center">
+          <img
+            :src="this.uplodedImages"
+            alt=""
+            class="img-fluid"
+            height="50"
+            width="50"
+          />
+        </b-col>
 
+        <!-- <b-form-group label="" label-for="input-description">
+            <b-form-textarea
+              v-model="description"
+              required
+              placeholder="Description"
+              style="height: 60px"
+              type="text"
+              id="input-description"
+            ></b-form-textarea>
+          </b-form-group> -->
+
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2 mr-2"
+              @click="closeModalEdit()"
+              >Close</b-button
+            >
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2"
+              variant="primary ripple"
+              @click="editPublisher()"
+              >Edit</b-button
+            >
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div>
       <!-- Add New FAQ modal -->
-      <button @click="showAddModal = true" class="btn btn-primary mb-3">
+      <button v-if="role != 'Admin'"  @click="showAddModal = true" class="btn btn-primary mb-3">
+        <!-- -->
         Add New
       </button>
       <div>
@@ -110,12 +231,27 @@
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'actions'">
-              <span @click="clickEdit(props.row)" class="btn mr-2"
+              <span v-if="role != 'Admin'"  @click="clickEdit(props.row)" class="btn mr-2"
                 ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
               ></span>
-              <span @click="clickDelete(props.row.id)" class="btn"
+              <!-- v-if="role != 'Admin'" -->
+              <span v-if="role != 'Admin'"  @click="clickDelete(props.row)" class="btn"
                 ><i class="fa fa-trash" aria-hidden="true"></i
               ></span>
+              <div class="d-flex" v-if="role == 'Admin'" >
+                <div
+                  class="btn border mr-2 bg-success text-white"
+                  @click="clickAccept(props.row._id)"
+                >
+                  Accept
+                </div>
+                <div
+                  class="btn border bg-danger text-white"
+                  @click="clickReject(props.row._id)"
+                >
+                  Reject
+                </div>
+              </div>
             </span>
           </template>
         </vue-good-table>
@@ -131,7 +267,7 @@ export default {
   data () {
     return {
       faqs: [],
-
+      role: '',
       showAddModal: false,
       showAddModalEdit: false,
       editFAQData: {
@@ -142,14 +278,18 @@ export default {
       },
       category: 'Please Selected Category',
       loader: false,
-      imgLoader:false,
+      imgLoader: false,
       centerCode: '',
       phoneNumber: '',
       publisherName: '',
+      getcenterCode: '',
+      getphoneNumber: '',
+      getpublisherName: '',
+      getImages: null,
       user_id: '',
       updateId: '',
       uplodedImages: '',
-      images:null,
+      images: null,
       isEdit: false,
       columns: [
         // {
@@ -167,6 +307,10 @@ export default {
         {
           label: 'Agency code',
           field: 'agency_center_code'
+        },
+        {
+          label: 'Status',
+          field: 'status'
         },
         {
           label: 'Actions',
@@ -228,23 +372,19 @@ export default {
             .catch(error => reject(error))
         })
         // const response = this.$apiService.getCall('publisher/get-all/')
-        console.log(response);
+        console.log(response)
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
-          
-          this.faqs = response.apidata.data;
-        
-          this.$toaster.makeToast('success', 'publisher data get successfully');
+          this.faqs = response.apidata.data
+
+          // this.$toaster.makeToast('success', 'publisher data get successfully');
         }
         this.loader = false
       } catch (error) {
         this.loader = false
         console.error(error)
-        this.$toaster.makeToast(
-          'warning',
-          'Error: Server Error'
-        )
+        this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
     async fetchUser (token) {
@@ -270,6 +410,7 @@ export default {
         } else {
           this.loader = false
           this.user_id = response.apidata.data._id
+          this.role = response.apidata.data.role
           // console.log('User Data:', response.apidata.data._id);
           // this.$toaster.makeToast('success', 'User fetched successfully');
         }
@@ -282,35 +423,38 @@ export default {
         )
       }
     },
-    async handleImageSelection() {
-      this.imgLoader = true;
-  
+    gethandleImageSelection () {},
+    async handleImageSelection () {
+      this.imgLoader = true
+
       try {
         const formData = new FormData()
-         
+        if (this.images) {
+          formData.append('image', this.images)
+        }
+        if (this.getImages) {
+          formData.append('image', this.getImages)
+        }
 
-        formData.append('image', this.images) 
-      
         const response = await new Promise((resolve, reject) => {
           this.$apiService
-            .postCall('util/image/',formData)
+            .postCall('util/image/', formData)
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
         // const response = this.$apiService.postCall('util/image/', formData)
         console.log('Image upload failed', response)
         if (response.error) {
-           this.imgLoader = false;
-           this.$toaster.makeToast('warning', response.message)
+          this.imgLoader = false
+          this.$toaster.makeToast('warning', response.message)
         } else {
-          this.imgLoader = false;
-          this.uplodedImages = response.apidata.url;
-          this.$toaster.makeToast('success', 'Image upload successfully');
-      
+          this.imgLoader = false
+          this.uplodedImages = response.apidata.url
+          this.$toaster.makeToast('success', 'Image upload successfully')
         }
       } catch (error) {
-        this.imgLoader = false;
-         this.$toaster.makeToast('warning', 'Error: Server Error')
+        this.imgLoader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
         // confirm.log(error)
       }
     },
@@ -324,8 +468,59 @@ export default {
       }
     },
 
-    async addPublisher() {
-    
+    async clickAccept (id) {
+      try {
+        var req = {
+          status: 'Accepted'
+        }
+
+        const res = await this.$apiService.postCall(
+          `publisher/update-publisher-status/${id}`,
+          req
+        )
+        console.log(res)
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('success', 'Status Accepted successfully')
+          this.fetchPublisher()
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
+    async clickReject (id) {
+      this.loader = true
+      try {
+        var req = {
+          status: 'Rejected'
+        }
+
+        const res = await this.$apiService.postCall(
+          `publisher/update-publisher-status/${id}`,
+          req
+        )
+        console.log(res)
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('success', 'Status Rejected successfully')
+          this.fetchPublisher()
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
+
+    async addPublisher () {
       if (
         !this.images ||
         !this.phoneNumber ||
@@ -340,74 +535,67 @@ export default {
         return
       }
 
-
-      if (this.isEdit) {
-        this.editPublisher()
-      } else {
-         this.loader = true;
-        try {
-          //const imageUrls = await this.uploadImages();
-          let requestData = {
-            user_name: this.publisherName,
-            contact_number: this.phoneNumber,
-            agency_center_code: this.centerCode,
-            icon: "this.uplodedImages",
-            // icon: 'https://tiktok.algofolks.com/download.png',
-            userId: this.user_id
-          }
-         
-          // Assuming you want to make a POST request
-          const res = await this.$apiService.postCall(
-            'publisher/create/',
-            requestData
-          )
-
-        
-
-          if (res.error) {
-             this.loader = false;
-            this.$toaster.makeToast('warning', res.message)
-          } else {
-            this.isEdit = false;
-           this.showAddModal = false;
-             this.loader = false;
-            this.$toaster.makeToast('success', 'Data added successfully')
-          }
-        } catch (error) {
-           this.fetchPublisher()
-          this.loader = false
-          this.$toaster.makeToast('warning', 'Error: Server Error')
-          // console.error(error)
-        }
-      }
-    },
-    async editPublisher() {
-       this.loader = true;
+      this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
           user_name: this.publisherName,
           contact_number: this.phoneNumber,
           agency_center_code: this.centerCode,
+          icon: this.uplodedImages,
+          // icon: 'https://tiktok.algofolks.com/download.png',
+          userId: this.user_id
+        }
+
+        // Assuming you want to make a POST request
+        const res = await this.$apiService.postCall(
+          'publisher/create/',
+          requestData
+        )
+
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.fetchPublisher()
+          this.isEdit = false
+          this.showAddModal = false
+          this.loader = false
+          this.$toaster.makeToast('success', 'Data added successfully')
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
+    async editPublisher () {
+      this.loader = true
+      try {
+        //const imageUrls = await this.uploadImages();
+        let requestData = {
+          // user_name: this.publisherName,
+          contact_number: this.getphoneNumber,
+          agency_center_code: this.getcenterCode,
           icon: this.uplodedImages
           // userId: this.user_id
         }
 
         // Assuming you want to make a POST request
-        const res = await this.$apiService.putCall(
-          `publisher/update-publisher-status/${this.updateId}`,
+        const res = await this.$apiService.postCall(
+          `publisher/update/${this.updateId}`,
           requestData
         )
 
-        
-
         if (res.error) {
-           this.loader = false;
+          this.loader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.isEdit = false;
-           this.showAddModal = false;
-           this.loader = false;
+          this.fetchPublisher()
+
+          this.closeModalEdit()
+
+          this.loader = false
           this.$toaster.makeToast('success', 'Data update successfully')
         }
       } catch (error) {
@@ -417,17 +605,15 @@ export default {
       }
     },
     clickEdit (data) {
-      
       this.updateId = data._id
-      this.centerCode = data.agency_center_code;
-      this.phoneNumber= data.contact_number;
-      this.publisherName = data.user_name;
-      this.user_id = data._id;
-      this.updateId = data._id;
-      // this.uplodedImages = data._id;
-      this.images = data.icon;
-      this.showAddModal = true;
-      this.isEdit = true;
+      this.getcenterCode = data.agency_center_code
+      this.getphoneNumber = data.contact_number
+      this.getpublisherName = data.user_name
+      this.images = data.icon
+      this.uplodedImages = data.icon
+      console.log(data.icon)
+
+      this.showAddModalEdit = true
     },
 
     // editFAQ (faq) {
@@ -483,29 +669,34 @@ export default {
         // If user confirms deletion
         if (result.value) {
           this.loader = true
-          const response = await this.$apiService.deleteCall(
-            `publisher/delete/${data._id}`,
-            null
+          const response = await this.$apiService.postCall(
+            `publisher/delete/${data._id}`
           )
-          if (!response.isError) {
-            // Remove the FAQ from the local data
-            // this.faqs = this.faqs.filter(faq => faq.id !== id)
 
-            this.$toaster.makeToast('success', 'Your Publisher has been deleted')
+          if (!response.isError) {
+            this.loader = false
+            this.fetchPublisher()
+            this.$toaster.makeToast(
+              'success',
+              'Your Publisher has been deleted'
+            )
             this.loader = false
           } else {
-            console.error(`Failed to delete publisher with `)
+            this.$toaster.makeToast('warning', 'Failed to delete publisher ')
           }
         } else {
+          this.loader = false
           // User canceled the deletion, do nothing or show a message
           console.log('Deletion canceled by user')
         }
       } catch (error) {
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        this.loader = false
         console.error('Error deleting FAQ:', error)
       }
     },
-    closeModal() {
-       this.isEdit = false;
+    closeModal () {
+      this.isEdit = false
       this.showAddModal = false // Set showAddModal to false to hide the modal
     },
     closeModalEdit () {
@@ -536,6 +727,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+imgloader {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  z-index: 10;
 }
 #loader {
   top: 50%;
