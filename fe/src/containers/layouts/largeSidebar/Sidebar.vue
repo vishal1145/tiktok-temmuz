@@ -165,7 +165,7 @@
           <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'foodOrderHistory' }"
-            class="nav-item"
+            class="nav-item d-none"
             data-item="foodOrderHistory"
             :data-submenu="false"
           >
@@ -1339,7 +1339,7 @@ export default {
       isStyle: true,
       selectedParentMenu: "",
       isMobile,
-      isHide: true,
+      isHide: false,
     };
   },
   created() {
