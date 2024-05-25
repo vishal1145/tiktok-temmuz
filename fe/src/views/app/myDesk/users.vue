@@ -543,68 +543,68 @@ handleChange(user) {
 
 
 
-  getAllTransaction(startDate, endDate, uId, carId) {
-  this.loader = true;
-  let query = ``;
-  if (startDate) {
-    query = query + `startDate=${startDate}`;
-  }
-  if (endDate) {
-    query = query + `&endDate=${endDate}`;
-  }
-  if (uId) { // Use uId instead of id
-    query += `id=${uId}`; // Append user ID to the query
-  }
-  if (carId) {
-    query = query + `&reg_number=${carId}`;
-  }
-  this.$apiService
-    .getCall(`account/?${query}`)
-    .then((res) => {
-      let rowData = [];
+//   getAllTransaction(startDate, endDate, uId, carId) {
+//   this.loader = true;
+//   let query = ``;
+//   if (startDate) {
+//     query = query + `startDate=${startDate}`;
+//   }
+//   if (endDate) {
+//     query = query + `&endDate=${endDate}`;
+//   }
+//   if (uId) { // Use uId instead of id
+//     query += `id=${uId}`; // Append user ID to the query
+//   }
+//   if (carId) {
+//     query = query + `&reg_number=${carId}`;
+//   }
+//   this.$apiService
+//     .getCall(`account/?${query}`)
+//     .then((res) => {
+//       let rowData = [];
 
       
-        // if (this.role === "Admin") {
-        //   this.allDate = res.apidata.map((e) => e.time);
-        //   rowData = res.apidata.filter((value) => value.userId == this.userId);
-        // } else {
-        //   this.allUsers = res.apidata.map((e) => e.full_name);
-        //   this.usersInfo = res.apidata.map((user) => ({
-        //     id: user.id,
-        //     fullName: user.full_name,
-        //   }));
-        //   rowData = res.apidata;
-        // }
-        rowData =res.apidata;
+//         // if (this.role === "Admin") {
+//         //   this.allDate = res.apidata.map((e) => e.time);
+//         //   rowData = res.apidata.filter((value) => value.userId == this.userId);
+//         // } else {
+//         //   this.allUsers = res.apidata.map((e) => e.full_name);
+//         //   this.usersInfo = res.apidata.map((user) => ({
+//         //     id: user.id,
+//         //     fullName: user.full_name,
+//         //   }));
+//         //   rowData = res.apidata;
+//         // }
+//         rowData =res.apidata;
         
-        rowData.forEach((element) => {
-          element.date_joined = element.date_joined
-            ? moment(element.date_joined).format("DD MMM YYYY h:mm A")
-            : "";
-            element.full_name =
-            element.first_name || element.last_name
-                  ? element.first_name + " " + element.last_name
-                  : "";
-        });
-        this.allUsers = rowData.map((e) => e.full_name);
-          this.usersInfo = rowData.map((user) => ({
-            id: user.id,
-            fullName: user.full_name,
-          }));
+//         rowData.forEach((element) => {
+//           element.date_joined = element.date_joined
+//             ? moment(element.date_joined).format("DD MMM YYYY h:mm A")
+//             : "";
+//             element.full_name =
+//             element.first_name || element.last_name
+//                   ? element.first_name + " " + element.last_name
+//                   : "";
+//         });
+//         this.allUsers = rowData.map((e) => e.full_name);
+//           this.usersInfo = rowData.map((user) => ({
+//             id: user.id,
+//             fullName: user.full_name,
+//           }));
       
       
         
-      this.rows = rowData;
-      console.log("rowData", rowData);
+//       this.rows = rowData;
+//       console.log("rowData", rowData);
 
-      this.loader = false;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-      this.loader = false;
-    });
-},
+//       this.loader = false;
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+//       this.loader = false;
+//     });
+// },
     // formatPrice(value) {
     //   let val = (value / 1).toFixed(0).replace(".", ",");
     //   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

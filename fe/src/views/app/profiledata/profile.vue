@@ -810,62 +810,62 @@ export default {
     
     },
 
-    async getProfileDetails() {
-      try {
-        let response = await this.$apiService.getCall(`account/?id=${this.id}`);
+    // async getProfileDetails() {
+    //   try {
+    //     let response = await this.$apiService.getCall(`account/?id=${this.id}`);
 
-        let userData = response.apidata;
-        this.form.fName = userData.first_name;
-        this.form.lName = userData.last_name;
-        this.form.address = userData.local_address;
-        this.form.state = userData.state;
-        this.form.city = userData.city;
-        this.form.pin_code = userData.pin_code;
-        this.verified = userData.is_verified;
-        this.isOtp = userData.otp;
-        this.referralLink = userData.referral_url;
-        // Update images
-        this.selectedLogo = userData.image;
-        this.selectedImage = userData.aadhar_card;
-        if (this.selectedImage) {
-          this.aadharFrontCheckbox = true;
-        }
-        this.selectedImageBack = userData.back_aadhar_card;
-        if (this.selectedImageBack) {
-          this.aadharBackCheckbox = true;
-        }
-        this.drivinglincenseImage = userData.driving_lincense;
-        if (this.drivinglincenseImage) {
-          this.drivingLincenseFrontCheckbox = true;
-        }
-        this.drivinglincenseImageBack = userData.back_driving_lincense;
-        if (this.drivinglincenseImageBack) {
-          this.drivingLincenseBackCheckbox = true;
-        }
-        this.passportImage = userData.passport;
-        if (this.passportImage) {
-          this.passportFrontCheckbox = true;
-        }
-        this.passportImageBack = userData.back_passport;
-        if (this.passportImageBack) {
-          this.passportBackCheckbox = true;
-        }
+    //     let userData = response.apidata;
+    //     this.form.fName = userData.first_name;
+    //     this.form.lName = userData.last_name;
+    //     this.form.address = userData.local_address;
+    //     this.form.state = userData.state;
+    //     this.form.city = userData.city;
+    //     this.form.pin_code = userData.pin_code;
+    //     this.verified = userData.is_verified;
+    //     this.isOtp = userData.otp;
+    //     this.referralLink = userData.referral_url;
+    //     // Update images
+    //     this.selectedLogo = userData.image;
+    //     this.selectedImage = userData.aadhar_card;
+    //     if (this.selectedImage) {
+    //       this.aadharFrontCheckbox = true;
+    //     }
+    //     this.selectedImageBack = userData.back_aadhar_card;
+    //     if (this.selectedImageBack) {
+    //       this.aadharBackCheckbox = true;
+    //     }
+    //     this.drivinglincenseImage = userData.driving_lincense;
+    //     if (this.drivinglincenseImage) {
+    //       this.drivingLincenseFrontCheckbox = true;
+    //     }
+    //     this.drivinglincenseImageBack = userData.back_driving_lincense;
+    //     if (this.drivinglincenseImageBack) {
+    //       this.drivingLincenseBackCheckbox = true;
+    //     }
+    //     this.passportImage = userData.passport;
+    //     if (this.passportImage) {
+    //       this.passportFrontCheckbox = true;
+    //     }
+    //     this.passportImageBack = userData.back_passport;
+    //     if (this.passportImageBack) {
+    //       this.passportBackCheckbox = true;
+    //     }
 
-        // Other fields
-        this.form.email = userData.email;
-        this.form.phone = userData.phone;
-        this.form.is_verified = userData.is_verified;
-        this.form.accessStatus = userData.accessStatus;
-        this.form.haspassport = userData.haspassport;
-        this.form.image = userData.image;
-        this.form.role = userData.role;
-        this.form.is_superuser = userData.is_superuser;
-        this.form.is_staff = userData.is_staff;
-        this.form.is_active = userData.is_active;
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //     // Other fields
+    //     this.form.email = userData.email;
+    //     this.form.phone = userData.phone;
+    //     this.form.is_verified = userData.is_verified;
+    //     this.form.accessStatus = userData.accessStatus;
+    //     this.form.haspassport = userData.haspassport;
+    //     this.form.image = userData.image;
+    //     this.form.role = userData.role;
+    //     this.form.is_superuser = userData.is_superuser;
+    //     this.form.is_staff = userData.is_staff;
+    //     this.form.is_active = userData.is_active;
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
     viaOldPassword() {
       this.showMail = false;
@@ -1373,18 +1373,18 @@ export default {
           console.log(error);
         });
     },
-    async getCarDetails() {
-      try {
-        this.loader = true;
-        let response = await this.$apiService.getCall(`account/?id=${this.id}`);
-        this.form.fName = response.apidata.form.fName;
+    // async getCarDetails() {
+    //   try {
+    //     this.loader = true;
+    //     let response = await this.$apiService.getCall(`account/?id=${this.id}`);
+    //     this.form.fName = response.apidata.form.fName;
 
-        this.loader = false;
-      } catch (error) {
-        this.loader = false;
-        console.log(error);
-      }
-    },
+    //     this.loader = false;
+    //   } catch (error) {
+    //     this.loader = false;
+    //     console.log(error);
+    //   }
+    // },
     changePassword() {
       this.submitloader = true;
       if (this.newpassword && this.oldpassword && this.confirmpassword) {

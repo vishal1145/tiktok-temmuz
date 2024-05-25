@@ -403,33 +403,86 @@
 
 </p>
               <form>
-                <div class="form-group">
-                  <label for="email">{{ $t('Email address') }}</label>
-                  <input
-                    id="email"
-                    v-model="userEmail"
-                    placeholder="abc@gmail.com"
-                    class="form-control form-control-rounded"
-                    type="email"
-                  />
-                  <b-alert
-                    show
-                    variant="danger"
-                    class="error col mt-1"
-                    v-if="notFound"
-                  >
-                    {{ $t('Email not found') }}
-                  </b-alert>
-                </div>
-                <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
-                <button
-                  v-if="!loader"
-                  type="button"
-                  class="btn btn-primary btn-block btn-rounded mt-3"
-                  @click="reset"
-                >
-                  {{ $t('Send Reset Link') }}
-                </button>
+
+                <div>
+    
+    <div v-if="!otpSent">
+      <div class="form-group">
+        <label for="email">{{ $t('Email address') }}</label>
+        <input
+          id="email"
+          v-model="userEmail"
+          placeholder="abc@gmail.com"
+          class="form-control form-control-rounded"
+          type="email"
+        />
+        <b-alert
+          show
+          variant="danger"
+          class="error col mt-1"
+          v-if="notFound"
+        >
+          {{ $t('Email not found') }}
+        </b-alert>
+      </div>
+      <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
+      <button
+        v-if="!loader"
+        type="button"
+        class="btn btn-primary btn-block btn-rounded mt-3"
+        @click="reset"
+      >
+        {{ $t('Send Otp') }}
+      </button>
+    </div>
+
+   
+
+    <div v-else>
+  <div class="form-group">
+    <label for="password">{{ $t('Password') }}</label>
+    <input
+      id="password"
+      v-model="password"
+      :placeholder="$t('Enter your password')"
+      class="form-control form-control-rounded"
+      type="password"
+    />
+  </div>
+  <div class="form-group">
+    <label for="otp">{{ $t('OTP') }}</label>
+    <input
+      id="otp"
+      v-model="otp"
+      :placeholder="$t('Enter OTP')"
+      class="form-control form-control-rounded"
+      type="number"
+    />
+    <b-alert
+      show
+      variant="danger"
+      class="error col mt-1"
+      v-if="otpInvalid"
+    >
+      {{ $t('Invalid OTP') }}
+    </b-alert>
+  </div>
+  <!-- <div class="spinner spinner-primary" style="margin-left: 7rem" v-if="loader"></div> -->
+  <button
+    v-if="!loader"
+    type="button"
+    class="btn btn-primary btn-block btn-rounded mt-3"
+    @click="verifyOtp"
+  >
+    {{ $t('Verify Otp') }}
+  </button>
+</div>
+
+
+  
+  </div>
+
+                
               </form>
               <div class="mt-3 text-center">
                 <router-link to="signIn" tag="a" class="text-muted" >
@@ -648,6 +701,7 @@ export default {
   },
   data() {
     return {
+      otpSent: false,
       dateRange: {
         startDate: new Date(),
         endDate: new Date(),
@@ -772,13 +826,52 @@ export default {
         this.phone = parseInt(cleanedInput, 10);
       }
     },
+
+
+    verifyOtp() {
+      debugger;
+  this.loader = true;
+  var reqData = {
+    email: this.userEmail,
+    password: this.password, 
+    otp: this.otp,
+  };
+  
+ 
+  if (!this.userEmail || !this.password || !this.otp) {
+    this.$toaster.makeToast("warning", "Please fill in all fields.");
+    this.loader = false;
+    return;
+  }
+
+  this.$apiService
+    .postCall("auth/verify-otp", reqData)
+    .then((res) => {
+      if (res.error) {
+      
+        this.$toaster.makeToast("warning", res.message); 
+      } else {
+      
+        this.$toaster.makeToast("success", "OTP verified successfully!");
+        // this.$router.push("/app/myDesk/users");
+        window.location.reload();
+      }
+      this.loader = false;
+    })
+    .catch((error) => {
+      // Handle API call error
+      this.$toaster.makeToast("warning", "An error occurred. Please try again.");
+      console.error("API Error:", error);
+      this.loader = false;
+    });
+},
     // validatePhone(event) {
     //   const value = event.target.value;
     //   // Only keep numeric characters
     //   this.phone = value.replace(/\D/g, '');
     // },
     showChild(childNumber) {
-      debugger;
+      // debugger;
    
       this.activeChild = childNumber;  
       
@@ -834,7 +927,7 @@ export default {
     },
 
     formSubmit() {
-    debugger;
+    // debugger;
     // this.login({ email: this.email, password: this.password });
     this.$store.commit("clearError");
     this.loader = true;
@@ -923,7 +1016,7 @@ setCookie(name, value, milliseconds) {
 
 
     signUpSubmit() {
-      debugger;
+      // debugger;
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
@@ -1014,46 +1107,48 @@ setCookie(name, value, milliseconds) {
       }
     },
     reset() {
-      this.loader = true;
-      var reqData = {
-        email: this.userEmail,
-      };
-      if (!this.userEmail) {
-        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+  this.loader = true;
+  var reqData = {
+    email: this.userEmail,
+  };
+  if (!this.userEmail) {
+    this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+    this.loader = false;
+    return;
+  }
+
+  this.$apiService
+    .postCall("auth/forget-password", reqData)
+    .then((res) => {
+      if (res.error) {
+        this.notFound = true;
+        this.$toaster.makeToast("warning", message.NOT_FOUND);
         this.loader = false;
         return;
+      } else {
+        this.$toaster.makeToast(
+          "success",
+          "Mail send successfully! check your mail"
+        );
+        this.notFound = false;
+        // Set otpSent to true to hide the email input and show the OTP input
+        this.otpSent = true;
+        // if (requestData) {
+        setTimeout(() => {
+          this.submitStatus = "OK";
+          this.$router.push("/app/sessions/signIn");
+        }, 3000);
+        // }
       }
+      this.loader = false;
+    })
+    .catch((error) => {
+      this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+      this.loader = false;
+      console.log(error);
+    });
+},
 
-      this.$apiService
-        .postCall("auth/forget-password", reqData)
-        .then((res) => {
-          if (res.error) {
-            this.notFound = true;
-            this.$toaster.makeToast("warning", message.NOT_FOUND);
-            this.loader = false;
-            return;
-          } else {
-            this.$toaster.makeToast(
-              "success",
-              "Mail send successfully! check your mail"
-            );
-            this.notFound = false;
-            // if (requestData) {
-            setTimeout(() => {
-              this.submitStatus = "OK";
-              this.$router.push("/app/sessions/signIn");
-            }, 3000);
-            // }
-          }
-          this.loader = false;
-          
-        })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-          console.log(error);
-        });
-    },
     makeToast(variant = null) {
       this.$bvToast.toast("Please fill the form correctly.", {
         title: `Variant ${variant || "default"}`,

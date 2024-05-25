@@ -1392,27 +1392,27 @@ export default {
         // this.submitStatus = "PENDING";
       }
     },
-    async getProfileDetails() {
-      try {
-        let response = await this.$apiService.getCall(`account/?id=${this.id}`);
+    // async getProfileDetails() {
+    //   try {
+    //     let response = await this.$apiService.getCall(`account/?id=${this.id}`);
 
-        let userData = response.apidata;
-        this.ueserFName = userData.first_name;
-        this.userlName = userData.last_name;
-        this.userFullName=this.ueserFName+" "+this.userlName;
-        console.log(this.userlName )
-        // this.form.address = userData.local_address;
-        // this.form.state = userData.state;
-        // this.form.city = userData.city;
-        // this.form.pin_code = userData.pin_code;
-        this.verified = userData.is_verified;
-        this.isOtp = userData.otp;
-        // Update images
-        this.userLogo = userData.image;
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    //     let userData = response.apidata;
+    //     this.ueserFName = userData.first_name;
+    //     this.userlName = userData.last_name;
+    //     this.userFullName=this.ueserFName+" "+this.userlName;
+    //     console.log(this.userlName )
+    //     // this.form.address = userData.local_address;
+    //     // this.form.state = userData.state;
+    //     // this.form.city = userData.city;
+    //     // this.form.pin_code = userData.pin_code;
+    //     this.verified = userData.is_verified;
+    //     this.isOtp = userData.otp;
+    //     // Update images
+    //     this.userLogo = userData.image;
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // },
     reset() {
       this.resetloader = true;
       var reqData = {

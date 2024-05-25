@@ -3013,34 +3013,34 @@ export default {
         });
     },
 
-    getProfileDetails() {
-      this.loader = true;
-      this.$apiService
-        .getCall(`account/?id=${this.userId}`)
-        .then((res) => {
-          if (!res.error) {
-            let userData = res.apidata;
-            this.fName = userData.first_name;
+    // getProfileDetails() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall(`account/?id=${this.userId}`)
+    //     .then((res) => {
+    //       if (!res.error) {
+    //         let userData = res.apidata;
+    //         this.fName = userData.first_name;
 
-            this.lName = userData.last_name;
+    //         this.lName = userData.last_name;
 
-            this.aadharImage = userData.aadhar_card;
+    //         this.aadharImage = userData.aadhar_card;
 
-            this.drivingLicenseImage = userData.driving_lincense;
+    //         this.drivingLicenseImage = userData.driving_lincense;
 
-            this.loader = false;
-          } else {
-            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          }
+    //         this.loader = false;
+    //       } else {
+    //         this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       }
 
-          this.loader = false;
-        })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.loader = false;
+    //     })
+    //     .catch((error) => {
+    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
 
-          this.loader = false;
-        });
-    },
+    //       this.loader = false;
+    //     });
+    // },
     // nextSlide() {
     //   this.currentIndex = (this.currentIndex + 1) % this.images.length;
     // },

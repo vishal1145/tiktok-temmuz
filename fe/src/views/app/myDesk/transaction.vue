@@ -721,48 +721,48 @@ export default {
           this.loader = false;
         });
     },
-    getAllUsers() {
-      this.loader = true;
-      this.$apiService
-        .getCall("account/")
-        .then((res) => {
-          let rowData = [];
+    // getAllUsers() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall("account/")
+    //     .then((res) => {
+    //       let rowData = [];
 
-          if (res.apidata.length > 0) {
-            rowData = res.apidata;
-            rowData = res.apidata.filter((value) => !value.is_superuser);
+    //       if (res.apidata.length > 0) {
+    //         rowData = res.apidata;
+    //         rowData = res.apidata.filter((value) => !value.is_superuser);
 
-            rowData = res.apidata.filter(
-              (value) => value.first_name !== null && value.last_name !== null
-            );
-            // rowData.forEach((element) => {
-            //   element.time = element.time
-            //     ? moment(element.time).format("DD/MM/YYYY")
-            //     : "";
-            // });
+    //         rowData = res.apidata.filter(
+    //           (value) => value.first_name !== null && value.last_name !== null
+    //         );
+    //         // rowData.forEach((element) => {
+    //         //   element.time = element.time
+    //         //     ? moment(element.time).format("DD/MM/YYYY")
+    //         //     : "";
+    //         // });
 
-            rowData.forEach((value) => {
-              // value.date_joined=value.date_joined?moment(value.date_joined).format("DD/MM/YYYY"):"";
-              value.full_name =
-                value.first_name || value.last_name
-                  ? value.first_name + " " + value.last_name
-                  : "";
-            });
-          }
-          this.allUsers = rowData.map((e) => e.full_name);
+    //         rowData.forEach((value) => {
+    //           // value.date_joined=value.date_joined?moment(value.date_joined).format("DD/MM/YYYY"):"";
+    //           value.full_name =
+    //             value.first_name || value.last_name
+    //               ? value.first_name + " " + value.last_name
+    //               : "";
+    //         });
+    //       }
+    //       this.allUsers = rowData.map((e) => e.full_name);
 
-          this.usersInfo = rowData.map((user) => ({
-            id: user.id,
-            fullName: user.full_name,
-          }));
+    //       this.usersInfo = rowData.map((user) => ({
+    //         id: user.id,
+    //         fullName: user.full_name,
+    //       }));
 
-          this.loader = false;
-        })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
-    },
+    //       this.loader = false;
+    //     })
+    //     .catch((error) => {
+    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.loader = false;
+    //     });
+    // },
     handleChange(user) {
       this.matchUser = this.usersInfo.find((e) => e.fullName == user);
 

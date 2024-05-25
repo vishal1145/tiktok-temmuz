@@ -1199,30 +1199,30 @@ export default {
           this.loader = false;
         });
     },
-    getProfileDetails() {
-      this.loader = true;
-      this.$apiService
-        .getCall(`account/?id=${this.userId}`)
-        .then((res) => {
-          if (!res.error) {
-            let userData = res.apidata;
-            this.formData.fName = userData.first_name;
+    // getProfileDetails() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall(`account/?id=${this.userId}`)
+    //     .then((res) => {
+    //       if (!res.error) {
+    //         let userData = res.apidata;
+    //         this.formData.fName = userData.first_name;
 
-            this.formData.lName = userData.last_name;
-            this.formData.aadharImage = userData.aadhar_card;
-            this.formData.drivingLicenseImage = userData.driving_lincense;
-            this.loader = false;
-          } else {
-            this.loader = false;
-            // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          }
-        })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //         this.formData.lName = userData.last_name;
+    //         this.formData.aadharImage = userData.aadhar_card;
+    //         this.formData.drivingLicenseImage = userData.driving_lincense;
+    //         this.loader = false;
+    //       } else {
+    //         this.loader = false;
+    //         // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
 
-          this.loader = false;
-        });
-    },
+    //       this.loader = false;
+    //     });
+    // },
     clickCancleBooking(book_id) {
       this.book_id = book_id;
       this.$bvModal.show("modal-cancelReason");

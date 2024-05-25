@@ -259,11 +259,11 @@ export default {
           this.loader = false;
         });
     },
-    getAllUsers() {
-      this.loader = true;
-      this.$apiService
-        .getCall(`account/?id=${this.userId}`)
-        .then((res) => {
+    // getAllUsers() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall(`account/?id=${this.userId}`)
+    //     .then((res) => {
           // console.log(res)
           //   let rowData = [];
 
@@ -281,25 +281,25 @@ export default {
           //           : "";
           //     });
           //   }
-          this.userName = res.apidata.first_name + " " + res.apidata.last_name;
-          this.emailPhone = res.apidata.email;
-          this.is_verified = res.apidata.is_verified;
-          this.phone = res.apidata.phone;
-          this.userimage = res.apidata.image;
-          this.aadharFront = res.apidata.aadhar_card;
-          this.aadharBack = res.apidata.back_aadhar_card;
-          this.divinglicense = res.apidata.driving_lincense;
-          this.divinglicenseBack = res.apidata.back_driving_lincense;
-          this.passportBack = res.apidata.back_passport;
-          this.passport = res.apidata.passport;
+    //       this.userName = res.apidata.first_name + " " + res.apidata.last_name;
+    //       this.emailPhone = res.apidata.email;
+    //       this.is_verified = res.apidata.is_verified;
+    //       this.phone = res.apidata.phone;
+    //       this.userimage = res.apidata.image;
+    //       this.aadharFront = res.apidata.aadhar_card;
+    //       this.aadharBack = res.apidata.back_aadhar_card;
+    //       this.divinglicense = res.apidata.driving_lincense;
+    //       this.divinglicenseBack = res.apidata.back_driving_lincense;
+    //       this.passportBack = res.apidata.back_passport;
+    //       this.passport = res.apidata.passport;
 
-          this.loader = false;
-        })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
-    },
+    //       this.loader = false;
+    //     })
+    //     .catch((error) => {
+    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.loader = false;
+    //     });
+    // },
     getAllCarBooking() {
       this.loader = true;
       let query = ``;
