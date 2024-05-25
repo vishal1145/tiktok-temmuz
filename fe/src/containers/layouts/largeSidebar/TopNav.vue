@@ -1468,14 +1468,31 @@ export default {
         solid: true,
       });
     },
+    // logoutUser() {
+    //   localStorage.removeItem("userInfo");
+    //   localStorage.removeItem("accesstoken");
+    //   this.$router.push("/app/sessions/signIn");
+    //   setTimeout(() => {
+    //     window.location.reload();
+    //   }, 500);
+    // },
+
     logoutUser() {
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("accesstoken");
-      this.$router.push("/app/sessions/signIn");
-      setTimeout(() => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("accesstoken");
+    this.$router.push("/app/sessions/signIn");
+
+  
+    this.deleteCookie("accesstoken");
+
+    setTimeout(() => {
         window.location.reload();
-      }, 500);
-    },
+    }, 500);
+},
+
+deleteCookie(name) {
+    document.cookie = name + '=; Max-Age=0; path=/;';
+},
 
     hideDropdown() {
       // Hide the dropdown manually

@@ -152,7 +152,7 @@
               <h3 class="mb-1 hw">Welcome to Temmuz! 👋</h3>
               <p class="mb-3 pw">Please sign-in to your account and start the adventure</p>
               <b-form @submit.prevent="formSubmit" id="firstForm">
-                <b-form-group :label="$t('Email Address')" class="text-12 pw">
+                <b-form-group :label="$t('User Name')" class="text-12 pw">
                   <b-form-input
                     class="form-control-rounded pw"
                     type="text"
@@ -268,7 +268,7 @@
                     class="form-control form-control-rounded pw"
                     :label="$t('User Name')"
                     v-model="user_name"
-                    maxlength="10"
+                    maxlength="20"
                   ></b-form-input>
                 </b-form-group>   <b-form-group class="pw" :label="$t('Email')">
                   <b-form-input
@@ -281,13 +281,26 @@
                 </b-form-group>
               <b-form @submit.prevent="signUpSubmit" id="secondForm">
                 <b-form-group  class="pw" :label="$t('Phone')">
-                  <b-form-input
+                  <!-- <b-form-input
+  class="form-control form-control-rounded"
+  :label="$t('Phone')"
+  type="tel"
+  :value="phone"
+  maxlength="10"
+  @input="validatePhone"
+/> -->
+
+<input
+                    type="number"
                     class="form-control form-control-rounded"
-                    :label="$t('Phone')"
-                    type="tel"
+
+                    id="currentaddress1"
                     v-model="phone"
-                    maxlength="10"
-                  ></b-form-input>
+                    @input="enforceMaxLength"
+                   
+                    placeholder="Mobile Number"
+                  />
+
 
                  
                 </b-form-group>
@@ -749,6 +762,21 @@ export default {
     //   this.$router.push("/");
     // },
 
+    enforceMaxLength() {
+      const inputString = this.phone.toString();
+      const cleanedInput = inputString.replace(/^0+|[^0-9]+/g, "");
+
+      if (cleanedInput.length > 10) {
+        this.phone = parseInt(cleanedInput.slice(0, 10), 10);
+      } else {
+        this.phone = parseInt(cleanedInput, 10);
+      }
+    },
+    // validatePhone(event) {
+    //   const value = event.target.value;
+    //   // Only keep numeric characters
+    //   this.phone = value.replace(/\D/g, '');
+    // },
     showChild(childNumber) {
       debugger;
    
@@ -851,9 +879,9 @@ export default {
                 this.makeToast("success", "Successfully Logged In");
                 this.$bvModal.hide("modal-signIn");
 
-                // Check if "Remember Me" checkbox is checked
+                
                 const rememberMeChecked = document.getElementById("remember-me").checked;
-                // Set expiry time accordingly
+              
                 const expiryTime = rememberMeChecked ? 30 * 24 * 60 * 60 * 1000 : 1 * 60 * 60 * 1000;
 
                 setTimeout(() => {
@@ -900,7 +928,7 @@ setCookie(name, value, milliseconds) {
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
       } else {
-        this.isLoading = true;
+        this.loader = true;
         // this.$store.commit("setLoading", true);
         // this.$store.commit("clearError");
         const requestData = {
@@ -931,7 +959,7 @@ setCookie(name, value, milliseconds) {
               localStorage.setItem("accesstoken", user.apidata.access_token);
               const newUser = { data: user.apidata.data };
               localStorage.setItem("userInfo", JSON.stringify(newUser));
-              this.isLoading = false;
+              this.loader = false;
               return;
             }
             if (
@@ -940,14 +968,14 @@ setCookie(name, value, milliseconds) {
             ) {
               console.log("eror", user.error.response.data.email);
               this.$toaster.makeToast("warning", "User email already exists");
-              this.isLoading = false;
+              this.loader = false;
               return;
             } else if (
               user.error.response.data.phone ==
               "user with this phone already exists."
             ) {
               this.$toaster.makeToast("warning", "User phone already exists");
-              this.isLoading = false;
+              this.loader = false;
               return;
             }
             // else {
@@ -974,7 +1002,7 @@ setCookie(name, value, milliseconds) {
             // this.alertShow = true;
           })
           .catch((error) => {
-            this.isLoading = false;
+            this.loader = false;
             // this.$store.commit("setLoading", false);
             localStorage.removeItem("userInfo");
             this.$store.commit("setError", { message: error });
@@ -997,7 +1025,7 @@ setCookie(name, value, milliseconds) {
       }
 
       this.$apiService
-        .postCall("forgetPassword/", reqData)
+        .postCall("auth/forget-password", reqData)
         .then((res) => {
           if (res.error) {
             this.notFound = true;
