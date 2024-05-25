@@ -32,6 +32,20 @@ exports.updatePublisherStatus = async (id, data) => {
     return false;
   }
 }
+exports.updatePublisher = async (id, data) => {
+  try {
+    await PublisherModel.findByIdAndUpdate(id, {
+      $set: {
+        contact_number: data.contact_number,
+        agency_center_code: data.agency_center_code,
+        icon: data.icon
+      },
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 exports.deletePublisher = async (id) => {
   const publisher = await PublisherModel.findById(id);

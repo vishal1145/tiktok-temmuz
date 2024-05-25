@@ -39,11 +39,9 @@ exports.forgetPassword = async ({ email }) => {
 exports.verifyOtp = async (data) => {
     try {
         const User = await UserModel.findOne({ email: data.email });
-        const password = await decrypt(data.password);
 
         if (User.otp == data.otp) {
-            await UserModel.updateOne({ email: User.email }, { $set: { password: password } });
-            return ({ Message: "Password Changed" })
+            return ({ success: true })
         } else {
             throw new Error({ Message: "Otp Invalid" })
         }
@@ -62,3 +60,20 @@ exports.checkUserName = async (data) => {
     } catch (err) {
     }
 }
+
+exports.getUserById = async (_id) => {
+    const user = UserModel.findById(_id);
+    return user;
+}
+
+exports.updatePassword = async (data) => {
+    const password = data.newPassword;
+    const user = await UserModel.findOne({email: data.email });
+    if (user) {
+        const newPassword = await decrypt(password);
+        await UserModel.findByIdAndUpdate(user._id, {
+          $set: { password: newPassword },
+        });
+        return true;
+    } else return false;
+  };
