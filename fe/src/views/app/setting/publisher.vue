@@ -12,44 +12,46 @@
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">{{
-        isEdit ? 'Edit publisher' : 'Add publisher'
-      }}</label>
+      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Add publisher
+      </label>
       <b-row class="px-3">
         <b-col md="12">
           <b-form-group label="Enter publisher name" label-for="input-title">
-            <b-form-textarea
+            <b-form-input
               v-model="publisherName"
               required
               placeholder="Enter name"
               style="height: 34px"
               type="text"
               id="input-name"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="12">
           <b-form-group label="Contact number" label-for="input-title">
-            <b-form-textarea
+            <b-form-input
               v-model="phoneNumber"
               required
               placeholder="Phone number"
               style="height: 34px"
               type="number"
+              @keydown="checkLength"
               id="input-phoneNumber"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="12">
           <b-form-group label="Agency center code" label-for="input-title">
-            <b-form-textarea
+            <b-form-input
               v-model="centerCode"
               required
               placeholder="Agency center code"
               style="height: 34px"
               type="number"
+              @keydown="checkLengthCode"
               id="input-agency"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="6">
@@ -217,7 +219,11 @@
 
     <div>
       <!-- Add New FAQ modal -->
-      <button v-if="role != 'Admin'"  @click="showAddModal = true" class="btn btn-primary mb-3">
+      <button
+        v-if="role != 'admin'"
+        @click="showAddModal = true"
+        class="btn btn-primary mb-3"
+      >
         <!-- -->
         Add New
       </button>
@@ -231,19 +237,35 @@
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'actions'">
-              <span v-if="role != 'Admin'"  @click="clickEdit(props.row)" class="btn mr-2"
-                ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
-              ></span>
-              <!-- v-if="role != 'Admin'" -->
-              <span v-if="role != 'Admin'"  @click="clickDelete(props.row)" class="btn"
-                ><i class="fa fa-trash" aria-hidden="true"></i
-              ></span>
-              <div class="d-flex" v-if="role == 'Admin'" >
+              <div
+                v-if="
+                  role == 'user' &&
+                  props.row.status != 'Approved' &&
+                  props.row.status != 'Rejected'
+                "
+              >
+                <span @click="clickEdit(props.row)" class="btn mr-2"
+                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                ></span>
+
+                <span @click="clickDelete(props.row)" class="btn"
+                  ><i class="fa fa-trash" aria-hidden="true"></i
+                ></span>
+              </div>
+
+              <div
+                class="d-flex"
+                v-if="
+                  role == 'admin' &&
+                  props.row.status != 'Approved' &&
+                  props.row.status != 'Rejected'
+                "
+              >
                 <div
                   class="btn border mr-2 bg-success text-white"
                   @click="clickAccept(props.row._id)"
                 >
-                  Accept
+                  Approve
                 </div>
                 <div
                   class="btn border bg-danger text-white"
@@ -358,25 +380,46 @@ export default {
       console.log('No access token found in local storage')
     }
     this.fetchPublisher()
-
-    this.addCssRule()
   },
   methods: {
+    checkLength (event) {
+      if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    checkLengthCode (event) {
+      if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
     async fetchPublisher () {
       this.loader = true
       try {
+        var url = "";
+
+        // if (this.role == 'admin') {
+        //    url = "publisher/get-all";
+        // } else {
+        //   url = "user/get-all-users-publishers";
+        // }
+
+        url = "publisher/get-all";
+
         const response = await new Promise((resolve, reject) => {
           this.$apiService
-            .getCall('publisher/get-all/')
+            .getCall(url)
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-        // const response = this.$apiService.getCall('publisher/get-all/')
-        console.log(response)
+
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
-          this.faqs = response.apidata.data
+          // this.faqs = response.apidata.data;
+
+          this.faqs = response.apidata.data;
+          
+         // this.faqs = this.faqs.filter(e => e._id == this.user_id)
 
           // this.$toaster.makeToast('success', 'publisher data get successfully');
         }
@@ -471,7 +514,7 @@ export default {
     async clickAccept (id) {
       try {
         var req = {
-          status: 'Accepted'
+          status: 'Approved'
         }
 
         const res = await this.$apiService.postCall(
@@ -484,7 +527,7 @@ export default {
           this.$toaster.makeToast('warning', res.message)
         } else {
           this.loader = false
-          this.$toaster.makeToast('success', 'Status Accepted successfully')
+          this.$toaster.makeToast('success', 'Status Approved successfully')
           this.fetchPublisher()
         }
       } catch (error) {
@@ -707,7 +750,11 @@ export default {
       const style = document.createElement('style')
       style.type = 'text/css'
       const cssRule =
-        '#modal-add___BV_modal_content_{' + '  right: 0em !important;' + '}'
+        '#modal-add .modal-content,' +
+        '#modal-add___BV_modal_content_ .modal-content {' +
+        '  padding: 1em !important;' +
+        '}'
+
       style.appendChild(document.createTextNode(cssRule))
       document.head.appendChild(style)
     }
