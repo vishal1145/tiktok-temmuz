@@ -1,25 +1,13 @@
 <template>
   <div>
-
     <b-col md="12 mb-30">
       <b-card :title="isEdit ? 'Edit publisher' : 'Add publisher'">
         <hr class="my-2" />
-      
 
-         
-
-         
-
-       
-
-         
-
-        
-
-          <b-row>
-            <b-col md="6">
- <b-form-group
-              class=" mb-3"
+        <b-row>
+          <b-col md="6">
+            <b-form-group
+              class="mb-3"
               label="Contact Number"
               label-for="input-2"
             >
@@ -30,9 +18,9 @@
                 placeholder="Number"
               ></b-form-input>
             </b-form-group>
-            </b-col>
-            <b-col md="6">
-<b-form-group
+          </b-col>
+          <b-col md="6">
+            <b-form-group
               class="mb-3"
               label="Agency center code"
               label-for="input-2"
@@ -44,91 +32,78 @@
                 placeholder="Agency center code"
               ></b-form-input>
             </b-form-group>
-            </b-col>
-           
-          </b-row>
-
-        
-       
-
-           <b-row>
-            <b-form-group
-              class="col-md-6 mb-3"
-              label="Select Images"
-              label-for="input-images"
-            >
-              <b-form-file
-                v-model="images"
-                @input="handleImageSelection"
-                placeholder="Choose files or drop them here"
-                drop-placeholder="Drop files here..."
-                multiple
-              ></b-form-file>
-            </b-form-group>
-          </b-row>
-
-          <div class="display_row">
-            <div v-for="(image, index) in imageURLs" :key="index" class="mb-3">
-              <div @click="removeImage(index)" class="remove-icon">&times;</div>
-              <img :src="image" alt="Selected Image" class="img-fluid" />
-            </div>
-          </div>
-         
-
-        
-
-        
-
-         
-
-          <b-col md="12" class="padding-none">
-            <b-button
-              class="mt-3"
-              type="button"
-              variant="primary"
-              @click="saveData()"
-              >Submit</b-button
-            >
           </b-col>
-     
+        </b-row>
+
+        <b-row>
+          <b-form-group
+            class="col-md-6 mb-3"
+            label="Select Images"
+            label-for="input-images"
+          >
+            <b-form-file
+              v-model="images"
+              @input="handleImageSelection"
+              placeholder="Choose files or drop them here"
+              drop-placeholder="Drop files here..."
+              multiple
+            ></b-form-file>
+          </b-form-group>
+        </b-row>
+
+        <div class="display_row">
+          <div v-for="(image, index) in imageURLs" :key="index" class="mb-3">
+            <div @click="removeImage(index)" class="remove-icon">&times;</div>
+            <img :src="image" alt="Selected Image" class="img-fluid" />
+          </div>
+        </div>
+
+        <b-col md="12" class="padding-none">
+          <b-button
+            class="mt-3"
+            type="button"
+            variant="primary"
+            @click="saveData()"
+            >Submit</b-button
+          >
+        </b-col>
       </b-card>
     </b-col>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
   </div>
 </template>
 <script>
-
 export default {
-  data() {
-        return {
-            agencyCode: '',
-        phoneNumber:'',
+  data () {
+    return {
+      agencyCode: '',
+      phoneNumber: '',
       selectedColors: null,
       colors: [],
       labelData: [],
-      currentDate: new Date().toISOString().split("T")[0],
+      currentDate: new Date().toISOString().split('T')[0],
       brandType: [],
       images: [],
       imageURLs: [],
-      registration_number: "",
+      registration_number: '',
       brand: null,
       isAlphanumeric: true,
-      carFeatures: "",
+      carFeatures: '',
       carFeaturesOptions: [],
       filteredBrandType: [],
       car_features: {},
       errorMessage: null,
       model: null,
-      seating_capacity: "",
+      seating_capacity: '',
       seatingCapacityOptions: [4, 5, 6, 7, 8],
-      agreement_policy: "",
-      cancellation_policy: "",
-      about_car: "",
+      agreement_policy: '',
+      cancellation_policy: '',
+      about_car: '',
       apiId: null,
       transmission_type: null,
       color: null,
       isEdit: false,
-      companyId: "",
+      companyId: '',
       loader: false,
       body_type: null,
       fuel_type: null,
@@ -137,17 +112,17 @@ export default {
       label: null,
       registration_month: null,
       registration_year: null,
-      description: "",
-      price: "",
-      meter_reading: "",
-      allowed_day: "",
-      excess_charges: "",
-      service_Date: null,
-    };
+      description: '',
+      price: '',
+      meter_reading: '',
+      allowed_day: '',
+      excess_charges: '',
+      service_Date: null
+    }
   },
 
-  mounted() {
-    this.fetchBodyTypes();
+  mounted () {
+    this.fetchBodyTypes()
   },
 
   // watch: {
@@ -156,8 +131,8 @@ export default {
   //     deep: true,
   //   },
   // },
-  created() {
-    this.companyId = this.$route.query.id;
+  created () {
+    this.companyId = this.$route.query.id
     // if (localStorage.getItem("filteredBrandType")) {
     //   this.filteredBrandType = JSON.parse(
     //     localStorage.getItem("filteredBrandType")
@@ -165,21 +140,21 @@ export default {
     // }
 
     if (this.companyId) {
-      this.isEdit = true;
-      this.getCarDetails();
+      this.isEdit = true
+      this.getCarDetails()
     }
   },
   methods: {
-    onModalSelect(option) {
-      var mid = (this.modelTypes || []).find((key) => key.value == option).id;
+    onModalSelect (option) {
+      var mid = (this.modelTypes || []).find(key => key.value == option).id
       this.brandType = (this.allBrandType || []).filter(
-        (key) => key.master_id == mid
-      );
+        key => key.master_id == mid
+      )
       // localStorage.setItem("filteredBrandType", JSON.stringify(this.brandType));
     },
-    selectColor(color, i) {
-      this.selectedColors = color;
-      this.color = color;
+    selectColor (color, i) {
+      this.selectedColors = color
+      this.color = color
 
       // console.log(this.selectedColors)
     },
@@ -196,124 +171,113 @@ export default {
     //     this.imageURLs.push(url);
     //   }
     // },
-    validateInput() {
-      const hasLetter = /[a-zA-Z]/.test(this.registration_number);
-      const hasNumber = /[0-9]/.test(this.registration_number);
-      this.isAlphanumeric = hasLetter && hasNumber;
+    validateInput () {
+      const hasLetter = /[a-zA-Z]/.test(this.registration_number)
+      const hasNumber = /[0-9]/.test(this.registration_number)
+      this.isAlphanumeric = hasLetter && hasNumber
     },
-    async getImageURL(image) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
+    async getImageURL (image) {
+      return new Promise(resolve => {
+        const reader = new FileReader()
 
         reader.onload = () => {
-          resolve(reader.result);
-        };
+          resolve(reader.result)
+        }
 
         if (image) {
-          reader.readAsDataURL(image);
+          reader.readAsDataURL(image)
         }
-      });
+      })
     },
-    removeImage(index) {
-      this.imageURLs.splice(index, 1);
+    removeImage (index) {
+      this.imageURLs.splice(index, 1)
     },
-    async fetchBodyTypes() {
+    async fetchBodyTypes () {
       try {
-        const response = await this.$apiService.getCall("bodyType");
+        const response = await this.$apiService.getCall('bodyType')
 
         this.bodyTypes = (response.apidata || []).filter(
-          (key) => key.type == "body type"
-        );
+          key => key.type == 'body type'
+        )
         this.fuelTypes = (response.apidata || []).filter(
-          (key) => key.type == "fuel type"
-        );
+          key => key.type == 'fuel type'
+        )
         this.modelTypes = (response.apidata || []).filter(
-          (key) => key.type == "model"
-        );
+          key => key.type == 'model'
+        )
 
         this.makeYear = (response.apidata || []).filter(
-          (key) => key.type == "make year"
-        );
+          key => key.type == 'make year'
+        )
         this.colors = (response.apidata || []).filter(
-          (key) => key.type == "color"
-        );
+          key => key.type == 'color'
+        )
         this.labelData = (response.apidata || []).filter(
-          (key) => key.type == "label"
-        );
+          key => key.type == 'label'
+        )
 
         this.resMonth = (response.apidata || []).filter(
-          (key) => key.type == "registration_month"
-        );
+          key => key.type == 'registration_month'
+        )
         this.resYear = (response.apidata || []).filter(
-          (key) => key.type == "registration_year"
-        );
+          key => key.type == 'registration_year'
+        )
 
         this.allBrandType = (response.apidata || []).filter(
-          (key) => key.type == "brand"
-        );
+          key => key.type == 'brand'
+        )
         this.carFeaturesOptions = (response.apidata || []).filter(
-          (key) => key.type == "car features"
-        );
+          key => key.type == 'car features'
+        )
         this.transmissionType = (response.apidata || []).filter(
-          (key) => key.type == "transmission type"
-        );
+          key => key.type == 'transmission type'
+        )
       } catch (error) {
-        console.error("Error fetching body types:", error);
+        console.error('Error fetching body types:', error)
       }
     },
-    async saveData() {
-      if (
-        !this.images ||
-        !this.phoneNumber ||
-        !this.agencyCode
-        
-      ) {
+    async saveData () {
+      if (!this.images || !this.phoneNumber || !this.agencyCode) {
         this.$toaster.makeToast(
-          "warning",
-          "Please fill in all the required fields"
-        );
-        setTimeout(() => (this.errorMessage = ""), 2000);
-        return;
+          'warning',
+          'Please fill in all the required fields'
+        )
+        setTimeout(() => (this.errorMessage = ''), 2000)
+        return
       }
 
-      this.loader = false;
+      this.loader = false
 
       if (this.isEdit) {
-        this.updateCarDetails();
+        this.updateCarDetails()
       } else {
         try {
           //const imageUrls = await this.uploadImages();
           let requestData = {
-            "user_name": this.model,
-            "contact_number": this.phoneNumber,
-            "agency_center_code": this.agencyCode,
-            "icon": this.seating_capacity,
-            "userId": this.registration_number,
-            
-            
-          };
+            user_name: this.model,
+            contact_number: this.phoneNumber,
+            agency_center_code: this.agencyCode,
+            icon: this.seating_capacity,
+            userId: this.registration_number
+          }
 
           // Assuming you want to make a POST request
           const res = await this.$apiService.postCall(
-            "publisher/create/",
+            'publisher/create/',
             requestData
-          );
+          )
 
-          this.loader = true;
+          this.loader = true
 
           if (res.error) {
-            this.$toaster.makeToast("warning", "Data already exists");
-          
+            this.$toaster.makeToast('warning', 'Data already exists')
           } else {
-            this.$toaster.makeToast(
-              "success",
-              "Car details added successfully"
-            );
-            this.$router.push("cars");
+            this.$toaster.makeToast('success', 'Car details added successfully')
+            this.$router.push('cars')
           }
         } catch (error) {
-          this.loader = false;
-          console.error(error);
+          this.loader = false
+          console.error(error)
         }
       }
     },
@@ -323,80 +287,76 @@ export default {
     //   return Promise.all(prs);
     // },
 
-      async handleImageSelection(image) {
-         console.log("Image upload failed");
-     console.log("Image upload failed",this.images);
-        try {
-          const formData = new FormData();
-          formData.append("image", image);
-
-          const response = this.$apiService.postCall(
-            "util/image/",
-            formData
-          );
-  console.log("Image upload failed",response);
-          if (response.apidata ) {
-  console.log("Image upload failed");
-          } else {
-            console.log("Image upload failed");
-          }
-        } catch (error) {
-            confirm.log(error);
-        }
-     
-    },
-    async getCarDetails() {
+    async handleImageSelection (image) {
+      console.log('Image upload failed')
+      console.log('Image upload failed', this.images)
       try {
-        this.loader = true;
+        const formData = new FormData()
+        formData.append('image', image)
+
+        const response = this.$apiService.postCall('util/image/', formData)
+        console.log('Image upload failed', response)
+        if (response.apidata) {
+          console.log('Image upload failed')
+        } else {
+          console.log('Image upload failed')
+        }
+      } catch (error) {
+        confirm.log(error)
+      }
+    },
+    async getCarDetails () {
+      try {
+        this.loader = true
         let response = await this.$apiService.getCall(
           `carsAPIView/?id=${this.companyId}`
-        );
-        this.model = response.apidata.model;
-        this.make = response.apidata.make;
-        this.label = response.apidata.car_label;
-        this.seating_capacity = response.apidata.seating_capacity;
-        (this.registration_number = response.apidata.registration_number),
-          (this.body_type = response.apidata.body_type);
-        this.brand = response.apidata.brand;
-        this.registration_month = response.apidata.registration_month;
-        this.registration_year = response.apidata.registration_year;
-        this.fuel_type = response.apidata.fuel_type;
-        this.transmission_type = response.apidata.transmission_type;
-        this.color = response.apidata.color_code;
-        this.power = response.apidata.power;
-        this.filteredBrandType = [response.apidata.brand];
-        
-        this.car_features = JSON.parse(response.apidata.car_features);
+        )
+        this.model = response.apidata.model
+        this.make = response.apidata.make
+        this.label = response.apidata.car_label
+        this.seating_capacity = response.apidata.seating_capacity
+        ;(this.registration_number = response.apidata.registration_number),
+          (this.body_type = response.apidata.body_type)
+        this.brand = response.apidata.brand
+        this.registration_month = response.apidata.registration_month
+        this.registration_year = response.apidata.registration_year
+        this.fuel_type = response.apidata.fuel_type
+        this.transmission_type = response.apidata.transmission_type
+        this.color = response.apidata.color_code
+        this.power = response.apidata.power
+        this.filteredBrandType = [response.apidata.brand]
+
+        this.car_features = JSON.parse(response.apidata.car_features)
         // this.car_pickup_location = response.apidata.car_pickup_location;
         if (
           response.apidata.images &&
-          typeof response.apidata.images === "string"
+          typeof response.apidata.images === 'string'
         ) {
           // Parse the stringified JSON array and extract the image URLs
-          this.imageURLs = JSON.parse(response.apidata.images);
+          this.imageURLs = JSON.parse(response.apidata.images)
         } else {
-          console.error("Images data is not in the expected format");
+          console.error('Images data is not in the expected format')
 
           // Optionally, handle this case by setting a default value for imageURLs or displaying a message to the user
         }
-        this.description = response.apidata.description;
-        (this.price = response.apidata.price),
+        this.description = response.apidata.description
+        ;(this.price = response.apidata.price),
           (this.meter_reading = response.apidata.meter_reading),
           (this.allowed_day = response.apidata.allowed_km_per_day),
           (this.excess_charges = response.apidata.excess_KM_charges),
-          (this.service_Date = response.apidata.service_Date);
-        this.about_car = response.apidata.about_car;
-        this.agreement_policy = response.apidata.agreement_policy;
-        this.cancellation_policy = response.apidata.cancellation_policy;
+          (this.service_Date = response.apidata.service_Date)
+        this.about_car = response.apidata.about_car
+        this.agreement_policy = response.apidata.agreement_policy
+        this.cancellation_policy = response.apidata.cancellation_policy
         // this.textareaValue = response.apidata.company_Id;
-        this.loader = false;
+        this.loader = false
       } catch (error) {
-        this.loader = false;
-        console.log(error);
+        this.loader = false
+        console.log(error)
       }
     },
-    async updateCarDetails() {
-      this.loader = false;
+    async updateCarDetails () {
+      this.loader = false
       let updateObj = {
         model: this.model,
         make: this.make,
@@ -421,8 +381,8 @@ export default {
         allowed_km_per_day: this.allowed_day,
         excess_KM_charges: this.excess_charges,
         agreement_policy: this.agreement_policy,
-        cancellation_policy: this.cancellation_policy,
-      };
+        cancellation_policy: this.cancellation_policy
+      }
 
       // if (this.images.length > 0) {
       //   const newImageUrls = await this.uploadImages();
@@ -431,25 +391,25 @@ export default {
       //   updateObj.images = JSON.stringify(allImageUrls);
       // } else {
       // No new images uploaded, use existing image URLs
-      updateObj.images = JSON.stringify(this.imageURLs);
+      updateObj.images = JSON.stringify(this.imageURLs)
       //}
 
       try {
         const res = await this.$apiService.putCall(
           `carsAPIView/${this.companyId}`,
           updateObj
-        );
+        )
 
-        this.loader = true;
-        this.$toaster.makeToast("success", "Car details updated successfully");
+        this.loader = true
+        this.$toaster.makeToast('success', 'Car details updated successfully')
 
-        this.$router.push("cars");
+        this.$router.push('cars')
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>
