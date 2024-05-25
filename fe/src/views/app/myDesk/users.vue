@@ -18,7 +18,7 @@
       }}</label>
       <b-row class="px-3">
     
-            <b-form-textarea
+            <!-- <b-form-textarea
               v-model="description"
               required
               placeholder="Description"
