@@ -6,7 +6,8 @@ const publishSchema = new mongoose.Schema({
   agency_center_code: { type: String },
   icon: { type: String},
   user_id: { type: mongoose.Types.ObjectId, ref: "user" },
-  status: {type: String, default: 'Under Review'}
+  status: {type: String, default: 'Under Review'},
+  reason: {type: String, default: null}
 })
 
 module.exports = mongoose.model("publish", publishSchema);

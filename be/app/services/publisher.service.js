@@ -25,6 +25,7 @@ exports.updatePublisherStatus = async (id, data) => {
     await PublisherModel.findByIdAndUpdate(id, {
       $set: {
         status: data.status,
+        reason: data.reason
       },
     });
     return true;
