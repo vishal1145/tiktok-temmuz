@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="font-weight-bold fa-2x text-light">Publisher</div>
+    <div class="font-weight-bold fa-2x text-light">Creators</div>
     <hr class="mt-1" />
     <b-modal
       v-model="showAddModal"
@@ -13,7 +13,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Add publisher
+        Add  Creators
       </label>
       <b-row class="px-3">
         <b-col md="12">

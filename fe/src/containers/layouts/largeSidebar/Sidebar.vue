@@ -91,14 +91,71 @@
               <a class="nav-item-hold nav-item" href="#">
                 <i class="nav-icon i-Administrator"></i>
                
-                <span class="nav-text">{{ $t("Users") }}</span>
+                <span class="nav-text">{{ $t("Members") }}</span>
               </a>
 
               <div class="triangle"></div>
             </router-link>
           </li> 
 
-          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+
+             <!-- home-page - User -->
+        <li v-if="isAdmin === 'user' "
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/homepage') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/homepage">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Administrator"></i>
+              <span class="nav-text">{{ $t("Home Page") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
+         <!-- home-page - User -->
+         <li v-if="isAdmin === 'admin' "
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/Setting') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/Setting">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Administrator"></i>
+              <span class="nav-text">{{ $t("Setting") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+ <!-- information- User -->
+
+
+
+
+
+ <!-- information- User -->
+        <li v-if="isAdmin === 'user' "
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/myinformation') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/myinformation">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Clock-3"></i>
+              <span class="nav-text">{{ $t("My Information") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+         <!-- creaters -->
+         <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/publisher') }"
             class="nav-item"
@@ -107,12 +164,52 @@
         >
           <router-link tag="a" class to="/app/setting/publisher">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Big-Data"></i>
-              <span class="nav-text">{{ $t("Publisher") }}</span>
+              <i class="nav-icon i-Library"></i>
+              <span class="nav-text">{{ $t("Creators") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>
         </li>
+        
+         <!-- information- User -->
+
+        <li v-if="isAdmin === 'user'"
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/earnings') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/earnings">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Big-Data"></i>
+              <span class="nav-text">{{ $t("Earnings") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+         <!-- earning- User -->
+
+ 
+        <li v-if="isAdmin === 'user'"
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/statistics') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/statistics">
+            <a class="nav-item-hold nav-item" href="#">
+          
+              <i class="nav-icon i-Data-Transfer"></i>
+
+              <span class="nav-text">{{ $t("Statistics") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
+         <!-- statics- User -->
 
         
         <li v-if="isHide"
@@ -124,7 +221,7 @@
         >
           <router-link tag="a" class to="/app/profiledata/profile">
             <a class="nav-item-hold" href="#">
-              <i class="nav-icon i-Drop"></i>
+              <i class="nav-icon i-Library"></i>
               <span class="nav-text">{{ $t("Profile") }}</span>
             </a>
             <div class="triangle"></div>

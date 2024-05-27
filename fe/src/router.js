@@ -205,6 +205,29 @@ const routes = [
             component: () => import("./views/app/setting/publisher"),
           },
           {
+            path: "Setting",
+            name: "Setting",
+            component: () => import("./views/app/setting/Setting"),
+          },
+          {
+            path: "homepage",
+            name: "homepage",
+            component: () => import("./views/app/setting/homepage"),
+          }, 
+          {
+            path: "myinformation",
+            name: "myinformation",
+            component: () => import("./views/app/setting/myinformation"),
+          }, {
+            path: "earnings",
+            name: "earnings",
+            component: () => import("./views/app/setting/earnings"),
+          }, {
+            path: "statistics",
+            name: "statistics",
+            component: () => import("./views/app/setting/statistics"),
+          },
+          {
             path: "documents",
             name: "documents",
             component: () => import("./views/app/setting/documents"),

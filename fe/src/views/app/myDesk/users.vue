@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <div class="font-weight-bold fa-2x text-light">Users</div>
+    <div class="font-weight-bold fa-2x text-light">Members</div>
     <hr class="mt-1" />  
 
     <b-modal
