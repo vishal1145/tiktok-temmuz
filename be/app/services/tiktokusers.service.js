@@ -1,8 +1,5 @@
 const tiktokUsersModel = require("../models/tiktokusers.model");
 const otpGenerator = require("otp-generator");
-const twilio = require('twilio');
-const config = require('../config/twilioConfig');
-const client = new twilio(config.accountSid, config.authToken);
 
 exports.tiktokLogin = async (body) => {
   const isExists = await tiktokUsersModel.findOne({contact_number: body.contact_number });
