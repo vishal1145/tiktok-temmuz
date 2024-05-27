@@ -1,5 +1,5 @@
 <template>
-  <div class="main-div d-flex flex-row justify-content-between">
+  <div class="main-div d-flex flex-row justify-content-between overflow-hidden">
     <!-- :style="{ backgroundImage: 'url(' + bgImage + ')' }" -->
     <!-- <top-nav></top-nav> -->
     <!-- <nav class="navbar container-fluid for-nav">
@@ -702,6 +702,7 @@ export default {
   },
   data() {
     return {
+      otpVerified:false,
       otpSent: false,
       dateRange: {
         startDate: new Date(),
@@ -828,19 +829,15 @@ export default {
       }
     },
 
-
     verifyOtp() {
-      debugger;
+  debugger;
   this.loader = true;
   var reqData = {
     email: this.userEmail,
-    password: this.password, 
     otp: this.otp,
   };
 
- 
-  
-  if (!this.userEmail || !this.password || !this.otp) {
+  if (!this.userEmail || !this.otp) {
     this.$toaster.makeToast("warning", "Please fill in all fields.");
     this.loader = false;
     return;
@@ -850,20 +847,51 @@ export default {
     .postCall("auth/verify-otp", reqData)
     .then((user) => {
       if (user.error) {
-        this.$toaster.makeToast("warning",  "Please enter a valid OTP."); 
+        this.$toaster.makeToast("warning", "Please enter a valid OTP.");
       } else {
-        if ( user.error.response.data.message === "Otp Invalid") {
-          this.$toaster.makeToast("warning", "Please enter a valid OTP.");
-        } else {
-          this.$toaster.makeToast("success", "OTP verified successfully!");
-          // this.$router.push("/app/myDesk/users");
-          window.location.reload();
-        }
+        this.$toaster.makeToast("success", "OTP verified successfully!");
+        this.otpVerified = true;
       }
       this.loader = false;
     })
     .catch((error) => {
       // Handle API call error
+      this.$toaster.makeToast("warning", "An error occurred. Please try again.");
+      console.error("API Error:", error);
+      this.loader = false;
+    });
+}
+
+,
+
+updatePassword() {
+  debugger;
+  this.loader = true;
+  var reqData = {
+    email: this.userEmail,
+    new_password: this.newPassword,
+  };
+
+  if (!this.newPassword) {
+    this.$toaster.makeToast("warning", "Please fill in all fields.");
+    this.loader = false;
+    return;
+  }
+
+  this.$apiService
+    .postCall("auth/update-password", reqData)
+    .then((user) => {
+      this.$toaster.makeToast("success", "Password is successfully updated!");
+
+      this.loader = false;
+
+    
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    })
+    .catch((error) => {
+    
       this.$toaster.makeToast("warning", "An error occurred. Please try again.");
       console.error("API Error:", error);
       this.loader = false;
