@@ -82,13 +82,13 @@
 
           <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-            :class="{ active: selectedParentMenu == 'users' }"
+            :class="{ active: isActive('/app/mydesk/users') }"
             class="nav-item"
             data-item="users"
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/users">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold nav-item" href="#">
                 <i class="nav-icon i-Administrator"></i>
                
                 <span class="nav-text">{{ $t("Users") }}</span>
@@ -96,7 +96,40 @@
 
               <div class="triangle"></div>
             </router-link>
-          </li>
+          </li> 
+
+          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/publisher') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/publisher">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Big-Data"></i>
+              <span class="nav-text">{{ $t("Publisher") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
+        
+        <li v-if="isHide"
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/profiledata/profile') }"
+            class="nav-item"
+            data-item="profiledata"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/profiledata/profile">
+            <a class="nav-item-hold" href="#">
+              <i class="nav-icon i-Drop"></i>
+              <span class="nav-text">{{ $t("Profile") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
           <!-- <li v-if="isAdmin === 'User'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'profile' }"
@@ -215,7 +248,7 @@
           </li> -->
          
          
-          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+          <!-- <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'settingRoute' }"
             class="nav-item"
@@ -223,7 +256,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/setting/publisher">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold nav-item" href="#">
                
                 <i class="nav-icon  i-Big-Data"></i>
                 <span class="nav-text">{{ $t("Publisher") }}</span>
@@ -231,7 +264,7 @@
 
               <div class="triangle"></div>
             </router-link>
-          </li>
+          </li> -->
           
 
           <!-- <li
@@ -1375,6 +1408,10 @@ export default {
       "changeSidebarProperties",
     ]),
 
+    isActive(path) {
+      return this.$route.path === path;
+    },
+
     handleWindowResize() {
       //  console.log('not working is Mobile');
       if (window.innerWidth <= 1200) {
@@ -1439,5 +1476,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.nav-item.active {
+  background-color: #f0f0f0; /* Example color */
+  color: #000000; /* Example text color */
+}
 
-<style lang="" scoped></style>
+.nav-item.active .nav-item-hold {
+  color: inherit;
+}
+</style>

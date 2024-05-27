@@ -3,7 +3,9 @@
     class="main-header smallflex  align-content-around d-flex flex-row justify-content-between"
   >
     <div class="nav-logo" @click="clickLogo()" style="cursor: pointer">
-      <img src="@/assets/images/food_nav.png" />
+      <img src="@/assets/images/food_nav.png" style="
+    width: 89px!important;
+"/>
     </div>
 
  

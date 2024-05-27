@@ -105,13 +105,7 @@
     <b-col lg="6" xl="6" mt="3" class="DisplayNone">
       <div
       class="auth-content px-5 backgroundNorepeat backgr"
-      :style="{
-        
-        backgroundImage: 'url(https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/auth-login-illustration-light.png)',
-        objectFit: 'cover',
-        
- 
-      }"
+   
     >
       <div
         class="d-flex flex-column justify-content-center  backgroundNorepeat align-content-center text-center for-img align-items-center"
@@ -121,7 +115,13 @@
         </p> -->
         <!-- <p class="for-text">TikTok LIVE Resmi Ajans Partneri</p> -->
 
-       
+        <img
+        :src="'https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/auth-login-illustration-light.png'"
+          alt=""
+          width="50vw"
+          height="100vh"
+          class="d-inline-block align-text-top"
+        />
         <b-row>
           <b-col> </b-col>
         </b-row>
@@ -1021,7 +1021,9 @@ updatePassword() {
               {
                     setTimeout(() => {
                     this.$router.push("/app/myDesk/users");
+                    
                 }, 500);
+                
               }
               else{
                 {
@@ -1042,7 +1044,7 @@ updatePassword() {
 
                 setTimeout(() => {
                     window.location.reload();
-                }, 300000);
+                }, 3000);
             }
             this.isLoading = false;
         })
@@ -1701,5 +1703,11 @@ setCookie(name, value, milliseconds) {
 .backgroundNorepeat
 {
   background-repeat: no-repeat;
+}
+
+img {
+   
+    width: 42vw;
+    height: 96vh;
 }
 </style>
