@@ -24,6 +24,7 @@
               placeholder="Enter name"
               style="height: 34px"
               type="text"
+              @change="handelUserField"
               id="input-name"
             ></b-form-input>
           </b-form-group>
@@ -215,6 +216,49 @@
         </b-col>
       </b-row>
     </b-modal>
+    <b-modal
+      id="modal-cancelReason"
+      size="md"
+      title="Reason for cancellation:"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <b-row class="p-3">
+        <b-col md="12">
+          <i
+            class="fa fa-exclamation-triangle text-danger mb-3"
+            aria-hidden="true"
+          >
+            Reason for cancellation:
+          </i>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group label="" label-for="input-2">
+            <b-form-textarea
+              v-model="cancelReasonText"
+              required
+              placeholder="Reason for cancellation"
+              style="height: 100px"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
+            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button
+              class="mb-2"
+              variant="primary ripple"
+              @click="clickRejectButton()"
+              >ok</b-button
+            >
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div>
@@ -244,35 +288,62 @@
                   props.row.status != 'Rejected'
                 "
               >
-                <span @click="clickEdit(props.row)" class="btn mr-2"
+                <span @click="clickEdit(props.row)" class="btn p-0"
                   ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
                 ></span>
 
-                <span @click="clickDelete(props.row)" class="btn"
+                <span @click="clickDelete(props.row)" class="btn pl-3"
                   ><i class="fa fa-trash" aria-hidden="true"></i
                 ></span>
               </div>
 
               <div
                 class="d-flex"
-                v-if="
+                v-else-if="
                   role == 'admin' &&
                   props.row.status != 'Approved' &&
                   props.row.status != 'Rejected'
                 "
               >
                 <div
-                  class="btn border mr-2 bg-success text-white"
+                  class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
                   @click="clickAccept(props.row._id)"
                 >
                   Approve
                 </div>
                 <div
-                  class="btn border bg-danger text-white"
+                  class="badge badge-danger border bg-danger text-white ul-cursor--pointer p-2"
                   @click="clickReject(props.row._id)"
                 >
                   Reject
                 </div>
+
+                <!-- <div v-else>
+                <span class="badge badge-warning ">{{ props.row.status }}</span>
+              </div> -->
+              </div>
+              <div>
+                <div v-if="props.row.status === 'Approved'">
+                  <span class="badge badge-success">{{
+                    props.row.status
+                  }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Rejected'">
+                  <span class="badge badge-danger">{{ props.row.status }}</span>
+                </div>
+              </div>
+            </span>
+            <span v-else-if="props.column.field === 'reason_show'">
+              <div v-if="props.row.reason">{{ props.row.reason }}</div>
+              <div v-else>......</div>
+            </span>
+            <span v-else-if="props.column.field === 'show_img'">
+              <div>
+                <img
+                  :src="props.row.icon"
+                  alt=""
+                  :style="{ width: '50px', height: '50px' }"
+                />
               </div>
             </span>
           </template>
@@ -302,22 +373,26 @@ export default {
       loader: false,
       imgLoader: false,
       centerCode: '',
+      rejectedId: '',
       phoneNumber: '',
       publisherName: '',
       getcenterCode: '',
       getphoneNumber: '',
       getpublisherName: '',
+      searchUser:[],
       getImages: null,
+      cancelReasonText: '',
       user_id: '',
       updateId: '',
+      getUserName: '',
       uplodedImages: '',
       images: null,
       isEdit: false,
       columns: [
-        // {
-        //   label: 'ID',
-        //   field: 'id'
-        // },
+        {
+          label: 'Icons',
+          field: 'show_img'
+        },
         {
           label: 'UserName',
           field: 'user_name'
@@ -331,8 +406,8 @@ export default {
           field: 'agency_center_code'
         },
         {
-          label: 'Status',
-          field: 'status'
+          label: 'Reason',
+          field: 'reason_show'
         },
         {
           label: 'Actions',
@@ -370,22 +445,22 @@ export default {
     }
   },
   created () {
-    const accessToken = localStorage.getItem('accesstoken')
-
-    // Check if the access token exists
-    if (accessToken) {
-      this.fetchUser(accessToken)
-      // console.log('Access token:', accessToken);
-    } else {
-      console.log('No access token found in local storage')
-    }
+    // const accessToken = localStorage.getItem('accesstoken');
+    this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
+    // this.fetchUser()
+   
     this.fetchPublisher()
+    
   },
   methods: {
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
+    },
+    clickCancle () {
+      this.$bvModal.hide('modal-cancelReason')
     },
     checkLengthCode (event) {
       if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
@@ -395,15 +470,15 @@ export default {
     async fetchPublisher () {
       this.loader = true
       try {
-        var url = "";
+        var url = ''
 
-        // if (this.role == 'admin') {
-        //    url = "publisher/get-all";
-        // } else {
-        //   url = "user/get-all-users-publishers";
-        // }
+        if (this.role == 'admin') {
+          url = 'publisher/get-all'
+        } else {
+          url = 'user/get-all-users-publishers'
+        }
 
-        url = "publisher/get-all";
+        // url = 'publisher/get-all'
 
         const response = await new Promise((resolve, reject) => {
           this.$apiService
@@ -418,8 +493,9 @@ export default {
           // this.faqs = response.apidata.data;
 
           this.faqs = response.apidata.data;
-          
-         // this.faqs = this.faqs.filter(e => e._id == this.user_id)
+      
+
+          // this.faqs = this.faqs.filter(e => e._id == this.user_id)
 
           // this.$toaster.makeToast('success', 'publisher data get successfully');
         }
@@ -430,32 +506,36 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    async fetchUser (token) {
+    handelUserField() {
+      this.searchUser =  this.faqs.filter(user => user.user_name.toLowerCase().includes(this.publisherName.toLowerCase()));
+          // console.log(myData);
+    },
+    async fetchUser () {
       this.loader = true
 
       try {
         // Create headers object and add the token
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json' // Adjust this if your API expects a different content type
-        }
+        // const headers = {
+        //   Authorization: `Bearer ${token}`,
+        //   'Content-Type': 'application/json' // Adjust this if your API expects a different content type
+        // }
 
         // Make the API GET call with the headers
         const response = await new Promise((resolve, reject) => {
           this.$apiService
-            .getCall('user/user-by-id/', { headers })
+            .getCall(`auth/user/${this.user_id}`)
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
 
-        if (response.message === 'Invalid token') {
+        // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
+        console.log(response);
+        if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
           this.loader = false
-          this.user_id = response.apidata.data._id
-          this.role = response.apidata.data.role
-          // console.log('User Data:', response.apidata.data._id);
-          // this.$toaster.makeToast('success', 'User fetched successfully');
+          this.getUserName = response.apidata.data.user_name;
+          
         }
       } catch (error) {
         this.loader = false
@@ -537,30 +617,8 @@ export default {
       }
     },
     async clickReject (id) {
-      this.loader = true
-      try {
-        var req = {
-          status: 'Rejected'
-        }
-
-        const res = await this.$apiService.postCall(
-          `publisher/update-publisher-status/${id}`,
-          req
-        )
-        console.log(res)
-        if (res.error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', res.message)
-        } else {
-          this.loader = false
-          this.$toaster.makeToast('success', 'Status Rejected successfully')
-          this.fetchPublisher()
-        }
-      } catch (error) {
-        this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
-        // console.error(error)
-      }
+      this.$bvModal.show('modal-cancelReason')
+      this.rejectedId = id
     },
 
     async addPublisher () {
@@ -577,8 +635,11 @@ export default {
         setTimeout(() => (this.errorMessage = ''), 2000)
         return
       }
-
-      this.loader = true
+      
+      if (this.searchUser.length>0) {
+        this.$toaster.makeToast('warning', 'Publisher Name already exist')
+      } else {
+         this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -587,7 +648,7 @@ export default {
           agency_center_code: this.centerCode,
           icon: this.uplodedImages,
           // icon: 'https://tiktok.algofolks.com/download.png',
-          userId: this.user_id
+          user_id: this.user_id
         }
 
         // Assuming you want to make a POST request
@@ -604,13 +665,20 @@ export default {
           this.isEdit = false
           this.showAddModal = false
           this.loader = false
-          this.$toaster.makeToast('success', 'Data added successfully')
+          ;(this.publisherName = ''),
+            (this.centerCode = ''),
+            (this.phoneNumber = ''),
+            this.$toaster.makeToast('success', 'Data added successfully')
         }
       } catch (error) {
         this.loader = false
         this.$toaster.makeToast('warning', 'Error: Server Error')
         // console.error(error)
       }
+        
+      }
+
+      
     },
     async editPublisher () {
       this.loader = true
@@ -695,7 +763,45 @@ export default {
     //     // Handle error, such as displaying an error message
     //   }
     // },
+    clickRejectButton () {
+      if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
+        this.deletePublisher()
+      } else {
+        this.$toaster.makeToast(
+          'warning',
+          'Please enter a cancel reason with at least 10 characters'
+        )
+      }
+    },
+    async deletePublisher () {
+      this.loader = true
+      try {
+        var req = {
+          status: 'Rejected',
+          reason: this.cancelReasonText
+        }
 
+        const res = await this.$apiService.postCall(
+          `publisher/update-publisher-status/${this.rejectedId}`,
+          req
+        )
+        console.log(res)
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('success', 'Status Rejected successfully')
+          this.$bvModal.hide('modal-cancelReason')
+          this.fetchPublisher()
+        }
+      } catch (error) {
+        this.$bvModal.hide('modal-cancelReason')
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
     async clickDelete (data) {
       try {
         // Show confirmation dialog
@@ -711,7 +817,6 @@ export default {
 
         // If user confirms deletion
         if (result.value) {
-          this.loader = true
           const response = await this.$apiService.postCall(
             `publisher/delete/${data._id}`
           )
