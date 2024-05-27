@@ -1020,7 +1020,7 @@ updatePassword() {
               if(user.apidata.role == "admin") 
               {
                     setTimeout(() => {
-                    this.$router.push("/app/myDesk/users");
+                    this.$router.push("/app/mydesk/users");
                     
                 }, 500);
                 
