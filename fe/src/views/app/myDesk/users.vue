@@ -354,15 +354,7 @@
       </template> -->
     </vue-good-table>
 
-    
-
-    <div v-if="modalVisible">
-    <div class="modal-content">
-      <span class="close" @click="closeModal12">&times;</span>
-      <h2>Modal Title</h2>
-      <p>This modal is still in progress...</p>
-    </div>
-  </div>
+  
   </div>
 </template>
 

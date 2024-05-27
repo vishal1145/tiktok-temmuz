@@ -1104,6 +1104,8 @@ setCookie(name, value, milliseconds) {
               );
               localStorage.setItem("role", "user");
               localStorage.setItem("accesstoken", user.apidata.access_token);
+              localStorage.setItem("user_id", user.apidata.user_id);
+
 
               const newUser = { data: user.apidata.data };
               localStorage.setItem("userInfo", JSON.stringify(newUser));
@@ -1222,6 +1224,8 @@ setCookie(name, value, milliseconds) {
     logoutUser() {
       localStorage.removeItem("userInfo");
       localStorage.removeItem("accesstoken");
+      localStorage.removeItem("user_id");
+
       this.$router.push("/app/sessions/signIn");
       setTimeout(() => {
         window.location.reload();

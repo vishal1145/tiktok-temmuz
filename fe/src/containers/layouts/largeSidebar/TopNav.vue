@@ -1484,6 +1484,8 @@ export default {
     localStorage.removeItem("accesstoken");
     localStorage.removeItem("role");
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+
 
 
     
