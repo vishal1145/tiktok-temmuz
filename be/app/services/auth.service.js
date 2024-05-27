@@ -1,4 +1,5 @@
 const UserModel = require('../models/user.model');
+const tiktokUsersModel = require("../models/tiktokusers.model");
 const { decrypt, compare, sendForgetPasswordMail } = require('../util')
 
 exports.register = async (user_body) => {
@@ -38,7 +39,7 @@ exports.forgetPassword = async ({ email }) => {
 
 exports.verifyOtp = async (data) => {
     try {
-        const User = await UserModel.findOne({ email: data.email });
+        const User = await tiktokUsersModel.findOne({ contact_number: data.contact_number });
 
         if (User.otp == data.otp) {
             return ({ success: true })

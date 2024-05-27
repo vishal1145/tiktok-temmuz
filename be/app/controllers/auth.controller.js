@@ -53,7 +53,7 @@ exports.forgetPassword = async (req, res, next) => {
 exports.verifyOtp = async (req, res) => {
     try {
         let requestData = {
-            email: req.body.email,
+            contact_number: req.body.contact_number,
             otp: req.body.otp
         }
 
