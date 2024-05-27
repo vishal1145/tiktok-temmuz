@@ -139,6 +139,8 @@
         </b-col>
       </b-row>
     </b-modal>
+
+    
  <div  class="d-flex flex-row justify-content-between pb-2 d-none">
      <b-col class="d-none" md="3" style="
     padding-right: 0px !important;
@@ -153,6 +155,70 @@
     </div>
 
  </div>
+
+
+
+ <div class="pb-2">
+      <div class="card">
+                  
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <div class="users-list-filter">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6 col-lg-3">
+                                                <label for="users-list-role">Role</label>
+                                                <fieldset class="form-group">
+                                                  <multiselect @input="handleChange" v-model="selected" placeholder="Select users" :options="[...allUsers]"
+          :multiple="false" :limit="1"></multiselect>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-3">
+                                                <label for="users-list-status">Status</label>
+                                                <fieldset class="form-group">
+                                                    <select class="form-control multiselect__tags" id="users-list-status" style="
+    color: gray;
+    padding-bottom: 7px;
+">
+                                                        <option value="">All</option>
+                                                        <option value="Active">Active</option>
+                                                        <option value="Blocked">Blocked</option>
+                                                        <option value="deactivated">Deactivated</option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-3">
+                                                <label for="users-list-verified">Verified</label>
+                                                <fieldset class="form-group">
+                                                    <select class="form-control multiselect__tags" id="users-list-verified" style="
+    color: gray;
+    padding-bottom: 7px;
+">
+                                                        <option value="">All</option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-3">
+                                                <!-- <label for="users-list-department d-none">Department</label> -->
+                                                <fieldset class="form-group py-24">
+                                                  <button @click="clearFilters" class="btn btn-primary">Clear Filter</button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+         </div>
+
+</div>
+
+
+
+
+
  
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
@@ -1001,6 +1067,13 @@ handleChange(user) {
     
     }
 
+
+    .multiselect__placeholder {
+    color: #adadad;
+    display: inline-block;
+   margin-bottom: -4px!important;
+    padding-top: 2px;
+}
 
 
 
