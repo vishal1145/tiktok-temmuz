@@ -342,7 +342,7 @@
                 <img
                   :src="props.row.icon"
                   alt=""
-                  :style="{ width: '50px', height: '50px' }"
+                  :style="{ width: '50px', height: '50px', borderRadius: '197px' }"
                 />
               </div>
             </span>

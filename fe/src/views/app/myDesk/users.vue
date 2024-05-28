@@ -176,10 +176,7 @@
                                             <div class="col-12 col-sm-6 col-lg-3">
                                                 <label for="users-list-status">Status</label>
                                                 <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-status" style="
-    color: gray;
-    padding-bottom: 7px;
-">
+                                                    <select class="form-control multiselect__tags" id="users-list-status" style="color: gray;padding-bottom: 7px;border: 1px solid #80808052 !important;">
                                                         <option value="">All</option>
                                                         <option value="Active">Active</option>
                                                         <option value="Blocked">Blocked</option>
@@ -190,10 +187,7 @@
                                             <div class="col-12 col-sm-6 col-lg-3">
                                                 <label for="users-list-verified">Verified</label>
                                                 <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-verified" style="
-    color: gray;
-    padding-bottom: 7px;
-">
+                                                    <select class="form-control multiselect__tags" id="users-list-verified"  style="color: gray;padding-bottom: 7px;border: 1px solid #80808052 !important;">
                                                         <option value="">All</option>
                                                         <option value="true">Yes</option>
                                                         <option value="false">No</option>
@@ -1075,6 +1069,11 @@ handleChange(user) {
     padding-top: 2px;
 }
 
+
+.py-24 {
+    padding-top: 29px !important;
+    padding-bottom: 24px !important;
+}
 
 
 

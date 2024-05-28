@@ -117,7 +117,7 @@
         </li>
 
          <!-- home-page - User -->
-         <li v-if="isAdmin === 'admin' "
+         <!-- <li v-if="isAdmin === 'admin' "
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/Setting') }"
             class="nav-item"
@@ -126,12 +126,13 @@
         >
           <router-link tag="a" class to="/app/setting/Setting">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Administrator"></i>
+              <i class="nav-icon i-Data-Transfer"></i>
+
               <span class="nav-text">{{ $t("Setting") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>
-        </li>
+        </li> -->
  <!-- information- User -->
 
 
@@ -166,6 +167,23 @@
             <a class="nav-item-hold nav-item" href="#">
               <i class="nav-icon i-Library"></i>
               <span class="nav-text">{{ $t("Creators") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
+        <li v-if="isAdmin === 'admin' "
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/Setting') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/Setting">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Data-Transfer"></i>
+
+              <span class="nav-text">{{ $t("Setting") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>
