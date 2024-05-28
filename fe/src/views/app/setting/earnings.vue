@@ -274,41 +274,94 @@
       <div class="d-flex flex-column gap-5" style="
     gap: 13px;
 ">
-        <div class="card">     <div class="d-flex flex-row card-body">
-  <div class="col-12 col-sm-6 col-lg-3">
-    <label for="users-list-search">Search</label>
-    <fieldset class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        id="users-list-search"
-        placeholder="Search..."
-        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
-        v-model="searchTerm"
-        @input="onSearchTermChange"
-      />
-    </fieldset>
-  </div>
+<div class="card">
+          <div
+            class="card-header d-flex flex-row justify-content-between px-32"
+            style="
+   
+    background-color: white;
+"
+          >
+            <h4
+              class="card-title"
+              style="margin: 0px;background-color: white;color: #000000c4;"
+            >
+              Filters
+            </h4>
+            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+            <div class="heading-elements">
+              <ul
+                class="list-inline mb-0 d-flex flex-row justify-content-around"
+                style="
+    gap: 9px;
+"
+              >
+                <li>
+                  <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                    ><i
+                      class="fa fa-chevron-circle-down"
+                      aria-hidden="true"
+                      style="
+    cursor: pointer;
+"
+                    ></i
+                  ></a>
+                </li>
+                <li>
+                  <a data-action=" pe-auto" @click="clearFilters"
+                    ><i
+                      class="fa fa-refresh"
+                      aria-hidden="true"
+                      style="
+    cursor: pointer;
+"
+                    ></i
+                  ></a>
+                </li>
+                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+              </ul>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-row card-body"
+            :style="{ display: flexDivDisplay }"
+          >
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="users-list-search">Search</label>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="users-list-search"
+                  placeholder="Search..."
+                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  v-model="searchTerm"
+                  @input="onSearchTermChange"
+                />
+              </fieldset>
+            </div>
 
-  <div class="col-12 col-sm-6 col-lg-3">
-    <label for="users-list-verified">Action</label>
-    <fieldset class="form-group">
-      <select
-        class="form-control "
-        id="users-list-verified"
-        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
-        v-model="filterStatus"
-        @change="onStatusChange"
-      >
-        <option value="">All</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-        <option value="Under Review">Under Review</option>
-      </select>
-    </fieldset>
-  </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="users-list-verified">Action</label>
+              <fieldset class="form-group">
+                <select
+                  class="form-control "
+                  id="users-list-verified"
+                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  v-model="filterStatus"
+                  @change="onStatusChange"
+                >
+                  <option value="">All</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Under Review">Under Review</option>
+                </select>
+              </fieldset>
+            </div>
 
-  <div class="col-12 col-sm-6 col-lg-3">
+            <!-- <div class="col-12 col-sm-6 col-lg-3">
     <button
       class="btn btn-primary mt-4"
       @click="clearFilters"
@@ -316,8 +369,10 @@
     >
       Clear Filters
     </button>
-  </div>
-</div></div>
+  </div> -->
+          </div>
+        </div>
+
    
 
         <vue-good-table
@@ -407,6 +462,7 @@
 export default {
   data () {
     return {
+      flexDivDisplay: "flex!important",
       filteredFaqs: [] ,
       searchTerm: '',
     filterStatus: '',
@@ -499,9 +555,9 @@ export default {
   },
   created () {
     
-    this.filterData();
+    // this.filterData();
 
-    this.clearFilters();
+    // this.clearFilters();
 
     // const accessToken = localStorage.getItem('accesstoken');
     this.user_id = localStorage.getItem('user_id')
@@ -509,10 +565,17 @@ export default {
     
     // this.fetchUser()
 
-    this.fetchPublisher() 
+    // this.fetchPublisher() s
 
   },
   methods: {
+
+    toggleFlexDiv() {
+      this.flexDivDisplay =
+        this.flexDivDisplay === "flex!important"
+          ? "none!important"
+          : "flex!important"; // Toggle the display property
+    },
 
     filterData() {
       debugger
@@ -1031,6 +1094,24 @@ imgloader {
 
 .mt-4{
   margin-top: 26px!important;
+}
+
+.fa-chevron-circle-down {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-refresh {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-times {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
 }
 
 

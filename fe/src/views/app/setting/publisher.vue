@@ -658,7 +658,7 @@ export default {
           // this.faqs = response.apidata.data;
 
           this.faqs = response.apidata.data;
-          // this.filteredFaqs = this.faqs
+          this.filteredFaqs = this.faqs
 
 
 

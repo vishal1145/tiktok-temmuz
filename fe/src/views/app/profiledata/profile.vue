@@ -29,7 +29,7 @@
 
             <b-col md="12">
               Basic Deatils:
-              <div class="d-flex justify-content-between flex-wrap">
+              <!-- <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-baseline">
                   <i class="fa fa-envelope mr-2 mb-0 p-0" aria-hidden="true"></i
                   >{{ emailUser }}
@@ -81,9 +81,9 @@
                     ></b-form-input>
                   </b-form-group>
                 </div>
-              </div>
+              </div> -->
             </b-col>
-            <b-col md="12" class="mb-2">
+            <!-- <b-col md="12" class="mb-2">
               Referral Link:
               <div class="d-flex flex-row border rounded p-2">
                 <a :href="referralLink" class="referral-link" target="_blank">{{
@@ -97,8 +97,10 @@
                   Copy
                 </p>
               </div>
-            </b-col>
-            <b-col md="12">
+            </b-col> -->
+
+            <div>
+              <div>  <b-col md="12">
               <img
                 id="logo"
                 :src="selectedLogo"
@@ -132,6 +134,13 @@
                 Change Picture</b-button
               >
             </b-col>
+
+              </div>
+              <div>
+
+              </div>
+            </div>
+          
           </b-row>
           <b-row>
             <b-col md="6">
@@ -162,7 +171,7 @@
           </b-row>
           <b-row>
             <b-col md="6 mb-25">
-              <b-form-group label="Address" label-for="input-3">
+              <b-form-group label=" Email Address" label-for="input-3">
                 <b-form-input
                   v-model="form.address"
                   type="text"
@@ -172,43 +181,8 @@
               </b-form-group>
             </b-col>
           </b-row>
-          <b-row>
-            <b-col md="6 mb-25">
-              <b-form-group label="State" label-for="input-2">
-                <b-form-input
-                  v-model="form.state"
-                  type="text"
-                  required
-                  placeholder="Enter state"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col md="6 mb-25">
-              <b-form-group label="City" label-for="input-1">
-                <b-form-input
-                  v-model="form.city"
-                  type="text"
-                  required
-                  placeholder="Enter city"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col md="6 mb-25">
-              <b-form-group label="Pin" label-for="input-2">
-                <b-form-input
-                  v-model="form.pin_code"
-                  type="number"
-                  @keydown="checkLength"
-                  required
-                  placeholder="Enter pin"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
 
-            <div style="margin: 0 auto">
-              <div class="spinner spinner-primary mr-3" v-if="isLoading"></div>
-            </div>
-          </b-row>
+      
           <b-row>
             <b-col md="12" class="">
               <div
@@ -225,275 +199,7 @@
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Documents" class="for-profile">
-        <b-form>
-          <b-row>
-            <b-col>
-              <h5
-                style="
-                  font-weight: 600;
-                  font-size: 18px;
-                  color: rgb(156, 163, 175);
-                "
-              >
-                Aadhar Card
-              </h5>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="6" class="my-3">
-              <input
-                id="aadhar"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                @change="setAadhar"
-                style="display: none"
-              />
-              <b-button @click="chooseAadhar()" class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    Aadhar Front
-                  </p>
-                </span></b-button
-              >
 
-              <!-- <b-form-checkbox
-                v-model="aadharFrontCheckbox"
-                id="changeAadharImg"
-                @change="chooseAadhar()"
-              >
-                Aadhar Front
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6" class="my-3">
-              <input
-                id="aadharback"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setAadharback"
-              />
-              <b-button @click="chooseAadharBack()" class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    Aadhar Back
-                  </p>
-                </span></b-button
-              >
-
-              <!-- <b-form-checkbox
-                v-model="aadharBackCheckbox"
-                id="changeAadharImgBack"
-                @change="chooseAadharBack()"
-              >
-                Aadhar Back
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="selectedImage"
-                :src="selectedImage"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="selectedImageBack"
-                :src="selectedImageBack"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <h5
-                style="
-                  font-weight: 600;
-                  font-size: 18px;
-                  margin-top: 40px;
-                  color: rgb(156, 163, 175);
-                "
-                class="p-0 mb-0"
-              >
-                Driving Licence
-              </h5>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="6" class="my-3">
-              <input
-                id="drivinglincense"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setDrivingLincense"
-              />
-              <b-button
-                @click="chooseDrivingLincense()"
-                class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    DrivingLicence Front
-                  </p>
-                </span></b-button
-              >
-
-              <!-- <b-form-checkbox
-                v-model="drivingLincenseFrontCheckbox"
-                variant="primary ripple"
-                id="changeLincenceImg"
-                @change="chooseDrivingLincense()"
-              >
-                DrivingLicence Front
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6" class="my-3">
-              <input
-                id="drivinglincenseback"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setDrivingLincenseBack"
-              />
-              <b-button
-                @click="chooseDrivingLincenseBack()"
-                class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    DrivingLicence Back
-                  </p>
-                </span></b-button
-              >
-
-              <!-- <b-form-checkbox
-                v-model="drivingLincenseBackCheckbox"
-                variant="primary ripple"
-                id="changeLincenceImgBack"
-                @change="chooseDrivingLincenseBack()"
-              >
-                DrivingLicence Back
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="drivinglincenseImage"
-                :src="drivinglincenseImage"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="drivinglincenseImageBack"
-                :src="drivinglincenseImageBack"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <h5
-                style="
-                  font-weight: 600;
-                  font-size: 18px;
-                  margin-top: 40px;
-                  color: rgb(156, 163, 175);
-                "
-                class="p-0 mb-0"
-              >
-                Passport
-              </h5>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="6" class="my-3">
-              <input
-                id="passport"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setPassport"
-              />
-              <b-button @click="choosePassport()" class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    Passport Front
-                  </p></span
-                ></b-button
-              >
-
-              <!-- <b-form-checkbox
-                v-model="passportFrontCheckbox"
-                id="changePassportImg"
-                @change="choosePassport()"
-              >
-                Passport Front
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6" class="my-3">
-              <input
-                id="passportback"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setPassportBack"
-              />
-              <b-button @click="choosePassportBack()" class="col-12 for-border"
-                ><span class="d-flex"
-                  ><i class="fa fa-upload mr-2" aria-hidden="true"></i>
-                  <p style="color: rgb(156, 163, 175)" class="m-0 p-0">
-                    Passport Back
-                  </p>
-                </span></b-button
-              >
-
-              <!-- <b-form-checkbox
-                v-model="passportBackCheckbox"
-                id="changePassportImgBack"
-                @change="choosePassportBack()"
-              >
-                Passport Back
-              </b-form-checkbox> -->
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="passportImage"
-                :src="passportImage"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-            <b-col md="6">
-              <img
-                v-if="passportImageBack"
-                :src="passportImageBack"
-                style="max-height: 120px !important; width: auto"
-              />
-            </b-col>
-          </b-row>
-
-          <b-row class="mt-4">
-            <b-col md="12 mb-30">
-              <div class="spinner spinner-primary mr-3" v-if="docloader"></div>
-              <b-button
-                v-if="!docloader"
-                variant="primary ripple"
-                @click="updateDocuments()"
-                >Upload File</b-button
-              >
-            </b-col>
-          </b-row>
-        </b-form>
-      </b-card>
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
     <!-- <b-card title="Profile">

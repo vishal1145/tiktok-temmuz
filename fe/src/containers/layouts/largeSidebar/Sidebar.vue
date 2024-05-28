@@ -109,8 +109,8 @@
         >
           <router-link tag="a" class to="/app/setting/homepage">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Administrator"></i>
-              <span class="nav-text">{{ $t("Page") }}</span>
+              <i class="nav-icon i-Home1"></i>
+              <span class="nav-text">{{ $t("Home") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>
@@ -165,7 +165,7 @@
         >
           <router-link tag="a" class to="/app/setting/publisher">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Library"></i>
+              <i class="nav-icon i-Business-ManWoman"></i>
               <span class="nav-text">{{ $t("Creators") }}</span>
             </a>
             <div class="triangle"></div>
@@ -200,7 +200,7 @@
         >
           <router-link tag="a" class to="/app/setting/earnings">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Big-Data"></i>
+              <i class="nav-icon i-Money-Bag"></i>
               <span class="nav-text">{{ $t("Earnings") }}</span>
             </a>
             <div class="triangle"></div>
@@ -239,7 +239,7 @@
         >
           <router-link tag="a" class to="/app/profiledata/profile">
             <a class="nav-item-hold" href="#">
-              <i class="nav-icon i-Library"></i>
+              <i class="nav-icon i-Male-21"></i>
               <span class="nav-text">{{ $t("Profile") }}</span>
             </a>
             <div class="triangle"></div>
@@ -295,9 +295,7 @@
 
               <div class="triangle"></div>
             </router-link>
-          </li> -->
-          
-
+          </li> -->     
           <!-- <li class="nav-item">
             <router-link tag="a" class to="/app/apps/products">
               <i class="nav-icon i-Add-File"></i>
@@ -309,7 +307,6 @@
               >
             </router-link>
           </li> -->
-
           <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'foodOrderHistory' }"
@@ -360,9 +357,7 @@
 
               <div class="triangle"></div>
             </router-link>
-          </li> -->
-         
-         
+          </li> -->     
           <!-- <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'settingRoute' }"
@@ -380,8 +375,6 @@
               <div class="triangle"></div>
             </router-link>
           </li> -->
-          
-
           <!-- <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'accounts' }"
