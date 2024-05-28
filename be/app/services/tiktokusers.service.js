@@ -2,9 +2,9 @@ const tiktokUsersModel = require("../models/tiktokusers.model");
 const otpGenerator = require("otp-generator");
 
 exports.tiktokLogin = async (body) => {
-  const isExists = await tiktokUsersModel.findOne({contact_number: body.contact_number });
-  if (!isExists) {
-    const user = new tiktokUsersModel(body);
+  var user = await tiktokUsersModel.findOne({contact_number: body.contact_number });
+  if (!user) {
+    user = new tiktokUsersModel(body);
     await user.save();
   }
 
@@ -34,11 +34,13 @@ exports.tiktokLogin = async (body) => {
     //   from: config.twilioPhoneNumber,
     //   to: body.contact_number
     // });
+    // const user = tiktokUsersModel.findOne({ contact_number: body.contact_number });
+    return { user };
+
 
   } catch (error) {
     console.error('Error sending OTP:', error.message);
     throw new Error('Failed to send OTP');
   }
 
-  return true;
 };
