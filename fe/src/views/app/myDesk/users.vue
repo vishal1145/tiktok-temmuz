@@ -160,8 +160,52 @@
 
  <div class="pb-2">
       <div class="card">
+
+        <div
+            class="card-header d-flex flex-row justify-content-between"
+            style="background-color: white;
+"
+          >
+            <h4
+              class="card-title"
+              style="margin: 0px;background-color: white;color: #000000c4;"
+            >
+              Filters
+            </h4>
+            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+            <div class="heading-elements">
+              <ul
+                class="list-inline mb-0 d-flex flex-row justify-content-around"
+                style="gap: 9px;"
+              >
+                <li>
+                  <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                    ><i
+                      class="fa fa-chevron-circle-down"
+                      aria-hidden="true"
+                      style="cursor: pointer;"
+                    ></i
+                  ></a>
+                </li>
+                <li>
+                  <a data-action=" pe-auto" @click="clearFilters"
+                    ><i
+                      class="fa fa-refresh"
+                      aria-hidden="true"
+                      style="
+    cursor: pointer;
+"
+                    ></i
+                  ></a>
+                </li>
+                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+              </ul>
+            </div>
+          </div>
                   
-                        <div class="card-content collapse show">
+                        <div class="card-content collapse show"   :style="{ display: flexDivDisplay }">
                             <div class="card-body">
                                 <div class="users-list-filter">
                                     <form>
@@ -176,7 +220,10 @@
                                             <div class="col-12 col-sm-6 col-lg-3">
                                                 <label for="users-list-status">Status</label>
                                                 <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-status" style="color: gray;padding-bottom: 7px;border: 1px solid #80808052 !important;">
+                                                    <select class="form-control multiselect__tags" id="users-list-status" style="
+    color: gray;
+    padding-bottom: 7px;
+">
                                                         <option value="">All</option>
                                                         <option value="Active">Active</option>
                                                         <option value="Blocked">Blocked</option>
@@ -187,19 +234,17 @@
                                             <div class="col-12 col-sm-6 col-lg-3">
                                                 <label for="users-list-verified">Verified</label>
                                                 <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-verified"  style="color: gray;padding-bottom: 7px;border: 1px solid #80808052 !important;">
+                                                    <select class="form-control multiselect__tags" id="users-list-verified" style="
+    color: gray;
+    padding-bottom: 7px;
+">
                                                         <option value="">All</option>
                                                         <option value="true">Yes</option>
                                                         <option value="false">No</option>
                                                     </select>
                                                 </fieldset>
                                             </div>
-                                            <div class="col-12 col-sm-6 col-lg-3">
-                                                <!-- <label for="users-list-department d-none">Department</label> -->
-                                                <fieldset class="form-group py-24">
-                                                  <button @click="clearFilters" class="btn btn-primary">Clear Filter</button>
-                                                </fieldset>
-                                            </div>
+                                        
                                         </div>
                                     </form>
                                 </div>
@@ -219,10 +264,7 @@
     <vue-good-table
       :columns="columns"
       :line-numbers="false"
-      :search-options="{
-        enabled: true,
-        placeholder: 'Search User',
-      }"
+  
       :pagination-options="{
         enabled: true,
         mode: 'records',
@@ -232,32 +274,21 @@
         enabled: false,
         selectionInfoClass: 'table-alert__box',
       }"
-      :sort-options="{
-        enabled: false,
-      }"
+      
       :rows="getfilterdata"
     >
-
-   
- <div slot="table-actions" class="mb-3" style="
-    margin-right: 888px;
-">
-        
+      <!-- <div slot="table-actions" class="mb-3">
+        <i class="i-Align-Justify-All mr-3"></i>
+        <i class="i-Windows-Microsoft mr-3"></i>
         <b-button
           variant="primary"
           v-b-modal.modal-lg
           class="btn-rounded"
           @click="generateID()"
-          style="
-    padding-top: 5px;
-    padding-bottom: 5px;
-"
         >
-          Add Member
+          New Template
         </b-button>
-      </div> 
-
-
+      </div> -->
 
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field === 'img'">
@@ -286,30 +317,46 @@
           </template>
           
         </span> -->
-        <span v-if="props.column.field === 'actions'">
-              <div
-               
-              >
-                <span @click="clickEdit(props.row)" class="btn p-0"
-                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
-                ></span>
-
-                <span @click="clickDelete(props.row)" class="btn pl-3"
-                  ><i class="fa fa-trash" aria-hidden="true"></i
-                ></span>
-              </div>
-
-              <div>
-                <div v-if="props.row.status === 'Approved'">
-                  <span class="badge badge-success">{{
-                    props.row.status
-                  }}</span>
-                </div>
-                <div v-else-if="props.row.status === 'Rejected'">
-                  <span class="badge badge-danger">{{ props.row.status }}</span>
-                </div>
-              </div>
-            </span>
+        <span v-else-if="props.column.field === 'button'">
+          <!-- <template>
+            <a
+              v-b-modal.modal-lg
+              @click="openModal(props.row)"
+              class="mr-3"
+              variant="primary ripple"
+              style="text-decoration: underline !important; cursor: pointer"
+              >Documents</a
+            >
+          </template> -->
+          <template>
+            <!-- <b-button
+              v-if="props.row.accessStatus == false"
+              variant="primary ripple"
+              @click="clickBlock(props.row.id)"
+              style="height: 33px; width: 7em"
+              class="mr-3"
+              >Block</b-button
+            > -->
+            <!-- <b-button
+              class="mr-3"
+              style="height: 33px; width: 7em"
+              v-else
+              variant="primary ripple"
+              @click="clickUnBlock(props.row.id)"
+            >
+              Unblock</b-button
+            > -->
+          </template>
+          <template>
+            <a
+            @click="openModal12"
+              class="mr-3"
+              variant="primary ripple"
+              style="font-size: 16px; cursor: pointer"
+              ><i class="fa fa-eye" aria-hidden="true"></i
+            ></a>
+          </template>
+        </span>
         <span v-else-if="props.column.field === 'email'">
           <template>
             <div class="d-flex flex-column">
@@ -484,7 +531,10 @@ export default {
         //   label: "FAS Tag",
         //   field: "fastag",
         // },
-      
+        {
+          label: "Action",
+          field: "button",
+        },
 
         // {
         //   label: "Balance",
@@ -502,18 +552,10 @@ export default {
         //   label: "Residential address",
         //   field: "residential_Address",
         // },
-        {
-          label: 'Actions',
-          sortable: false,
-          field: 'actions',
-          width: '150px',
-          formatFn: () => {
-            return `
-              <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-              <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
-            `
-          }
-        },
+        // {
+        //   label: "Actions",
+        //   field: "button",
+        // },
       ],
       rows: [],
       originalRows:[],
@@ -527,6 +569,7 @@ export default {
       isEdit: false,
       loader: false,
       isHide: false,
+      flexDivDisplay: "flex!important",
       matchUser:"",
      
             user_name: "",
@@ -545,6 +588,13 @@ export default {
    
   },
   methods: {
+
+    toggleFlexDiv() {
+      this.flexDivDisplay =
+        this.flexDivDisplay === "flex!important"
+          ? "none!important"
+          : "flex!important"; // Toggle the display property
+    },
 
     clearFilters()
     {
@@ -1068,9 +1118,22 @@ handleChange(user) {
 }
 
 
-.py-24 {
-    padding-top: 29px !important;
-    padding-bottom: 24px !important;
+.fa-chevron-circle-down {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-refresh {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-times {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
 }
 
 

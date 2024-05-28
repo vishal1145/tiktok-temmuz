@@ -271,44 +271,100 @@
         <!-- -->
         Add New
       </button>
-      <div class="d-flex flex-column gap-5" style="
+      <div
+        class="d-flex flex-column gap-5"
+        style="
     gap: 13px;
-">
-        <div class="card">     <div class="d-flex flex-row card-body">
-  <div class="col-12 col-sm-6 col-lg-3">
-    <label for="users-list-search">Search</label>
-    <fieldset class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        id="users-list-search"
-        placeholder="Search..."
-        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
-        v-model="searchTerm"
-        @input="onSearchTermChange"
-      />
-    </fieldset>
-  </div>
-
-  <div class="col-12 col-sm-6 col-lg-3">
-    <label for="users-list-verified">Action</label>
-    <fieldset class="form-group">
-      <select
-        class="form-control "
-        id="users-list-verified"
-        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
-        v-model="filterStatus"
-        @change="onStatusChange"
+"
       >
-        <option value="">All</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-        <option value="Under Review">Under Review</option>
-      </select>
-    </fieldset>
-  </div>
+        <div class="card">
+          <div
+            class="card-header d-flex flex-row justify-content-between px-32"
+            style="
+   
+    background-color: white;
+"
+          >
+            <h4
+              class="card-title"
+              style="margin: 0px;background-color: white;color: #000000c4;"
+            >
+              Filters
+            </h4>
+            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+            <div class="heading-elements">
+              <ul
+                class="list-inline mb-0 d-flex flex-row justify-content-around"
+                style="
+    gap: 9px;
+"
+              >
+                <li>
+                  <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                    ><i
+                      class="fa fa-chevron-circle-down"
+                      aria-hidden="true"
+                      style="
+    cursor: pointer;
+"
+                    ></i
+                  ></a>
+                </li>
+                <li>
+                  <a data-action=" pe-auto" @click="clearFilters"
+                    ><i
+                      class="fa fa-refresh"
+                      aria-hidden="true"
+                      style="
+    cursor: pointer;
+"
+                    ></i
+                  ></a>
+                </li>
+                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+              </ul>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-row card-body"
+            :style="{ display: flexDivDisplay }"
+          >
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="users-list-search">Search</label>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="users-list-search"
+                  placeholder="Search..."
+                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  v-model="searchTerm"
+                  @input="onSearchTermChange"
+                />
+              </fieldset>
+            </div>
 
-  <div class="col-12 col-sm-6 col-lg-3">
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="users-list-verified">Action</label>
+              <fieldset class="form-group">
+                <select
+                  class="form-control "
+                  id="users-list-verified"
+                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  v-model="filterStatus"
+                  @change="onStatusChange"
+                >
+                  <option value="">All</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Under Review">Under Review</option>
+                </select>
+              </fieldset>
+            </div>
+
+            <!-- <div class="col-12 col-sm-6 col-lg-3">
     <button
       class="btn btn-primary mt-4"
       @click="clearFilters"
@@ -316,9 +372,9 @@
     >
       Clear Filters
     </button>
-  </div>
-</div></div>
-   
+  </div> -->
+          </div>
+        </div>
 
         <vue-good-table
           :columns="columns"
@@ -326,15 +382,16 @@
           :pagination-options="paginationOptions"
           styleClass="tableOne vgt-table"
           :rows="filteredFaqs"
+          
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'actions'">
               <div
                 v-if="
-                  role == 'user' &&
-                  props.row.status != 'Approved' &&
-                  props.row.status != 'Rejected'
-                "
+                role == 'user' &&
+                props.row.status != 'Approved' &&
+                props.row.status != 'Rejected'
+              "
               >
                 <span @click="clickEdit(props.row)" class="btn p-0"
                   ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
@@ -348,10 +405,10 @@
               <div
                 class="d-flex"
                 v-else-if="
-                  role == 'admin' &&
-                  props.row.status != 'Approved' &&
-                  props.row.status != 'Rejected'
-                "
+                role == 'admin' &&
+                props.row.status != 'Approved' &&
+                props.row.status != 'Rejected'
+              "
               >
                 <div
                   class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
@@ -404,12 +461,14 @@
 </template>
 
 <script>
+
 export default {
-  data () {
+  data() {
     return {
-      filteredFaqs: [] ,
+      flexDivDisplay: "flex!important",
+      filteredFaqs: [],
       searchTerm: '',
-    filterStatus: '',
+      filterStatus: '',
       faqs: [],
       role: '',
       showAddModal: false,
@@ -430,7 +489,7 @@ export default {
       getcenterCode: '',
       getphoneNumber: '',
       getpublisherName: '',
-      searchUser:[],
+      searchUser: [],
       getImages: null,
       cancelReasonText: '',
       user_id: '',
@@ -482,7 +541,7 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.clearFilters();
     this.filterData();
     this.addCssRule()
@@ -490,15 +549,15 @@ export default {
     // document.addEventListener("click", this.closeMegaMenu);
   },
   computed: {
-    containerClasses () {
+    containerClasses() {
       return {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
     }
   },
-  created () {
-    
+  created() {
+
     this.filterData();
 
     this.clearFilters();
@@ -506,65 +565,74 @@ export default {
     // const accessToken = localStorage.getItem('accesstoken');
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-    
+
     // this.fetchUser()
 
-    this.fetchPublisher() 
+    this.fetchPublisher()
 
   },
   methods: {
-
+    toggleFlexDiv() {
+      this.flexDivDisplay =
+        this.flexDivDisplay === "flex!important"
+          ? "none!important"
+          : "flex!important"; // Toggle the display property
+    },
     filterData() {
-      debugger
-    this.filteredFaqs = this.faqs.filter(faq => {
-      // Check search term
-      const matchesSearchTerm = 
-        faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        faq.contact_number.includes(this.searchTerm) ||
-        faq.agency_center_code.includes(this.searchTerm) ||
-        (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      this.filteredFaqs = this.faqs.filter(faq => {
+        // Check search term
+        const matchesSearchTerm =
+          faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+          faq.contact_number.includes(this.searchTerm) ||
+          faq.agency_center_code.includes(this.searchTerm) ||
+          (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
 
-      // Check filter status
-      const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
+        console.log('matchesSearchTerm:', matchesSearchTerm);
 
-      return matchesSearchTerm && matchesStatus;
-    });
-  },
-  onSearchTermChange(event) {
-    this.searchTerm = event.target.value;
-    this.filterData();
-  },
-  onStatusChange(event) {
-    this.filterStatus = event.target.value;
-    this.filterData();
-  },
-  clearFilters() {
-    this.searchTerm = '';
-    this.filterStatus = '';
-    this.filterData();
-  },
-  onSearchTermChange(event) {
-    this.searchTerm = event.target.value;
-    this.filterData();
-  },
-  onStatusChange(event) {
-    this.filterStatus = event.target.value;
-    this.filterData();
-  },
-    checkLength (event) {
+        // Check filter status
+        const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
+
+        console.log('matchesStatus:', matchesStatus);
+
+        return matchesSearchTerm && matchesStatus;
+      });
+    },
+
+    onSearchTermChange(event) {
+      this.searchTerm = event.target.value;
+      this.filterData();
+    },
+    onStatusChange(event) {
+      this.filterStatus = event.target.value;
+      this.filterData();
+    },
+    clearFilters() {
+      this.searchTerm = '';
+      this.filterStatus = '';
+      this.filterData();
+    },
+    onSearchTermChange(event) {
+      this.searchTerm = event.target.value;
+      this.filterData();
+    },
+    onStatusChange(event) {
+      this.filterStatus = event.target.value;
+      this.filterData();
+    },
+    checkLength(event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    clickCancle () {
+    clickCancle() {
       this.$bvModal.hide('modal-cancelReason')
     },
-    checkLengthCode (event) {
+    checkLengthCode(event) {
       if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    async fetchPublisher () {
+    async fetchPublisher() {
       this.loader = true
       try {
         var url = ''
@@ -590,8 +658,8 @@ export default {
           // this.faqs = response.apidata.data;
 
           this.faqs = response.apidata.data;
-          this.filteredFaqs = this.faqs
-          
+          // this.filteredFaqs = this.faqs
+
 
 
           // this.faqs = this.faqs.filter(e => e._id == this.user_id)
@@ -606,10 +674,10 @@ export default {
       }
     },
     handelUserField() {
-      this.searchUser =  this.faqs.filter(user => user.user_name.toLowerCase().includes(this.publisherName.toLowerCase()));
-          // console.log(myData);
+      this.searchUser = this.faqs.filter(user => user.user_name.toLowerCase().includes(this.publisherName.toLowerCase()));
+      // console.log(myData);
     },
-    async fetchUser () {
+    async fetchUser() {
       this.loader = true
 
       try {
@@ -645,8 +713,8 @@ export default {
         )
       }
     },
-    gethandleImageSelection () {},
-    async handleImageSelection () {
+    gethandleImageSelection() { },
+    async handleImageSelection() {
       this.imgLoader = true
 
       try {
@@ -681,7 +749,7 @@ export default {
       }
     },
 
-    truncateDescription (description) {
+    truncateDescription(description) {
       const words = description.split(' ')
       if (words.length > 13) {
         return words.slice(0, 13).join(' ') + '...'
@@ -690,7 +758,7 @@ export default {
       }
     },
 
-    async clickAccept (id) {
+    async clickAccept(id) {
       try {
         var req = {
           status: 'Approved'
@@ -715,12 +783,12 @@ export default {
         // console.error(error)
       }
     },
-    async clickReject (id) {
+    async clickReject(id) {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
 
-    async addPublisher () {
+    async addPublisher() {
       if (
         !this.images ||
         !this.phoneNumber ||
@@ -735,51 +803,51 @@ export default {
         return
       }
 
-      if (this.searchUser.length>0) {
+      if (this.searchUser.length > 0) {
         this.$toaster.makeToast('warning', 'Publisher Name already exist')
       } else {
-         this.loader = true
-      try {
-        //const imageUrls = await this.uploadImages();
-        let requestData = {
-          user_name: this.publisherName,
-          contact_number: this.phoneNumber,
-          agency_center_code: this.centerCode,
-          icon: this.uplodedImages,
-          // icon: 'https://tiktok.algofolks.com/download.png',
-          user_id: this.user_id
-        }
+        this.loader = true
+        try {
+          //const imageUrls = await this.uploadImages();
+          let requestData = {
+            user_name: this.publisherName,
+            contact_number: this.phoneNumber,
+            agency_center_code: this.centerCode,
+            icon: this.uplodedImages,
+            // icon: 'https://tiktok.algofolks.com/download.png',
+            user_id: this.user_id
+          }
 
-        // Assuming you want to make a POST request
-        const res = await this.$apiService.postCall(
-          'publisher/create/',
-          requestData
-        )
+          // Assuming you want to make a POST request
+          const res = await this.$apiService.postCall(
+            'publisher/create/',
+            requestData
+          )
 
-        if (res.error) {
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', res.message)
+          } else {
+            this.fetchPublisher()
+            this.isEdit = false
+            this.showAddModal = false
+            this.loader = false
+              ; (this.publisherName = ''),
+                (this.centerCode = ''),
+                (this.phoneNumber = ''),
+                this.$toaster.makeToast('success', 'Data added successfully')
+          }
+        } catch (error) {
           this.loader = false
-          this.$toaster.makeToast('warning', res.message)
-        } else {
-          this.fetchPublisher()
-          this.isEdit = false
-          this.showAddModal = false
-          this.loader = false
-          ;(this.publisherName = ''),
-            (this.centerCode = ''),
-            (this.phoneNumber = ''),
-            this.$toaster.makeToast('success', 'Data added successfully')
+          this.$toaster.makeToast('warning', 'Error: Server Error')
+          // console.error(error)
         }
-      } catch (error) {
-        this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
-        // console.error(error)
-      }
 
       }
 
 
     },
-    async editPublisher () {
+    async editPublisher() {
       this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
@@ -814,7 +882,7 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    clickEdit (data) {
+    clickEdit(data) {
       this.updateId = data._id
       this.getcenterCode = data.agency_center_code
       this.getphoneNumber = data.contact_number
@@ -862,7 +930,7 @@ export default {
     //     // Handle error, such as displaying an error message
     //   }
     // },
-    clickRejectButton () {
+    clickRejectButton() {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
         this.deletePublisher()
       } else {
@@ -872,7 +940,7 @@ export default {
         )
       }
     },
-    async deletePublisher () {
+    async deletePublisher() {
       this.loader = true
       try {
         var req = {
@@ -901,7 +969,7 @@ export default {
         // console.error(error)
       }
     },
-    async clickDelete (data) {
+    async clickDelete(data) {
       try {
         // Show confirmation dialog
         const result = await this.$swal({
@@ -942,15 +1010,15 @@ export default {
         console.error('Error deleting FAQ:', error)
       }
     },
-    closeModal () {
+    closeModal() {
       this.isEdit = false
       this.showAddModal = false // Set showAddModal to false to hide the modal
     },
-    closeModalEdit () {
+    closeModalEdit() {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
     },
 
-    addCssRule () {
+    addCssRule() {
       const style = document.createElement('style')
       style.type = 'text/css'
       const cssRule =
@@ -974,17 +1042,20 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent black */
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 imgloader {
   top: 50%;
   left: 50%;
   position: absolute;
   z-index: 10;
 }
+
 #loader {
   top: 50%;
   left: 50%;
@@ -997,8 +1068,10 @@ imgloader {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 60%; /* Adjust as needed */
-  max-width: 600px; /* Maximum width */
+  width: 60%;
+  /* Adjust as needed */
+  max-width: 600px;
+  /* Maximum width */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   position: relative;
 }
@@ -1029,9 +1102,25 @@ imgloader {
   right: 0px !important;
 }
 
-.mt-4{
-  margin-top: 26px!important;
+.mt-4 {
+  margin-top: 26px !important;
 }
 
+.fa-chevron-circle-down {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
 
+.fa-refresh {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-times {
+  content: "\f13a";
+  color: #808080cf;
+  width: 20px;
+}
 </style>

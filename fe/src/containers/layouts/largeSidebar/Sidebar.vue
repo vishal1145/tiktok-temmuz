@@ -230,7 +230,7 @@
          <!-- statics- User -->
 
         
-        <li v-if="isHide"
+        <li v-if="isAdmin === 'user'"
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/profiledata/profile') }"
             class="nav-item"
