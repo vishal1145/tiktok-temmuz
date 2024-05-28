@@ -14,7 +14,7 @@ const {
   newEmailVerifyOtp,
 } = require("../controllers/user.controller");
 
-const { getAllUsersPublishers} = require("../controllers/publisher.controller");
+const { getAllMembersPublishers} = require("../controllers/publisher.controller");
 
 router.get("/user-by-id", getUserById);
 router.get("/get-all-users", getAllUsers);
@@ -24,9 +24,6 @@ router.post("/update-password", updatePassword)
 router.post("/update-email-preferences", updateEmailPreferences);
 router.post("/new-email-update", newEmailUpdate);
 router.post("/new-email-verify-otp", newEmailVerifyOtp);
-router.get("/get-all-users-publishers", getAllUsersPublishers);
-
-
-
+router.get("/get-all-members-publishers", getAllMembersPublishers);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const PublisherModel = require("../models/publisher.model");
+
 const mongoose = require("mongoose");
 
 
@@ -7,7 +8,7 @@ exports.getAllPublisher = async () => {
   return publishers;
 };
 
-exports.getAllUsersPublishers = async (_id) => {
+exports.getAllMembersPublishers = async (_id) => {
   const publishers = await PublisherModel.aggregate([{ $match: { user_id: new mongoose.Types.ObjectId(_id) } }]);
   return publishers;
 };

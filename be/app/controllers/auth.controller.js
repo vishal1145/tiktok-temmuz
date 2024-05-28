@@ -57,9 +57,9 @@ exports.verifyOtp = async (req, res) => {
             otp: req.body.otp
         }
 
-        await verifyOtp(requestData)
+        const { User } = await verifyOtp(requestData);
 
-        res.status(200).json({ Message: "OTP Matched", sucess: true })
+        res.status(200).json({ Message: "OTP Matched", success: true, user_id: User._id, role: User.role, access_token: getToken(User),  })
 
     } catch (err) {
         res.status(401).json({ Message: "Otp Invalid", success: false })

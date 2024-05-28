@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
-require('../models/user.model');
-const User = mongoose.model('user')
+require('../models/tiktokusers.model');
+const User = mongoose.model('member')
 
 const authenticatingUser = async (req, res, next) => {
   const token = req.headers.accesstoken;

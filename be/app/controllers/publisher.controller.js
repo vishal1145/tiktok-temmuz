@@ -3,7 +3,7 @@ const {
   updatePublisherStatus,
   deletePublisher,
   getAllPublisher,
-  getAllUsersPublishers,
+  getAllMembersPublishers,
   updatePublisher
 } = require("../services/publisher.service");
 
@@ -12,9 +12,19 @@ exports.getAllPublisher = async (req, res) => {
   res.status(200).send({ data: publishers, success: true })
 };
 
-exports.getAllUsersPublishers = async (req, res) => {
-  const publishers = await getAllUsersPublishers(req.user._id)
-  res.status(200).send({ data: publishers, success: true })
+exports.getAllMembersPublishers = async (req, res) => {
+  
+  try {
+    const publishers = await getAllMembersPublishers(req.user._id)
+    if (publishers.length > 0) {
+      res.status(200).send({ data: publishers, success: true })
+    } else {
+      res.status(200).send({ msg: 'No Record Found', success: true })
+    }
+  } catch(error) {
+    res.status(400).send({msg: error.message});
+  }
+    
 }
 
 exports.createPublisher = async (req, res) => {

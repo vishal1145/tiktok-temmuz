@@ -1,4 +1,5 @@
 const UserModel = require('../models/user.model');
+const MemberModel = require('../models/tiktokusers.model');
 const tiktokUsersModel = require("../models/tiktokusers.model");
 const { decrypt, compare, sendForgetPasswordMail } = require('../util')
 
@@ -42,7 +43,7 @@ exports.verifyOtp = async (data) => {
         const User = await tiktokUsersModel.findOne({ contact_number: data.contact_number });
 
         if (User.otp == data.otp) {
-            return ({ success: true })
+            return ({ User })
         } else {
             throw new Error({ Message: "Otp Invalid" })
         }
@@ -63,7 +64,7 @@ exports.checkUserName = async (data) => {
 }
 
 exports.getUserById = async (_id) => {
-    const user = UserModel.findById(_id);
+    const user = MemberModel.findById(_id);
     return user;
 }
 

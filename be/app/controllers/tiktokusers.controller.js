@@ -9,7 +9,7 @@ exports.tiktokLogin = async (req, res) => {
   try {
     const { user } = await tiktokLogin(req.body);
     if (user) {
-      res.send({ success: true, access_token: getToken(user), user_id: user._id, role: user.role });
+      res.status(200).send({ success: true });
     } else {
       res.status(400).send({ message: "Invalid request" });
     }
@@ -17,6 +17,7 @@ exports.tiktokLogin = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 exports.isMemberExists = async (req, res) => {
   try {
     const { user } = await isMemberExists(req.body);

@@ -5,7 +5,7 @@ const publishSchema = new mongoose.Schema({
   contact_number: { type: String},
   agency_center_code: { type: String },
   icon: { type: String},
-  user_id: { type: mongoose.Types.ObjectId, ref: "user" },
+  user_id: { type: mongoose.Types.ObjectId, ref: "member" },
   status: {type: String, default: 'Under Review'},
   reason: {type: String, default: null}
 })

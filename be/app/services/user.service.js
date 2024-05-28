@@ -1,9 +1,10 @@
 const UserModel = require("../models/user.model");
+const MemberModel = require("../models/tiktokusers.model");
 const newEmailUpdateModel = require("../models/new_email_update.model");
 const { decrypt, compare, sendForgetPasswordMail } = require("../util");
 
 exports.getUserById = async (_id) => {
-  return await UserModel.findById(_id);
+  return await MemberModel.findById(_id);
 };
 
 exports.getAllUsers = async () => {
