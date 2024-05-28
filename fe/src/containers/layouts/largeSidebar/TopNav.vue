@@ -184,7 +184,7 @@
               @click.prevent="myinformation"
               class="dropdown-item"
               style="cursor: pointer"
-              >My Information</a
+              >Profile</a
             > <a
             v-if="isAdmin === 'admin'"
               @click.prevent="creators"
@@ -1296,7 +1296,7 @@ this.isAdmin=storedUser;
     },
     myinformation()
     {
-      this.$router.push("/app/setting/myinformation");
+      this.$router.push("/app/profiledata/profile");
       this.$refs.dropdown.hide();
     },
     creators()

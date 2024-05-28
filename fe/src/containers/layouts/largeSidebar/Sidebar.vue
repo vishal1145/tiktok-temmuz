@@ -142,15 +142,15 @@
  <!-- information- User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/setting/myinformation') }"
+            :class="{ active: isActive('/app/profiledata/profile') }"
             class="nav-item"
             data-item="addBackEndData"
             :data-submenu="false"
         >
-          <router-link tag="a" class to="/app/setting/myinformation">
+          <router-link tag="a" class to="/app/profiledata/profile">
             <a class="nav-item-hold nav-item" href="#">
               <i class="nav-icon i-Male-21"></i>
-              <span class="nav-text">{{ $t("My Information") }}</span>
+              <span class="nav-text">{{ $t("Profile") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>

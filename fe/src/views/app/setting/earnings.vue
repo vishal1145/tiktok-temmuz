@@ -2,7 +2,7 @@
   <div class="">
     <div class="font-weight-bold fa-2x text-light">Earning</div>
     <hr class="mt-1" />
-    <!-- <b-modal
+    <b-modal
       v-model="showAddModal"
       id="modal-add"
       size="md"
@@ -75,7 +75,7 @@
             height="50"
             width="50"
           />
-        </b-col> -->
+        </b-col>
 
         <!-- <b-form-group label="" label-for="input-description">
             <b-form-textarea
@@ -88,10 +88,10 @@
             ></b-form-textarea>
           </b-form-group> -->
 
-        <!-- <b-col>
-          <div class="d-flex justify-content-end"> -->
+        <b-col>
+          <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <!-- <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
               >Close</b-button
             >
             <b-button
@@ -108,8 +108,8 @@
           </div>
         </b-col>
       </b-row>
-    </b-modal> -->
-    <!-- <b-modal
+    </b-modal>
+    <b-modal
       v-model="showAddModalEdit"
       id="modal-add"
       size="md"
@@ -171,7 +171,7 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center">
+        <b-col md="6" class="justify-content-end d-flex align-items-center py-2">
           <img
             :src="this.uplodedImages"
             alt=""
@@ -179,7 +179,7 @@
             height="50"
             width="50"
           />
-        </b-col> -->
+        </b-col>
 
         <!-- <b-form-group label="" label-for="input-description">
             <b-form-textarea
@@ -192,10 +192,10 @@
             ></b-form-textarea>
           </b-form-group> -->
 
-        <!-- <b-col>
-          <div class="d-flex justify-content-end"> -->
+        <b-col>
+          <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <!-- <b-button
+            <b-button
               v-if="!imgLoader"
               class="mb-2 mr-2"
               @click="closeModalEdit()"
@@ -215,8 +215,8 @@
           </div>
         </b-col>
       </b-row>
-    </b-modal> -->
-    <!-- <b-modal
+    </b-modal>
+    <b-modal
       id="modal-cancelReason"
       size="md"
       title="Reason for cancellation:"
@@ -258,25 +258,15 @@
           </div>
         </b-col>
       </b-row>
-    </b-modal> -->
+    </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
-    <div class="">
-      <!-- Add New FAQ modal -->
-      <!-- <button
-        v-if="role != 'admin'"
-        @click="showAddModal = true"
-        class="btn btn-primary mb-3"
-      >
-      
-        Add New
-      </button> -->
-      <div class="d-flex flex-column gap-5" style="
-    gap: 13px;
-">
-<div class="card">
+    <div class="d-flex flex-column gap-5" style="gap: 13px;">
+     
+
+      <div class="card pb-2">
           <div
-            class="card-header d-flex flex-row justify-content-between px-32"
+            class="card-header d-flex flex-row justify-content-between "
             style="
    
     background-color: white;
@@ -328,7 +318,10 @@
             class="d-flex flex-row card-body"
             :style="{ display: flexDivDisplay }"
           >
-            <div class="col-12 col-sm-6 col-lg-3">
+            <div class="col-12 col-sm-6 col-lg-3" style="
+    padding-right: 0px;
+    padding-left: 0px;
+">
               <label for="users-list-search">Search</label>
               <fieldset class="form-group">
                 <input
@@ -336,7 +329,7 @@
                   class="form-control"
                   id="users-list-search"
                   placeholder="Search..."
-                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
                   v-model="searchTerm"
                   @input="onSearchTermChange"
                 />
@@ -349,7 +342,7 @@
                 <select
                   class="form-control "
                   id="users-list-verified"
-                  style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+                  style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
                   v-model="filterStatus"
                   @change="onStatusChange"
                 >
@@ -372,24 +365,64 @@
   </div> -->
           </div>
         </div>
+      <div
+        class="d-flex flex-column gap-5 card"
+        style="
+    gap: 13px;
+"
+      >
+     
 
-   
-
-        <vue-good-table
+        
+            <!-- <div
+            class="card-header d-flex flex-row justify-content-between"
+            style="background-color: white;
+"
+          > -->
+            <!-- <h4
+              class="card-title"
+              style="margin: 0px;background-color: white;color: #000000c4;"
+            >
+              Records
+            </h4> -->
+            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+            <!-- <div class="heading-elements">
+              <ul
+                class="list-inline mb-0 d-flex flex-row justify-content-around"
+                style="gap: 9px;"
+              >
+              <button
+        v-if="role != 'admin'"
+        @click="showAddModal = true"
+        class="btn btn-primary mb-3"
+        style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
+      > -->
+        <!-- -->
+        <!-- Add New
+      </button> -->
+                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+              <!-- </ul>
+            </div> -->
+          <!-- </div> -->
+          <div class="card-body">
+                  <vue-good-table
           :columns="columns"
           :line-numbers="false"
           :pagination-options="paginationOptions"
           styleClass="tableOne vgt-table"
-          :rows="earningfaq"
+          :rows="filteredFaqs"
+          
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'actions'">
               <div
                 v-if="
-                  role == 'user' &&
-                  props.row.status != 'Approved' &&
-                  props.row.status != 'Rejected'
-                "
+                role == 'user' &&
+                props.row.status != 'Approved' &&
+                props.row.status != 'Rejected'
+              "
               >
                 <span @click="clickEdit(props.row)" class="btn p-0"
                   ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
@@ -403,10 +436,10 @@
               <div
                 class="d-flex"
                 v-else-if="
-                  role == 'admin' &&
-                  props.row.status != 'Approved' &&
-                  props.row.status != 'Rejected'
-                "
+                role == 'admin' &&
+                props.row.status != 'Approved' &&
+                props.row.status != 'Rejected'
+              "
               >
                 <div
                   class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
@@ -451,12 +484,18 @@
             </span>
           </template>
         </vue-good-table>
+          </div>
+
+     
+
+  
         <!-- <div v-if="loader" class="loader">No data is available</div> -->
       </div>
     </div>
     <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
   </div>
 </template>
+
 
 <script>
 export default {

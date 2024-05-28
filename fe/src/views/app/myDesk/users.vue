@@ -598,6 +598,14 @@ export default {
     this.getAllTransaction();
     this.role = parsedUser.data.role;
     this.originalRows = [...this.rows];
+
+    if (!localStorage.getItem('pageReloaded')) {
+      localStorage.setItem('pageReloaded', 'true');
+      window.location.reload();
+    } else {
+     
+      localStorage.removeItem('pageReloaded');
+    }
    
   },
   methods: {
