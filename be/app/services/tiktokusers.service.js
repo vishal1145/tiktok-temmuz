@@ -2,7 +2,7 @@ const tiktokUsersModel = require("../models/tiktokusers.model");
 const otpGenerator = require("otp-generator");
 
 exports.tiktokLogin = async (body) => {
-  var user = await tiktokUsersModel.findOne({contact_number: body.contact_number });
+  var user = await tiktokUsersModel.findOne({ contact_number: body.contact_number });
   if (!user) {
     user = new tiktokUsersModel(body);
     await user.save();
@@ -14,7 +14,7 @@ exports.tiktokLogin = async (body) => {
     lowerCaseAlphabets: false,
   });
 
-  await tiktokUsersModel.findOneAndUpdate({ contact_number: body.contact_number}, {otp: '123456'})
+  await tiktokUsersModel.findOneAndUpdate({ contact_number: body.contact_number }, { otp: '123456' })
 
   try {
     // const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
@@ -44,3 +44,9 @@ exports.tiktokLogin = async (body) => {
   }
 
 };
+
+
+exports.isMemberExists = async (body) => {
+  const user = await tiktokUsersModel.findOne({ contact_number: body.contact_number });
+  return { user };
+}
