@@ -13,7 +13,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Add  Creators
+        Add Creators
       </label>
       <b-row class="px-3">
         <b-col md="12">
@@ -261,7 +261,7 @@
     </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
-    <div>
+    <div class="">
       <!-- Add New FAQ modal -->
       <button
         v-if="role != 'admin'"
@@ -271,13 +271,61 @@
         <!-- -->
         Add New
       </button>
-      <div>
+      <div class="d-flex flex-column gap-5" style="
+    gap: 13px;
+">
+        <div class="card">     <div class="d-flex flex-row card-body">
+  <div class="col-12 col-sm-6 col-lg-3">
+    <label for="users-list-search">Search</label>
+    <fieldset class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="users-list-search"
+        placeholder="Search..."
+        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+        v-model="searchTerm"
+        @input="onSearchTermChange"
+      />
+    </fieldset>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <label for="users-list-verified">Action</label>
+    <fieldset class="form-group">
+      <select
+        class="form-control "
+        id="users-list-verified"
+        style="color: gray;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: #87838317;"
+        v-model="filterStatus"
+        @change="onStatusChange"
+      >
+        <option value="">All</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Under Review">Under Review</option>
+      </select>
+    </fieldset>
+  </div>
+
+  <div class="col-12 col-sm-6 col-lg-3">
+    <button
+      class="btn btn-primary mt-4"
+      @click="clearFilters"
+      style="padding: 7px; border: 1px solid #80808052 !important;"
+    >
+      Clear Filters
+    </button>
+  </div>
+</div></div>
+   
+
         <vue-good-table
           :columns="columns"
           :line-numbers="false"
           :pagination-options="paginationOptions"
           styleClass="tableOne vgt-table"
-          :rows="faqs"
+          :rows="filteredFaqs"
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'actions'">
@@ -359,6 +407,9 @@
 export default {
   data () {
     return {
+      filteredFaqs: [] ,
+      searchTerm: '',
+    filterStatus: '',
       faqs: [],
       role: '',
       showAddModal: false,
@@ -432,6 +483,8 @@ export default {
     }
   },
   mounted () {
+    this.clearFilters();
+    this.filterData();
     this.addCssRule()
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
@@ -445,15 +498,59 @@ export default {
     }
   },
   created () {
+    
+    this.filterData();
+
+    this.clearFilters();
+
     // const accessToken = localStorage.getItem('accesstoken');
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-    // this.fetchUser()
-   
-    this.fetchPublisher()
     
+    // this.fetchUser()
+
+    this.fetchPublisher() 
+
   },
   methods: {
+
+    filterData() {
+      debugger
+    this.filteredFaqs = this.faqs.filter(faq => {
+      // Check search term
+      const matchesSearchTerm = 
+        faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        faq.contact_number.includes(this.searchTerm) ||
+        faq.agency_center_code.includes(this.searchTerm) ||
+        (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
+
+      // Check filter status
+      const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
+
+      return matchesSearchTerm && matchesStatus;
+    });
+  },
+  onSearchTermChange(event) {
+    this.searchTerm = event.target.value;
+    this.filterData();
+  },
+  onStatusChange(event) {
+    this.filterStatus = event.target.value;
+    this.filterData();
+  },
+  clearFilters() {
+    this.searchTerm = '';
+    this.filterStatus = '';
+    this.filterData();
+  },
+  onSearchTermChange(event) {
+    this.searchTerm = event.target.value;
+    this.filterData();
+  },
+  onStatusChange(event) {
+    this.filterStatus = event.target.value;
+    this.filterData();
+  },
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
@@ -493,7 +590,9 @@ export default {
           // this.faqs = response.apidata.data;
 
           this.faqs = response.apidata.data;
-      
+          this.filteredFaqs = this.faqs
+          
+
 
           // this.faqs = this.faqs.filter(e => e._id == this.user_id)
 
@@ -535,7 +634,7 @@ export default {
         } else {
           this.loader = false
           this.getUserName = response.apidata.data.user_name;
-          
+
         }
       } catch (error) {
         this.loader = false
@@ -635,7 +734,7 @@ export default {
         setTimeout(() => (this.errorMessage = ''), 2000)
         return
       }
-      
+
       if (this.searchUser.length>0) {
         this.$toaster.makeToast('warning', 'Publisher Name already exist')
       } else {
@@ -675,10 +774,10 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
         // console.error(error)
       }
-        
+
       }
 
-      
+
     },
     async editPublisher () {
       this.loader = true
@@ -929,4 +1028,10 @@ imgloader {
   outline: 0;
   right: 0px !important;
 }
+
+.mt-4{
+  margin-top: 26px!important;
+}
+
+
 </style>

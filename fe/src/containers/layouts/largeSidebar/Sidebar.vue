@@ -110,7 +110,7 @@
           <router-link tag="a" class to="/app/setting/homepage">
             <a class="nav-item-hold nav-item" href="#">
               <i class="nav-icon i-Administrator"></i>
-              <span class="nav-text">{{ $t("Home Page") }}</span>
+              <span class="nav-text">{{ $t("Page") }}</span>
             </a>
             <div class="triangle"></div>
           </router-link>

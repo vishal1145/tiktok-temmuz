@@ -237,18 +237,27 @@
       }"
       :rows="getfilterdata"
     >
-      <!-- <div slot="table-actions" class="mb-3">
-        <i class="i-Align-Justify-All mr-3"></i>
-        <i class="i-Windows-Microsoft mr-3"></i>
+
+   
+ <div slot="table-actions" class="mb-3" style="
+    margin-right: 888px;
+">
+        
         <b-button
           variant="primary"
           v-b-modal.modal-lg
           class="btn-rounded"
           @click="generateID()"
+          style="
+    padding-top: 5px;
+    padding-bottom: 5px;
+"
         >
-          New Template
+          Add Member
         </b-button>
-      </div> -->
+      </div> 
+
+
 
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field === 'img'">
@@ -277,46 +286,30 @@
           </template>
           
         </span> -->
-        <span v-else-if="props.column.field === 'button'">
-          <!-- <template>
-            <a
-              v-b-modal.modal-lg
-              @click="openModal(props.row)"
-              class="mr-3"
-              variant="primary ripple"
-              style="text-decoration: underline !important; cursor: pointer"
-              >Documents</a
-            >
-          </template> -->
-          <template>
-            <!-- <b-button
-              v-if="props.row.accessStatus == false"
-              variant="primary ripple"
-              @click="clickBlock(props.row.id)"
-              style="height: 33px; width: 7em"
-              class="mr-3"
-              >Block</b-button
-            > -->
-            <!-- <b-button
-              class="mr-3"
-              style="height: 33px; width: 7em"
-              v-else
-              variant="primary ripple"
-              @click="clickUnBlock(props.row.id)"
-            >
-              Unblock</b-button
-            > -->
-          </template>
-          <template>
-            <a
-            @click="openModal12"
-              class="mr-3"
-              variant="primary ripple"
-              style="font-size: 16px; cursor: pointer"
-              ><i class="fa fa-eye" aria-hidden="true"></i
-            ></a>
-          </template>
-        </span>
+        <span v-if="props.column.field === 'actions'">
+              <div
+               
+              >
+                <span @click="clickEdit(props.row)" class="btn p-0"
+                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                ></span>
+
+                <span @click="clickDelete(props.row)" class="btn pl-3"
+                  ><i class="fa fa-trash" aria-hidden="true"></i
+                ></span>
+              </div>
+
+              <div>
+                <div v-if="props.row.status === 'Approved'">
+                  <span class="badge badge-success">{{
+                    props.row.status
+                  }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Rejected'">
+                  <span class="badge badge-danger">{{ props.row.status }}</span>
+                </div>
+              </div>
+            </span>
         <span v-else-if="props.column.field === 'email'">
           <template>
             <div class="d-flex flex-column">
@@ -491,10 +484,7 @@ export default {
         //   label: "FAS Tag",
         //   field: "fastag",
         // },
-        {
-          label: "Action",
-          field: "button",
-        },
+      
 
         // {
         //   label: "Balance",
@@ -512,10 +502,18 @@ export default {
         //   label: "Residential address",
         //   field: "residential_Address",
         // },
-        // {
-        //   label: "Actions",
-        //   field: "button",
-        // },
+        {
+          label: 'Actions',
+          sortable: false,
+          field: 'actions',
+          width: '150px',
+          formatFn: () => {
+            return `
+              <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+              <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
+            `
+          }
+        },
       ],
       rows: [],
       originalRows:[],
