@@ -155,6 +155,115 @@
                       </b-button>
                     </div>
                   </b-form>
+                  <b-form
+                    @submit.prevent="formSubmitName"
+                    id="firstOtp"
+                    v-if="isShowName"
+                  >
+                    <b-form-group :label="$t('User Name')" class="text-12 pw">
+                      <b-form-input
+                        class="form-control-rounded pw"
+                        type="text"
+                        placeholder="Enter name"
+                        max="30"
+                        v-model="userName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      :label="$t('User Surname')"
+                      class="text-12 pw"
+                    >
+                      <b-form-input
+                        class="form-control-rounded pw"
+                        type="text"
+                        placeholder="Enter surname"
+                        max="30"
+                        v-model="userSurName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <div>
+                      <b-col md="12 ml-5" v-if="isLoading">
+                        <div class="spinner spinner-primary ml-5"></div>
+                      </b-col>
+                      <b-button
+                        type="submit"
+                        tag="button"
+                        class="btn-rounded btn-block mt-2"
+                        variant="primary mt-2"
+                        :disabled="loading"
+                        v-if="!isLoading"
+                      >
+                        {{ $t('Next') }}
+                      </b-button>
+                    </div>
+                  </b-form>
+                  <b-form
+                    @submit.prevent="formSubmittikTokUser"
+                    id="tikTokUser"
+                    v-if="isShowtikTokUser"
+                  >
+                    <b-form-group
+                      :label="$t('TikTok Username')"
+                      class="text-12 pw"
+                    >
+                      <b-form-input
+                        class="form-control-rounded pw"
+                        type="text"
+                        v-model="tikTokUserName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <div>
+                      <b-col md="12 ml-5" v-if="isLoading">
+                        <div class="spinner spinner-primary ml-5"></div>
+                      </b-col>
+                      <b-button
+                        type="submit"
+                        tag="button"
+                        class="btn-rounded btn-block mt-2"
+                        variant="primary mt-2"
+                        :disabled="loading"
+                        v-if="!isLoading"
+                      >
+                        {{ $t('Next') }}
+                      </b-button>
+                    </div>
+                  </b-form>
+                  <b-form
+                    @submit.prevent="formSubmitGms"
+                    id="firstOtp"
+                    v-if="isShowGmsVerification"
+                  >
+                    <b-form-group
+                      :label="$t('GSM Verification')"
+                      class="text-12 pw"
+                    >
+                      <b-form-input
+                        class="form-control-rounded pw"
+                        type="number"
+                        @keydown="checkLengthOtp"
+                        v-model="gmsVerification"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <div>
+                      <b-col md="12 ml-5" v-if="isLoading">
+                        <div class="spinner spinner-primary ml-5"></div>
+                      </b-col>
+                      <b-button
+                        type="submit"
+                        tag="button"
+                        class="btn-rounded btn-block mt-2"
+                        variant="primary mt-2"
+                        :disabled="loading"
+                        v-if="!isLoading"
+                      >
+                        {{ $t('GSM Verification') }}
+                      </b-button>
+                    </div>
+                  </b-form>
                 </div>
               </div>
             </div>
@@ -440,6 +549,13 @@ export default {
   },
   data () {
     return {
+      isShowName: false,
+      userName: '',
+      userSurName: '',
+      isShowtikTokUser: false,
+      tikTokUserName: '',
+      isShowGmsVerification: false,
+      gmsVerification: '',
       isShowOtp: false,
       isShowPhone: true,
       phoneOtp: '',
@@ -474,7 +590,7 @@ export default {
       alertShow: false,
 
       rows: [],
-      userName: null,
+
       userEmail: '',
 
       notFound: false,
@@ -514,9 +630,7 @@ export default {
     // },
     // validationsGroup:['peopleAdd.multipleName']
   },
-  created () {
- 
-  },
+  created () {},
 
   computed: {
     validation () {
@@ -535,7 +649,6 @@ export default {
   methods: {
     ...mapActions(['login']),
 
- 
     enforceMaxLength () {
       const inputString = this.phone.toString()
       const cleanedInput = inputString.replace(/^0+|[^0-9]+/g, '')
@@ -628,12 +741,7 @@ export default {
 
       this.activeChild = childNumber
     },
-    
-   
 
-   
-
-  
     checkLengthPhone (event) {
       if (this.PhoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
@@ -644,84 +752,39 @@ export default {
         event.preventDefault()
       }
     },
-    formSubmitOtp() {
-      debugger;
+
+    formSubmitName () {
+      this.isShowName = false
+      this.isShowtikTokUser = true
+    },
+    // formSubmittikTokUser () {
+    //   this.isShowtikTokUser = false
+    //   this.isShowGmsVerification = true
+    // },
+    formSubmittikTokUser () {
+      // this.isShowGmsVerification = false
+
       this.loader = true
       let requestData = {
         contact_number: this.PhoneNumber,
-        otp: this.phoneOtp
-      }
-      
-      this.$apiService
-        .postCall('auth/verify-otp', requestData)
-        .then(user => {
-          if (user.error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', 'invalid otp try again')
-          } else {
-            this.$toaster.makeToast('success', 'Otp match successfully')           
-            setTimeout(() => {
-              this.$router.push('/')
-            }, 500)
-            
-          }
-          this.isLoading = false
-        })
-        .catch(function (error) {
-              this.$toaster.makeToast('warning', 'Error: server error')  
-          this.isLoading = false
-          localStorage.removeItem('userInfo')
-          this.$store.commit('setError', { message: error })
-        })
-    },
-
-    formSubmit () {
-      // this.$store.commit('clearError')
-      this.loader = true
-      // this.$store.commit('setLoading', false)
-      let requestData = {
-        'contact_number': this.PhoneNumber,
-        'role':"user"
-        // password: this.password
+        role: 'user',
+        name: this.userName,
+        surname: this.userSurName,
+        tiktok_username: this.tikTokUserName
       }
 
       this.$apiService
         .postCall('auth/tiktok-login', requestData)
         .then(user => {
           if (user.error) {
-             this.$toaster.makeToast('warning', user.message)
-
-            if (
-              user.error ||
-              user.error.response ||
-              user.error.response.message === 'Invalid user'
-            ) {
-              this.loader = false
-              console.log('Invalid user error detected')
-
-               this.$toaster.makeToast('warning', 'User email or password is incorrect')
-
-              localStorage.removeItem('userInfo')
-
-              console.log(user.error.response.data.msg)
-
-              this.$store.commit('setError', {
-                message: user.error.response.data.msg
-              })
-            } else {
-              this.$bvModal.show('modal-attachment')
-              this.loader = false
-            }
-          } else {
             this.loader = false
-            this.isShowOtp = true
-            this.isShowPhone = false
-           
-            this.$toaster.makeToast(
-                "success",
-                "Otp send successfully"
-              );
-            localStorage.setItem('accesstoken', user.apidata.access_token)
+            this.$toaster.makeToast('warning', user.message)
+          } else {
+            this.$toaster.makeToast('success', 'User create successfully')
+            this.isShowtikTokUser = false
+            this.isShowOtp = true;
+ this.loader = false
+              localStorage.setItem('accesstoken', user.apidata.access_token)
             localStorage.setItem('role', user.apidata.role)
             localStorage.setItem('user_id', user.apidata.user_id)
 
@@ -730,9 +793,96 @@ export default {
 
             const expiryTime = rememberMeChecked
               ? 30 * 24 * 60 * 60 * 1000
-              : 1 * 60 * 60 * 1000
+              : 1 * 60 * 60 * 1000;
+               this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
 
-           
+            setTimeout(() => {
+              window.location.reload()
+            }, 3000)
+            // setTimeout(() => {
+            //   this.$router.push('/')
+            // }, 500)
+          }
+          
+        })
+        .catch(function (error) {
+          this.$toaster.makeToast('warning', 'Error: server error')
+           this.loader = false
+          localStorage.removeItem('userInfo')
+          this.$store.commit('setError', { message: error })
+        })
+    },
+    formSubmitOtp () {
+      this.loader = true
+      let requestData = {
+        contact_number: this.PhoneNumber,
+        otp: this.phoneOtp
+      }
+
+      this.$apiService
+        .postCall('auth/verify-otp', requestData)
+        .then(user => {
+          if (user.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'invalid otp try again')
+          } else {
+            this.$toaster.makeToast('success', 'Otp match successfully')
+            setTimeout(() => {
+              this.$router.push('/')
+            }, 500)
+          }
+          this.isLoading = false
+        })
+        .catch(function (error) {
+          this.$toaster.makeToast('warning', 'Error: server error')
+          this.isLoading = false
+          localStorage.removeItem('userInfo')
+          this.$store.commit('setError', { message: error })
+        })
+    },
+
+    formSubmit () {
+      this.loader = true
+
+      let requestData = {
+        contact_number: this.PhoneNumber
+        // 'role':"user"
+        // password: this.password
+      }
+
+      this.$apiService
+        .postCall('auth/check-member-exists', requestData)
+        .then(user => {
+          if (user.error) {
+            this.$toaster.makeToast('warning', user.message)
+            this.loader = false
+          } else {
+            this.loader = false
+
+            this.$toaster.makeToast('success', 'Otp send successfully')
+            const isMemberExists = user.apidata.isMemberExists
+            if (isMemberExists) {
+              this.isShowOtp = true
+              this.isShowPhone = false
+            } else {
+              this.$toaster.makeToast(
+                'warning',
+                'User is not exist, fill all details'
+              )
+              this.isShowName = true
+              this.isShowPhone = false
+            }
+
+            // localStorage.setItem('accesstoken', user.apidata.access_token)
+            // localStorage.setItem('role', user.apidata.role)
+            // localStorage.setItem('user_id', user.apidata.user_id)
+
+            // const rememberMeChecked =
+            //   document.getElementById('remember-me').checked
+
+            // const expiryTime = rememberMeChecked
+            //   ? 30 * 24 * 60 * 60 * 1000
+            //   : 1 * 60 * 60 * 1000
 
             // if (user.apidata.role == 'admin') {
             //   setTimeout(() => {
@@ -746,23 +896,18 @@ export default {
             //   }
             // }
 
-          
-
             // Set expiry time for the token in cookies
-            this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
+            // this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
 
-            setTimeout(() => {
-              window.location.reload()
-            }, 3000)
+            // setTimeout(() => {
+            //   window.location.reload()
+            // }, 3000)
           }
-          this.isLoading = false
+          this.loader = false;
         })
-        .catch(function (error) {
-            this.$toaster.makeToast(
-                "warning",
-                "Error: ServerError"
-              );
-          localStorage.removeItem('userInfo')
+        .catch(function (error) { this.loader = false
+          this.$toaster.makeToast('warning', 'Error: ServerError')
+          // localStorage.removeItem('userInfo')
           this.$store.commit('setError', { message: error })
         })
     },
@@ -953,11 +1098,7 @@ export default {
     openSignUpPopup () {
       this.$bvModal.show('modal-signUp')
       this.$bvModal.hide('modal-signIn')
-    },
-    
-  
-
-  
+    }
   },
   watch: {
     loggedInUser (val) {
