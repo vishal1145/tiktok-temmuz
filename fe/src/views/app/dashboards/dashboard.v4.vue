@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <breadcumb :page="'Version 4'" :folder="'Dashboard'" />
+    <breadcumb :page="'TikTok'" :folder="'Ajans'" />
 
     <b-row>
       <b-col lg="6" xl="3" md="6" sm="6">
@@ -89,7 +89,7 @@
       </b-col>
 
       <!-- form-wizard -->
-      <b-col sm="12" md="12" xl="8" class="mb-30">
+      <b-col sm="12" md="12" xl="8" class="mb-30 d-none">
         <b-card
           title="Create Your Company Profile And Get Started"
           class="o-hidden"
@@ -262,7 +262,7 @@
         </b-card>
       </b-col>
 
-      <b-col sm="12" md="12" xl="4" class="mb-30">
+      <b-col sm="12" md="12" xl="4" class="mb-30 d-none">
         <b-row>
           <b-col md="6" xl="12">
             <b-card class="o-hidden mb-30">
@@ -353,7 +353,7 @@
         </b-card>
       </b-col>
       <!-- echart-pie -->
-      <b-col xl="4" md="12" class="mb-30">
+      <b-col xl="4" md="12" class="mb-30 d-none">
         <b-card title="Stacked Pie Chart" class="o-hidden">
           <apexchart
             type="polarArea"
@@ -365,7 +365,7 @@
       </b-col>
 
       <!-- list -->
-      <b-col md="12" xl="8" class="mb-30">
+      <b-col md="12" xl="8" class="mb-30 d-none">
         <b-card title class="wrapper o-hidden h-100">
           <vue-good-table
             :fixed-header="true"
@@ -388,7 +388,7 @@
         </b-card>
       </b-col>
 
-      <b-col xl="4" md="6" class="mb-30">
+      <b-col xl="4" md="6" class="mb-30 d-none">
         <div class="card o-hidden">
           <img
             class="card-img-top"
@@ -411,7 +411,7 @@
       </b-col>
 
       <!-- mask -->
-      <b-col md="6" xl="6" class="mb-30">
+      <b-col md="6" xl="6" class="mb-30 d-none">
         <b-card bg-variant="defualt" text-variant="black">
           <div class="d-flex align-items-center mb-30">
             <i class="i-ID-Card text-22 mr-2"></i>
@@ -472,7 +472,7 @@
         </b-card>
       </b-col>
       <!-- Sales-stats-1 -->
-      <b-col xl="6" md="6" class="mb-30">
+      <b-col xl="6" md="6" class="mb-30 d-none">
         <b-card no-body title="Payment Form #2" class="o-hidden">
           <b-tabs pills card content-class="mt-3" fill>
             <b-tab active>

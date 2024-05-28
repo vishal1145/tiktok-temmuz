@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <div class="font-weight-bold fa-2x text-light">Creators</div>
     <hr class="mt-1" />
     <b-modal
@@ -171,7 +171,7 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center">
+        <b-col md="6" class="justify-content-end d-flex align-items-center py-2">
           <img
             :src="this.uplodedImages"
             alt=""

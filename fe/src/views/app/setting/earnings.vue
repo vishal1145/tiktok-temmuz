@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <div class="font-weight-bold fa-2x text-light">Earning</div>
     <hr class="mt-1" />
     <!-- <b-modal

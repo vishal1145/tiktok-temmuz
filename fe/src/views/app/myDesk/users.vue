@@ -260,8 +260,7 @@
 
  
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-
-    <vue-good-table
+<div class="card"> <div class="card-body">    <vue-good-table
       :columns="columns"
       :line-numbers="false"
   
@@ -317,7 +316,12 @@
           </template>
           
         </span> -->
-        <span v-else-if="props.column.field === 'button'">
+        <span v-else-if="props.column.field === 'name'">
+
+          <div class="d-flex">
+                {{ props.row.name }} &nbsp;{{ props.row.surname }}
+              </div>
+             
           <!-- <template>
             <a
               v-b-modal.modal-lg
@@ -347,16 +351,46 @@
               Unblock</b-button
             > -->
           </template>
-          <template>
-            <a
-            @click="openModal12"
-              class="mr-3"
-              variant="primary ripple"
-              style="font-size: 16px; cursor: pointer"
-              ><i class="fa fa-eye" aria-hidden="true"></i
-            ></a>
-          </template>
+        
         </span>
+
+        <span v-else-if="props.column.field === 'tiktok_username'">
+
+<div class="d-flex">
+      {{ props.row.tiktok_username }} 
+    </div>
+   
+<!-- <template>
+  <a
+    v-b-modal.modal-lg
+    @click="openModal(props.row)"
+    class="mr-3"
+    variant="primary ripple"
+    style="text-decoration: underline !important; cursor: pointer"
+    >Documents</a
+  >
+</template> -->
+<template>
+  <!-- <b-button
+    v-if="props.row.accessStatus == false"
+    variant="primary ripple"
+    @click="clickBlock(props.row.id)"
+    style="height: 33px; width: 7em"
+    class="mr-3"
+    >Block</b-button
+  > -->
+  <!-- <b-button
+    class="mr-3"
+    style="height: 33px; width: 7em"
+    v-else
+    variant="primary ripple"
+    @click="clickUnBlock(props.row.id)"
+  >
+    Unblock</b-button
+  > -->
+</template>
+
+</span>
         <span v-else-if="props.column.field === 'email'">
           <template>
             <div class="d-flex flex-column">
@@ -452,7 +486,9 @@
           ></i>
         </span>
       </template> -->
-    </vue-good-table>
+    </vue-good-table></div> </div>
+
+ 
 
   
   </div>
@@ -511,51 +547,28 @@ export default {
       isModalOpen: false,
 
       columns: [
-        // {
-        //   label: "",
-        //   field: "img",
-        // },
+     
         {
           label: "Name",
-          field: "user_name",
+          field: "name",
         },
         {
           label: "Email",
           field: "email",
         },
-        // {
-        //   label: "Mobile Number",
-        //   field: "contact_number",
-        // },
-        // {
-        //   label: "FAS Tag",
-        //   field: "fastag",
-        // },
+    
+       
+        {
+          label:"TikTok Name",
+          field:"tiktok_username"
+        } ,
         {
           label: "Action",
           field: "button",
         },
 
-        // {
-        //   label: "Balance",
-        //   field: "balance_show",
-        // }, 
-        // {
-        //   label: "Local address",
-        //   field: "local_address",
-        // },
-        // {
-        //   label: "passport",
-        //   field: "passport",
-        // },
-        // {
-        //   label: "Residential address",
-        //   field: "residential_Address",
-        // },
-        // {
-        //   label: "Actions",
-        //   field: "button",
-        // },
+
+   
       ],
       rows: [],
       originalRows:[],
@@ -572,7 +585,7 @@ export default {
       flexDivDisplay: "flex!important",
       matchUser:"",
      
-            user_name: "",
+            name: "",
             contact_number: "",
             email: "",
  
@@ -687,7 +700,7 @@ handleChange(user) {
   debugger;
 
   // Filter the rows based on the user_name
-  const matchedRows = this.rows.filter((row) => row.user_name === user);
+  const matchedRows = this.rows.filter((row) => row.name === user);
 
   // Update the rows with the filtered results
   this.rows = matchedRows;
@@ -858,14 +871,14 @@ handleChange(user) {
     getAllUsers() {
   this.loader = true;
   this.$apiService
-    .getCall("user/get-all-users")
+    .getCall("user/get-all-members")
     .then((response) => {
       // console.log("Response:", response);
       if (response && response.isError === false && response.apidata && response.apidata.data) {
         const userData = response.apidata.data;
         // console.log("User data:", userData);
         this.rows = userData;
-        this.allUsers = userData.map((e) => e.user_name);
+        this.allUsers = userData.map((e) => e.name);
         // this.$toaster.makeToast("success", "User data fetched successfully");
       } else {
         this.$toaster.makeToast("warning", "Failed to fetch user data");

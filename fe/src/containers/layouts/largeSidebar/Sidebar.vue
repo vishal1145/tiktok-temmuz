@@ -102,12 +102,12 @@
              <!-- home-page - User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/setting/homepage') }"
+            :class="{ active: isActive('/app/dashboards/dashboard.v4') }"
             class="nav-item"
             data-item="addBackEndData"
             :data-submenu="false"
         >
-          <router-link tag="a" class to="/app/setting/homepage">
+          <router-link tag="a" class to="/app/dashboards/dashboard.v4">
             <a class="nav-item-hold nav-item" href="#">
               <i class="nav-icon i-Home1"></i>
               <span class="nav-text">{{ $t("Home") }}</span>
@@ -149,7 +149,7 @@
         >
           <router-link tag="a" class to="/app/setting/myinformation">
             <a class="nav-item-hold nav-item" href="#">
-              <i class="nav-icon i-Clock-3"></i>
+              <i class="nav-icon i-Male-21"></i>
               <span class="nav-text">{{ $t("My Information") }}</span>
             </a>
             <div class="triangle"></div>
@@ -230,7 +230,7 @@
          <!-- statics- User -->
 
         
-        <li v-if="isAdmin === 'user'"
+        <!-- <li v-if="isAdmin === 'user'"
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/profiledata/profile') }"
             class="nav-item"
@@ -244,7 +244,7 @@
             </a>
             <div class="triangle"></div>
           </router-link>
-        </li>
+        </li> -->
           <!-- <li v-if="isAdmin === 'User'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'profile' }"
@@ -390,7 +390,7 @@
             <div class="triangle"></div>
           </li> -->
 
-          <li
+          <!-- <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'profiledata' }"
             class="nav-item"
@@ -405,7 +405,7 @@
               </a>
               <div class="triangle"></div>
             </router-link>
-          </li>
+          </li> -->
           <!-- <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'setting' }"

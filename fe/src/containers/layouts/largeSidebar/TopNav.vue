@@ -112,9 +112,133 @@
  
 
     <div>
-        <a class="dropdown-item" href="#" @click.prevent="logoutUser"
+        <!-- <a class="dropdown-item" href="#" @click.prevent="logoutUser"
+            >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
+          ></a> -->
+
+
+      <b-dropdown
+        id="dropdown-1"
+        text="Dropdown Button"
+        class="m-md-2 user align-self-end"
+        toggle-class="text-decoration-none"
+        no-caret
+        variant="link"
+        ref="dropdown"
+      >
+        <template slot="button-content">
+          <img
+            :src="userLogo"
+            style="
+              object-fit: cover;
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+             
+            "
+            alt
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          />
+        </template>
+
+        <div class="dropdown-menu-right" aria-labelledby="userDropdown">
+          <!-- <div class="dropdown-header">
+            <i class="fa fa-user" aria-hidden="true"
+              ><span class="ml-2" style="font-size: 0.813rem">{{
+                this.userName
+              }}</span></i
+            >
+          </div>
+          
+          <a class="dropdown-item">
+            <li class="nav-item" data-item="profiledata" :data-submenu="false">
+              <router-link
+                tag="a"
+                class
+                to="/app/profiledata/profile"
+                @click.prevent="hideDropdown()"
+              >
+                <a class="nav-item-hold" href="#" @click="hideDropdown()">
+                 
+                  <span class="nav-text" style="color: black">{{
+                    $t("Profile")
+                  }}</span>
+                </a>
+                <div class="triangle"></div>
+              </router-link></li
+          ></a> -->
+
+          <div >
+
+            <a
+            v-if="isAdmin === 'user'"
+              @click.prevent="home"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Home</a
+            >
+            <a 
+            v-if="isAdmin === 'user'"
+              @click.prevent="myinformation"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >My Information</a
+            > <a
+            v-if="isAdmin === 'admin'"
+              @click.prevent="creators"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Creators</a
+            >
+            <a
+            v-if="isAdmin === 'admin'"
+              @click.prevent="members"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Members</a
+            ><a
+            v-if="isAdmin === 'admin'"
+              @click.prevent="Setting"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Setting</a
+            >
+            
+            
+            
+             <a
+            v-if="isAdmin === 'user'"
+              @click.prevent="earning"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Earning</a
+            > <a
+            v-if="isAdmin === 'user'"
+              @click.prevent="statistics"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Statistics</a
+            >
+            <!-- <a
+              @click.prevent="moveNext"
+              class="dropdown-item"
+              style="cursor: pointer"
+              >Transaction</a
+            >
+
+            <a class="dropdown-item" href="#" @click.prevent="clickBookingCar()"
+              >Booking</a
+            > -->
+            
+          </div>
+
+          <a class="dropdown-item" href="#"  @click.prevent="logoutUser"
             >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
           ></a>
+        </div>
+      </b-dropdown>
   </div>
     <!-- <div
       v-if="userName == null && userName == undefined"
@@ -1089,6 +1213,7 @@ export default {
       // loader: false,
       notFound: false,
       id: null,
+      isAdmin:'',
     };
   },
   validations: {
@@ -1131,6 +1256,10 @@ export default {
     // document.addEventListener("click", this.closeMegaMenu);
   },
   created() {
+    var storedUser = localStorage.getItem("role"); 
+
+// var parsedUser = JSON.parse(storedUser);
+this.isAdmin=storedUser;
     this.referral = this.$route.query.ref;
     var storedUser = localStorage.getItem("userInfo");
 
@@ -1158,6 +1287,40 @@ export default {
     ...mapActions(["login"]),
     moveNext() {
       this.$router.push("/app/mydesk/transaction");
+      this.$refs.dropdown.hide();
+    },
+    home()
+    {
+      this.$router.push("/app/dashboards/dashboard.v4");
+      this.$refs.dropdown.hide();
+    },
+    myinformation()
+    {
+      this.$router.push("/app/setting/myinformation");
+      this.$refs.dropdown.hide();
+    },
+    creators()
+    {
+      this.$router.push("/app/setting/publisher");
+      this.$refs.dropdown.hide();
+    },
+    members()
+    {
+      this.$router.push("/app/mydesk/users");
+      this.$refs.dropdown.hide();
+    },  Setting()
+    {
+      this.$router.push("/app/setting/Setting");
+      this.$refs.dropdown.hide();
+    },
+    earning()
+    {
+      this.$router.push("/app/setting/earnings");
+      this.$refs.dropdown.hide();
+    },
+    statistics()
+    {
+      this.$router.push("/app/setting/statistics");
       this.$refs.dropdown.hide();
     },
     handleCheckBoxReferal() {

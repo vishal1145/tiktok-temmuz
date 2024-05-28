@@ -941,7 +941,7 @@ export default {
         // this.$store.commit("setLoading", true);
         // this.$store.commit("clearError");
         const requestData = {
-          role: 'admin',
+          role: 'user',
           email: this.email,
           password: this.password,
           // "first_name": this.fName,
