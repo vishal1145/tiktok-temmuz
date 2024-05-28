@@ -837,29 +837,33 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const localStorageValue = localStorage.getItem("userInfo");
 
-  if (localStorageValue) {
+   const role = localStorage.getItem('role');
+
+  // const localStorageValue = localStorage.getItem("userInfo");
+
+  if (role) {
+   
     try {
-      const userInfo = JSON.parse(localStorageValue);
-      const role = userInfo.data.role;
+      // const userInfo = JSON.parse(localStorageValue);
+      // const role = userInfo.data.role;
 
-      // if (role === "User" && to.path == "/") {
-      //   NProgress.start();
-      //   NProgress.set(0.1);
-
-      //   next("/app/profiledata/profile");
-      // } else 
-      if (role === "Admin" && to.path == "/") {
+      if (role === "user" && to.path == "/") {
         NProgress.start();
         NProgress.set(0.1);
 
-        next("/app/myDesk/users");
+        this.$router.push('/app/setting/publisher')
+      } else 
+      if (role === "admin" && to.path == "/") {
+        NProgress.start();
+        NProgress.set(0.1);
+
+        this.$router.push('/app/mydesk/users')
       } else {
         next();
       }
     } catch (error) {
-      console.error("Error parsing JSON from localStorage:", error);
+      
 
       next();
     }

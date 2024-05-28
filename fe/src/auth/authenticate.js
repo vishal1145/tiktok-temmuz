@@ -1,8 +1,9 @@
 export default (to, from, next) => {
   
   if (
-    localStorage.getItem("userInfo") != null &&
-    localStorage.getItem("userInfo").length > 0
+    localStorage.getItem("accesstoken") != null
+    // &&
+    // localStorage.getItem("userInfo").length > 0
   ) {
     next();
   } 
