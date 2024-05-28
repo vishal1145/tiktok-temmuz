@@ -5,7 +5,7 @@ const router = express.Router();
 
 const {
   getUserById,
-  getAllUsers,
+  getAllMembers,
   getEventsStaffUsers,
   updateContactImage,
   updatePassword,
@@ -17,7 +17,7 @@ const {
 const { getAllMembersPublishers} = require("../controllers/publisher.controller");
 
 router.get("/user-by-id", getUserById);
-router.get("/get-all-users", getAllUsers);
+router.get("/get-all-members", getAllMembers);
 router.post("/get-events-staff-users", getEventsStaffUsers);
 router.post("/update-contact-image", updateContactImage)
 router.post("/update-password", updatePassword)

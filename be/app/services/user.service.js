@@ -7,8 +7,8 @@ exports.getUserById = async (_id) => {
   return await MemberModel.findById(_id);
 };
 
-exports.getAllUsers = async () => {
-  const users = await UserModel.find({role:"user"});
+exports.getAllMembers = async () => {
+  const users = await MemberModel.find({role:"user"});
   return {users};
 };
 
