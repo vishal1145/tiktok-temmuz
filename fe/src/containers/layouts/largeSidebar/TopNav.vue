@@ -1143,22 +1143,11 @@ export default {
       this.id = parsedUser.data.id;
       this.getProfileDetails();
       this.getNotificationData();
-      if (this.role !== "Admin") {
-        this.getTotalBalance();
-      }
+      // if (this.role !== "Admin") {
+      //   this.getTotalBalance();
+      // }
     }
-    // if (this.role === "Admin") {
-    //   this.$router.push("/");
-    // } 
-
-    // var storedUser = localStorage.getItem("userInfo");
-
-    // var parsedUser = JSON.parse(storedUser);
-
-    // this.userName = parsedUser.data.email.replace("@gmail.com", "");
-
-    // this.role = parsedUser.data.role;
-    // console.log(this.role);
+   
   },
   computed: {
     ...mapGetters(["getSideBarToggleProperties"]),

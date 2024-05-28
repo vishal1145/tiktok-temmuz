@@ -782,33 +782,18 @@ export default {
           } else {
             this.$toaster.makeToast('success', 'User create successfully')
             this.isShowtikTokUser = false
-            this.isShowOtp = true;
- this.loader = false
-              localStorage.setItem('accesstoken', user.apidata.access_token)
-            localStorage.setItem('role', user.apidata.role)
-            localStorage.setItem('user_id', user.apidata.user_id)
+            this.isShowOtp = true
+            this.loader = false
 
-            const rememberMeChecked =
-              document.getElementById('remember-me').checked
-
-            const expiryTime = rememberMeChecked
-              ? 30 * 24 * 60 * 60 * 1000
-              : 1 * 60 * 60 * 1000;
-               this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
-
-            setTimeout(() => {
-              window.location.reload()
-            }, 3000)
             // setTimeout(() => {
             //   this.$router.push('/')
             // }, 500)
           }
-          
         })
         .catch(function (error) {
           this.$toaster.makeToast('warning', 'Error: server error')
-           this.loader = false
-          localStorage.removeItem('userInfo')
+          this.loader = false
+
           this.$store.commit('setError', { message: error })
         })
     },
@@ -826,17 +811,43 @@ export default {
             this.loader = false
             this.$toaster.makeToast('warning', 'invalid otp try again')
           } else {
+            this.loader = false
             this.$toaster.makeToast('success', 'Otp match successfully')
-            setTimeout(() => {
-              this.$router.push('/')
-            }, 500)
+            localStorage.setItem('accesstoken', user.apidata.access_token)
+            localStorage.setItem('role', user.apidata.role)
+            localStorage.setItem('user_id', user.apidata.user_id)
+             if (user.apidata.role == 'admin') {
+              setTimeout(() => {
+                this.$router.push('/app/mydesk/users')
+              }, 500)
+            } else {
+              {
+                setTimeout(() => {
+                  this.$router.push('/app/setting/publisher')
+                }, 500)
+              }
+            }
+            // setTimeout(() => {
+            //   window.location.reload()
+            // }, 3000)
+            const rememberMeChecked =
+              document.getElementById('remember-me').checked
+
+            const expiryTime = rememberMeChecked
+              ? 30 * 24 * 60 * 60 * 1000
+              : 1 * 60 * 60 * 1000
+            this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
+            
+
+            // setTimeout(() => {
+            //   this.$router.push('/')
+            // }, 500)
           }
-          this.isLoading = false
         })
         .catch(function (error) {
           this.$toaster.makeToast('warning', 'Error: server error')
-          this.isLoading = false
-          localStorage.removeItem('userInfo')
+          this.loader = false
+
           this.$store.commit('setError', { message: error })
         })
     },
@@ -903,9 +914,10 @@ export default {
             //   window.location.reload()
             // }, 3000)
           }
-          this.loader = false;
+          this.loader = false
         })
-        .catch(function (error) { this.loader = false
+        .catch(function (error) {
+          this.loader = false
           this.$toaster.makeToast('warning', 'Error: ServerError')
           // localStorage.removeItem('userInfo')
           this.$store.commit('setError', { message: error })
@@ -929,7 +941,7 @@ export default {
         // this.$store.commit("setLoading", true);
         // this.$store.commit("clearError");
         const requestData = {
-          role: 'user',
+          role: 'admin',
           email: this.email,
           password: this.password,
           // "first_name": this.fName,

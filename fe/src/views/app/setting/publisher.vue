@@ -640,7 +640,7 @@ export default {
         if (this.role == 'admin') {
           url = 'publisher/get-all'
         } else {
-          url = 'user/get-all-users-publishers'
+          url = 'user/get-all-members-publishers'
         }
 
         // url = 'publisher/get-all'
@@ -835,6 +835,8 @@ export default {
               ; (this.publisherName = ''),
                 (this.centerCode = ''),
                 (this.phoneNumber = ''),
+
+                this.uplodedImages = null;
                 this.$toaster.makeToast('success', 'Data added successfully')
           }
         } catch (error) {
@@ -1012,6 +1014,10 @@ export default {
     },
     closeModal() {
       this.isEdit = false
+      this.phoneNumber = '';
+      this.centerCode = '';
+      this.publisherName = '';
+      this.uplodedImages = null;
       this.showAddModal = false // Set showAddModal to false to hide the modal
     },
     closeModalEdit() {
