@@ -199,6 +199,83 @@
           </b-row>
         </b-form>
       </b-card>
+      <b-card title="Document" class="for-profile">
+        <b-form>
+   
+
+           
+          
+
+            <div>
+              <div>  <b-col md="12">
+        
+            </b-col>
+
+
+              </div>
+              <div>
+
+              </div>
+            </div>
+          
+          </b-row> 
+          <b-row>
+            <b-col md="6">
+              <b-form-group label="Bank Account No" label-for="input-1">
+                <b-form-input
+                  v-model="form.fName"
+                  type="text"
+                  required
+                  placeholder="Bank Account No"
+                  :formatter="formatYear"
+                  v-on:keypress="isLetter($event)"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+
+            <b-col md="6">
+              <b-form-group label="Pan Card No" label-for="input-1">
+                <b-form-input
+                  v-model="form.lName"
+                  type="text"
+                  required
+                  placeholder="Pan Card No"
+                  :formatter="formatYear"
+                  v-on:keypress="isLetter($event)"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6 mb-25">
+              <b-form-group label="Paypal No" label-for="input-3">
+                <b-form-input
+                  v-model="form.address"
+                  type="text"
+                  required
+                  placeholder="Paypal No"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
+
+      
+          <b-row>
+            <b-col md="12" class="">
+              <div
+                class="spinner spinner-primary mr-3"
+                v-if="updateloader"
+              ></div>
+              <b-button
+                v-if="!updateloader"
+                variant="primary ripple"
+                @click="updateUser()"
+                >Update</b-button
+              >
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-card>
 
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>

@@ -162,7 +162,7 @@
       <div class="card">
 
         <div
-            class="card-header d-flex flex-row justify-content-between"
+            class="card-header d-flex flex-row justify-content-between flex-wrap"
             style="background-color: white;
 "
           >
@@ -206,7 +206,7 @@
           </div>
                   
                         <div class="card-content collapse show"   :style="{ display: flexDivDisplay }">
-                            <div class="card-body">
+                            <div class="card-body ">
                                 <div class="users-list-filter">
                                     <form>
                                         <div class="row">
@@ -526,6 +526,7 @@ export default {
 
   data() {
     return {
+    pageReloaded: false,
     modalVisible: false,
       logo: require("@/assets/images/faces/17.jpg"),
       use_id:null,
@@ -599,16 +600,17 @@ export default {
     this.role = parsedUser.data.role;
     this.originalRows = [...this.rows];
 
-    if (!localStorage.getItem('pageReloaded')) {
-      localStorage.setItem('pageReloaded', 'true');
-      window.location.reload();
-    } else {
-     
-      localStorage.removeItem('pageReloaded');
-    }
-   
+    this.reloadPageOnce();
+
   },
   methods: {
+
+    reloadPageOnce() {
+        if (!this.pageReloaded) {
+          window.location.reload();
+            this.pageReloaded = true;
+        }
+    },
 
     toggleFlexDiv() {
       this.flexDivDisplay =
@@ -876,7 +878,7 @@ handleChange(user) {
 
 
 
-    getAllUsers() {
+  getAllUsers() {
   this.loader = true;
   this.$apiService
     .getCall("user/get-all-members")
@@ -887,7 +889,10 @@ handleChange(user) {
         // console.log("User data:", userData);
         this.rows = userData;
         this.allUsers = userData.map((e) => e.name);
-        // this.$toaster.makeToast("success", "User data fetched successfully");
+        
+
+      
+        //  this.$toaster.makeToast("success", "User data fetched successfully");
       } else {
         this.$toaster.makeToast("warning", "Failed to fetch user data");
       }
@@ -898,12 +903,7 @@ handleChange(user) {
       this.$toaster.makeToast("error", "Error fetching user data");
       this.loader = false;
     });
-}
-
-
-
-
-,
+},
     generateID() {
       this.clearform();
       this.generateIDloader = true;

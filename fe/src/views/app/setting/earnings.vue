@@ -315,7 +315,7 @@
             </div>
           </div>
           <div
-            class="d-flex flex-row card-body"
+            class="d-flex flex-row card-body flex-wrap"
             :style="{ display: flexDivDisplay }"
           >
             <div class="col-12 col-sm-6 col-lg-3" style="
@@ -336,7 +336,7 @@
               </fieldset>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-3">
+            <div class="col-12 col-sm-6 col-lg-3 paddingzero" >
               <label for="users-list-verified">Action</label>
               <fieldset class="form-group">
                 <select
@@ -1151,6 +1151,14 @@ imgloader {
   content: "\f13a";
   color: #808080cf;
   width: 20px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .paddingzero {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
 }
 
 
