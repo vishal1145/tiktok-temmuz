@@ -260,233 +260,53 @@
 
  
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-<div class="card"> <div class="card-body">    <vue-good-table
-      :columns="columns"
-      :line-numbers="false"
-  
-      :pagination-options="{
-        enabled: true,
-        mode: 'records',
-      }"
-      styleClass="tableOne vgt-table"
-      :selectOptions="{
-        enabled: false,
-        selectionInfoClass: 'table-alert__box',
-      }"
-      
-      :rows="getfilterdata"
-    >
-      <!-- <div slot="table-actions" class="mb-3">
-        <i class="i-Align-Justify-All mr-3"></i>
-        <i class="i-Windows-Microsoft mr-3"></i>
-        <b-button
-          variant="primary"
-          v-b-modal.modal-lg
-          class="btn-rounded"
-          @click="generateID()"
-        >
-          New Template
-        </b-button>
-      </div> -->
-
-      <template slot="table-row" slot-scope="props">
-        <span v-if="props.column.field === 'img'">
-          <img
-            :src="props.row.image!=null?props.row.image:logo"
-            
-            alt="Image"
-            class="circular-image"
-            
-          />
-        </span>
-        <!-- <span v-else-if="props.column.field === 'documents'">
-          <template v-if="props.row.aadhar_card">
-            <img :src="props.row.aadhar_card" height="40" width="40" />
-          </template>
-          <template v-if="props.row.driving_lincense">
-            <img
-              class="mx-3"
-              :src="props.row.driving_lincense"
-              height="35"
-              width="50"
-            />
-          </template>
-          <template v-if="props.row.passport">
-            <img :src="props.row.passport" height="35" width="50" />
-          </template>
-          
-        </span> -->
-        <span v-else-if="props.column.field === 'name'">
-
+<div class="card"> <div class="card-body">  <vue-good-table
+    :columns="columns"
+    :line-numbers="false"
+    :pagination-options="{
+      enabled: true,
+      mode: 'records',
+    }"
+    styleClass="tableOne vgt-table"
+    :selectOptions="{
+      enabled: false,
+      selectionInfoClass: 'table-alert__box',
+    }"
+    :rows="getfilterdata"
+  >
+    <template slot="table-row" slot-scope="props">
+      <span v-if="props.column.field === 'img'">
+        <img
+          :src="props.row.image ? props.row.image : logo"
+          alt="Image"
+          class="circular-image"
+        />
+      </span>
+      <span v-else-if="props.column.field === 'name'">
+        <div class="d-flex">
+          {{ props.row.name }} &nbsp;{{ props.row.surname }}
+        </div>
+      </span>
+      <span v-else-if="props.column.field === 'tiktok_username'">
+        <div class="d-flex">
+          {{ props.row.tiktok_username }}
+        </div>
+      </span>
+      <span v-else-if="props.column.field === 'contact_number'">
+        <div class="d-flex flex-column">
           <div class="d-flex">
-                {{ props.row.name }} &nbsp;{{ props.row.surname }}
-              </div>
-             
-          <!-- <template>
-            <a
-              v-b-modal.modal-lg
-              @click="openModal(props.row)"
-              class="mr-3"
-              variant="primary ripple"
-              style="text-decoration: underline !important; cursor: pointer"
-              >Documents</a
-            >
-          </template> -->
-          <template>
-            <!-- <b-button
-              v-if="props.row.accessStatus == false"
-              variant="primary ripple"
-              @click="clickBlock(props.row.id)"
-              style="height: 33px; width: 7em"
-              class="mr-3"
-              >Block</b-button
-            > -->
-            <!-- <b-button
-              class="mr-3"
-              style="height: 33px; width: 7em"
-              v-else
-              variant="primary ripple"
-              @click="clickUnBlock(props.row.id)"
-            >
-              Unblock</b-button
-            > -->
-          </template>
-        
-        </span>
-
-        <span v-else-if="props.column.field === 'tiktok_username'">
-
-<div class="d-flex">
-      {{ props.row.tiktok_username }} 
-    </div>
-   
-<!-- <template>
-  <a
-    v-b-modal.modal-lg
-    @click="openModal(props.row)"
-    class="mr-3"
-    variant="primary ripple"
-    style="text-decoration: underline !important; cursor: pointer"
-    >Documents</a
-  >
-</template> -->
-<template>
-  <!-- <b-button
-    v-if="props.row.accessStatus == false"
-    variant="primary ripple"
-    @click="clickBlock(props.row.id)"
-    style="height: 33px; width: 7em"
-    class="mr-3"
-    >Block</b-button
-  > -->
-  <!-- <b-button
-    class="mr-3"
-    style="height: 33px; width: 7em"
-    v-else
-    variant="primary ripple"
-    @click="clickUnBlock(props.row.id)"
-  >
-    Unblock</b-button
-  > -->
-</template>
-
-</span>
-        <span v-else-if="props.column.field === 'email'">
-          <template>
-            <div class="d-flex flex-column">
-              <div class="d-flex">
-                {{ props.row.email }}
-                <!-- <span
-                  v-if="props.row.is_verified"
-                  class="text-success pl-1 m-0"
-                  style="font-size: 11px"
-                >
-                  <span class="badge badge-primary blueVerfiy"
-                    >verified<i
-                      class="fa fa-check-circle blueVerfiy2"
-                      aria-hidden="true"
-                      style="padding-left: 4px"
-                    ></i
-                  ></span>
-                </span>
-                <span
-                  v-else
-                  class="text-success pl-1 m-0"
-                  style="font-size: 11px"
-                >
-                  <span class="badge badge-primary blueVerfiyred"
-                    >not verified<i
-                      class="fa fa-check-circle blueVerfiy2red"
-                      aria-hidden="true"
-                      style="padding-left: 4px"
-                    ></i
-                  ></span>
-                </span> -->
-              </div>
-              <div>{{ props.row.contact_number }}</div>
-            </div>
-          </template>
-        </span>
-        <span v-else-if="props.column.field === 'balance_show'">
-          <template>
-            <div class="dropdown">
-              <b-dropdown
-                id="dropdown-6"
-                :text="`Current - ₹ ${formatPrice(totalBalance)}`"
-                class="m-md-2"
-                toggle-class=""
-                style="
-                  border: 1px solid rgba(0, 0, 0, 0.265);
-                  color: black;
-                  border-radius: 5px;
-
-                  /* text-underline-offset: unset; */
-                "
-              >
-                <div class="dropdown-item d-flex justify-content-between px-3">
-                  <div>Wallet</div>
-                  <div>₹ {{ formatPrice(userBalance) }}</div>
-                </div>
-                <div class="dropdown-item d-flex justify-content-between px-3">
-                  <div>Security</div>
-                  <div>₹ {{ formatPrice(securityBalance) }}</div>
-                </div>
-                <div class="dropdown-item d-flex justify-content-between px-3">
-                  <div>
-                    Bonus & <br />
-                    Rewards
-                  </div>
-                  <div>₹ {{ formatPrice(referralBalance) }}</div>
-                </div>
-              </b-dropdown>
-            </div>
-          </template>
-        </span>
-
-        
-      </template>
-
-      <!-- <template slot="table-row" slot-scope="props">
-        <span v-if="props.column.field == 'button'">
-          <i
-            class="fa fa-edit"
-            style="font-size: 24px; cursor: pointer"
-            @click="editTemplate(props.row._id)"
-          ></i>
-
-          <i
-            class="fa fa-trash"
-            style="
-              font-size: 24px;
-              color: red;
-              margin-left: 10px;
-              cursor: pointer;
-            "
-            @click="deleteTemplate(props.row._id)"
-          ></i>
-        </span>
-      </template> -->
-    </vue-good-table></div> </div>
+            {{ props.row.contact_number }}
+          </div>
+          <!-- <div>{{ props.row.contact_number }}</div> -->
+        </div>
+      </span>
+      <span v-else-if="props.column.field === 'button'">
+        <div>
+          <!-- Add your button actions here -->
+        </div>
+      </span>
+    </template>
+  </vue-good-table></div> </div>
 
  
 
@@ -548,28 +368,37 @@ export default {
       isModalOpen: false,
 
       columns: [
-     
         {
           label: "Name",
           field: "name",
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search name',
+          },
         },
         {
-          label: "Email",
-          field: "email",
+          label: "Contact Number",
+          field: "contact_number",
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search email',
+          },
         },
-    
-       
         {
-          label:"TikTok Name",
-          field:"tiktok_username"
-        } ,
+          label: "TikTok Name",
+          field: "tiktok_username",
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search TikTok',
+          },
+        },
         {
           label: "Action",
           field: "button",
+          filterOptions: {
+            enabled: false,
+          },
         },
-
-
-   
       ],
       rows: [],
       originalRows:[],

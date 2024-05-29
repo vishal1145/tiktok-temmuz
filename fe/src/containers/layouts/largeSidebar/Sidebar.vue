@@ -12,7 +12,7 @@
       class="sidebar-left rtl-ps-none ps scroll"
     >
       <div>
-        <ul class="navigation-left">
+        <ul class="navigation-left DnoneFix">
           <!-- <li
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'homes' }"
@@ -1605,6 +1605,12 @@ export default {
 .nav-item.active {
   background-color: #f0f0f0; /* Example color */
   color: #000000; /* Example text color */
+}
+
+@media (max-width: 767px) {
+    .DnoneFix {
+        display: none;
+    }
 }
 
 .nav-item.active .nav-item-hold {
