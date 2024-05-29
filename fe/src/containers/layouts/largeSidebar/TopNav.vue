@@ -169,70 +169,89 @@
                 <div class="triangle"></div>
               </router-link></li
           ></a> -->
+          <div>
+    <a
+        v-if="isAdmin === 'user'"
+        @click.prevent="home"
+        class="dropdown-item align-items-baseline d-flex dropdown-item flex-row"  style="cursor: pointer;gap: 16px;"
 
-          <div >
+    >
+    <i class="nav-icon i-Home1"></i>Home
+    </a>
+    <a
+        v-if="isAdmin === 'user'"
+        @click.prevent="myinformation"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
 
-            <a
-            v-if="isAdmin === 'user'"
-              @click.prevent="home"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Home</a
-            >
-            <a 
-            v-if="isAdmin === 'user'"
-              @click.prevent="myinformation"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Profile</a
-            > <a
-            v-if="isAdmin === 'admin'"
-              @click.prevent="creators"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Creators</a
-            >
-            <a
-            v-if="isAdmin === 'admin'"
-              @click.prevent="members"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Members</a
-            ><a
-            v-if="isAdmin === 'admin'"
-              @click.prevent="Setting"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Setting</a
-            >
-            
-            
-            
-             <a
-            v-if="isAdmin === 'user'"
-              @click.prevent="earning"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Earning</a
-            > <a
-            v-if="isAdmin === 'user'"
-              @click.prevent="statistics"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Statistics</a
-            >
-            <!-- <a
-              @click.prevent="moveNext"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Transaction</a
-            >
+    >
+    <i class="nav-icon i-Male-21"></i> Profile
+    </a>
+    <a
+        v-if="isAdmin === 'user' || isAdmin === 'admin'"
+        @click.prevent="creators"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+      
+    >
+    <i class="nav-icon i-Business-ManWoman"></i>Creators
+    </a>
+    <a
+        v-if="isAdmin === 'user' || isAdmin === 'admin'"
+        @click.prevent="payment"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+    
+    >
+    <i class="nav-icon i-Dollar-Sign"></i>Payment Request
+    </a>
+    <a
+        v-if="isAdmin === 'admin'"
+        @click.prevent="Setting"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+   
+    >
+    <i class="nav-icon i-Data-Transfer"></i>Setting
+    </a>
+    <a
+        v-if="isAdmin === 'admin'"
+        @click.prevent="members"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+   
+    >
+    <i class="nav-icon i-Administrator"></i></i> Members
+    </a>
 
-            <a class="dropdown-item" href="#" @click.prevent="clickBookingCar()"
-              >Booking</a
-            > -->
-            
-          </div>
+    <a
+        v-if="isAdmin === 'user'"
+        @click.prevent="earning"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+
+    >
+    <i class="nav-icon i-Money-Bag"></i> Earning
+    </a>
+    <a
+        v-if="isAdmin === 'user'"
+        @click.prevent="statistics"
+        class="dropdown-item align-items-baseline d-flex  flex-row" style="cursor: pointer;gap: 16px;"
+        
+    >
+    <i class="nav-icon i-Data-Transfer"></i>Statistics
+    </a>
+    <!--
+    <a
+        @click.prevent="moveNext"
+        class="dropdown-item"
+        style="cursor: pointer"
+    >
+        <i class="fa fa-exchange-alt"></i> Transaction
+    </a>
+    <a
+        class="dropdown-item"
+        href="#"
+        @click.prevent="clickBookingCar()"
+    >
+        <i class="fa fa-car"></i> Booking
+    </a>
+    -->
+</div>
 
           <a class="dropdown-item" href="#"  @click.prevent="logoutUser"
             >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
@@ -1321,6 +1340,12 @@ this.isAdmin=storedUser;
     statistics()
     {
       this.$router.push("/app/setting/statistics");
+      this.$refs.dropdown.hide();
+    },
+
+    payment()
+    {
+      this.$router.push("/app/setting/payment");
       this.$refs.dropdown.hide();
     },
     handleCheckBoxReferal() {

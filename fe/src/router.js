@@ -228,6 +228,11 @@ const routes = [
             component: () => import("./views/app/setting/statistics"),
           },
           {
+            path: "payment",
+            name: "payment",
+            component: () => import("./views/app/setting/payment"),
+          },
+          {
             path: "documents",
             name: "documents",
             component: () => import("./views/app/setting/documents"),

@@ -172,6 +172,23 @@
           </router-link>
         </li>
 
+
+        <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/setting/payment') }"
+            class="nav-item"
+            data-item="addBackEndData"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/setting/payment">
+            <a class="nav-item-hold nav-item" href="#">
+              <i class="nav-icon i-Dollar-Sign"></i>
+              <span class="nav-text">{{ $t("Payment Request") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
         <li v-if="isAdmin === 'admin' "
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/Setting') }"
