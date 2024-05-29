@@ -381,7 +381,7 @@ export default {
           field: "contact_number",
           filterOptions: {
             enabled: true,
-            placeholder: 'Search email',
+            placeholder: 'Search Number',
           },
         },
         {
