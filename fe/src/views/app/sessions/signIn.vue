@@ -36,6 +36,7 @@
                   </p>
                   <b-form
                     @submit.prevent="formSubmit"
+                    @keyup.enter="formSubmit"
                     id="firstForm"
                     v-if="isShowPhone"
                   >
@@ -127,6 +128,7 @@
 
                   <b-form
                     @submit.prevent="formSubmitOtp"
+                    @keyup.enter="formSubmitOtp"
                     id="firstOtp"
                     v-if="isShowOtp"
                   >
