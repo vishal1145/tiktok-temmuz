@@ -136,7 +136,7 @@
                   </b-form>
 
                   <p class=" pw text-center pt-2 mb-0"    v-if="isShowPhone">
-                   By contiiue you are agree to Temmuz
+                   By continue you are agree to Temmuz
                   </p>
 
                   <p class="text-center pw"   v-if="isShowPhone">
