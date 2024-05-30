@@ -32,7 +32,7 @@
 
                   <h3 class="mb-1 hw">Welcome to Temmuz! 👋</h3>
                   <p class="mb-3 pw">
-                    Please sign-in to your account and start the adventure
+                    Sign Up or Login to get started
                   </p>
                   <b-form
                     @submit.prevent="formSubmit"
@@ -40,19 +40,28 @@
                     id="firstForm"
                     v-if="isShowPhone"
                   >
-                    <b-form-group
-                      :label="$t('Phone number')"
-                      class="text-12 pw"
-                    >
-                      <b-form-input
-                        class="form-control form-control-rounded pw"
-                        type="number"
-                        @keydown="checkLengthPhone"
-                        v-model="PhoneNumber"
-                        placeholder="Enter phone number"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
+                  <b-form-group class="text-12 pw">
+  <div class="d-flex">
+    <b-form-select
+      v-model="CountryCode"
+      :options="countryOptions"
+      class="pw rounded-start m-lg-0 border-end select-input"
+      required
+      style="width: 23%;background-color: #f3f4f6;border: 1px solid transparent; border-right: 1px solid #8080804a;"
+    ></b-form-select>
+    <b-form-input
+      class="pw rounded-end m-0 phone-input"
+      type="number"
+      @keydown="checkLengthPhone"
+      v-model="PhoneNumber"
+      placeholder="Enter phone number"
+   
+      required
+    ></b-form-input>
+  </div>
+</b-form-group>
+
+
                     <!-- <b-form-group
                       :label="$t('Password')"
                       class="text-12 pw my-2"
@@ -125,6 +134,21 @@
                       </a>
                     </p> -->
                   </b-form>
+
+                  <p class=" pw text-center pt-2 mb-0"    v-if="isShowPhone">
+                   By contiiue you are agree to Temmuz
+                  </p>
+
+                  <p class="text-center pw"   v-if="isShowPhone">
+        
+          <a href="auth-register-cover.html" >
+            <span>Term of Use &nbsp;</span>
+          </a>
+          <span>and &nbsp;</span>
+          <a href="auth-register-cover.html">
+            <span>Privacy Policy</span>
+          </a>
+        </p>
 
                   <b-form
                     @submit.prevent="formSubmitOtp"
@@ -551,6 +575,15 @@ export default {
   },
   data () {
     return {
+      CountryCode: '+91',
+      PhoneNumber: '',
+      countryOptions: [
+        { value: '+91', text: 'IND (+91)' },
+        { value: '+90', text: 'TUR (+90)' },
+        { value: '+1', text: 'US (+1)' },
+        { value: '+44', text: 'United Kingdom (+44)' },
+        { value: '+61', text: 'Australia (+61)' },
+      ],
       isShowName: false,
       userName: '',
       userSurName: '',
@@ -1544,5 +1577,12 @@ export default {
 img {
   width: 42vw;
   height: 96vh;
+}
+
+.select-input:focus,
+.phone-input:focus {
+  border-color: #007bff; /* Bootstrap primary color, or any color you prefer */
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Optional: add shadow for better visibility */
 }
 </style>

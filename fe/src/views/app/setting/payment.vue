@@ -34,12 +34,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Status" label-for="input-title">
+          <b-form-group label="Status" label-for="input-title " class="d-none">
             <b-form-input
               v-model="phoneNumber"
               required
               placeholder="Status"
-              style="height: 34px"
+              style="height: 34px d-none"
               type="number"
               @keydown="checkLength"
               id="input-phoneNumber"
@@ -47,17 +47,19 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Notes" label-for="input-title">
-            <b-form-input
-              v-model="centerCode"
-              required
-              placeholder="Notes"
-              style="height: 34px"
-              type="number"
-              @keydown="checkLengthCode"
-              id="input-agency"
-            ></b-form-input>
-          </b-form-group>
+        
+  <b-form-group label="Notes" label-for="input-notes">
+    <b-form-textarea
+      v-model="centerCode"
+      required
+      placeholder="Notes"
+      style="height: 44px"
+      @keydown="checkLengthCode"
+      id="input-notes"
+    ></b-form-textarea>
+  </b-form-group>
+
+
         </b-col>
 
         <b-col md="12" class="pb-3">

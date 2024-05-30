@@ -392,7 +392,7 @@
                 style="gap: 9px;"
               >
               <button
-        v-if="role != 'admin'"
+
         @click="showAddModal = true"
         class="btn btn-primary mb-3"
         style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
@@ -419,7 +419,7 @@
             <span v-if="props.column.field === 'actions'">
               <div
                 v-if="
-                role == 'admin'
+                role == 'user'
               "
               >
                 <span @click="clickEdit(props.row)" class="btn p-0"
@@ -434,7 +434,7 @@
               <div
                 class="d-flex"
                 v-else-if="
-                role == 'admin' &&
+                role == 'user' &&
                 props.row.status != 'Approved' &&
                 props.row.status != 'Rejected'
               "
@@ -1198,4 +1198,16 @@ imgloader {
   }
 }
 
+
+.badge-success {
+    color: #10b981;
+    background-color: #ffffff!important; 
+    border: 1px solid #10b981;
+}
+
+.badge-danger {
+    color: #ef4444;
+     background-color: #fcfbfb!important; 
+    border: 1px solid #ef4444;
+}
 </style>

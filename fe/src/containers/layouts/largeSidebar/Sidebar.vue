@@ -226,7 +226,7 @@
          <!-- earning- User -->
 
  
-        <li v-if="isAdmin === 'user'"
+        <!-- <li v-if="isAdmin === 'user'"
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/statistics') }"
             class="nav-item"
@@ -242,7 +242,7 @@
             </a>
             <div class="triangle"></div>
           </router-link>
-        </li>
+        </li> -->
 
          <!-- statics- User -->
 

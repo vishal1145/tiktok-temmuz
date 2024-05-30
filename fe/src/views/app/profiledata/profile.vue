@@ -27,8 +27,8 @@
                 "
               /> -->
 
-            <b-col md="12">
-              Basic Deatils:
+            <b-col md="12" class="pb-2">
+              Basic Deatils:  &nbsp; <span class="text-12">{{ 7845961236 }}</span>
               <!-- <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-baseline">
                   <i class="fa fa-envelope mr-2 mb-0 p-0" aria-hidden="true"></i
@@ -100,8 +100,8 @@
             </b-col> -->
 
             <div>
-              <div>  <b-col md="12">
-              <img
+              <div>  <b-col md="12" class="pb-2">
+              <!-- <img
                 id="logo"
                 :src="selectedLogo"
                 class="mb-3"
@@ -113,7 +113,9 @@
                   width: 8rem;
                   height: 8rem;
                 "
-              />
+              /> -->
+              <img id="logo" src="https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg" alt="Uploaded Image" />
+
             </b-col>
 
             <b-col md="6">
@@ -199,83 +201,70 @@
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Document" class="for-profile">
-        <b-form>
-   
+      <b-card title="Bank Documents" class="for-profile">
+    <b-form>
+      <b-row>
+        <b-col md="6">
+          <b-form-group label="Bank Account No" label-for="bank-account-no">
+            <b-form-input
+              v-model="form.bankAccountNo"
+              type="text"
+              required
+              placeholder="Bank Account No"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
 
-           
-          
+        <b-col md="6">
+          <b-form-group label="IFSC Code" label-for="ifsc-code">
+            <b-form-input
+              v-model="form.ifscCode"
+              type="text"
+              required
+              placeholder="IFSC Code"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
 
-            <div>
-              <div>  <b-col md="12">
-        
-            </b-col>
+      <b-row>
+        <b-col md="6">
+          <b-form-group label="Bank Name" label-for="bank-name">
+            <b-form-input
+              v-model="form.bankName"
+              type="text"
+              required
+              placeholder="Bank Name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
 
+        <b-col md="6">
+          <b-form-group label="PAN Card No" label-for="pan-card-no">
+            <b-form-input
+              v-model="form.panCardNo"
+              type="text"
+              required
+              placeholder="PAN Card No"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
 
-              </div>
-              <div>
-
-              </div>
-            </div>
-          
-          </b-row> 
-          <b-row>
-            <b-col md="6">
-              <b-form-group label="Bank Account No" label-for="input-1">
-                <b-form-input
-                  v-model="form.fName"
-                  type="text"
-                  required
-                  placeholder="Bank Account No"
-                  :formatter="formatYear"
-                  v-on:keypress="isLetter($event)"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-
-            <b-col md="6">
-              <b-form-group label="Pan Card No" label-for="input-1">
-                <b-form-input
-                  v-model="form.lName"
-                  type="text"
-                  required
-                  placeholder="Pan Card No"
-                  :formatter="formatYear"
-                  v-on:keypress="isLetter($event)"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="6 mb-25">
-              <b-form-group label="Paypal No" label-for="input-3">
-                <b-form-input
-                  v-model="form.address"
-                  type="text"
-                  required
-                  placeholder="Paypal No"
-                ></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
-
-      
-          <b-row>
-            <b-col md="12" class="">
-              <div
-                class="spinner spinner-primary mr-3"
-                v-if="updateloader"
-              ></div>
-              <b-button
-                v-if="!updateloader"
-                variant="primary ripple"
-                @click="updateUser()"
-                >Update</b-button
-              >
-            </b-col>
-          </b-row>
-        </b-form>
-      </b-card>
+      <b-row>
+        <b-col md="12">
+          <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
+          <b-button
+            v-if="!updateloader"
+            variant="primary ripple"
+            @click="updateUser"
+          >
+            Update
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-form>
+  </b-card>
 
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
@@ -455,6 +444,7 @@ export default {
       confirmpassword: "",
       submitloader: false,
       id: null,
+      imgSrc: '',
     };
   },
   created() {
@@ -936,42 +926,80 @@ export default {
         this.aadharBackCheckbox = false;
       }
     },
+
     setImage(e) {
-      this.logoloader = true;
-      let formData = new FormData();
-      const file = e.target.files[0];
+  this.logoloader = true;
+  let formData = new FormData();
+  const file = e.target.files[0];
 
-      formData.append("picture", file);
+  formData.append("picture", file);
 
-      this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.form.url = res.apidata.path;
+  this.$apiService
+    .postFileCall("uploadimage/", formData)
+    .then((res) => {
+      this.form.url = res.apidata.path;
 
-          this.logoloader = false;
-          this.$toaster.makeToast("success", "Photo has been updated");
-        })
-        .catch(() => {
-          // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.logoloader = false;
-          this.$toaster.makeToast("warning", "Photo has been update failed");
-        });
+      this.logoloader = false;
+      this.$toaster.makeToast("success", "Photo has been updated");
+    })
+    .catch(() => {
+      this.logoloader = false;
+      this.$toaster.makeToast("warning", "Photo update failed");
+    });
 
-      if (!file.type.includes("image/")) {
-        alert("Please select an image file");
-        return;
-      }
-      if (typeof FileReader === "function") {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          this.imgSrc = event.target.result;
-          document.getElementById("logo").src = this.imgSrc;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        alert("Sorry, FileReader API not supported");
-      }
-    },
+  if (!file.type.includes("image/")) {
+    alert("Please select an image file");
+    return;
+  }
+  if (typeof FileReader === "function") {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      this.imgSrc = "https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg"; // Hardcoded image URL
+      document.getElementById("logo").src = this.imgSrc;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert("Sorry, FileReader API not supported");
+  }
+},
+
+    // setImage(e) {
+    //   this.logoloader = true;
+    //   let formData = new FormData();
+    //   const file = e.target.files[0];
+
+    //   formData.append("picture", file);
+
+    //   this.$apiService
+    //     .postFileCall("uploadimage/", formData)
+    //     .then((res) => {
+    //       this.form.url = res.apidata.path;
+          
+
+    //       this.logoloader = false;
+    //       this.$toaster.makeToast("success", "Photo has been updated");
+    //     })
+    //     .catch(() => {
+    //       // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+    //       this.logoloader = false;
+    //       this.$toaster.makeToast("warning", "Photo has been update failed");
+    //     });
+
+    //   if (!file.type.includes("image/")) {
+    //     alert("Please select an image file");
+    //     return;
+    //   }
+    //   if (typeof FileReader === "function") {
+    //     const reader = new FileReader();
+    //     reader.onload = (event) => {
+    //       this.imgSrc = event.target.result;
+    //       document.getElementById("logo").src = this.imgSrc;
+    //     };
+    //     reader.readAsDataURL(file);
+    //   } else {
+    //     alert("Sorry, FileReader API not supported");
+    //   }
+    // },
 
     chooseAadharBack() {
       const fileGet = document.getElementById("aadharback");
@@ -1340,6 +1368,11 @@ export default {
   overflow-wrap: break-word;
   color: blue; /* Set link color to blue */
   text-decoration: underline; /* Add underline to the link */
+}
+
+img {
+    max-width: 26%;
+    border-radius: 8px;
 }
 
 /* Style for the container to improve readability and appearance */

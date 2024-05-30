@@ -317,28 +317,39 @@
                                 <div class="users-list-filter">
                                     <form>
                                         <div class="row">
-                                            <div class="col-12 col-sm-6 col-lg-3">
-                                                <label for="users-list-role">Role</label>
-                                                <fieldset class="form-group">
-                                                  <multiselect @input="handleChange" v-model="selected" placeholder="Select users" :options="[...allUsers]"
-          :multiple="false" :limit="1"></multiselect>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-lg-3">
-                                                <label for="users-list-status">Status</label>
-                                                <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-status" style="
-    color: gray;
-    padding-bottom: 7px;
-">
-                                                        <option value="">All</option>
-                                                        <option value="Active">Active</option>
-                                                        <option value="Blocked">Blocked</option>
-                                                        <option value="deactivated">Deactivated</option>
-                                                    </select>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-lg-3">
+                                          <div class="col-12 col-sm-6 col-lg-3" >
+              <label for="users-list-search">Search</label>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="users-list-search"
+                  placeholder="Search..."
+                  style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
+                  v-model="searchTerm"
+                  @input="filteredRows = getfilterdata"
+                />
+              </fieldset>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 paddingzero">
+  <label for="users-list-verified">Action</label>
+  <fieldset class="form-group">
+    <select
+      class="form-control"
+      id="users-list-verified"
+      style="color: grey; padding-bottom: 7px; border: 1px solid rgba(128, 128, 128, 0.32) !important; background-color: rgb(135 131 131 / 0%);"
+      v-model="filterStatus"
+      @change="onStatusChange"
+    >
+      <option value="">All</option>
+      <option value="Approved" selected>Block</option>
+      <option value="Rejected">UnBlock</option>
+      <!-- <option value="Under Review">Under Review</option> -->
+    </select>
+  </fieldset>
+</div>
+
+                                            <!-- <div class="col-12 col-sm-6 col-lg-3">
                                                 <label for="users-list-verified">Verified</label>
                                                 <fieldset class="form-group">
                                                     <select class="form-control multiselect__tags" id="users-list-verified" style="
@@ -350,7 +361,7 @@
                                                         <option value="false">No</option>
                                                     </select>
                                                 </fieldset>
-                                            </div>
+                                            </div> -->
                                         
                                         </div>
                                     </form>
@@ -439,8 +450,21 @@
         </div>
       </span>
       <span v-else-if="props.column.field === 'button'">
-        <div>
-          <button class="btn btn-primary">Block</button>
+        <div class="d-flex flex-row " style="gap:12px">
+        
+          <div>
+            <button class="btn btn-primary">Block</button>
+          </div>
+          <div>
+            <span @click="clickEdit(props.row)" class="btn p-0"
+                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                ></span>
+
+                <span @click="clickDelete(props.row)" class="btn pl-3"
+                  ><i class="fa fa-trash" aria-hidden="true"></i
+                ></span>
+          </div>
+    
         </div>
       </span>
     </template>
@@ -472,18 +496,31 @@ export default {
   },
   computed: {
   getfilterdata() {
-    const matchedRows = this.rows.filter((row) => row.id == this.use_id);
-    if(this.use_id!=null) {
-      return matchedRows;
-    } else {
-      console.log("hkdshkchsdjk",this.rows)
+    if (!this.searchTerm) {
       return this.rows;
     }
-  },
+
+    const searchTermLower = this.searchTerm.toLowerCase();
+    return this.rows.filter(row => {
+      return (
+        row.name.toLowerCase().includes(searchTermLower) ||
+        row.surname.toLowerCase().includes(searchTermLower) ||
+        row.contact_number.toLowerCase().includes(searchTermLower) ||
+        row.otp.toLowerCase().includes(searchTermLower) ||
+        row.role.toLowerCase().includes(searchTermLower) ||
+        row.tiktok_username.toLowerCase().includes(searchTermLower)
+      );
+    });
+  }
 },
+
 
   data() {
     return {
+      filterStatus: 'Approved',
+      searchTerm: '',
+      rows: [],
+      filteredRows: [],
       showAddModal:false,
     pageReloaded: false,
     modalVisible: false,
@@ -858,32 +895,44 @@ handleChange(user) {
 
 
 
-  getAllUsers() {
-  this.loader = true;
-  this.$apiService
-    .getCall("user/get-all-members")
-    .then((response) => {
-      // console.log("Response:", response);
-      if (response && response.isError === false && response.apidata && response.apidata.data) {
-        const userData = response.apidata.data;
-        // console.log("User data:", userData);
-        this.rows = userData;
-        this.allUsers = userData.map((e) => e.name);
-        
-
-      
-        //  this.$toaster.makeToast("success", "User data fetched successfully");
-      } else {
-        this.$toaster.makeToast("warning", "Failed to fetch user data");
+getfilterdata() {
+      if (!this.searchTerm) {
+        return this.rows;
       }
-      this.loader = false;
-    })
-    .catch((error) => {
-      console.error("Error fetching user data:", error);
-      this.$toaster.makeToast("error", "Error fetching user data");
-      this.loader = false;
-    });
-},
+
+      const searchTermLower = this.searchTerm.toLowerCase();
+      return this.rows.filter(row => {
+        return (
+          row.name.toLowerCase().includes(searchTermLower) ||
+          row.surname.toLowerCase().includes(searchTermLower) ||
+          row.contact_number.toLowerCase().includes(searchTermLower) ||
+          row.otp.toLowerCase().includes(searchTermLower) ||
+          row.role.toLowerCase().includes(searchTermLower) ||
+          row.tiktok_username.toLowerCase().includes(searchTermLower)
+        );
+      });
+    },
+    getAllUsers() {
+      this.loader = true;
+      this.$apiService
+        .getCall("user/get-all-members")
+        .then((response) => {
+          if (response && response.isError === false && response.apidata && response.apidata.data) {
+            const userData = response.apidata.data;
+            this.rows = userData;
+            this.filteredRows = userData;
+          } else {
+            this.$toaster.makeToast("warning", "Failed to fetch user data");
+          }
+          this.loader = false;
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          this.$toaster.makeToast("error", "Error fetching user data");
+          this.loader = false;
+        });
+    }
+,
     generateID() {
       this.clearform();
       this.generateIDloader = true;
