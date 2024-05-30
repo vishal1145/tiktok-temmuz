@@ -537,23 +537,41 @@ export default {
       columns: [
         {
           label: 'Icons',
-          field: 'show_img'
+          field: 'show_img',
+          
         },
         {
           label: 'UserName',
-          field: 'user_name'
+          field: 'user_name',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'User Name',
+          },
+          
         },
         {
           label: 'Contact number',
-          field: 'contact_number'
+          field: 'contact_number',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Contact Number',
+          },
         },
         {
           label: 'Agency code',
-          field: 'agency_center_code'
+          field: 'agency_center_code',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Agency Code',
+          },
         },
         {
           label: 'Reason',
-          field: 'reason_show'
+          field: 'reason_show',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Reason',
+          },
         },
         {
           label: 'Actions',
