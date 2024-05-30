@@ -383,7 +383,7 @@
               class="card-title"
               style="margin: 0px;background-color: white;color: #000000c4;"
             >
-              Records
+              Creators
             </h4>
             <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
             <div class="heading-elements">
@@ -419,9 +419,7 @@
             <span v-if="props.column.field === 'actions'">
               <div
                 v-if="
-                role == 'user' &&
-                props.row.status != 'Approved' &&
-                props.row.status != 'Rejected'
+                role == 'admin'
               "
               >
                 <span @click="clickEdit(props.row)" class="btn p-0"
@@ -482,6 +480,8 @@
                 />
               </div>
             </span>
+
+            
           </template>
         </vue-good-table>
           </div>

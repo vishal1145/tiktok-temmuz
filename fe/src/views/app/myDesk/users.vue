@@ -2,6 +2,113 @@
   <div class="main-content">
     <div class="font-weight-bold fa-2x text-light">Members</div>
     <hr class="mt-1" />  
+    <b-modal
+      v-model="showAddModal"
+      id="modal-add"
+      size="md"
+      title="Add Publisher"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Add Members
+      </label>
+      <b-row class="px-3">
+        <b-col md="12">
+          <b-form-group label="Enter name" label-for="input-title">
+            <b-form-input
+              v-model="publisherName"
+              required
+              placeholder="Enter name"
+              style="height: 34px"
+              type="text"
+              @change="handelUserField"
+              id="input-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Contact number" label-for="input-title">
+            <b-form-input
+              v-model="phoneNumber"
+              required
+              placeholder="Phone number"
+              style="height: 34px"
+              type="number"
+              @keydown="checkLength"
+              id="input-phoneNumber"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="TikTok Name" label-for="input-title">
+            <b-form-input
+              v-model="centerCode"
+              required
+              placeholder="TikTok Name"
+              style="height: 34px"
+              type="number"
+              @keydown="checkLengthCode"
+              id="input-agency"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <!-- <b-col md="6">
+          <b-form-group label="Select Images" label-for="input-images">
+            <b-form-file
+              v-model="images"
+              @input="handleImageSelection"
+              placeholder="Choose files or drop them here"
+              drop-placeholder="Drop files here..."
+              accept=".png,.jpg,.jpeg"
+            ></b-form-file>
+          </b-form-group>
+        </b-col>
+        <b-col md="6" class="justify-content-end d-flex align-items-center">
+          <img
+            v-if="uplodedImages"
+            :src="this.uplodedImages"
+            alt=""
+            class="img-fluid"
+            height="50"
+            width="50"
+          />
+        </b-col> -->
+
+        <!-- <b-form-group label="" label-for="input-description">
+            <b-form-textarea
+              v-model="description"
+              required
+              placeholder="Description"
+              style="height: 60px"
+              type="text"
+              id="input-description"
+            ></b-form-textarea>
+          </b-form-group> -->
+
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
+              >Close</b-button
+            >
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2"
+              variant="primary ripple"
+              @click="addPublisher()"
+              >Add</b-button
+            >
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
 
     <b-modal
       v-model="modalVisible"
@@ -260,7 +367,38 @@
 
  
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-<div class="card"> <div class="card-body">  <vue-good-table
+<div class="card">      <div
+            class="card-header d-flex flex-row justify-content-between"
+            style="background-color: white;
+"
+          >
+            <h4
+              class="card-title"
+              style="margin: 0px;background-color: white;color: #000000c4;"
+            >
+              Members
+            </h4>
+            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+            <div class="heading-elements">
+              <ul
+                class="list-inline mb-0 d-flex flex-row justify-content-around"
+                style="gap: 9px;"
+              >
+              <button
+        v-if="role != 'admin'"
+        @click="showAddModal = true"
+        class="btn btn-primary mb-3"
+        style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
+      >
+        <!-- -->
+        Add New
+      </button>
+                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+              </ul>
+            </div>
+          </div> <div class="card-body">  <vue-good-table
     :columns="columns"
     :line-numbers="false"
     :pagination-options="{
@@ -302,7 +440,7 @@
       </span>
       <span v-else-if="props.column.field === 'button'">
         <div>
-          <!-- Add your button actions here -->
+          <button class="btn btn-primary">Block</button>
         </div>
       </span>
     </template>
@@ -346,6 +484,7 @@ export default {
 
   data() {
     return {
+      showAddModal:false,
     pageReloaded: false,
     modalVisible: false,
       logo: require("@/assets/images/faces/17.jpg"),
@@ -368,15 +507,8 @@ export default {
       isModalOpen: false,
 
       columns: [
-        {
-          label: "Name",
-          field: "name",
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Search name',
-          },
-        },
-        {
+
+      {
           label: "Contact Number",
           field: "contact_number",
           filterOptions: {
@@ -392,6 +524,16 @@ export default {
             placeholder: 'Search TikTok',
           },
         },
+        {
+          label: "Name",
+          field: "name",
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search name',
+          },
+        },
+    
+
         {
           label: "Action",
           field: "button",
@@ -434,6 +576,15 @@ export default {
   },
   methods: {
 
+
+    closeModal() {
+      this.isEdit = false
+      this.phoneNumber = '';
+      this.centerCode = '';
+      this.publisherName = '';
+      this.uplodedImages = null;
+      this.showAddModal = false // Set showAddModal to false to hide the modal
+    },
     reloadPageOnce() {
         if (!this.pageReloaded) {
           window.location.reload();

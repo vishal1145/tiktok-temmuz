@@ -170,6 +170,15 @@
               </router-link></li
           ></a> -->
           <div>
+            <a
+        v-if="isAdmin === 'admin'"
+        @click.prevent="members"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+   
+    >
+    <i class="nav-icon i-Administrator"></i></i> Members
+    </a>
+
     <a
         v-if="isAdmin === 'user'"
         @click.prevent="home"
@@ -210,15 +219,7 @@
     >
     <i class="nav-icon i-Data-Transfer"></i>Setting
     </a>
-    <a
-        v-if="isAdmin === 'admin'"
-        @click.prevent="members"
-        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
-   
-    >
-    <i class="nav-icon i-Administrator"></i></i> Members
-    </a>
-
+ 
     <a
         v-if="isAdmin === 'user'"
         @click.prevent="earning"
