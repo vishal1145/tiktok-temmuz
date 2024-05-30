@@ -502,7 +502,171 @@ export default {
   data () {
     return {
       flexDivDisplay: "flex!important",
-      filteredFaqs: [] ,
+      filteredFaqs: [
+  {
+    show_img: '...',
+    user_name: 'John Doe',
+    contact_number: '1234567890',
+    agency_center_code: 'ABC123',
+    reason_show: 'Some reason',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Jane Smith',
+    contact_number: '0987654321',
+    agency_center_code: 'XYZ456',
+    reason_show: 'Another reason',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Alice Johnson',
+    contact_number: '9876543210',
+    agency_center_code: 'DEF789',
+    reason_show: 'Yet another reason',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Bob Brown',
+    contact_number: '4567890123',
+    agency_center_code: 'GHI234',
+    reason_show: 'Reason XYZ',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  // Add more entries as needed
+  {
+    show_img: '...',
+    user_name: 'Sarah Wilson',
+    contact_number: '2345678901',
+    agency_center_code: 'JKL567',
+    reason_show: 'Reason ABC',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Michael Brown',
+    contact_number: '8901234567',
+    agency_center_code: 'MNO890',
+    reason_show: 'Another reason XYZ',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Emily Taylor',
+    contact_number: '5678901234',
+    agency_center_code: 'PQR123',
+    reason_show: 'Reason 123',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'David Clark',
+    contact_number: '6789012345',
+    agency_center_code: 'STU456',
+    reason_show: 'Reason 456',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Sophia Martinez',
+    contact_number: '3456789012',
+    agency_center_code: 'VWX789',
+    reason_show: 'Another reason ABC',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'James Johnson',
+    contact_number: '4567890123',
+    agency_center_code: 'YZA234',
+    reason_show: 'Reason DEF',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Olivia Smith',
+    contact_number: '6789012345',
+    agency_center_code: 'BCD567',
+    reason_show: 'Reason GHI',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'William Brown',
+    contact_number: '7890123456',
+    agency_center_code: 'EFG890',
+    reason_show: 'Another reason DEF',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Ava Davis',
+    contact_number: '8901234567',
+    agency_center_code: 'HIJ123',
+    reason_show: 'Reason JKL',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Alexander Wilson',
+    contact_number: '9012345678',
+    agency_center_code: 'MNO456',
+    reason_show: 'Reason PQR',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Emma Lee',
+    contact_number: '1234567890',
+    agency_center_code: 'STU789',
+    reason_show: 'Another reason GHI',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Benjamin Taylor',
+    contact_number: '2345678901',
+    agency_center_code: 'VWX234',
+    reason_show: 'Reason MNO',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Charlotte Clark',
+    contact_number: '3456789012',
+    agency_center_code: 'YZA567',
+    reason_show: 'Reason STU',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Mia Martinez',
+    contact_number: '4567890123',
+    agency_center_code: 'BCD890',
+    reason_show: 'Another reason PQR',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Ethan Johnson',
+    contact_number: '5678901234',
+    agency_center_code: 'EFG123',
+    reason_show: 'Reason VWX',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+  {
+    show_img: '...',
+    user_name: 'Isabella Brown',
+    contact_number: '6789012345',
+    agency_center_code: 'HIJ456',
+    reason_show: 'Another reason STU',
+    actions: '...' // This should be your HTML for edit/delete buttons
+  },
+
+]
+,
       searchTerm: '',
     filterStatus: '',
       faqs: [],
@@ -634,22 +798,22 @@ export default {
           : "flex!important"; // Toggle the display property
     },
 
-    filterData() {
-      debugger
-    this.filteredFaqs = this.faqs.filter(faq => {
-      // Check search term
-      const matchesSearchTerm = 
-        faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        faq.contact_number.includes(this.searchTerm) ||
-        faq.agency_center_code.includes(this.searchTerm) ||
-        (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
+  //   filterData() {
+  //     debugger
+  //   this.filteredFaqs = this.faqs.filter(faq => {
+  //     // Check search term
+  //     const matchesSearchTerm = 
+  //       faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+  //       faq.contact_number.includes(this.searchTerm) ||
+  //       faq.agency_center_code.includes(this.searchTerm) ||
+  //       (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
 
-      // Check filter status
-      const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
+  //     // Check filter status
+  //     const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
 
-      return matchesSearchTerm && matchesStatus;
-    });
-  },
+  //     return matchesSearchTerm && matchesStatus;
+  //   });
+  // },
   onSearchTermChange(event) {
     this.searchTerm = event.target.value;
     this.filterData();
@@ -684,47 +848,47 @@ export default {
         event.preventDefault()
       }
     },
-    async fetchPublisher () {
-      this.loader = true
-      try {
-        var url = ''
+    // async fetchPublisher () {
+    //   this.loader = true
+    //   try {
+    //     var url = ''
 
-        if (this.role == 'admin') {
-          url = 'publisher/get-all'
-        } else {
-          url = 'user/get-all-users-publishers'
-        }
+    //     if (this.role == 'admin') {
+    //       url = 'publisher/get-all'
+    //     } else {
+    //       url = 'user/get-all-users-publishers'
+    //     }
 
-        // url = 'publisher/get-all'
+    //     // url = 'publisher/get-all'
 
-        const response = await new Promise((resolve, reject) => {
-          this.$apiService
-            .getCall(url)
-            .then(data => resolve(data))
-            .catch(error => reject(error))
-        })
+    //     const response = await new Promise((resolve, reject) => {
+    //       this.$apiService
+    //         .getCall(url)
+    //         .then(data => resolve(data))
+    //         .catch(error => reject(error))
+    //     })
 
-        if (response.error) {
-          this.$toaster.makeToast('warning', response.message)
-        } else {
-          // this.faqs = response.apidata.data;
+    //     if (response.error) {
+    //       this.$toaster.makeToast('warning', response.message)
+    //     } else {
+    //       // this.faqs = response.apidata.data;
 
-          this.faqs = response.apidata.data;
-          this.filteredFaqs = this.faqs
+    //       this.faqs = response.apidata.data;
+    //       this.filteredFaqs = this.faqs
           
 
 
-          // this.faqs = this.faqs.filter(e => e._id == this.user_id)
+    //       // this.faqs = this.faqs.filter(e => e._id == this.user_id)
 
-          // this.$toaster.makeToast('success', 'publisher data get successfully');
-        }
-        this.loader = false
-      } catch (error) {
-        this.loader = false
-        console.error(error)
-        this.$toaster.makeToast('warning', 'Error: Server Error')
-      }
-    },
+    //       // this.$toaster.makeToast('success', 'publisher data get successfully');
+    //     }
+    //     this.loader = false
+    //   } catch (error) {
+    //     this.loader = false
+    //     console.error(error)
+    //     this.$toaster.makeToast('warning', 'Error: Server Error')
+    //   }
+    // },
     handelUserField() {
       this.searchUser =  this.faqs.filter(user => user.user_name.toLowerCase().includes(this.publisherName.toLowerCase()));
           // console.log(myData);
