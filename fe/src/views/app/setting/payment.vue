@@ -520,7 +520,39 @@ export default {
 
       name: "",
       contact_number: "",
-      email: ""
+      email: "",
+    
+  filteredFaqs: [
+    { "user_name": "John Doe", "Request_Date": "2024-05-01", "amount": 100, "status": "Approved", "notes": "Lorem ipsum", "action": "View" },
+    { "user_name": "Alice Smith", "Request_Date": "2024-05-02", "amount": 150, "status": "Rejected", "notes": "Dolor sit amet", "action": "View" },
+    { "user_name": "Bob Johnson", "Request_Date": "2024-05-03", "amount": 120, "status": "Approved", "notes": "Consectetur adipiscing elit", "action": "View" },
+    { "user_name": "Emily Brown", "Request_Date": "2024-05-04", "amount": 200, "status": "Pending", "notes": "Sed do eiusmod tempor incididunt", "action": "View" },
+    { "user_name": "David Wilson", "Request_Date": "2024-05-05", "amount": 180, "status": "Approved", "notes": "Ut labore et dolore magna aliqua", "action": "View" },
+    { "user_name": "Emma Taylor", "Request_Date": "2024-05-06", "amount": 90, "status": "Rejected", "notes": "Ut enim ad minim veniam", "action": "View" },
+    { "user_name": "James Anderson", "Request_Date": "2024-05-07", "amount": 110, "status": "Approved", "notes": "Quis nostrud exercitation ullamco", "action": "View" },
+    { "user_name": "Olivia Martinez", "Request_Date": "2024-05-08", "amount": 130, "status": "Rejected", "notes": "Laboris nisi ut aliquip ex ea commodo", "action": "View" },
+    { "user_name": "William Thomas", "Request_Date": "2024-05-09", "amount": 140, "status": "Approved", "notes": "Duis aute irure dolor in reprehenderit", "action": "View" },
+    { "user_name": "Sophia Garcia", "Request_Date": "2024-05-10", "amount": 160, "status": "Pending", "notes": "Voluptate velit esse cillum dolore", "action": "View" },
+    { "user_name": "Alexander Hernandez", "Request_Date": "2024-05-11", "amount": 170, "status": "Approved", "notes": "Eu fugiat nulla pariatur", "action": "View" },
+    { "user_name": "Mia Lopez", "Request_Date": "2024-05-12", "amount": 190, "status": "Rejected", "notes": "Excepteur sint occaecat cupidatat", "action": "View" },
+    { "user_name": "Daniel Perez", "Request_Date": "2024-05-13", "amount": 210, "status": "Approved", "notes": "Non proident, sunt in culpa qui officia", "action": "View" },
+    { "user_name": "Isabella Gonzalez", "Request_Date": "2024-05-14", "amount": 220, "status": "Rejected", "notes": "Deserunt mollit anim id est laborum", "action": "View" },
+    { "user_name": "Benjamin Ramirez", "Request_Date": "2024-05-15", "amount": 230, "status": "Approved", "notes": "Sed ut perspiciatis unde omnis iste", "action": "View" },
+    { "user_name": "Charlotte Torres", "Request_Date": "2024-05-16", "amount": 240, "status": "Pending", "notes": "Natus error sit voluptatem accusantium", "action": "View" },
+    { "user_name": "Michael Flores", "Request_Date": "2024-05-17", "amount": 250, "status": "Approved", "notes": "Doloremque laudantium, totam rem aperiam", "action": "View" },
+    { "user_name": "Ava Gonzales", "Request_Date": "2024-05-18", "amount": 260, "status": "Rejected", "notes": "Eaque ipsa quae ab illo inventore", "action": "View" },
+    { "user_name": "Ethan Hill", "Request_Date": "2024-05-19", "amount": 270, "status": "Approved", "notes": "Veritatis et quasi architecto beatae vitae", "action": "View" },
+    { "user_name": "Madison Carter", "Request_Date": "2024-05-20", "amount": 280, "status": "Rejected", "notes": "Nemo enim ipsam voluptatem quia voluptas", "action": "View" },
+    { "user_name": "Noah Phillips", "Request_Date": "2024-05-21", "amount": 290, "status": "Approved", "notes": "Sit aspernatur aut odit aut fugit", "action": "View" }
+  ],
+  paginationOptions: {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+        nextLabel: 'Next', 
+        prevLabel: 'Previous' 
+      }
+
     };
   },
 

@@ -228,14 +228,14 @@
     >
     <i class="nav-icon i-Money-Bag"></i> Earning
     </a>
-    <a
+    <!-- <a
         v-if="isAdmin === 'user'"
         @click.prevent="statistics"
         class="dropdown-item align-items-baseline d-flex  flex-row" style="cursor: pointer;gap: 16px;"
         
     >
     <i class="nav-icon i-Data-Transfer"></i>Statistics
-    </a>
+    </a> -->
     <!--
     <a
         @click.prevent="moveNext"
