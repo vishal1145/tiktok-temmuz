@@ -395,15 +395,21 @@
                 class="list-inline mb-0 d-flex flex-row justify-content-around"
                 style="gap: 9px;"
               >
-              <button
+              <!-- <button
         v-if="role != 'admin'"
         @click="showAddModal = true"
         class="btn btn-primary mb-3"
         style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
       >
-        <!-- -->
         Add New
-      </button>
+      </button> -->
+
+      <b-button v-if="role != 'admin'"
+        @click="showAddModal = true" variant="primary ripple btn-icon m-1">
+                            <span class="ul-btn__icon"><i class="i-Gear-2"></i></span>
+                            <span class="ul-btn__text ml-1">Add New</span>
+                        </b-button>
+
                 <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
     cursor: pointer;
 "></i></a></li> -->
@@ -453,7 +459,8 @@
         <div class="d-flex flex-row " style="gap:12px">
         
           <div>
-            <button class="btn btn-primary">Block</button>
+            <b-button size="sm" variant="outline-primary ripple m-1 btn-small">Block</b-button>
+            <!-- <button class="outline-primary btn btn-primary">Block</button> -->
           </div>
           <div>
             <span @click="clickEdit(props.row)" class="btn p-0"
