@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
-    <div class="font-weight-bold fa-2x text-light">Payment Request</div>
-    <hr class="mt-1" />
+    <!-- <div class="font-weight-bold fa-2x text-light">Payment Request</div>
+    <hr class="mt-1" /> -->
 
     <b-modal
       v-model="modalVisible"

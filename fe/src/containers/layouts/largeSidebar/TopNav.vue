@@ -1855,9 +1855,7 @@ deleteCookie(name) {
 </script>
 
 <style>
-.main-header {
-  height: 56px !important;
-}
+
 .referral-link {
   font-style: italic;
   color: blue; /* Set link color to blue */
@@ -1973,9 +1971,7 @@ deleteCookie(name) {
 .layout-sidebar-large .main-header button.dropdown-toggle {
   padding: 9px !important;
 }
-.layout-sidebar-large .sidebar-left {
-  top: 56px !important;
-}
+
 .dropdown-toggle::after {
   position: absolute;
   top: calc(50% - 2px);

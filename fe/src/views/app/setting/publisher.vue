@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <div class="font-weight-bold fa-2x text-light">Creators</div>
-    <hr class="mt-1" />
+    <!-- <div class="font-weight-bold fa-2x text-light">Creators</div>
+    <hr class="mt-1" /> -->
     <b-modal
       v-model="showAddModal"
       id="modal-add"
