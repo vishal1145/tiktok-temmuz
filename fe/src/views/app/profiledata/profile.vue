@@ -244,7 +244,7 @@
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Bank Documents" class="for-profile">
+      <b-card title="Bank Account" class="for-profile">
     <b-form>
       <b-row>
         <b-col md="6">
