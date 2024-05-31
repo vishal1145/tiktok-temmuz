@@ -264,7 +264,660 @@
     <div class="d-flex flex-column gap-5" style="gap: 13px;">
      
 
-      <div class="card pb-2">
+     
+
+        <div class="main-content">
+    <!-- <breadcumb :page="'TikTok'" :folder="'Ajans'" /> -->
+
+    <b-row>
+      <b-col lg="6" xl="3" md="6" sm="6" class="d-none">
+        <b-card no-body title class="mb-30 o-hidden">
+          <div class="ul-widget__chart-info">
+            <h5 class="text-muted text-10">INCOME</h5>
+            <div class="ul-widget__chart-number">
+              <h2 class="t-font-boldest">$1000</h2>
+              <small class="text-muted">46% compared to last year</small>
+            </div>
+          </div>
+          <b-card-body class="ul-card__widget-chart">
+            <div id="basicArea-chart">
+              <apexchart
+                type="area"
+                height="150"
+                :options="splineAreaWidget.chartOptions"
+                :series="splineAreaWidget.series"
+              />
+            </div>
+          </b-card-body>
+        </b-card>
+      </b-col>
+      <b-col lg="6" xl="3" md="6" sm="6" class="d-none">
+        <b-card no-body title class="mb-30 o-hidden">
+          <div class="ul-widget__chart-info">
+            <h5 class="text-muted text-10">APPROVE</h5>
+            <div class="ul-widget__chart-number">
+              <h2 class="t-font-boldest">$500</h2>
+              <small class="text-muted">46% compared to last year</small>
+            </div>
+          </div>
+          <b-card-body class="ul-card__widget-chart">
+            <div id="basicArea-chart">
+              <apexchart
+                type="area"
+                height="150"
+                :options="splineAreaWidgetTwo.chartOptions"
+                :series="splineAreaWidgetTwo.series"
+              />
+            </div>
+          </b-card-body>
+        </b-card>
+      </b-col>
+      <b-col lg="6" xl="3" md="6" sm="6" class="d-none">
+        <b-card no-body title class="mb-30 o-hidden">
+          <div class="ul-widget__chart-info">
+            <h5 class="text-muted text-10">TRANSACTION</h5>
+            <div class="ul-widget__chart-number">
+              <h2 class="t-font-boldest">$44,909</h2>
+              <small class="text-muted">46% compared to last year</small>
+            </div>
+          </div>
+          <b-card-body class="ul-card__widget-chart">
+            <div id="basicArea-chart">
+              <apexchart
+                type="area"
+                height="150"
+                :options="splineAreaWidgetThree.chartOptions"
+                :series="splineAreaWidgetThree.series"
+              />
+            </div>
+          </b-card-body>
+        </b-card>
+      </b-col>
+      <b-col lg="6" xl="3" md="6" sm="6" class="d-none">
+        <b-card no-body title class="mb-30 o-hidden">
+          <div class="ul-widget__chart-info">
+            <h5 class="text-muted text-10">SALES</h5>
+            <div class="ul-widget__chart-number">
+              <h2 class="t-font-boldest">$500</h2>
+              <small class="text-muted">46% compared to last year</small>
+            </div>
+          </div>
+          <b-card-body class="ul-card__widget-chart">
+            <div id="basicArea-chart">
+              <apexchart
+                type="area"
+                height="150"
+                :options="splineAreaWidgetFour.chartOptions"
+                :series="splineAreaWidgetFour.series"
+              />
+            </div>
+          </b-card-body>
+        </b-card>
+      </b-col>
+
+      <!-- form-wizard -->
+      <b-col  class="mb-30 d-none col">
+        <b-card
+          title="Create Your Company Profile And Get Started"
+          class="o-hidden"
+        >
+          <form-wizard
+            title
+            subtitle
+            @on-complete="onComplete"
+            shape="circle"
+            color="#A855F7"
+          >
+            <tab-content title="Basic Info" icon="i-Information">
+              <b-form>
+                <b-row>
+                  <b-form-group
+                    id="input-group-1"
+                    label="First Name:"
+                    label-for="input-1"
+                    class="col-md-6 mb-30"
+                  >
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Enter Your First Name"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Last Name:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Enter Your Last Name"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="email Address:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="email"
+                      required
+                      placeholder="Enter Your Email Address"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Phone Number:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="number"
+                      required
+                      placeholder="Enter Your Number"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-row>
+              </b-form>
+            </tab-content>
+            <tab-content title="Company Info" icon="i-Business-Mens">
+              <b-row>
+                <b-col md="6">
+                  <h6 class="mb-2">Employees</h6>
+                  <label class="checkbox checkbox-primary">
+                    <input type="checkbox" checked />
+                    <span>Designer</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox checkbox-secondary">
+                    <input type="checkbox" checked />
+                    <span>Coder</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="checkbox checkbox-success">
+                    <input type="checkbox" checked />
+                    <span>QA</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </b-col>
+                <b-col md="6">
+                  <h6 class="mb-2">Company</h6>
+                  <label class="radio radio-outline-primary">
+                    <input type="radio" name="radio" formcontrolname="radio" />
+                    <span>Less than 1 Year</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio radio-outline-success">
+                    <input type="radio" name="radio" formcontrolname="radio" />
+                    <span>1-5 years</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio radio-outline-warning">
+                    <input type="radio" name="radio" formcontrolname="radio" />
+                    <span>5+ years</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </b-col>
+              </b-row>
+            </tab-content>
+            <tab-content title="Payment info" icon="i-Car-Coins">
+              <b-form>
+                <b-row>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Card Number:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Card Number"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Expires at:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Expires at"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Security code:"
+                    label-for="input-1"
+                    class="col-md-6"
+                  >
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Security code"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-row>
+              </b-form>
+            </tab-content>
+            <button
+              class="btn btn-outline-primary btn-rounded"
+              type="primary"
+              slot="prev"
+            >
+              Back
+            </button>
+            <button
+              class="btn btn-outline-primary btn-rounded"
+              type="primary"
+              slot="next"
+            >
+              Next
+            </button>
+            <button
+              class="btn btn-outline-success btn-rounded"
+              type="primary"
+              slot="finish"
+            >
+              Finish
+            </button>
+          </form-wizard>
+        </b-card>
+      </b-col>
+
+      <b-col sm="12" md="12" xl="4" class="mb-30 d-none">
+        <b-row>
+          <b-col md="6" xl="12">
+            <b-card class="o-hidden mb-30">
+              <div class="user-profile mb-30">
+                <div class="ul-widget-card__user-info">
+                  <img
+                    class="profile-picture avatar-lg mb-2"
+                    src="@/assets/images/faces/1.jpg"
+                    alt
+                  />
+                  <p class="m-0 text-24">Timothy Carlson</p>
+                  <p class="text-muted">Digital Marketer</p>
+                </div>
+                <div class="ul-widget-card--line mt-2">
+                  <b-button variant="primary">Download</b-button>
+                  <b-button variant="outline-success" class="float-right"
+                    >Preview</b-button
+                  >
+                </div>
+                <div class="ul-widget-card__rate-icon">
+                  <span>
+                    <i class="i-Add-UserStar text-warning"></i>
+                    5.0
+                  </span>
+                  <span>
+                    <i class="i-Bag text-primary"></i>
+                    78 Projects
+                  </span>
+                </div>
+              </div>
+            </b-card>
+          </b-col>
+          <b-col md="6 " xl="12">
+            <b-card
+              class="o-hidden card-icon-bg card-icon-bg-primary o-hidden text-center"
+            >
+              <i class="i-Data-Upload"></i>
+              <div class="content">
+                <p class="text-muted mt-2 mb-0">Download</p>
+                <p class="text-primary text-24 line-height-1 mb-2">4021</p>
+              </div>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-col>
+
+      <!-- finance-summary -->
+      <b-col  class="mb-30 col">
+        <b-card no-body class="o-hidden">
+          <b-card-header header-bg-variant="transparent">
+            <b-row style="align-items: center">
+              <b-col md="6">
+                <div class="ul-card-widget__head-label">
+                  <h5 class="card-title">Earning Summary</h5>
+                </div>
+              </b-col>
+              <b-col md="6" class="text-md-right">
+                <b-button variant="outline-primary">Summary View</b-button>
+              </b-col>
+            </b-row>
+          </b-card-header>
+          <b-card-body>
+            <b-row>
+              <b-col md="6 " class="mb-4 mb-md-0">
+                <h3 class="text-muted text-14 font-weight-500">
+                  Final Commission Revenue
+                </h3>
+                <span class="text-muted text-18 font-weight-600">$790,420</span>
+              </b-col>
+              <b-col md="6" class="mb-4 mb-md-0">
+                <h3 class="text-muted text-14 font-weight-500">
+                  Final Commission Revenue
+                </h3>
+                <span class="text-muted text-18 font-weight-600"
+                  >July 25,2019</span
+                >
+              </b-col>
+            </b-row>
+          </b-card-body>
+          <div id="basicArea-chart" class="mt-2">
+            <apexchart
+              type="area"
+              height="160"
+              :options="spark3.chartOptions"
+              :series="spark3.series"
+            />
+          </div>
+        </b-card>
+      </b-col>
+      <!-- echart-pie -->
+      <b-col xl="4" md="12" class="mb-30 d-none">
+        <b-card title="Stacked Pie Chart" class="o-hidden">
+          <apexchart
+            type="polarArea"
+            height="254"
+            :options="dashboardFive.chartOptions"
+            :series="dashboardFive.series"
+          ></apexchart>
+        </b-card>
+      </b-col>
+
+      <!-- list -->
+      <b-col md="12" xl="8" class="mb-30 d-none">
+        <b-card title class="wrapper o-hidden h-100">
+          <vue-good-table
+            :fixed-header="true"
+            :columns="columns"
+            styleClass="tableOne text-left vgt-table"
+            row-style-class="text-left"
+            :rows="rows"
+          >
+            <template slot="table-row" slot-scope="props">
+              <span v-if="props.column.field == 'img'">
+                <img
+                  class="rounded"
+                  :src="props.row.img"
+                  style="width: 50px; height: 50px"
+                  alt="corrupted img"
+                />
+              </span>
+            </template>
+          </vue-good-table>
+        </b-card>
+      </b-col>
+
+      <b-col xl="4" md="6" class="mb-30 d-none">
+        <div class="card o-hidden">
+          <img
+            class="card-img-top"
+            src="@/assets/images/photo-wide-3.jpg"
+            alt
+          />
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+        </div>
+      </b-col>
+
+      <!-- mask -->
+      <b-col md="6" xl="6" class="mb-30 d-none">
+        <b-card bg-variant="defualt" text-variant="black">
+          <div class="d-flex align-items-center mb-30">
+            <i class="i-ID-Card text-22 mr-2"></i>
+            <h5 class="card-title m-0">Card Information</h5>
+          </div>
+
+          <b-row>
+            <b-col md="6">
+              <p class="font-weight-400 mb-2">CPF</p>
+              <the-mask
+                class="form-control"
+                :mask="['###.###.###-##']"
+                placeholder="999.999.999-99"
+              />
+            </b-col>
+            <b-col md="6" class="mb-3">
+              <p class="font-weight-400 mb-2">Zip Code</p>
+              <the-mask
+                class="form-control"
+                :mask="['#####-###']"
+                placeholder="99999-999"
+              />
+            </b-col>
+            <b-col md="6" class="mb-3">
+              <p class="font-weight-400 mb-2">Phone</p>
+              <the-mask
+                class="form-control"
+                :mask="['+# (###) ###-####']"
+                placeholder="+9 (999) 999-9999"
+              />
+            </b-col>
+            <b-col md="6" class="mb-3">
+              <p class="font-weight-400 mb-2">Master Card</p>
+              <the-mask
+                class="form-control"
+                :mask="['#### #### #### ####']"
+                placeholder="9999 9999 9999 9999"
+              />
+            </b-col>
+            <b-col md="6" class="mb-3">
+              <p class="font-weight-400 mb-2">Date</p>
+              <the-mask
+                class="form-control"
+                :mask="['##/##/####']"
+                placeholder="mm/dd/yy"
+              />
+            </b-col>
+            <b-col md="6" class="mb-3">
+              <p class="font-weight-400 mb-2">CPF/CNPJ</p>
+              <the-mask
+                class="form-control"
+                :mask="['###.###.###-##', '##.###.###/####-##']"
+                placeholder="99.999.999/9999-99"
+              />
+            </b-col>
+          </b-row>
+          <b-button variant="danger" class="float-right">Submit</b-button>
+        </b-card>
+      </b-col>
+      <!-- Sales-stats-1 -->
+      <b-col xl="6" md="6" class="mb-30 d-none">
+        <b-card no-body title="Payment Form #2" class="o-hidden">
+          <b-tabs pills card content-class="mt-3" fill>
+            <b-tab active>
+              <template slot="title">
+                <i class="i-Credit-Card-2 text-16 mr-2 align-middle"></i> Credit
+                Card
+              </template>
+
+              <b-form>
+                <b-form-group label="Full Name">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Male-21 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="Full Name"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-form-group label="Card Number" class="mt-4">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Credit-Card-2 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="card number"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-row class="mt-4">
+                  <b-col md="4">
+                    <b-form-group label="Expiration">
+                      <b-form-select
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group style="margin-top: 25px">
+                      <b-form-select
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group label="CVV">
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+                <b-button block variant="primary " class="mt-3"
+                  >Confirm</b-button
+                >
+              </b-form>
+            </b-tab>
+            <b-tab>
+              <template slot="title">
+                <i class="i-Paypal text-16 mr-2 align-middle"></i> Paypal
+              </template>
+
+              <b-form>
+                <b-form-group label="Full Name">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Male-21 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="Full Name"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-form-group label="Card Number" class="mt-4">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Credit-Card-2 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="card number"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-row class="mt-4">
+                  <b-col md="4">
+                    <b-form-group label="Expiration">
+                      <b-form-select
+                        class
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group style="margin-top: 25px">
+                      <b-form-select
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group label="CVV">
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+                <b-button block variant="primary" class="mt-3"
+                  >Confirm</b-button
+                >
+              </b-form>
+            </b-tab>
+            <b-tab>
+              <template slot="title">
+                <i class="i-Bank text-16 mr-2 align-middle"></i>Bank Transaction
+              </template>
+
+              <b-form>
+                <b-form-group label="Full Name">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Male-21 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="Full Name"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-form-group label="Card Number" class="mt-4">
+                  <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                    <b-input-group-prepend>
+                      <span class="input-group-text" id="basic-addon1">
+                        <i class="i-Credit-Card-2 text-18"></i>
+                      </span>
+                    </b-input-group-prepend>
+                    <b-input placeholder="card number"></b-input>
+                  </b-input-group>
+                </b-form-group>
+
+                <b-row class="mt-4">
+                  <b-col md="4">
+                    <b-form-group label="Expiration">
+                      <b-form-select
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group style="margin-top: 25px">
+                      <b-form-select
+                        v-model="selected"
+                        :options="options"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="4">
+                    <b-form-group label="CVV">
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+                <b-button block variant="primary" class="mt-3"
+                  >Confirm</b-button
+                >
+              </b-form>
+            </b-tab>
+          </b-tabs>
+        </b-card>
+      </b-col>
+    </b-row>
+  </div>
+ <div class="card pb-2 ">
           <div
             class="card-header d-flex flex-row justify-content-between "
             style="
@@ -337,7 +990,7 @@
             </div>
 
             <div class="col-12 col-sm-6 col-lg-3 paddingzero" >
-              <label for="users-list-verified">Action</label>
+              <label for="users-list-verified">Earning range</label>
               <fieldset class="form-group">
                 <select
                   class="form-control "
@@ -347,13 +1000,21 @@
                   @change="onStatusChange"
                 >
                   <option value="">All</option>
-                  <option value="Approved">Approved</option>
-                  <option value="Rejected">Rejected</option>
-                  <option value="Under Review">Under Review</option>
+                  <option value="Approved">Maximum</option>
+                  <option value="Rejected">Minimum</option>
+                
                 </select>
               </fieldset>
             </div>
+            <div class="col-12 col-sm-6 col-lg-3 paddingzero">
+  <label for="start-date">Start Date</label>
+  <input type="date" id="start-date" v-model="startDate" class="form-control" @change="filterData">
+</div>
 
+<div class="col-12 col-sm-6 col-lg-3 paddingzero">
+  <label for="end-date">End Date</label>
+  <input type="date" id="end-date" v-model="endDate" class="form-control" @change="filterData">
+</div>
             <!-- <div class="col-12 col-sm-6 col-lg-3">
     <button
       class="btn btn-primary mt-4"
@@ -365,6 +1026,7 @@
   </div> -->
           </div>
         </div>
+        
       <div
         class="d-flex flex-column gap-5 card"
         style="
@@ -498,9 +1160,149 @@
 
 
 <script>
+import { spark3, radialBar } from "@/data/apexChart";
+import {
+  splineAreaWidget,
+  splineAreaWidgetTwo,
+  splineAreaWidgetThree,
+  splineAreaWidgetFour,
+  dashboardFive,
+} from "@/data/widgetStatistics";
+
+
+
 export default {
+  metaInfo: {
+    // if no subcomponents specify a metaInfo.title, this title will be used
+    title: "Dashboard v4",
+  },
+  props: {
+    title: {
+      type: String,
+      default: "Awesome Wizard",
+    },
+  },
   data () {
     return {
+      selected: "x",
+      options: [
+        { value: "x", text: " select an option" },
+        { value: "a", text: "January" },
+        { value: "b", text: "February" },
+      ],
+      splineAreaWidget,
+      splineAreaWidgetTwo,
+      splineAreaWidgetThree,
+      splineAreaWidgetFour,
+      dashboardFive,
+      radialBar,
+      spark3,
+      values: [30, 20],
+      max: 100,
+
+      // list
+      columns: [
+        {
+          label: "Thumbnail ",
+          field: "img",
+          width: "100px",
+          tdClass: "gull-border-none text-left",
+        },
+        {
+          label: "Title",
+          field: "span",
+          html: true,
+          tdClass: "gull-border-none text-left",
+        },
+        {
+          label: "Status",
+          field: "status",
+          html: true,
+          tdClass: "text-left gull-border-none",
+          thClass: "text-left",
+        },
+        {
+          label: "Created On",
+          field: "createdAt",
+          type: "date",
+          dateInputFormat: "yyyy-mm-dd",
+          dateOutputFormat: "mmm Do yy",
+          tdClass: "text-left gull-border-none",
+          thClass: "text-left",
+        },
+        {
+          label: "Progress",
+          field: "progressbar",
+          html: true,
+          tdClass: "text-left gull-border-none",
+          thClass: "text-left",
+        },
+      ],
+      rows: [
+        {
+          id: 1,
+          img: require("@/assets/images/products/speaker-1.jpg"),
+          status: '<span class="badge badge-danger">Cancel</span>',
+          span: "Wireless Bluetooth V4.0 ",
+          createdAt: "2011-10-28",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div>',
+        },
+        {
+          id: 2,
+          img: require("@/assets/images/products/speaker-2.jpg"),
+          status: '<span class="badge badge-warning">Pending</span>',
+          span: "Portable Speaker with HD Sound",
+          createdAt: "2011-10-28",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-primary" role="progressbar" style="width: 50%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div></div>',
+        },
+        {
+          id: 3,
+          img: require("@/assets/images/products/headphone-2.jpg"),
+          status: '<span class="badge badge-success">Success</span>',
+          span: "Lightweight On-Ear",
+          createdAt: "2011-10-30",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-danger" role="progressbar" style="width: 75%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">75%</div></div>',
+        },
+        {
+          id: 4,
+          img: require("@/assets/images/products/watch-1.jpg"),
+          status: '<span class="badge badge-danger">Cancel</span>',
+          span: "Automatic-self-wind mens ",
+          createdAt: "2011-10-11",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-info" role="progressbar" style="width: 100%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div></div>',
+        },
+        {
+          id: 5,
+          img: require("@/assets/images/products/watch-1.jpg"),
+          status: '<span class="badge badge-primary">Approved</span>',
+          span: "Automatic-self-wind ",
+          createdAt: "2011-10-21",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-warning" role="progressbar" style="width: 80%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">80%</div></div>',
+        },
+        {
+          id: 6,
+          img: require("@/assets/images/products/headphone-3.jpg"),
+          status: '<span class="badge badge-info">Pending</span>',
+          span: "On-Ear Headphones - Black",
+          createdAt: "2011-10-28",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div>',
+        },
+        {
+          id: 7,
+          img: require("@/assets/images/products/headphone-2.jpg"),
+          status: '<span class="badge badge-success">Pending</span>',
+          span: "Lightweight On-Ear Headphones - Black",
+          createdAt: "2011-10-30",
+          progressbar:
+            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-danger" role="progressbar" style="width: 75%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">75%</div></div>',
+        },
+      ],
       flexDivDisplay: "flex!important",
       filteredFaqs: [
   {
@@ -509,6 +1311,8 @@ export default {
     contact_number: '1234567890',
     agency_center_code: 'ABC123',
     reason_show: 'Some reason',
+    earning: 5000, // Example value for earning
+    period: 'Jan-Mar', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -517,6 +1321,8 @@ export default {
     contact_number: '0987654321',
     agency_center_code: 'XYZ456',
     reason_show: 'Another reason',
+    earning: 6000, // Example value for earning
+    period: 'Apr-Jun', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -525,6 +1331,8 @@ export default {
     contact_number: '9876543210',
     agency_center_code: 'DEF789',
     reason_show: 'Yet another reason',
+    earning: 7000, // Example value for earning
+    period: 'Jul-Sep', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -533,15 +1341,18 @@ export default {
     contact_number: '4567890123',
     agency_center_code: 'GHI234',
     reason_show: 'Reason XYZ',
+    earning: 8000, // Example value for earning
+    period: 'Oct-Dec', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
-  // Add more entries as needed
   {
     show_img: '...',
     user_name: 'Sarah Wilson',
     contact_number: '2345678901',
     agency_center_code: 'JKL567',
     reason_show: 'Reason ABC',
+    earning: 9000, // Example value for earning
+    period: 'Jan-Mar', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -550,6 +1361,8 @@ export default {
     contact_number: '8901234567',
     agency_center_code: 'MNO890',
     reason_show: 'Another reason XYZ',
+    earning: 10000, // Example value for earning
+    period: 'Apr-Jun', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -558,6 +1371,8 @@ export default {
     contact_number: '5678901234',
     agency_center_code: 'PQR123',
     reason_show: 'Reason 123',
+    earning: 11000, // Example value for earning
+    period: 'Jul-Sep', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -566,6 +1381,8 @@ export default {
     contact_number: '6789012345',
     agency_center_code: 'STU456',
     reason_show: 'Reason 456',
+    earning: 12000, // Example value for earning
+    period: 'Oct-Dec', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -574,6 +1391,8 @@ export default {
     contact_number: '3456789012',
     agency_center_code: 'VWX789',
     reason_show: 'Another reason ABC',
+    earning: 13000, // Example value for earning
+    period: 'Jan-Mar', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -582,6 +1401,8 @@ export default {
     contact_number: '4567890123',
     agency_center_code: 'YZA234',
     reason_show: 'Reason DEF',
+    earning: 14000, // Example value for earning
+    period: 'Apr-Jun', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -590,6 +1411,8 @@ export default {
     contact_number: '6789012345',
     agency_center_code: 'BCD567',
     reason_show: 'Reason GHI',
+    earning: 15000, // Example value for earning
+    period: 'Jul-Sep', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -598,6 +1421,8 @@ export default {
     contact_number: '7890123456',
     agency_center_code: 'EFG890',
     reason_show: 'Another reason DEF',
+    earning: 16000, // Example value for earning
+    period: 'Oct-Dec', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -606,6 +1431,8 @@ export default {
     contact_number: '8901234567',
     agency_center_code: 'HIJ123',
     reason_show: 'Reason JKL',
+    earning: 17000, // Example value for earning
+    period: 'Jan-Mar', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -614,6 +1441,8 @@ export default {
     contact_number: '9012345678',
     agency_center_code: 'MNO456',
     reason_show: 'Reason PQR',
+    earning: 18000, // Example value for earning
+    period: 'Apr-Jun', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -622,6 +1451,8 @@ export default {
     contact_number: '1234567890',
     agency_center_code: 'STU789',
     reason_show: 'Another reason GHI',
+    earning: 19000, // Example value for earning
+    period: 'Jul-Sep', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -630,6 +1461,8 @@ export default {
     contact_number: '2345678901',
     agency_center_code: 'VWX234',
     reason_show: 'Reason MNO',
+    earning: 20000, // Example value for earning
+    period: 'Oct-Dec', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -638,6 +1471,8 @@ export default {
     contact_number: '3456789012',
     agency_center_code: 'YZA567',
     reason_show: 'Reason STU',
+    earning: 21000, // Example value for earning
+    period: 'Jan-Mar', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -646,6 +1481,8 @@ export default {
     contact_number: '4567890123',
     agency_center_code: 'BCD890',
     reason_show: 'Another reason PQR',
+    earning: 22000, // Example value for earning
+    period: 'Apr-Jun', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -654,6 +1491,8 @@ export default {
     contact_number: '5678901234',
     agency_center_code: 'EFG123',
     reason_show: 'Reason VWX',
+    earning: 23000, // Example value for earning
+    period: 'Jul-Sep', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
   {
@@ -662,10 +1501,12 @@ export default {
     contact_number: '6789012345',
     agency_center_code: 'HIJ456',
     reason_show: 'Another reason STU',
+    earning: 24000, // Example value for earning
+    period: 'Oct-Dec', // Example value for period
     actions: '...' // This should be your HTML for edit/delete buttons
   },
-
 ]
+
 ,
       searchTerm: '',
     filterStatus: '',
@@ -699,56 +1540,72 @@ export default {
       images: null,
       isEdit: false,
       columns: [
-        {
-          label: 'Icons',
-          field: 'show_img'
+        // {
+        //   label: 'Icons',
+        //   field: 'show_img'
           
-        },
+        // },
         {
-          label: 'UserName',
+          label: 'TikTok username',
           field: 'user_name',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name',
+            placeholder: 'TikTok username',
           },
         },
         {
-          label: 'Contact number',
-          field: 'contact_number',
+          label: 'Earning range',
+          field: 'earning',
           filterOptions: {
             enabled: true,
-            placeholder: 'Contact Number',
+            placeholder: 'Earning range',
           },
         },
         {
-          label: 'Agency code',
-          field: 'agency_center_code',
+          label: 'Earnings  Periods',
+          field: 'period',
           filterOptions: {
             enabled: true,
-            placeholder: 'Agency code',
+            placeholder: 'Earning range',
           },
+        },
+        // {
+        //   label: 'Contact number',
+        //   field: 'contact_number',
+        //   filterOptions: {
+        //     enabled: true,
+        //     placeholder: 'Contact Number',
+        //   },
+        // },
+        // {
+        //   label: 'Agency code',
+        //   field: 'agency_center_code',
+        //   filterOptions: {
+        //     enabled: true,
+        //     placeholder: 'Agency code',
+        //   },
           
-        },
-        {
-          label: 'Reason',
-          field: 'reason_show',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Reason',
-          },
-        },
-        {
-          label: 'Actions',
-          sortable: false,
-          field: 'actions',
-          width: '150px',
-          formatFn: () => {
-            return `
-              <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-              <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
-            `
-          }
-        }
+        // },
+        // {
+        //   label: 'Reason',
+        //   field: 'reason_show',
+        //   filterOptions: {
+        //     enabled: true,
+        //     placeholder: 'Reason',
+        //   },
+        // },
+        // {
+        //   label: 'Actions',
+        //   sortable: false,
+        //   field: 'actions',
+        //   width: '150px',
+        //   formatFn: () => {
+        //     return `
+        //       <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+        //       <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
+        //     `
+        //   }
+        // }
       ],
       paginationOptions: {
         enabled: true,

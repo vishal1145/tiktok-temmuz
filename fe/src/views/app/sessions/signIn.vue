@@ -1541,7 +1541,7 @@ export default {
 }
 
 .pw {
-  margin-top: 4px;
+  margin-top: 4px!important;
 
   color: #6f6b7d;
   font-size: 0.9375rem;

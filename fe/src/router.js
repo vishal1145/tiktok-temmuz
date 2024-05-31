@@ -775,6 +775,10 @@ const routes = [
         component: () => import("./views/app/sessions/signIn"),
       },
       {
+        path: "independent",
+        component: () => import("./views/app/sessions/independent"),
+      },
+      {
         path: "signUp",
         component: () => import("./views/app/sessions/signUp"),
       },
