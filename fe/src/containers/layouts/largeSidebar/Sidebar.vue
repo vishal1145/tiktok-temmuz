@@ -1498,7 +1498,7 @@ export default {
       isStyle: true,
       selectedParentMenu: "",
       isMobile,
-      isHide: true,
+      isHide: false,
     };
   },
   created() {

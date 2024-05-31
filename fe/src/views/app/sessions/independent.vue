@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <nav class="navbar for-nav container-fluid" @click="openPopup">
+  <div>
+    <nav class="navbar for-nav container-fluid" @click="openPopup">
       <div class="container-fluid d-flex justify-content-between">
         <img
           :src="logo"
@@ -9,86 +9,139 @@
           height="35"
           class="d-inline-block align-text-top"
         />
-        <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a>
+        <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
       </div>
     </nav>
-  
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-md-6">
-            <div>
-              <h2>Chat with us</h2>
-              <p>Would you like to get live support from our team?</p>
-              <p>
-                <a href="mailto:info@temmuzajans.com">Send an email</a>
-              </p>
-              <p>
-                <a href="https://wa.me/905310133151">Send a WhatsApp message</a>
-              </p>
-            </div>
-            <div>
-              <h2>Call us</h2>
-              <p>You can call us every weekday between 10:00-17:00</p>
-              <p>
-                <a href="tel:+905310133151">+90 (531) 013 3151</a>
-              </p>
-            </div>
-            <div>
-              <h2>Visit us</h2>
-              <p>Come and meet us face-to-face every weekday between 10:00-17:00</p>
-              <address>
-                Gazi Mh. Fatih Sultan Mehmet Blvd.<br>
-                Yenimahalle Ankara<br>
-                Gazi Mh. Fatih Sultan Mehmet Blvd.<br>
-                Yenimahalle Ankara
-              </address>
+
+    <div
+      class="main-div d-flex flex-row justify-content-between overflow-hidden"
+    >
+      <div class="row pt-2">
+        <b-col class="col-md-6 pw" lg="6" xl="6" mt="3">
+          <div class="card">
+            <div class="card-body">
+              <div>
+                <h2>Chat with us</h2>
+                <p>Would you like to get live support from our team?</p>
+                <p>
+                  <a href="mailto:info@temmuzajans.com">Send an email</a>
+                </p>
+                <p>
+                  <a href="https://wa.me/905310133151"
+                    >Send a WhatsApp message</a
+                  >
+                </p>
+              </div>
+              <div>
+                <h2>Call us</h2>
+                <p>You can call us every weekday between 10:00-17:00</p>
+                <p>
+                  <a href="tel:+905310133151">+90 (531) 013 3151</a>
+                </p>
+              </div>
+              <div>
+                <h2>Visit us</h2>
+                <p>
+                  Come and meet us face-to-face every weekday between
+                  10:00-17:00
+                </p>
+                <address>
+                  Gazi Mh. Fatih Sultan Mehmet Blvd.<br />
+                  Yenimahalle Ankara<br />
+                  Gazi Mh. Fatih Sultan Mehmet Blvd.<br />
+                  Yenimahalle Ankara
+                </address>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <h2>Let's get started!</h2>
-            <p>
-              If you are a TikTok broadcaster or want to become one, you can attract the attention of millions of people with Temmuz Agency and increase your earnings up to ten times.
-            </p>
-            <form>
-              <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" />
-              </div>
-              <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" />
-              </div>
-              <div class="mb-3">
-                <label for="phoneNumber" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" id="phoneNumber" />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" />
-              </div>
-              <div class="mb-3">
-                <label for="tiktokCode" class="form-label">TikTok Agency Code</label>
-                <input type="text" class="form-control" id="tiktokCode" />
-              </div>
-              <div class="mb-3">
-                <label for="referenceCode" class="form-label">Reference Code</label>
-                <input type="text" class="form-control" id="referenceCode" value="ahmetaltai" readonly />
-              </div>
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="agree" />
-                <label class="form-check-label" for="agree">
-                  Click for the Information Text about Personal Data. By applying, you accept the terms of use.
-                </label>
-              </div>
-              <button type="submit" class="btn btn-primary">Complete Application</button>
-            </form>
+        </b-col>
+        <b-col class="col-md-7 pw" lg="6" xl="6" mt="3">
+          <div class="card">
+            <div class="card-body">
+              <h2>Let's get started!</h2>
+              <p>
+                If you are a TikTok broadcaster or want to become one, you can
+                attract the attention of millions of people with Temmuz Agency
+                and increase your earnings up to ten times.
+              </p>
+              <form>
+                <div class="d-flex flex-row">
+                  <div class="w-50">
+                    <div class="mb-3 pr-2">
+                      <label for="firstName" class="form-label"
+                        >First Name</label
+                      >
+                      <input type="text" class="form-control" id="firstName" />
+                    </div>
+                    <div class="mb-3 pr-2">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" />
+                    </div>
+                    <div class="mb-3 pr-2">
+                      <label for="phoneNumber" class="form-label"
+                        >Phone Number</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="phoneNumber"
+                      />
+                    </div>
+                  </div>
+                  <div class="w-50">
+                    <div class="mb-3 pl-2">
+                      <label for="email" class="form-label"
+                        >Email Address</label
+                      >
+                      <input type="email" class="form-control" id="email" />
+                    </div>
+                    <div class="mb-3 pl-2">
+                      <label for="tiktokCode" class="form-label"
+                        >TikTok Agency Code</label
+                      >
+                      <input type="text" class="form-control" id="tiktokCode" />
+                    </div>
+                    <div class="mb-3 pl-2">
+                      <label for="referenceCode" class="form-label"
+                        >Reference Code</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="referenceCode"
+                        value="ahmetaltai"
+                        readonly
+                      />
+                    </div>
+                
+                  </div>
+                </div>
+
+                <div class="form-check mb-3">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="agree"
+                      />
+                      <label class="form-check-label" for="agree">
+                        Click for the Information Text about Personal Data. By
+                        applying, you accept the terms of use.
+                      </label>
+                    </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Complete Application
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        </b-col>
       </div>
     </div>
-  </template>
-  
-  <!-- <script>
+  </div>
+</template>
+
+<!-- <script>
 
 
   export default {
@@ -97,7 +150,7 @@
   
   </script> -->
 
-  <script>
+<script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import { mapGetters, mapActions } from "vuex";
 import message from "../../../message";
@@ -160,7 +213,7 @@ export default {
     ...mapActions(["signUserUp"]),
     //   validate form
     submit() {
-    
+
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
@@ -174,11 +227,11 @@ export default {
           // "first_name": this.fName,
           phone: this.phone,
         };
-        
+
         this.$apiService
           .postCall("account/", requestData)
           .then((user) => {
-          
+
             // this.$router.push("signIn");
             // this.$store.commit("setLoading", false);
             if (!user.error) {
@@ -275,8 +328,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
   .container {
     max-width: 800px;
   }
@@ -284,13 +337,78 @@ export default {
     font-weight: bold;
   }
   form {
-    background-color: #f8f9fa;
-    padding: 20px;
+    background-color: #f8f9fa00;
+    padding-right: 20px;
+    padding-left: 20px;
+
     border-radius: 5px;
   }
+
+  .form-control {
+    border: initial;
+    outline: initial !important;
+    background: #f3f4f6;
+    /* border: 1px solid #9CA3AF; */
+    color: #111827;
+}
 
   .container[data-v-8a9f1160] {
     max-width: 1294px;
 }
-  </style>
-  
+.main-div {
+  /* display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; */
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.pw {
+  margin-top: 4px!important;
+
+  color: #6f6b7d;
+  font-size: 0.9375rem;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Media query for laptop screens and larger */
+@media (min-width: 1400px) {
+    .padding {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
+
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 20px;
+    margin-left: 21px;
+}
+
+h1, h2, h3, h4, h5, h6, .card-title, .text-title {
+    color: #05070bc2;
+}
+</style>
