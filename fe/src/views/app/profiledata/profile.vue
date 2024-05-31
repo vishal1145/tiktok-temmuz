@@ -17,13 +17,14 @@
                 <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
                 <p>Thank you for being awesome and sharing our platform with others! Below is your unique referral link:</p>
 
-                <div data-v-0307aa70="" class="p-2 bg-white text-gray d-flex w-59"
-                    style="overflow-wrap: anywhere; border: 1px solid rgba(13, 1, 25, 0.2); border-radius: 4px;">
+                <div data-v-0307aa70="" class="bg-white text-gray d-flex w-59"
+                    style="overflow-wrap: anywhere; ">
                     <a data-v-0307aa70="" href="https://temmuz.algofolks.com/app/sessions/affiliate" target="_blank"
-                        class="referral-link text-11 align-self-center">
+                        class="referral-link  align-self-center">
                         https://temmuz.algofolks.com/app/sessions/affiliate</a>
-                    <p data-v-0307aa70="" class="border text-10 px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end"
-                    style="text-align: center;border-radius: 5px;width: 105px;background-color: #a855f7;color: white;/* padding-right: 20px; */text-align: center;">Copy</p>
+                        <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
+      <i class="fa fa-clone" aria-hidden="true"></i>
+    </p>
                 </div>
 
             </div>
