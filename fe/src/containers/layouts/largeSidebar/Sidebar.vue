@@ -21,7 +21,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/homes/home.v1">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Clock-3"></i>
                 <span class="item-name">{{ "Home" }}</span>
               </a>
@@ -37,7 +37,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/mydesk">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Shop-4"></i>
                 <span class="nav-text">{{ $t("My Desk") }}</span>
               </a>
@@ -54,7 +54,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/admin">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Administrator"></i>
                 
                 <span class="nav-text">{{ $t("Admin") }}</span>
@@ -71,7 +71,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/dashboards/adminDashboard">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Bar-Chart"></i>
                 <span class="nav-text">{{ $t("Dashboard") }}</span>
               </a>
@@ -88,7 +88,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/users">
-              <a class="nav-item-hold nav-item" href="#">
+              <a class="nav-item-hold nav-item"   >
                 <i class="nav-icon i-Administrator"></i>
                
                 <span class="nav-text">{{ $t("Members") }}</span>
@@ -102,13 +102,13 @@
              <!-- home-page - User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/dashboards/dashboard.v4') }"
+            :class="{ active: isActive('/app/setting/home') }"
             class="nav-item"
             data-item="addBackEndData"
             :data-submenu="false"
         >
-          <router-link tag="a" class to="/app/dashboards/dashboard.v4">
-            <a class="nav-item-hold nav-item" href="#">
+          <router-link tag="a" class to="/app/setting/home">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Home1"></i>
               <span class="nav-text">{{ $t("Home") }}</span>
             </a>
@@ -125,7 +125,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/Setting">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Data-Transfer"></i>
 
               <span class="nav-text">{{ $t("Setting") }}</span>
@@ -148,7 +148,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/profiledata/profile">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Male-21"></i>
               <span class="nav-text">{{ $t("Profile") }}</span>
             </a>
@@ -164,7 +164,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/publisher">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Business-ManWoman"></i>
               <span class="nav-text">{{ $t("Creators") }}</span>
             </a>
@@ -181,7 +181,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/payment">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Dollar-Sign"></i>
               <span class="nav-text">{{ $t("Payment Request") }}</span>
             </a>
@@ -197,7 +197,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/Setting">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Data-Transfer"></i>
 
               <span class="nav-text">{{ $t("Setting") }}</span>
@@ -216,7 +216,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/earnings">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Money-Bag"></i>
               <span class="nav-text">{{ $t("Earnings") }}</span>
             </a>
@@ -234,7 +234,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/statistics">
-            <a class="nav-item-hold nav-item" href="#">
+            <a class="nav-item-hold nav-item"   >
           
               <i class="nav-icon i-Data-Transfer"></i>
 
@@ -255,7 +255,7 @@
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/profiledata/profile">
-            <a class="nav-item-hold" href="#">
+            <a class="nav-item-hold"   >
               <i class="nav-icon i-Male-21"></i>
               <span class="nav-text">{{ $t("Profile") }}</span>
             </a>
@@ -270,7 +270,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/profiledata/profile">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Administrator"></i>
                
                 <span class="nav-text">{{ $t("Profile") }}</span>
@@ -287,7 +287,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/cars">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 
                 <i class="nav-icon i-Taxi-2"></i>
                 <span class="nav-text">{{ $t("Cars") }}</span>
@@ -304,7 +304,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/transaction">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                
                 <i class="nav-icon i-Data-Transfer"></i>
                 <span class="nav-text">{{ $t("Transaction") }}</span>
@@ -332,7 +332,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/foodOrderHistory">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                
                 <i class="nav-icon i-Add-File"></i>
                 <span class="nav-text">{{ $t("Orders") }}</span>
@@ -349,7 +349,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/addBackEndData">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                
                 <i class="nav-icon  i-Big-Data"></i>
                 <span class="nav-text">{{ $t("Add Data") }}</span>
@@ -366,7 +366,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/setting/settingRoute">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                
                 <i class="nav-icon  i-Settings-Window"></i>
                 <span class="nav-text">{{ $t("Setting") }}</span>
@@ -383,7 +383,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/setting/publisher">
-              <a class="nav-item-hold nav-item" href="#">
+              <a class="nav-item-hold nav-item"   >
                
                 <i class="nav-icon  i-Big-Data"></i>
                 <span class="nav-text">{{ $t("Publisher") }}</span>
@@ -399,7 +399,7 @@
             data-item="accounts"
             :data-submenu="true"
           >
-            <a class="nav-item-hold" href="#">
+            <a class="nav-item-hold"   >
               <i class="nav-icon i-Library"></i>
               <span class="nav-text">{{ $t("Accounts") }}</span>
             </a>
@@ -416,7 +416,7 @@
             v-if="isHide"
           >
             <router-link tag="a" class to="/app/profiledata/profile">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Drop"></i>
                 <span class="nav-text">{{ $t("Profile") }}</span>
               </a>
@@ -430,7 +430,7 @@
             data-item="setting"
             :data-submenu="true"
           >
-            <a class="nav-item-hold" href="#">
+            <a class="nav-item-hold"   >
               <i class="nav-icon i-File-Clipboard-File--Text"></i>
               <span class="nav-text">{{ $t("Settings") }}</span>
             </a>
@@ -446,7 +446,7 @@
             :data-submenu="false"
           >
             <router-link tag="a" class to="/app/mydesk/activitylogs">
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Shop-4"></i>
                 <span class="nav-text">{{ $t("Activity Logs") }}</span>
               </a>
@@ -463,7 +463,7 @@
               data-item="dashboards"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Bar-Chart"></i>
                 <span class="nav-text">{{ $t("dashboard") }}</span>
               </a>
@@ -477,7 +477,7 @@
               data-item="ui-kits"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Library"></i>
                 <span class="nav-text">UI kits</span>
               </a>
@@ -490,7 +490,7 @@
               data-item="extrakits"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Suitcase"></i>
                 <span class="nav-text">Extra kits</span>
               </a>
@@ -503,7 +503,7 @@
               data-item="apps"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Computer-Secure"></i>
                 <span class="nav-text">Apps</span>
               </a>
@@ -516,7 +516,7 @@
               data-item="charts"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Pie-Chart-2"></i>
                 <span class="nav-text">Charts</span>
               </a>
@@ -529,7 +529,7 @@
               data-item="widgets"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Windows-2"></i>
                 <span class="nav-text">Widgets</span>
               </a>
@@ -542,7 +542,7 @@
               data-item="forms"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-File-Clipboard-File--Text"></i>
                 <span class="nav-text">Forms</span>
               </a>
@@ -555,7 +555,7 @@
               data-item="datatables"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-File-Horizontal-Text"></i>
                 <span class="nav-text">Datatables</span>
               </a>
@@ -568,7 +568,7 @@
               data-item="sessions"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Administrator"></i>
                 <span class="nav-text">Sessions</span>
               </a>
@@ -581,7 +581,7 @@
               data-item="pages"
               :data-submenu="true"
             >
-              <a class="nav-item-hold" href="#">
+              <a class="nav-item-hold"   >
                 <i class="nav-icon i-Double-Tap"></i>
                 <span class="nav-text">Pages</span>
               </a>
@@ -885,7 +885,7 @@
             @click.prevent="toggleSidebarDropdwon($event)"
             class="nav-item dropdown-sidemenu"
           >
-            <a href="#">
+            <a   >
               <i class="nav-icon i-File"></i>
               <span class="item-name">Invoice</span>
               <i class="dd-arrow i-Arrow-Down"></i>
@@ -917,7 +917,7 @@
             @click.prevent="toggleSidebarDropdwon($event)"
             class="nav-item dropdown-sidemenu"
           >
-            <a href="#">
+            <a   >
               <i class="nav-icon i-File-CSV"></i>
               <span class="item-name">
                 Contacts
@@ -1273,7 +1273,7 @@
             @click.prevent="toggleSidebarDropdwon($event)"
             class="nav-item dropdown-sidemenu"
           >
-            <a href="#">
+            <a   >
               <i class="nav-icon i-Line-Chart"></i>
               <span class="item-name">Apex Charts</span>
               <i class="dd-arrow i-Arrow-Down"></i>

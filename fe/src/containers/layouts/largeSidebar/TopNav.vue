@@ -1311,7 +1311,7 @@ this.isAdmin=storedUser;
     },
     home()
     {
-      this.$router.push("/app/dashboards/dashboard.v4");
+      this.$router.push("/app/setting/home");
       this.$refs.dropdown.hide();
     },
     myinformation()

@@ -1,16 +1,57 @@
 <template>
   <div class="main-content">
-    <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
+
     <b-row>
-      <b-col md="9"
-        ><div class="font-weight-bold fa-2x text-light">Profile</div></b-col
+      <b-cols m="12" md="12" xl="12" lg="12" class="mb-30 px-4 "
+        ><div class="font-weight-bold fa-2x text-light">Profile</div></b-cols
       >
     </b-row>
 
     <hr class="mt-1" />
 
+    <b-col sm="12" md="12" xl="12" lg="12" class="mb-30 px-0">
+            <div class="card">
+    <div class="d-flex align-items-end row">
+      <div class="col-7">
+        <div class="card-body text-nowrap">
+          <h5 class="card-title mb-0">Congratulations John! 🎉</h5>
+          <p>Here is the referral link</p>
+          <button
+            :disabled="isCopied"
+            class="btn btn-primary waves-effect waves-light"
+            style="color: white; padding-top: 3px; padding-bottom: 3px;"
+            @click="copyToClipboard"
+          >
+            {{ isCopied ? 'Copied!' : 'Copy URL' }}
+          </button>
+        </div>
+      </div>
+      <div class="col-5 text-center text-sm-left">
+        <div class="card-body pb-0 px-0 px-md-4">
+          <img
+            src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
+            height="140"
+            alt="view sales"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+       
+        </b-col>
+
+    
+    <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
+
+
+    
+
     <div class="main-div">
       <b-card title="Profile" class="for-profile">
+
+
+        
+        
         <b-form>
           <b-row class="my-3">
             <!-- <img
@@ -28,6 +69,7 @@
               /> -->
 
             <b-col md="12" class="pb-2">
+              
               Basic Deatils:  &nbsp; <span class="text-12">{{ 7845961236 }}</span>
               <!-- <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-baseline">

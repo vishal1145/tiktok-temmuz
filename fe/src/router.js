@@ -205,6 +205,11 @@ const routes = [
             component: () => import("./views/app/setting/publisher"),
           },
           {
+            path: "home",
+            name: "home",
+            component: () => import("./views/app/setting/home"),
+          },
+          {
             path: "Setting",
             name: "Setting",
             component: () => import("./views/app/setting/Setting"),
@@ -775,8 +780,8 @@ const routes = [
         component: () => import("./views/app/sessions/signIn"),
       },
       {
-        path: "independent",
-        component: () => import("./views/app/sessions/independent"),
+        path: "affiliate",
+        component: () => import("./views/app/sessions/affiliate"),
       },
       {
         path: "signUp",

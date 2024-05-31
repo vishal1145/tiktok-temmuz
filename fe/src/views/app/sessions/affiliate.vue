@@ -16,46 +16,75 @@
     <div
       class="main-div d-flex flex-row justify-content-between overflow-hidden"
     >
-      <div class="row pt-2">
-        <b-col class="col-md-6 pw" lg="6" xl="6" mt="3">
-          <div class="card">
+      <div class="row pt-2 " >
+        <b-col class="col-md-4 pw px-0" lg="4" xl="4" mt="3" style="
+    background-color: #f3f4f6;
+">
+          <div class="">
             <div class="card-body">
-              <div>
-                <h2>Chat with us</h2>
-                <p>Would you like to get live support from our team?</p>
-                <p>
-                  <a href="mailto:info@temmuzajans.com">Send an email</a>
+              <div class="pb-3">
+                <h2 class="my-0">Chat with us</h2>
+                <p class="mb-2">Would you like to get live support from our team?</p>
+                <p class="my-1">
+                    <span style="color: gray !important;"><i class="fa fa-envelope-o pr-1" aria-hidden="true"></i></span>
+                  <a href="mailto:info@temmuzajans.com" style="
+    color: gray!important;
+"><strong> Send an email</strong></a>
                 </p>
-                <p>
-                  <a href="https://wa.me/905310133151"
-                    >Send a WhatsApp message</a
+                <p >
+                    <span><i class="fa fa-whatsapp pr-2" aria-hidden="true"></i></span>
+                  <a href="https://wa.me/905310133151" style="
+    color: gray!important;
+"
+                    ><strong>Send a WhatsApp message</strong></a
                   >
                 </p>
               </div>
-              <div>
-                <h2>Call us</h2>
-                <p>You can call us every weekday between 10:00-17:00</p>
-                <p>
-                  <a href="tel:+905310133151">+90 (531) 013 3151</a>
+              <div class="pb-3">
+                <h2 class="my-0">Call us</h2>
+                <p class="my-1">You can call us every weekday between 10:00-17:00</p>
+                <p >
+                    <span><i class="fa fa-phone pr-2" aria-hidden="true"></i>
+</span>
+                  <a href="tel:+905310133151" style="
+    color: gray!important;
+"> <strong>+90 (531) 013 3151</strong></a>
                 </p>
               </div>
-              <div>
-                <h2>Visit us</h2>
-                <p>
+              <div class="pb-3">
+                <h2 class="my-0">Visit us</h2>
+                <p class="" >
                   Come and meet us face-to-face every weekday between
                   10:00-17:00
                 </p>
                 <address>
-                  Gazi Mh. Fatih Sultan Mehmet Blvd.<br />
-                  Yenimahalle Ankara<br />
-                  Gazi Mh. Fatih Sultan Mehmet Blvd.<br />
-                  Yenimahalle Ankara
+
+              <div>
+                <div class="d-flex flex-row align-items-baseline" style="
+    gap: 8px;
+">
+                    <div> <span><i class="fa fa-map-marker" aria-hidden="true"></i></span></div>
+                    <div><p  class="m-0"> <strong> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong></p>
+                    <p>Yenimahalle Ankara</p></div>
+                </div>
+                <div class="d-flex flex-row" style="
+    gap: 8px;
+">
+                    <div> <span><i class="fa fa-map-marker" aria-hidden="true"></i></span></div>
+                    <div><p class="m-0"> <strong> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong></p>
+                    <p>Yenimahalle Ankara</p></div>
+                </div>
+              </div>
+
+
+                   
+        
                 </address>
               </div>
             </div>
           </div>
         </b-col>
-        <b-col class="col-md-7 pw" lg="6" xl="6" mt="3">
+        <b-col class="col-md-8 pw " lg="8" xl="8" mt="3">
           <div class="card">
             <div class="card-body">
               <h2>Let's get started!</h2>
@@ -410,5 +439,24 @@ export default {
 
 h1, h2, h3, h4, h5, h6, .card-title, .text-title {
     color: #05070bc2;
+}
+
+
+.fa-envelope-o:before {
+    content: "\f003";
+    color: gray;
+}
+
+
+.fa-whatsapp:before {
+    content: "\f232";
+    color: gray;
+
+}
+
+.fa-phone:before {
+    content: "\f095";
+    color: gray;
+
 }
 </style>
