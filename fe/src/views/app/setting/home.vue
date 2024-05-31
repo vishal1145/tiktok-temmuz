@@ -4,33 +4,34 @@
   
       <b-row>
         <b-col sm="12" md="12" xl="12" lg="12" class="mb-30 ">
-            <div class="card">
+          <div class="card">
     <div class="d-flex align-items-end row">
-      <div class="col-7">
-        <div class="card-body text-nowrap">
-          <h5 class="card-title mb-0">Congratulations John! 🎉</h5>
-          <p>Here is the referral link</p>
-          <button
-            :disabled="isCopied"
-            class="btn btn-primary waves-effect waves-light"
-            style="color: white; padding-top: 3px; padding-bottom: 3px;"
-            @click="copyToClipboard"
-          >
-            {{ isCopied ? 'Copied!' : 'Copy URL' }}
-          </button>
+        <div class="col-7">
+            <div class="card-body text-nowrap">
+                <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
+                <p>Thank you for being awesome and sharing our platform with others! Below is your unique referral link:</p>
+
+                <div data-v-0307aa70="" class="p-2 bg-white text-gray d-flex w-59"
+                    style="overflow-wrap: anywhere; border: 1px solid rgba(13, 1, 25, 0.2); border-radius: 4px;">
+                    <a data-v-0307aa70="" href="https://temmuz.algofolks.com/app/sessions/affiliate" target="_blank"
+                        class="referral-link text-11 align-self-center">
+                        https://temmuz.algofolks.com/app/sessions/affiliate</a>
+                    <p data-v-0307aa70="" class="border text-10 px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end"
+                    style="text-align: center;border-radius: 5px;width: 105px;background-color: #a855f7;color: white;/* padding-right: 20px; */text-align: center;">Copy</p>
+                </div>
+
+            </div>
         </div>
-      </div>
-      <div class="col-5 text-center text-sm-left">
-        <div class="card-body pb-0 px-0 px-md-4">
-          <img
-            src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
-            height="140"
-            alt="view sales"
-          />
+        <div class="col-5 text-center text-sm-left d-none">
+            <div class="card-body pb-0 px-0 px-md-4">
+                <img
+                    src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
+                    height="140" alt="view sales" />
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
        
         </b-col>
         <b-col lg="6" xl="3" md="6" sm="6" class="">
@@ -693,5 +694,9 @@
   table.vgt-table td {
     padding: 8px;
   }
+
+  .w-59 {
+    width: 59% !important;
+}
   </style>
   

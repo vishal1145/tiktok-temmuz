@@ -392,7 +392,7 @@
                 style="gap: 9px;"
               >
               <button
-
+              v-if="isAdmin === 'admin' "
         @click="showAddModal = true"
         class="btn btn-primary mb-3"
         style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
