@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const { upload, uploadExcel } = require("../middleware/media");
+const { upload } = require("../middleware/media");
+const { uploadExcel } = require("../middleware/excel");
 const XLSX = require('xlsx');
 const fs = require('fs');
 const ExcelModel = require("../models/excel.model");
