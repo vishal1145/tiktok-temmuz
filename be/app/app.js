@@ -41,6 +41,7 @@ fs.readdir(modelDir, (error, files) => {
 
 // Handling routes requestapp.use("/auth", require('./routes/auth.route'))
 app.use("/auth", require("./routes/auth.route"));
+app.use("/excel", require("./routes/excel.route"));
 app.use("/user", authenticatingUser, require("./routes/user.route"));
 app.use("/util", require("./routes/util.route"));
 app.use("/master_data", require("./routes/master_data.route"));
