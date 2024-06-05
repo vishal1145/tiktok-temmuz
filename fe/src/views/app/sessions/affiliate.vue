@@ -12,7 +12,7 @@
         <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
       </div>
     </nav>
-   
+
     <div
       class="main-div d-flex flex-row justify-content-between overflow-hidden"
     >
@@ -144,9 +144,10 @@
                       >Phone Number</label
                     >
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
                       id="phoneNumber"
+                      @keydown="checkLength"
                       v-model="phoneNumber"
                     />
                   </div>
@@ -170,6 +171,7 @@
                     <input
                       type="number"
                       v-model="centerCode"
+                      @keydown="checkLengthCode"
                       class="form-control"
                       id="tiktokCode"
                     />
@@ -188,7 +190,10 @@
                       ></b-form-file>
                     </b-form-group>
                   </div>
-                   <div class="spinner spinner-primary imgloader" v-if="imgLoader"></div>
+                  <div
+                    class="spinner spinner-primary imgloader"
+                    v-if="imgLoader"
+                  ></div>
                   <b-col
                     md="12"
                     class="justify-content-center d-flex align-items-center"
@@ -347,10 +352,7 @@ export default {
         !this.userLastName ||
         !this.tiktokName
       ) {
-        this.$toaster.makeToast(
-          'warning',
-          'All is required fields'
-        )
+        this.$toaster.makeToast('warning', 'All is required fields')
         setTimeout(() => (this.errorMessage = ''), 2000)
         return
       }
@@ -372,26 +374,24 @@ export default {
           status: 'Under Review',
           reason: ''
         }
-    
+
         // Assuming you want to make a POST request
-         const res = await new Promise((resolve, reject) => {
-            this.$apiService
-              .postCall('publisher/create/', requestData)
-              .then(data => resolve(data))
-              .catch(error => reject(error))
-          })
+        const res = await new Promise((resolve, reject) => {
+          this.$apiService
+            .postCall('publisher/create/', requestData)
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
         // const res = await this.$apiService.postCall(
         //   'publisher/create/',
         //   requestData
         // )
-
+        console.log(res)
         if (res.error) {
           this.imgloader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.fetchPublisher()
-          this.isEdit = false
-         
+          this.$toaster.makeToast('success', 'Data added successfully')
           this.imgloader = false
           this.userFirstName = ''
           this.userLastName = ''
@@ -399,7 +399,7 @@ export default {
           this.centerCode = ''
           this.phoneNumber = ''
           this.uplodedImages = null
-          this.$toaster.makeToast('success', 'Data added successfully')
+          // this.$toaster.makeToast('success', 'Data added successfully');
         }
       } catch (error) {
         this.imgloader = false
@@ -407,6 +407,16 @@ export default {
         // console.error(error)
       }
       // }
+    },
+    checkLength (event) {
+      if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    checkLengthCode (event) {
+      if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
     },
     submit () {
       this.$v.$touch()
