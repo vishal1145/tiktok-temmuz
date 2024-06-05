@@ -16,111 +16,113 @@
         Add Creators
       </label>
       <b-row class="px-3">
-        <b-col md="12">
-          <b-form-group label="Enter publisher name" label-for="input-title">
-            <b-form-input
-              v-model="publisherName"
-              required
-              placeholder="First name"
-              style="height: 34px"
-              type="text"
-              @change="handelUserField"
-              id="input-name"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="12">
-          <b-form-group label="Enter publisher name" label-for="input-title">
-            <b-form-input
-              v-model="publisherName"
-              required
-              placeholder="Last name"
-              style="height: 34px"
-              type="text"
-              @change="handelUserField"
-              id="input-name"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="12">
-          <b-form-group label="Contact number" label-for="input-title">
-            <b-form-input
-              v-model="phoneNumber"
-              required
-              placeholder="Phone number"
-              style="height: 34px"
-              type="number"
-              @keydown="checkLength"
-              id="input-phoneNumber"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="12">
-          <b-form-group label="Agency center code" label-for="input-title">
-            <b-form-input
-              v-model="centerCode"
-              required
-              placeholder="Agency center code"
-              style="height: 34px"
-              type="number"
-              @keydown="checkLengthCode"
-              id="input-agency"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="6">
-          <b-form-group label="Select Images" label-for="input-images">
-            <b-form-file
-              v-model="images"
-              @input="handleImageSelection"
-              placeholder="Choose files or drop them here"
-              drop-placeholder="Drop files here..."
-              accept=".png,.jpg,.jpeg"
-            ></b-form-file>
-          </b-form-group>
-        </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center">
-          <img
-            v-if="uplodedImages"
-            :src="this.uplodedImages"
-            alt=""
-            class="img-fluid"
-            height="50"
-            width="50"
-          />
-        </b-col>
+    <b-col md="12">
+      <b-form-group label="Select User" label-for="input-title">
+        <b-form-select v-model="selectedUserId" :options="userNames" required placeholder="Select User Name" id="input-name">
+        </b-form-select>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="First Name" label-for="input-first-name">
+        <b-form-input
+          v-model="first_name"
+          required
+          placeholder="First name"
+          style="height: 34px"
+          type="text"
+          id="input-first-name"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Last Name" label-for="input-last-name">
+        <b-form-input
+          v-model="last_name"
+          required
+          placeholder="Last name"
+          style="height: 34px"
+          type="text"
+          id="input-last-name"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="TikTok Username" label-for="input-tiktok-username">
+        <b-form-input
+          v-model="tiktok_username"
+          required
+          placeholder="TikTok username"
+          style="height: 34px"
+          type="text"
+          id="input-tiktok-username"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Contact Number" label-for="input-contact-number">
+        <b-form-input
+          v-model="contact_number"
+          required
+          placeholder="Contact number"
+          style="height: 34px"
+          type="text"
+          @keydown="checkLength"
+          id="input-contact-number"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Agency Center Code" label-for="input-agency-center-code">
+        <b-form-input
+          v-model="agency_center_code"
+          required
+          placeholder="Agency center code"
+          style="height: 34px"
+          type="text"
+          @keydown="checkLengthCode"
+          id="input-agency-center-code"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="6">
+      <b-form-group label="Select Images" label-for="input-images">
+        <b-form-file
+          v-model="images"
+          @input="handleImageSelection"
+          placeholder="Choose files or drop them here"
+          drop-placeholder="Drop files here..."
+          accept=".png,.jpg,.jpeg"
+        ></b-form-file>
+      </b-form-group>
+    </b-col>
+    <b-col md="6" class="justify-content-end d-flex align-items-center">
+      <img
+        v-if="uplodedImages"
+        :src="uplodedImages"
+        alt=""
+        class="img-fluid"
+        height="50"
+        width="50"
+      />
+    </b-col>
+    <b-col>
+      <div class="d-flex justify-content-end">
+        <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
+          Close
+        </b-button>
+        <b-button
+          v-if="!imgLoader"
+          class="mb-2"
+          variant="primary ripple"
+          @click="addPublisher()"
+        >
+          Add
+        </b-button>
+        <div class="spinner spinner-primary imgloader" v-if="imgLoader"></div>
+      </div>
+    </b-col>
+  </b-row>
 
-        <!-- <b-form-group label="" label-for="input-description">
-            <b-form-textarea
-              v-model="description"
-              required
-              placeholder="Description"
-              style="height: 60px"
-              type="text"
-              id="input-description"
-            ></b-form-textarea>
-          </b-form-group> -->
-
-        <b-col>
-          <div class="d-flex justify-content-end">
-            <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
-              >Close</b-button
-            >
-            <b-button
-              v-if="!imgLoader"
-              class="mb-2"
-              variant="primary ripple"
-              @click="addPublisher()"
-              >Add</b-button
-            >
-            <div
-              class="spinner spinner-primary imgloader"
-              v-if="imgLoader"
-            ></div>
-          </div>
-        </b-col>
-      </b-row>
     </b-modal>
     <b-modal
       v-model="showAddModalEdit"
@@ -513,6 +515,13 @@
 export default {
   data() {
     return {
+      selectedUserName: null,
+      getphoneNumber: '',
+      getcenterCode: '',
+      getImages: null,
+      uplodedImages: '',
+      imgLoader: false,
+      userNames: [],
       flexDivDisplay: "flex!important",
       filteredFaqs: [],
       searchTerm: '',
@@ -604,13 +613,22 @@ export default {
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
         nextLabel: 'Next', // Custom label for the next button
         prevLabel: 'Previous' // Custom label for the previous button
-      }
+      }, 
+      first_name:"",
+    last_name: "",
+ tiktok_username: "",
+ contact_number:"",
+ agency_center_code: "",
+ icon:"",
+ ForDropwDow:[]
+
     }
   },
   mounted() {
     this.clearFilters();
     this.filterData();
-    this.addCssRule()
+    this.addCssRule();
+    this.fetchUserNames();
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },
@@ -623,6 +641,7 @@ export default {
     }
   },
   created() {
+    this.fetchUserNames();
 
     this.filterData();
 
@@ -646,6 +665,13 @@ export default {
 
   },
   methods: {
+    async fetchUserNames() {
+      await this.fetchPublisher();
+      this.userNames = this.faqs.map(faq => ({
+        value: faq.user_id.name,
+        text: faq.user_id.name
+      }));
+    },
     toggleFlexDiv() {
       this.flexDivDisplay =
         this.flexDivDisplay === "flex!important"
@@ -733,6 +759,7 @@ export default {
 
           this.faqs = response.apidata.data;
           this.filteredFaqs = this.faqs
+          this.ForDropwDow = this.faqs
 
 
 
@@ -863,66 +890,70 @@ export default {
     },
 
     async addPublisher() {
-      if (
-        !this.images ||
-        !this.phoneNumber ||
-        !this.centerCode ||
-        !this.publisherName
-      ) {
-        this.$toaster.makeToast(
-          'warning',
-          'Please fill in all the required fields'
-        )
-        setTimeout(() => (this.errorMessage = ''), 2000)
-        return
-      }
+  // Check if all required fields are filled
+  if (
+    !this.first_name ||
+    !this.last_name ||
+    !this.tiktok_username ||
+    !this.contact_number ||
+    !this.agency_center_code ||
+    !this.images
+  ) {
+    this.$toaster.makeToast(
+      'warning',
+      'Please fill in all the required fields'
+    );
+    setTimeout(() => (this.errorMessage = ''), 2000);
+    return;
+  }
 
-      if (this.searchUser.length > 0) {
-        this.$toaster.makeToast('warning', 'Publisher Name already exist')
-      } else {
-        this.loader = true
-        try {
-          //const imageUrls = await this.uploadImages();
-          let requestData = {
-            user_name: this.publisherName,
-            contact_number: this.phoneNumber,
-            agency_center_code: this.centerCode,
-            icon: this.uplodedImages,
-            // icon: 'https://tiktok.algofolks.com/download.png',
-            user_id: this.user_id
-          }
+  this.loader = true;
+  try {
+    // Prepare request data
+    let requestData = {
+      user_id: this.selectedUserId,
+      first_name: this.first_name,
+      last_name: this.last_name,
+      tiktok_username: this.tiktok_username,
+      contact_number: this.contact_number,
+      agency_center_code: this.agency_center_code,
+      icon: this.uplodedImages,// Corrected typo here
+      user_id: this.user_id,
+      status: "Approved by admin",
+      reason: ""
+    };
 
-          // Assuming you want to make a POST request
-          const res = await this.$apiService.postCall(
-            'publisher/create/',
-            requestData
-          )
+    // Make the API call
+    const res = await this.$apiService.postCall(
+      'publisher/create/',
+      requestData
+    );
 
-          if (res.error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', res.message)
-          } else {
-            this.fetchPublisher()
-            this.isEdit = false
-            this.showAddModal = false
-            this.loader = false
-              ; (this.publisherName = ''),
-                (this.centerCode = ''),
-                (this.phoneNumber = ''),
+    // Handle the response
+    if (res.error) {
+      this.loader = false;
+      this.$toaster.makeToast('warning', res.message);
+    } else {
+      this.fetchPublisher();
+      this.isEdit = false;
+      this.showAddModal = false;
+      this.loader = false;
+      this.first_name = '';
+      this.last_name = '';
+      this.tiktok_username = '';
+      this.contact_number = '';
+      this.agency_center_code = '';
+      this.icon = null;
+      this.$toaster.makeToast('success', 'Data added successfully');
+    }
+  } catch (error) {
+    this.loader = false;
+    this.$toaster.makeToast('warning', 'Error: Server Error');
+    console.error(error); // Added console log to catch block
+  }
+},
 
-                this.uplodedImages = null;
-                this.$toaster.makeToast('success', 'Data added successfully')
-          }
-        } catch (error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', 'Error: Server Error')
-          // console.error(error)
-        }
 
-      }
-
-
-    },
     async editPublisher() {
       this.loader = true
       try {
