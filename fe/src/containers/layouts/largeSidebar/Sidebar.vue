@@ -190,7 +190,7 @@
           </router-link>
         </li>
 
-        <li v-if="isAdmin === 'user'"
+        <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
               :class="{ active: selectedParentMenu == 'uploadFile' }"
             class="nav-item"

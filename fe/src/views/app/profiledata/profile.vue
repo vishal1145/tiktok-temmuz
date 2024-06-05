@@ -19,9 +19,9 @@
 
                 <div data-v-0307aa70="" class="bg-white text-gray d-flex w-59"
                     style="overflow-wrap: anywhere; ">
-                    <a data-v-0307aa70="" href="https://temmuz.algofolks.com/app/sessions/affiliate" target="_blank"
+                    <a data-v-0307aa70=""  :href="`https://temmuz.algofolks.com/app/sessions/affiliate?uid=${user_id}`" target="_blank"
                         class="referral-link  align-self-center">
-                        https://temmuz.algofolks.com/app/sessions/affiliate</a>
+                        https://temmuz.algofolks.com/app/sessions/affiliate?uid={{this.user_id}}</a>
                         <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
       <i class="fa fa-clone" aria-hidden="true"></i>
     </p>
@@ -487,18 +487,15 @@ export default {
       confirmpassword: "",
       submitloader: false,
       id: null,
+      user_id: '',
+      role:'',
       imgSrc: '',
     };
   },
   created() {
-    var storedUser = localStorage.getItem("userInfo");
-
-    var parsedUser = JSON.parse(storedUser);
-    this.id = parsedUser.data.id;
-    this.emailUser = parsedUser.data.email;
-    this.phoneUser = parsedUser.data.phone;
-    // this.userId=parsedUser.data.id;
-    if (this.id) {
+    this.user_id = localStorage.getItem('user_id');
+    this.role = localStorage.getItem('role');
+    if (this.user_id) {
       // this.isEdit = true;
       this.getProfileDetails();
     }
@@ -534,9 +531,7 @@ export default {
       // Match with regex
       else e.preventDefault(); // If not match, don't add to input text
     },
-    formatYear(e) {
-      return String(e).substring(0, 250);
-    },
+    
     copyReferralLink() {
       const el = document.createElement("textarea");
       el.value = this.referralLink;
@@ -626,63 +621,7 @@ export default {
     
     },
 
-    // async getProfileDetails() {
-    //   try {
-    //     let response = await this.$apiService.getCall(`account/?id=${this.id}`);
-
-    //     let userData = response.apidata;
-    //     this.form.fName = userData.first_name;
-    //     this.form.lName = userData.last_name;
-    //     this.form.address = userData.local_address;
-    //     this.form.state = userData.state;
-    //     this.form.city = userData.city;
-    //     this.form.pin_code = userData.pin_code;
-    //     this.verified = userData.is_verified;
-    //     this.isOtp = userData.otp;
-    //     this.referralLink = userData.referral_url;
-    //     // Update images
-    //     this.selectedLogo = userData.image;
-    //     this.selectedImage = userData.aadhar_card;
-    //     if (this.selectedImage) {
-    //       this.aadharFrontCheckbox = true;
-    //     }
-    //     this.selectedImageBack = userData.back_aadhar_card;
-    //     if (this.selectedImageBack) {
-    //       this.aadharBackCheckbox = true;
-    //     }
-    //     this.drivinglincenseImage = userData.driving_lincense;
-    //     if (this.drivinglincenseImage) {
-    //       this.drivingLincenseFrontCheckbox = true;
-    //     }
-    //     this.drivinglincenseImageBack = userData.back_driving_lincense;
-    //     if (this.drivinglincenseImageBack) {
-    //       this.drivingLincenseBackCheckbox = true;
-    //     }
-    //     this.passportImage = userData.passport;
-    //     if (this.passportImage) {
-    //       this.passportFrontCheckbox = true;
-    //     }
-    //     this.passportImageBack = userData.back_passport;
-    //     if (this.passportImageBack) {
-    //       this.passportBackCheckbox = true;
-    //     }
-
-    //     // Other fields
-    //     this.form.email = userData.email;
-    //     this.form.phone = userData.phone;
-    //     this.form.is_verified = userData.is_verified;
-    //     this.form.accessStatus = userData.accessStatus;
-    //     this.form.haspassport = userData.haspassport;
-    //     this.form.image = userData.image;
-    //     this.form.role = userData.role;
-    //     this.form.is_superuser = userData.is_superuser;
-    //     this.form.is_staff = userData.is_staff;
-    //     this.form.is_active = userData.is_active;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
-
+    
     viaOldPassword() {
       this.showMail = false;
     },
