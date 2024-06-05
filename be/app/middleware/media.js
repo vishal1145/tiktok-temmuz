@@ -20,7 +20,9 @@ exports.uploadExcel = multer({
             cb(null, uploadPath) 
         },
         filename: function (req, file, cb) {
-            cb(null, new Date().toJSON().slice(0,10) + '-' + file.originalname);
+            const now = new Date();
+            const timestamp = now.toISOString().replace(/[-T:.Z]/g, '');
+            cb(null, timestamp + '-' + file.originalname);
         }
     }),
     fileFilter: (req, file, cb) => {
