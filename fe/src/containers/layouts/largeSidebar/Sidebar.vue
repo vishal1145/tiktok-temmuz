@@ -82,12 +82,13 @@
 
           <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/mydesk/users') }"
+             :class="{ active: selectedParentMenu == 'users' }"
+          
             class="nav-item"
             data-item="users"
             :data-submenu="false"
           >
-            <router-link tag="a" class to="/app/mydesk/users">
+            <router-link tag="a" to="/app/mydesk/users">
               <a class="nav-item-hold nav-item"   >
                 <i class="nav-icon i-Administrator"></i>
                
@@ -102,9 +103,9 @@
              <!-- home-page - User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/setting/home') }"
+             :class="{ active: selectedParentMenu == 'home' }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="home"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/home">
@@ -142,9 +143,9 @@
  <!-- information- User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/profiledata/profile') }"
+           :class="{ active: selectedParentMenu == 'profile' }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="profile"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/profiledata/profile">
@@ -158,9 +159,9 @@
          <!-- creaters -->
          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/setting/publisher') }"
+          :class="{ active: selectedParentMenu == 'publisher' }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="publisher"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/publisher">
@@ -175,9 +176,9 @@
 
         <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-            :class="{ active: isActive('/app/setting/payment') }"
+          :class="{ active: selectedParentMenu == 'payment' }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="payment"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/payment">
@@ -189,11 +190,27 @@
           </router-link>
         </li>
 
+        <li v-if="isAdmin === 'user'"
+            @mouseenter="toggleSubMenu"
+              :class="{ active: selectedParentMenu == 'uploadFile' }"
+            class="nav-item"
+            data-item="uploadFile"
+            :data-submenu="false"
+        >
+          <router-link tag="a" class to="/app/mydesk/uploadFile">
+            <a class="nav-item-hold nav-item"   >
+              <i class="nav-icon i-Add-File"></i>
+              <span class="nav-text">{{ $t("Upload") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
+        </li>
+
         <li v-if="isAdmin === 'admin' "
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/Setting') }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="Setting"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/Setting">
@@ -212,7 +229,7 @@
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/earnings') }"
             class="nav-item"
-            data-item="addBackEndData"
+            data-item="earnings"
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/setting/earnings">

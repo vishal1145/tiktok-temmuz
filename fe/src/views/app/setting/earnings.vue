@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="main-content">
     <!-- <div class="font-weight-bold fa-2x text-light">Earning</div>
     <hr class="mt-1" /> -->
     <b-modal
@@ -1619,7 +1619,7 @@ export default {
   mounted () {
     this.clearFilters();
     this.filterData();
-    this.addCssRule()
+    // this.addCssRule()
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },

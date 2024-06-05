@@ -403,17 +403,7 @@ export default {
     // VueDocumentEditor
     multiselect: Multiselect
   },
-  computed: {
-    getfilterdata() {
-      const matchedRows = this.rows.filter(row => row.id == this.use_id);
-      if (this.use_id != null) {
-        return matchedRows;
-      } else {
-        console.log("hkdshkchsdjk", this.rows);
-        return this.rows;
-      }
-    }
-  },
+  
 
   data() {
     return {
@@ -541,7 +531,16 @@ export default {
     };
   },
 
-  computed: {
+    computed: {
+     getfilterdata() {
+      const matchedRows = this.rows.filter(row => row.id == this.use_id);
+      if (this.use_id != null) {
+        return matchedRows;
+      } else {
+        console.log("hkdshkchsdjk", this.rows);
+        return this.rows;
+      }
+    },
     isAdmin() {
       // Retrieve user role from local storage
       const userRole = localStorage.getItem("role");

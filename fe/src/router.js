@@ -97,6 +97,11 @@ const routes = [
             path: "usersProfile",
             name: "usersProfile",
             component: () => import("./views/app/myDesk/usersProfile"),
+          }, 
+           {
+            path: "uploadFile",
+            name: "uploadFile",
+            component: () => import("./views/app/myDesk/uploadFile"),
           },
           {
             path: "admin",
