@@ -1,4 +1,4 @@
-const PublisherModel = require("../models/publisher.model");
+const PublisherModel = require("../models/creator.model");
 
 const mongoose = require("mongoose");
 
