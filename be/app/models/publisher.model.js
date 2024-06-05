@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const publishSchema = new mongoose.Schema({
   first_name: { type: String, unique: true},
   last_name: { type: String, unique: true},
-  tiktop_username: { type: String, unique: true},
+  tiktok_username: { type: String, unique: true},
   //user_name: { type: String, unique: true},
   contact_number: { type: String},
   agency_center_code: { type: String },
