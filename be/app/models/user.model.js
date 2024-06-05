@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// this is not in use 
 const userSchema = new mongoose.Schema({
   user_name: { type: String, unique: true },
   contact_number: { type: String },

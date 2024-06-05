@@ -21,7 +21,20 @@
             <b-form-input
               v-model="publisherName"
               required
-              placeholder="Enter name"
+              placeholder="First name"
+              style="height: 34px"
+              type="text"
+              @change="handelUserField"
+              id="input-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Enter publisher name" label-for="input-title">
+            <b-form-input
+              v-model="publisherName"
+              required
+              placeholder="Last name"
               style="height: 34px"
               type="text"
               @change="handelUserField"
@@ -129,7 +142,7 @@
               disabled
               v-model="getpublisherName"
               required
-              placeholder="Enter name"
+              placeholder="First Name"
               style="height: 34px"
               type="text"
               id="input-name"
@@ -392,12 +405,11 @@
                 style="gap: 9px;"
               >
               <button
-              v-if="isAdmin === 'admin' "
+             v-if="role == 'admin'" 
         @click="showAddModal = true"
         class="btn btn-primary mb-3"
         style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
       >
-        <!-- -->
         Add New
       </button>
                 <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="

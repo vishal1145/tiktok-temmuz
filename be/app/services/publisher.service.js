@@ -2,9 +2,9 @@ const PublisherModel = require("../models/publisher.model");
 
 const mongoose = require("mongoose");
 
-
+// admin case
 exports.getAllPublisher = async () => {
-  const publishers = await PublisherModel.find();
+  const publishers = await PublisherModel.find().populate('user_id');
   return publishers;
 };
 
