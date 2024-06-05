@@ -966,7 +966,7 @@ export default {
   try {
   
     let requestData = {
-      user_id: this.selectedUserId,
+      user_id: this.role === 'admin' ?  this.selectedUserId : localStorage.getItem('user_id'),
       first_name: this.first_name,
       last_name: this.last_name,
       tiktok_username: this.tiktok_username,
@@ -974,10 +974,13 @@ export default {
       agency_center_code: this.agency_center_code,
       icon: this.uplodedImages,
   
-      status: this.role === 'admin' ? 'Approved' : '',
-     reason: this.role === 'admin' ? 'Added By Admin' : null
+     
     };
 
+    if(this.role === 'admin' ) {
+      requestData.status = 'Approved',
+      requestData.reason ='Added By Admin' 
+    }
     // Make the API call
     const res = await this.$apiService.postCall(
       'publisher/create/',

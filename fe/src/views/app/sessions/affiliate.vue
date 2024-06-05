@@ -371,8 +371,6 @@ export default {
           tiktok_username: this.tiktokName,
           icon: this.uplodedImages,
           user_id: this.userId,
-          status: 'Under Review',
-          reason: ''
         }
 
         // Assuming you want to make a POST request
