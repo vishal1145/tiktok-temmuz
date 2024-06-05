@@ -391,7 +391,8 @@ export default {
           this.imgloader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.$toaster.makeToast('success', 'Data added successfully')
+          this.$toaster.makeToast('success', 'Your data has been recorded, and you will be notified shortly.')
+          this.$router.push("/app/sessions/signIn");
           this.imgloader = false
           this.userFirstName = ''
           this.userLastName = ''

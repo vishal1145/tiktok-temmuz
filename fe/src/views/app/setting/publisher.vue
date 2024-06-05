@@ -17,7 +17,7 @@
       </label>
       <b-row class="px-3">
   <b-col md="12"     v-if="role == 'admin'" >
-    <b-form-group label="Select User" label-for="input-title">
+    <b-form-group label="Select Member" label-for="input-title">
       <b-form-select v-model="selectedUserId" :options="userNames" required placeholder="Select User Name" id="input-name">
       </b-form-select>
     </b-form-group>
@@ -502,6 +502,12 @@
               </div>
             </span>
 
+            <span v-else-if="props.column.field === 'tiktok_username'">
+              <div>
+                <div>{{ props.row.tiktok_username }}</div>
+              </div>
+            </span>
+
             
           </template>
         </vue-good-table>
@@ -567,11 +573,23 @@ export default {
         {
           label: 'Icons',
           field: 'show_img',
+          sortable: false,
+
+       
           
         },
         {
-          label: 'UserName',
+          label: 'Name',
           field: 'user_name',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'User Name',
+          },
+          
+        },
+        {
+          label: 'TikTok Name',
+          field: 'tiktok_username',
           filterOptions: {
             enabled: true,
             placeholder: 'User Name',
@@ -957,7 +975,7 @@ export default {
       icon: this.uplodedImages,
   
       status: this.role === 'admin' ? 'Approved' : '',
-     reason: this.role === 'admin' ? 'Directly Approved By Admin' : null
+     reason: this.role === 'admin' ? 'Added By Admin' : null
     };
 
     // Make the API call
