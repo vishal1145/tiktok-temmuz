@@ -16,112 +16,113 @@
         Add Creators
       </label>
       <b-row class="px-3">
-    <b-col md="12">
-      <b-form-group label="Select User" label-for="input-title">
-        <b-form-select v-model="selectedUserId" :options="userNames" required placeholder="Select User Name" id="input-name">
-        </b-form-select>
-      </b-form-group>
-    </b-col>
-    <b-col md="12">
-      <b-form-group label="First Name" label-for="input-first-name">
-        <b-form-input
-          v-model="first_name"
-          required
-          placeholder="First name"
-          style="height: 34px"
-          type="text"
-          id="input-first-name"
-        ></b-form-input>
-      </b-form-group>
-    </b-col>
-    <b-col md="12">
-      <b-form-group label="Last Name" label-for="input-last-name">
-        <b-form-input
-          v-model="last_name"
-          required
-          placeholder="Last name"
-          style="height: 34px"
-          type="text"
-          id="input-last-name"
-        ></b-form-input>
-      </b-form-group>
-    </b-col>
-    <b-col md="12">
-      <b-form-group label="TikTok Username" label-for="input-tiktok-username">
-        <b-form-input
-          v-model="tiktok_username"
-          required
-          placeholder="TikTok username"
-          style="height: 34px"
-          type="text"
-          id="input-tiktok-username"
-        ></b-form-input>
-      </b-form-group>
-    </b-col>
-    <b-col md="12">
-      <b-form-group label="Contact Number" label-for="input-contact-number">
-        <b-form-input
-          v-model="contact_number"
-          required
-          placeholder="Contact number"
-          style="height: 34px"
-          type="text"
-          @keydown="checkLength"
-          id="input-contact-number"
-        ></b-form-input>
-      </b-form-group>
-    </b-col>
-    <b-col md="12">
-      <b-form-group label="Agency Center Code" label-for="input-agency-center-code">
-        <b-form-input
-          v-model="agency_center_code"
-          required
-          placeholder="Agency center code"
-          style="height: 34px"
-          type="text"
-          @keydown="checkLengthCode"
-          id="input-agency-center-code"
-        ></b-form-input>
-      </b-form-group>
-    </b-col>
-    <b-col md="6">
-      <b-form-group label="Select Images" label-for="input-images">
-        <b-form-file
-          v-model="images"
-          @input="handleImageSelection"
-          placeholder="Choose files or drop them here"
-          drop-placeholder="Drop files here..."
-          accept=".png,.jpg,.jpeg"
-        ></b-form-file>
-      </b-form-group>
-    </b-col>
-    <b-col md="6" class="justify-content-end d-flex align-items-center">
-      <img
-        v-if="uplodedImages"
-        :src="uplodedImages"
-        alt=""
-        class="img-fluid"
-        height="50"
-        width="50"
-      />
-    </b-col>
-    <b-col>
-      <div class="d-flex justify-content-end">
-        <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
-          Close
-        </b-button>
-        <b-button
-          v-if="!imgLoader"
-          class="mb-2"
-          variant="primary ripple"
-          @click="addPublisher()"
-        >
-          Add
-        </b-button>
-        <div class="spinner spinner-primary imgloader" v-if="imgLoader"></div>
-      </div>
-    </b-col>
-  </b-row>
+  <b-col md="12"     v-if="role == 'admin'" >
+    <b-form-group label="Select User" label-for="input-title">
+      <b-form-select v-model="selectedUserId" :options="userNames" required placeholder="Select User Name" id="input-name">
+      </b-form-select>
+    </b-form-group>
+  </b-col>
+  <b-col md="12">
+    <b-form-group label="First Name" label-for="input-first-name">
+      <b-form-input
+        v-model="first_name"
+        required
+        placeholder="First name"
+        style="height: 34px"
+        type="text"
+        id="input-first-name"
+      ></b-form-input>
+    </b-form-group>
+  </b-col>
+  <b-col md="12">
+    <b-form-group label="Last Name" label-for="input-last-name">
+      <b-form-input
+        v-model="last_name"
+        required
+        placeholder="Last name"
+        style="height: 34px"
+        type="text"
+        id="input-last-name"
+      ></b-form-input>
+    </b-form-group>
+  </b-col>
+  <b-col md="12">
+    <b-form-group label="TikTok Username" label-for="input-tiktok-username">
+      <b-form-input
+        v-model="tiktok_username"
+        required
+        placeholder="TikTok username"
+        style="height: 34px"
+        type="text"
+        id="input-tiktok-username"
+      ></b-form-input>
+    </b-form-group>
+  </b-col>
+  <b-col md="12">
+    <b-form-group label="Contact Number" label-for="input-contact-number">
+      <b-form-input
+        v-model="contact_number"
+        required
+        placeholder="Contact number"
+        style="height: 34px"
+        type="text"
+        @keydown="checkLength"
+        id="input-contact-number"
+      ></b-form-input>
+    </b-form-group>
+  </b-col>
+  <b-col md="12">
+    <b-form-group label="Agency Center Code" label-for="input-agency-center-code">
+      <b-form-input
+        v-model="agency_center_code"
+        required
+        placeholder="Agency center code"
+        style="height: 34px"
+        type="text"
+        @keydown="checkLengthCode"
+        id="input-agency-center-code"
+      ></b-form-input>
+    </b-form-group>
+  </b-col>
+  <b-col md="6">
+    <b-form-group label="Select Images" label-for="input-images">
+      <b-form-file
+        v-model="images"
+        @input="handleImageSelection"
+        placeholder="Choose files or drop them here"
+        drop-placeholder="Drop files here..."
+        accept=".png,.jpg,.jpeg"
+      ></b-form-file>
+    </b-form-group>
+  </b-col>
+  <b-col md="6" class="justify-content-end d-flex align-items-center">
+    <img
+      v-if="uplodedImages"
+      :src="uplodedImages"
+      alt=""
+      class="img-fluid"
+      height="50"
+      width="50"
+    />
+  </b-col>
+  <b-col>
+    <div class="d-flex justify-content-end">
+      <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
+        Close
+      </b-button>
+      <b-button
+        v-if="!imgLoader"
+        class="mb-2"
+        variant="primary ripple"
+        @click="addPublisher()"
+      >
+        Add
+      </b-button>
+      <div class="spinner spinner-primary imgloader" v-if="imgLoader"></div>
+    </div>
+  </b-col>
+</b-row>
+
 
     </b-modal>
     <b-modal
@@ -407,7 +408,7 @@
                 style="gap: 9px;"
               >
               <button
-             v-if="role == 'admin'" 
+         
         @click="showAddModal = true"
         class="btn btn-primary mb-3"
         style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
@@ -495,6 +496,12 @@
               </div>
             </span>
 
+            <span v-else-if="props.column.field === 'user_name'">
+              <div>
+                <div>{{ props.row.first_name }}&nbsp;  {{ props.row.last_name }}</div>
+              </div>
+            </span>
+
             
           </template>
         </vue-good-table>
@@ -515,6 +522,7 @@
 export default {
   data() {
     return {
+      rows:[],
       selectedUserName: null,
       getphoneNumber: '',
       getcenterCode: '',
@@ -629,6 +637,8 @@ export default {
     this.filterData();
     this.addCssRule();
     this.fetchUserNames();
+    this.getAllUsers();
+
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },
@@ -642,6 +652,7 @@ export default {
   },
   created() {
     this.fetchUserNames();
+    this.getAllUsers();
 
     this.filterData();
 
@@ -664,14 +675,40 @@ export default {
     }
 
   },
+ 
   methods: {
     async fetchUserNames() {
-      await this.fetchPublisher();
-      this.userNames = this.faqs.map(faq => ({
-        value: faq.user_id.name,
-        text: faq.user_id.name
+      debugger
+      await this.getAllUsers();
+      this.userNames = this.rows.map(row => ({
+        value: row._id,
+        text: row.name
       }));
     },
+    async getAllUsers() {
+      debugger
+
+      this.loader = true;
+      try {
+        const response = await this.$apiService.getCall("user/get-all-members");
+        if (response && response.isError === false && response.apidata && response.apidata.data) {
+          const userData = response.apidata.data;
+          this.rows = userData;
+          console.log(userData);
+        } else {
+          this.$toaster.makeToast("warning", "Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        this.$toaster.makeToast("error", "Error fetching user data");
+      } finally {
+        this.loader = false;
+      }
+    },
+
+
+
+
     toggleFlexDiv() {
       this.flexDivDisplay =
         this.flexDivDisplay === "flex!important"
@@ -909,7 +946,7 @@ export default {
 
   this.loader = true;
   try {
-    // Prepare request data
+  
     let requestData = {
       user_id: this.selectedUserId,
       first_name: this.first_name,
@@ -917,10 +954,10 @@ export default {
       tiktok_username: this.tiktok_username,
       contact_number: this.contact_number,
       agency_center_code: this.agency_center_code,
-      icon: this.uplodedImages,// Corrected typo here
-      user_id: this.user_id,
-      status: "Approved by admin",
-      reason: ""
+      icon: this.uplodedImages,
+  
+      status: this.role === 'admin' ? 'Approved' : '',
+     reason: this.role === 'admin' ? 'Directly Approved By Admin' : null
     };
 
     // Make the API call
