@@ -18,14 +18,26 @@
       <b-row class="px-3">
         <b-col md="12" v-if="role == 'admin'">
           <b-form-group label="Select Member" label-for="input-title">
-            <b-form-select
+            <!-- <b-form-select
               v-model="selectedUserId"
               :options="userNames"
               required
               placeholder="Select User Name"
               id="input-name"
             >
-            </b-form-select>
+            </b-form-select> -->
+
+            <multiselect
+          @input="handleChange"
+          v-model="selectedName"
+        
+          placeholder="Select Member"
+          :options="[...allUsers]"
+          :multiple="false"
+          :limit="1"
+          label="name"
+     
+        ></multiselect>
           </b-form-group>
         </b-col>
         <b-col md="12">
@@ -34,7 +46,7 @@
               v-model="first_name"
               required
               placeholder="First name"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-first-name"
             ></b-form-input>
@@ -46,7 +58,7 @@
               v-model="last_name"
               required
               placeholder="Last name"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -61,7 +73,7 @@
               v-model="tiktok_username"
               required
               placeholder="TikTok username"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-tiktok-username"
             ></b-form-input>
@@ -73,7 +85,7 @@
               v-model="contact_number"
               required
               placeholder="Contact number"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="number"
       @keydown="checkLengthPhone"
               id="input-contact-number"
@@ -89,7 +101,7 @@
               v-model="agency_center_code"
               required
               placeholder="Agency center code"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="number"
       @keydown="checkLengthPhone2"
               id="input-agency-center-code"
@@ -107,7 +119,7 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center">
+        <b-col md="6" class="justify-content-end d-flex align-items-center py-2">
           <img
             v-if="uplodedImages"
             :src="uplodedImages"
@@ -159,7 +171,7 @@
               v-model="getFirstName"
               required
               placeholder="First name"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-first-name"
             ></b-form-input>
@@ -171,7 +183,7 @@
               v-model="getLastName"
               required
               placeholder="Last name"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -184,7 +196,7 @@
               v-model="getpublisherName"
               required
               placeholder="First Name"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="text"
               id="input-name"
             ></b-form-input>
@@ -196,7 +208,7 @@
               v-model="getphoneNumber"
               required
               placeholder="Phone number"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="number"
               id="input-phoneNumber"
             ></b-form-input>
@@ -208,7 +220,7 @@
               v-model="getcenterCode"
               required
               placeholder="Agency center code"
-              style="height: 34px"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="number"
               id="input-agency"
             ></b-form-input>
@@ -562,9 +574,19 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+
 export default {
+
+  components: {
+    // VueEditor,
+    // VueDocumentEditor
+    multiselect: Multiselect
+  },
   data () {
     return {
+      selectedName:"",
+      allUsers: [],
       rows: [],
       selectedUserName: null,
       getphoneNumber: '',
@@ -727,7 +749,20 @@ export default {
   },
 
   methods: {
+    handleChange(user) {
 
+      this.selectedUserId=user._id;
+      debugger;
+
+      // // Filter the rows based on the user_name
+      // const matchedRows = this.rows.filter(row => row.first_name === user);
+
+      // // Update the rows with the filtered results
+      // this.rows = matchedRows;
+
+      // Log the matched rows to the console
+      console.log("Matched Rows:", user);
+    },
     checkLengthPhone (event) {
       if (this.contact_number.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
@@ -772,7 +807,8 @@ export default {
         ) {
           const userData = response.apidata.data
           this.rows = userData
-          console.log(userData)
+          this.allUsers = userData;
+          console.log(this.allUsers)
         } else {
           this.$toaster.makeToast('warning', 'Failed to fetch user data')
         }
@@ -1262,8 +1298,9 @@ export default {
   }
 }
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
+
 /* Modal overlay */
 .modal-overlay {
   position: fixed;
