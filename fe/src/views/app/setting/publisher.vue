@@ -1050,17 +1050,18 @@ export default {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.fetchPublisher()
-          this.isEdit = false
-          this.showAddModal = false
-          this.loader = false
-          this.first_name = ''
-          this.last_name = ''
-          this.tiktok_username = ''
-          this.contact_number = ''
-          this.agency_center_code = ''
-          this.icon = null
-          this.$toaster.makeToast('success', 'Data added successfully')
+          this.fetchPublisher();
+          this.isEdit = false;
+          this.showAddModal = false;
+          this.loader = false;
+          this.first_name = '';
+          this.last_name = '';
+          this.tiktok_username = '';
+          this.uplodedImages = '';
+          this.contact_number = '';
+          this.agency_center_code = '';
+          this.icon = null;
+          this.$toaster.makeToast('success', 'Data added successfully');
         }
       } catch (error) {
         this.loader = false
