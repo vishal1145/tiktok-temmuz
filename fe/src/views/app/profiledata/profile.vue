@@ -76,8 +76,8 @@
               /> -->
 
             <b-col md="12" class="pb-2">
-              Basic Deatils: &nbsp;
-              <span class="text-12">{{ 7845961236 }}</span>
+              <!-- Basic Deatils: &nbsp;
+              <span class="text-12">{{ 7845961236 }}</span> -->
               <!-- <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-baseline">
                   <i class="fa fa-envelope mr-2 mb-0 p-0" aria-hidden="true"></i
@@ -161,6 +161,7 @@
                       object-fit: cover;
                       width: 8rem;
                       height: 8rem;
+                      max-width:100%
                     "
                   />
                   <!-- <img
@@ -221,18 +222,29 @@
               </b-form-group>
             </b-col>
           </b-row>
-          <!-- <b-row>
+          <b-row>
             <b-col md="6 mb-25">
-              <b-form-group label=" Email Address" label-for="input-3">
+              <b-form-group label="Tictoc Name" label-for="input-3">
                 <b-form-input
-                  v-model="form.address"
+                  v-model="tictocName"
                   type="text"
                   required
-                  placeholder="Enter Address"
+                  placeholder="Enter tictoc user name"
                 ></b-form-input>
               </b-form-group>
             </b-col>
-          </b-row> -->
+            <b-col md="6 mb-25">
+              <b-form-group label="Phone Number" label-for="input-3">
+                <b-form-input
+                  v-model="phoneNumber"
+                  type="number"
+                   @keydown="checkLength"
+                  required
+                  placeholder="Enter phone number"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
 
           <b-row>
             <b-col md="12" class="">
@@ -448,6 +460,8 @@ export default {
       referralLink: '',
       clickOtp: false,
       verified: null,
+      tictocName: '',
+      phoneNumber:'',
       isOtp: null,
       imgSrc: null,
       aadharFrontCheckbox: false,
@@ -466,7 +480,7 @@ export default {
       logoloader: false,
       docloader: false,
       loader: false,
-      selectedLogo: null,
+      selectedLogo: 'https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg',
       form: {
         fName: '',
         lName: '',
@@ -622,10 +636,15 @@ export default {
           this.$toaster.makeToast('warning', 'Some think error')
         })
     },
-    checkLength (event) {
-      if (this.form.pin_code.toString().length >= 6 && event.keyCode !== 8) {
-        // event.preventDefault();
-        this.form.pin_code = this.form.pin_code.toString().substring(0, 5)
+    // checkLength (event) {
+    //   if (this.form.pin_code.toString().length >= 6 && event.keyCode !== 8) {
+    //     // event.preventDefault();
+    //     this.form.pin_code = this.form.pin_code.toString().substring(0, 5)
+    //   }
+    // },
+     checkLength (event) {
+      if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
       }
     },
 

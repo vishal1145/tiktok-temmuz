@@ -82,8 +82,8 @@
 
           <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-             :class="{ active: selectedParentMenu == 'users' }"
-          
+             
+               :class="{ active: isActive('/app/mydesk/users') }"
             class="nav-item"
             data-item="users"
             :data-submenu="false"
@@ -103,7 +103,8 @@
              <!-- home-page - User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-             :class="{ active: selectedParentMenu == 'home' }"
+                    :class="{ active: isActive('/app/setting/home') }"
+             
             class="nav-item"
             data-item="home"
             :data-submenu="false"
@@ -143,7 +144,8 @@
  <!-- information- User -->
         <li v-if="isAdmin === 'user' "
             @mouseenter="toggleSubMenu"
-           :class="{ active: selectedParentMenu == 'profile' }"
+                           :class="{ active: isActive('/app/profiledata/profile') }"
+           
             class="nav-item"
             data-item="profile"
             :data-submenu="false"
@@ -159,7 +161,8 @@
          <!-- creaters -->
          <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-          :class="{ active: selectedParentMenu == 'publisher' }"
+                     :class="{ active: isActive('/app/setting/publisher') }"
+         
             class="nav-item"
             data-item="publisher"
             :data-submenu="false"
@@ -176,12 +179,13 @@
 
         <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-          :class="{ active: selectedParentMenu == 'payment' }"
+             :class="{ active: isActive('/app/setting/payment') }"
+        
             class="nav-item"
             data-item="payment"
             :data-submenu="false"
         >
-          <router-link tag="a" class to="/app/setting/payment">
+          <router-link tag="a"  to="/app/setting/payment">
             <a class="nav-item-hold nav-item"   >
               <i class="nav-icon i-Dollar-Sign"></i>
               <span class="nav-text">{{ $t("Payment Request") }}</span>
@@ -348,7 +352,7 @@
             data-item="foodOrderHistory"
             :data-submenu="false"
           >
-            <router-link tag="a" class to="/app/mydesk/foodOrderHistory">
+            <router-link tag="a"  to="/app/mydesk/foodOrderHistory">
               <a class="nav-item-hold"   >
                
                 <i class="nav-icon i-Add-File"></i>
