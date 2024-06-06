@@ -176,38 +176,39 @@
                       id="tiktokCode"
                     />
                   </div>
-                  <div class="mb-3 pl-2" v-if="!imgLoader">
-                    <label for="referenceCode" class="form-label"
-                      >Select Image</label
-                    >
-                    <b-form-group label-for="input-images">
-                      <b-form-file
-                        v-model="images"
-                        @input="handleImageSelection"
-                        placeholder="Choose image"
-                        drop-placeholder="Drop files here..."
-                        accept=".png,.jpg,.jpeg"
-                      ></b-form-file>
-                    </b-form-group>
-                  </div>
-                  <div
-                    class="spinner spinner-primary imgloader"
-                    v-if="imgLoader"
-                  ></div>
-                  <b-col
-                    md="12"
-                    class="justify-content-center d-flex align-items-center"
-                  >
-                    <img
-                      v-if="uplodedImages"
-                      :src="this.uplodedImages"
-                      alt=""
-                      class="img-fluid"
-                      height="100"
-                      width="100"
-                    />
-                  </b-col>
                 </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="mb-3 w-50">
+                  <label for="img-btn" class="form-label">Select Image</label>
+                  <b-form-group label-for="input-images">
+                    <b-form-file
+                      v-model="images"
+                      @input="handleImageSelection"
+                      placeholder="Choose image"
+                      drop-placeholder="Drop files here..."
+                      accept=".png,.jpg,.jpeg"
+                    ></b-form-file>
+                  </b-form-group>
+                </div>
+
+                <div
+                  class="spinner spinner-primary imgloader"
+                  v-if="imgLoader"
+                ></div>
+                <b-col
+                  md="6"
+                  class="justify-content-end d-flex align-items-center pb-2"
+                >
+                  <img
+                    v-if="uplodedImages"
+                    :src="this.uplodedImages"
+                    alt=""
+                    class="img-fluid"
+                    height="50"
+                    width="50"
+                  />
+                </b-col>
               </div>
 
               <div class="form-check mb-3">
@@ -370,7 +371,7 @@ export default {
           agency_center_code: this.centerCode,
           tiktok_username: this.tiktokName,
           icon: this.uplodedImages,
-          user_id: this.userId,
+          user_id: this.userId
         }
 
         // Assuming you want to make a POST request
@@ -389,8 +390,11 @@ export default {
           this.imgloader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.$toaster.makeToast('success', 'Your data has been recorded, and you will be notified shortly.')
-          this.$router.push("/app/sessions/signIn");
+          this.$toaster.makeToast(
+            'success',
+            'Your data has been recorded, and you will be notified shortly.'
+          )
+          this.$router.push('/app/sessions/signIn')
           this.imgloader = false
           this.userFirstName = ''
           this.userLastName = ''

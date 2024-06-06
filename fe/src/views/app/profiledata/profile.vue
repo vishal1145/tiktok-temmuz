@@ -1,6 +1,5 @@
 <template>
   <div class="main-content">
-
     <!-- <b-row>
       <b-cols m="12" md="12" xl="12" lg="12" class="mb-30 px-4 "
         ><div class="font-weight-bold fa-2x text-light">Profile</div></b-cols
@@ -11,48 +10,55 @@
 
     <b-col sm="12" md="12" xl="12" lg="12" class="mb-30 px-0">
       <div class="card">
-    <div class="d-flex align-items-end row">
-        <div class="col-7">
+        <div class="d-flex align-items-end row">
+          <div class="col-7">
             <div class="card-body text-nowrap">
-                <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
-                <p>Thank you for being awesome and sharing our platform with others! Below is your unique referral link:</p>
+              <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
+              <p>
+                Thank you for being awesome and sharing our platform with
+                others! Below is your unique referral link:
+              </p>
 
-                <div data-v-0307aa70="" class="bg-white text-gray d-flex w-59"
-                    style="overflow-wrap: anywhere; ">
-                    <a data-v-0307aa70=""  :href="`https://temmuz.algofolks.com/app/sessions/affiliate?uid=${user_id}`" target="_blank"
-                        class="referral-link  align-self-center">
-                        https://temmuz.algofolks.com/app/sessions/affiliate?uid={{this.user_id}}</a>
-                        <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
-      <i class="fa fa-clone" aria-hidden="true"></i>
-    </p>
-                </div>
-
+              <div
+                data-v-0307aa70=""
+                class="bg-white text-gray d-flex w-59"
+                style="overflow-wrap: anywhere"
+              >
+                <a
+                  data-v-0307aa70=""
+                  :href="`https://temmuz.algofolks.com/app/sessions/affiliate?uid=${user_id}`"
+                  target="_blank"
+                  class="referral-link align-self-center"
+                >
+                  https://temmuz.algofolks.com/app/sessions/affiliate?uid={{
+                    this.user_id
+                  }}</a
+                >
+                <p
+                  class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end"
+                >
+                  <i class="fa fa-clone" aria-hidden="true"></i>
+                </p>
+              </div>
             </div>
-        </div>
-        <div class="col-5 text-center text-sm-left d-none">
+          </div>
+          <div class="col-5 text-center text-sm-left d-none">
             <div class="card-body pb-0 px-0 px-md-4">
-                <img
-                    src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
-                    height="140" alt="view sales" />
+              <img
+                src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
+                height="140"
+                alt="view sales"
+              />
             </div>
+          </div>
         </div>
-    </div>
-</div>
-       
-        </b-col>
+      </div>
+    </b-col>
 
-    
     <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
-
-
-    
 
     <div class="main-div">
       <b-card title="Profile" class="for-profile">
-
-
-        
-        
         <b-form>
           <b-row class="my-3">
             <!-- <img
@@ -70,8 +76,8 @@
               /> -->
 
             <b-col md="12" class="pb-2">
-              
-              Basic Deatils:  &nbsp; <span class="text-12">{{ 7845961236 }}</span>
+              Basic Deatils: &nbsp;
+              <span class="text-12">{{ 7845961236 }}</span>
               <!-- <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-baseline">
                   <i class="fa fa-envelope mr-2 mb-0 p-0" aria-hidden="true"></i
@@ -143,49 +149,52 @@
             </b-col> -->
 
             <div>
-              <div>  <b-col md="12" class="pb-2">
-              <!-- <img
-                id="logo"
-                :src="selectedLogo"
-                class="mb-3"
-                style="
-                  border: 1px solid #111827;
-                  padding: 4px;
-                  border-radius: 3%;
-                  object-fit: fill;
-                  width: 8rem;
-                  height: 8rem;
-                "
-              /> -->
-              <img id="logo" src="https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg" alt="Uploaded Image" />
-
-            </b-col>
-
-            <b-col md="6">
-              <input
-                id="chooseLogo"
-                type="file"
-                name="image"
-                accept=".png,.jpg,.jpeg"
-                style="display: none"
-                @change="setImage"
-              />
-              <div class="spinner spinner-primary mr-3" v-if="logoloader"></div>
-              <b-button
-                v-if="!logoloader"
-                variant="primary ripple"
-                @click="chooseImage()"
-              >
-                Change Picture</b-button
-              >
-            </b-col>
-
-              </div>
               <div>
+                <b-col md="12" class="pb-2">
+                  <img
+                    :src="this.selectedLogo"
+                    class="mb-3"
+                    style="
+                      border: 1px solid #111827;
+                      padding: 4px;
+                      border-radius: 3%;
+                      object-fit: cover;
+                      width: 8rem;
+                      height: 8rem;
+                    "
+                  />
+                  <!-- <img
+                    id="logo"
+                    src="https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg"
+                    alt="Uploaded Image"
+                  /> -->
+                </b-col>
 
+                <b-col md="6">
+                  <input
+                    id="chooseLogo"
+                    type="file"
+                    name="image"
+                    accept=".png,.jpg,.jpeg"
+                    style="display: none"
+                    @change="setImage"
+                  />
+                  <div
+                    class="spinner spinner-primary mr-3"
+                    v-if="logoloader"
+                  ></div>
+                  <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div>  -->
+                  <b-button
+                    v-if="!loader"
+                    variant="primary ripple"
+                    @click="chooseImage()"
+                  >
+                    Change Picture</b-button
+                  >
+                </b-col>
               </div>
+              <div></div>
             </div>
-          
           </b-row>
           <b-row>
             <b-col md="6">
@@ -195,7 +204,6 @@
                   type="text"
                   required
                   placeholder="First Name"
-                  :formatter="formatYear"
                   v-on:keypress="isLetter($event)"
                 ></b-form-input>
               </b-form-group>
@@ -208,13 +216,12 @@
                   type="text"
                   required
                   placeholder="Last Name"
-                  :formatter="formatYear"
                   v-on:keypress="isLetter($event)"
                 ></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
-          <b-row>
+          <!-- <b-row>
             <b-col md="6 mb-25">
               <b-form-group label=" Email Address" label-for="input-3">
                 <b-form-input
@@ -225,9 +232,8 @@
                 ></b-form-input>
               </b-form-group>
             </b-col>
-          </b-row>
+          </b-row> -->
 
-      
           <b-row>
             <b-col md="12" class="">
               <div
@@ -245,70 +251,72 @@
         </b-form>
       </b-card>
       <b-card title="Bank Account" class="for-profile">
-    <b-form>
-      <b-row>
-        <b-col md="6">
-          <b-form-group label="Bank Account No" label-for="bank-account-no">
-            <b-form-input
-              v-model="form.bankAccountNo"
-              type="text"
-              required
-              placeholder="Bank Account No"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
+        <b-form>
+          <b-row>
+            <b-col md="6">
+              <b-form-group label="Bank Account No" label-for="bank-account-no">
+                <b-form-input
+                  v-model="form.bankAccountNo"
+                  type="text"
+                  required
+                  placeholder="Bank Account No"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
 
-        <b-col md="6">
-          <b-form-group label="IFSC Code" label-for="ifsc-code">
-            <b-form-input
-              v-model="form.ifscCode"
-              type="text"
-              required
-              placeholder="IFSC Code"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
+            <b-col md="6">
+              <b-form-group label="IFSC Code" label-for="ifsc-code">
+                <b-form-input
+                  v-model="form.ifscCode"
+                  type="text"
+                  required
+                  placeholder="IFSC Code"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
 
-      <b-row>
-        <b-col md="6">
-          <b-form-group label="Bank Name" label-for="bank-name">
-            <b-form-input
-              v-model="form.bankName"
-              type="text"
-              required
-              placeholder="Bank Name"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
+          <b-row>
+            <b-col md="6">
+              <b-form-group label="Bank Name" label-for="bank-name">
+                <b-form-input
+                  v-model="form.bankName"
+                  type="text"
+                  required
+                  placeholder="Bank Name"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
 
-        <b-col md="6">
-          <b-form-group label="PAN Card No" label-for="pan-card-no">
-            <b-form-input
-              v-model="form.panCardNo"
-              type="text"
-              required
-              placeholder="PAN Card No"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
+            <b-col md="6">
+              <b-form-group label="PAN Card No" label-for="pan-card-no">
+                <b-form-input
+                  v-model="form.panCardNo"
+                  type="text"
+                  required
+                  placeholder="PAN Card No"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+          </b-row>
 
-      <b-row>
-        <b-col md="12">
-          <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-          <b-button
-            v-if="!updateloader"
-            variant="primary ripple"
-            @click="updateUser"
-          >
-            Update
-          </b-button>
-        </b-col>
-      </b-row>
-    </b-form>
-  </b-card>
-
+          <b-row>
+            <b-col md="12">
+              <div
+                class="spinner spinner-primary mr-3"
+                v-if="updateloader"
+              ></div>
+              <b-button
+                v-if="!updateloader"
+                variant="primary ripple"
+                @click="updateUser"
+              >
+                Update
+              </b-button>
+            </b-col>
+          </b-row>
+        </b-form>
+      </b-card>
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
     <!-- <b-card title="Profile">
@@ -429,15 +437,15 @@
   </div>
 </template>
 <script>
-import message from "../../../message";
+import message from '../../../message'
 export default {
   metaInfo: {
-    title: "Profile",
+    title: 'Profile'
   },
   components: {},
-  data() {
+  data () {
     return {
-      referralLink: "",
+      referralLink: '',
       clickOtp: false,
       verified: null,
       isOtp: null,
@@ -453,51 +461,52 @@ export default {
       passportImageBack: false,
       drivinglincenseImage: false,
       drivinglincenseImageBack: false,
-      forOtp: "",
+      forOtp: '',
       updateloader: false,
       logoloader: false,
       docloader: false,
       loader: false,
+      selectedLogo: null,
       form: {
-        fName: "",
-        lName: "",
+        fName: '',
+        lName: '',
 
-        address: "",
-        url: "",
-        city: "",
-        state: "",
-        pin_code: "",
+        address: '',
+        url: '',
+        city: '',
+        state: '',
+        pin_code: ''
       },
-      back_aadhar_card: "",
-      image: "",
-      aadhar_card: "",
-      driving_lincense: "",
-      back_driving_lincense: "",
-      haspassport: "True",
-      passport: "",
-      back_passport: "",
-      emailUser: "",
-      phoneUser: "",
-      email: "",
+      back_aadhar_card: '',
+      image: '',
+      aadhar_card: '',
+      driving_lincense: '',
+      back_driving_lincense: '',
+      haspassport: 'True',
+      passport: '',
+      back_passport: '',
+      emailUser: '',
+      phoneUser: '',
+      email: '',
       isLoading: false,
       showMail: false,
       isGetotpHide: false,
-      newpassword: "",
-      oldpassword: "",
-      confirmpassword: "",
+      newpassword: '',
+      oldpassword: '',
+      confirmpassword: '',
       submitloader: false,
       id: null,
       user_id: '',
-      role:'',
-      imgSrc: '',
-    };
+      role: '',
+      imgSrc: ''
+    }
   },
-  created() {
-    this.user_id = localStorage.getItem('user_id');
-    this.role = localStorage.getItem('role');
+  created () {
+    this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
     if (this.user_id) {
       // this.isEdit = true;
-      this.getProfileDetails();
+      // this.getProfileDetails()
     }
     // this.getCompanyData();
   },
@@ -525,312 +534,310 @@ export default {
   //   }
   // },
   methods: {
-    isLetter(e) {
-      let char = String.fromCharCode(e.keyCode); // Get the character
-      if (/^[A-Za-z]+$/.test(char)) return true;
+    isLetter (e) {
+      let char = String.fromCharCode(e.keyCode) // Get the character
+      if (/^[A-Za-z]+$/.test(char)) return true
       // Match with regex
-      else e.preventDefault(); // If not match, don't add to input text
-    },
-    
-    copyReferralLink() {
-      const el = document.createElement("textarea");
-      el.value = this.referralLink;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-      this.$toaster.makeToast("success", "Referral link copied to clipboard!");
-    },
-    viaEmail() {
-      this.showMail = true;
-      this.clearModalForm();
-    },
-    clickBookCar() {
-      this.$router.push("/app/sessions/searchCar");
-    },
-    clickAddAmount() {
-      this.$router.push("/app/mydesk/transaction");
+      else e.preventDefault() // If not match, don't add to input text
     },
 
-    clickOtpVarified() {
-      this.clickOtp = true;
-      this.loader = true;
+    copyReferralLink () {
+      const el = document.createElement('textarea')
+      el.value = this.referralLink
+      document.body.appendChild(el)
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
+      this.$toaster.makeToast('success', 'Referral link copied to clipboard!')
+    },
+    viaEmail () {
+      this.showMail = true
+      this.clearModalForm()
+    },
+    clickBookCar () {
+      this.$router.push('/app/sessions/searchCar')
+    },
+    clickAddAmount () {
+      this.$router.push('/app/mydesk/transaction')
+    },
+
+    clickOtpVarified () {
+      this.clickOtp = true
+      this.loader = true
 
       this.$apiService
         .getCall(`phone/verify/?userId=${this.id}&phone=${this.phoneUser}`)
-        .then((res) => {
+        .then(res => {
           if (!res.apidata.isError) {
-            this.$toaster.makeToast("success", "Otp sent successfully");
+            this.$toaster.makeToast('success', 'Otp sent successfully')
 
-            this.loader = false;
+            this.loader = false
           }
         })
-        .catch((error) => {
-          this.loader = false;
-          this.$toaster.makeToast("warning", "Some think error");
-        });
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Some think error')
+        })
     },
-    handelForOtp(e) {
+    handelForOtp (e) {
       if (this.forOtp.length == 4) {
-        this.loader = true;
-        this.clickOtp = false;
+        this.loader = true
+        this.clickOtp = false
 
         this.$apiService
           .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
-          .then((res) => {
+          .then(res => {
             if (!res.apidata.isError) {
-              this.$toaster.makeToast("success", "Verify successfully");
-              window.location.reload();
+              this.$toaster.makeToast('success', 'Verify successfully')
+              window.location.reload()
 
-              this.loader = false;
+              this.loader = false
             }
           })
-          .catch((error) => {
-            this.loader = false;
-            this.$toaster.makeToast("warning", "Some think error");
-          });
+          .catch(error => {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Some think error')
+          })
       }
     },
-    clickEmailVarified() {
-      this.loader = true;
+    clickEmailVarified () {
+      this.loader = true
       const reqData = {
-        email: this.emailUser,
-      };
+        email: this.emailUser
+      }
       this.$apiService
         .postCall(`email/verify/`, reqData)
-        .then((res) => {
+        .then(res => {
           if (!res.apidata.isError) {
             this.$toaster.makeToast(
-              "success",
-              "Email verification link sent successfully"
-            );
+              'success',
+              'Email verification link sent successfully'
+            )
 
-            this.loader = false;
+            this.loader = false
           }
         })
-        .catch((error) => {
-          this.loader = false;
-          this.$toaster.makeToast("warning", "Some think error");
-        });
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Some think error')
+        })
     },
-    checkLength(event) {
+    checkLength (event) {
       if (this.form.pin_code.toString().length >= 6 && event.keyCode !== 8) {
         // event.preventDefault();
-        this.form.pin_code = this.form.pin_code.toString().substring(0, 5);
+        this.form.pin_code = this.form.pin_code.toString().substring(0, 5)
       }
-    
     },
 
-    
-    viaOldPassword() {
-      this.showMail = false;
+    viaOldPassword () {
+      this.showMail = false
     },
 
-    setPassport(event) {
-      this.loader = true;
-      let formData = new FormData();
-      const file = event.target.files[0];
+    setPassport (event) {
+      this.loader = true
+      let formData = new FormData()
+      const file = event.target.files[0]
 
-      formData.append("picture", file);
+      formData.append('picture', file)
 
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.passport = res.apidata.path;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.passport = res.apidata.path
 
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Passport front has been uploaded successfully"
-          );
-          this.passportFrontCheckbox = true;
+            'success',
+            'Passport front has been uploaded successfully'
+          )
+          this.passportFrontCheckbox = true
         })
         .catch(() => {
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Passport back has been uploaded error"
-          );
-        });
+            'warning',
+            'Passport back has been uploaded error'
+          )
+        })
 
       if (file) {
         // Read the selected file and display it as an image
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.passportImage = reader.result;
-        };
-        reader.readAsDataURL(file);
+          this.passportImage = reader.result
+        }
+        reader.readAsDataURL(file)
       } else {
-        this.passportImage = null;
-        this.passportFrontCheckbox = false;
+        this.passportImage = null
+        this.passportFrontCheckbox = false
       }
     },
 
-    setPassportBack(event) {
-      this.loader = true;
-      let formData = new FormData();
-      const file = event.target.files[0];
+    setPassportBack (event) {
+      this.loader = true
+      let formData = new FormData()
+      const file = event.target.files[0]
 
-      formData.append("picture", file);
+      formData.append('picture', file)
 
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.back_passport = res.apidata.path;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.back_passport = res.apidata.path
 
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Passport back has been uploaded successfully"
-          );
-          this.passportBackCheckbox = true;
+            'success',
+            'Passport back has been uploaded successfully'
+          )
+          this.passportBackCheckbox = true
         })
         .catch(() => {
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Passport back has been uploaded error"
-          );
-        });
+            'warning',
+            'Passport back has been uploaded error'
+          )
+        })
 
       if (file) {
         // Read the selected file and display it as an image
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.passportImageBack = reader.result;
-        };
-        reader.readAsDataURL(file);
+          this.passportImageBack = reader.result
+        }
+        reader.readAsDataURL(file)
       } else {
-        this.passportImageBack = null;
-        this.passportBackCheckbox = false;
+        this.passportImageBack = null
+        this.passportBackCheckbox = false
       }
     },
 
-    setDrivingLincense(event) {
-      this.loader = true;
-      let formData = new FormData();
+    setDrivingLincense (event) {
+      this.loader = true
+      let formData = new FormData()
 
-      const file = event.target.files[0];
-      formData.append("picture", file);
+      const file = event.target.files[0]
+      formData.append('picture', file)
 
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.driving_lincense = res.apidata.path;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.driving_lincense = res.apidata.path
 
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Driving license front has been uploaded successfully"
-          );
-          this.drivingLincenseFrontCheckbox = true;
+            'success',
+            'Driving license front has been uploaded successfully'
+          )
+          this.drivingLincenseFrontCheckbox = true
         })
         .catch(() => {
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Driving license back has been uploaded error"
-          );
-        });
+            'warning',
+            'Driving license back has been uploaded error'
+          )
+        })
 
       if (file) {
         // Read the selected file and display it as an image
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.drivinglincenseImage = reader.result;
-        };
-        reader.readAsDataURL(file);
+          this.drivinglincenseImage = reader.result
+        }
+        reader.readAsDataURL(file)
       } else {
-        this.drivinglincenseImage = null;
-        this.drivingLincenseFrontCheckbox = false;
+        this.drivinglincenseImage = null
+        this.drivingLincenseFrontCheckbox = false
       }
     },
-    setDrivingLincenseBack(event) {
-      this.loader = true;
-      let formData = new FormData();
+    setDrivingLincenseBack (event) {
+      this.loader = true
+      let formData = new FormData()
 
-      const file = event.target.files[0];
-      formData.append("picture", file);
+      const file = event.target.files[0]
+      formData.append('picture', file)
 
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.back_driving_lincense = res.apidata.path;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.back_driving_lincense = res.apidata.path
 
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Driving lincense back has been uploaded successfully"
-          );
-          this.drivingLincenseBackCheckbox = true;
+            'success',
+            'Driving lincense back has been uploaded successfully'
+          )
+          this.drivingLincenseBackCheckbox = true
         })
         .catch(() => {
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Driving lincense back has been uploaded error"
-          );
-        });
+            'warning',
+            'Driving lincense back has been uploaded error'
+          )
+        })
 
       if (file) {
         // Read the selected file and display it as an image
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.drivinglincenseImageBack = reader.result;
-        };
-        reader.readAsDataURL(file);
+          this.drivinglincenseImageBack = reader.result
+        }
+        reader.readAsDataURL(file)
       } else {
-        this.drivinglincenseImageBack = null;
-        this.drivingLincenseBackCheckbox = false;
+        this.drivinglincenseImageBack = null
+        this.drivingLincenseBackCheckbox = false
       }
     },
 
-    setAadhar(event) {
-      this.loader = true;
-      let formData = new FormData();
-      const file = event.target.files[0];
-      formData.append("picture", file);
+    setAadhar (event) {
+      this.loader = true
+      let formData = new FormData()
+      const file = event.target.files[0]
+      formData.append('picture', file)
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.aadhar_card = res.apidata.path;
-          this.loader = false;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.aadhar_card = res.apidata.path
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Aadhar front has been uploaded successfully"
-          );
-          this.aadharFrontCheckbox = true;
+            'success',
+            'Aadhar front has been uploaded successfully'
+          )
+          this.aadharFrontCheckbox = true
         })
         .catch(() => {
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Aadhar front has been uploaded error"
-          );
-        });
+            'warning',
+            'Aadhar front has been uploaded error'
+          )
+        })
       if (file) {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.selectedImage = reader.result;
-        };
-        reader.readAsDataURL(file);
+          this.selectedImage = reader.result
+        }
+        reader.readAsDataURL(file)
       } else {
-        this.selectedImage = null;
-        this.aadharFrontCheckbox = false;
+        this.selectedImage = null
+        this.aadharFrontCheckbox = false
       }
     },
-    chooseAadhar() {
-      const fileInput = document.getElementById("aadhar");
+    chooseAadhar () {
+      const fileInput = document.getElementById('aadhar')
       if (fileInput.files.length > 0) {
-        this.aadharFrontCheckbox = true;
+        this.aadharFrontCheckbox = true
       } else {
-        this.aadharFrontCheckbox = false;
+        this.aadharFrontCheckbox = false
       }
-      fileInput.click();
+      fileInput.click()
     },
 
     // setAadhar(event) {
@@ -868,82 +875,82 @@ export default {
     //   }
     // },
 
-    setAadharback(event) {
-      this.loader = true;
-      let formData = new FormData();
-      const file = event.target.files[0];
-      formData.append("picture", file);
+    setAadharback (event) {
+      this.loader = true
+      let formData = new FormData()
+      const file = event.target.files[0]
+      formData.append('picture', file)
 
       this.$apiService
-        .postFileCall("uploadimage/", formData)
-        .then((res) => {
-          this.back_aadhar_card = res.apidata.path;
+        .postFileCall('uploadimage/', formData)
+        .then(res => {
+          this.back_aadhar_card = res.apidata.path
 
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "success",
-            "Aadhar back has been uploaded successfully"
-          );
-          this.aadharBackCheckbox = true;
+            'success',
+            'Aadhar back has been uploaded successfully'
+          )
+          this.aadharBackCheckbox = true
         })
         .catch(() => {
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+          this.loader = false
           this.$toaster.makeToast(
-            "warning",
-            "Aadhar back has been uploaded error"
-          );
-        });
+            'warning',
+            'Aadhar back has been uploaded error'
+          )
+        })
 
       if (file) {
         // Read the selected file and display it as an image
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
-          this.selectedImageBack = reader.result;
-        };
+          this.selectedImageBack = reader.result
+        }
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
       } else {
-        this.selectedImageBack = null;
-        this.aadharBackCheckbox = false;
+        this.selectedImageBack = null
+        this.aadharBackCheckbox = false
       }
     },
 
-    setImage(e) {
-  this.logoloader = true;
-  let formData = new FormData();
-  const file = e.target.files[0];
+    async setImage (e) {
+      this.logoloader = true
+      const file = e.target.files[0]
 
-  formData.append("picture", file);
+      try {
+        const formData = new FormData()
+        if (file) {
+          formData.append('image', file)
+        }
+        // if (this.getImages) {
+        //   formData.append('image', this.getImages)
+        // }
 
-  this.$apiService
-    .postFileCall("uploadimage/", formData)
-    .then((res) => {
-      this.form.url = res.apidata.path;
-
-      this.logoloader = false;
-      this.$toaster.makeToast("success", "Photo has been updated");
-    })
-    .catch(() => {
-      this.logoloader = false;
-      this.$toaster.makeToast("warning", "Photo update failed");
-    });
-
-  if (!file.type.includes("image/")) {
-    alert("Please select an image file");
-    return;
-  }
-  if (typeof FileReader === "function") {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      this.imgSrc = "https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg"; // Hardcoded image URL
-      document.getElementById("logo").src = this.imgSrc;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    alert("Sorry, FileReader API not supported");
-  }
-},
+        const response = await new Promise((resolve, reject) => {
+          this.$apiService
+            .postCall('util/image/', formData)
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
+        // const response = this.$apiService.postCall('util/image/', formData)
+        if (response.error) {
+          this.logoloader = false
+          this.$toaster.makeToast('warning', response.message)
+        } else {
+          this.logoloader = false
+          this.selectedLogo = response.apidata.url
+          console.log(this.selectedLogo)
+          this.$toaster.makeToast('success', 'Profile update successfully')
+        }
+      } catch (error) {
+        this.logoloader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // confirm.log(error)
+      }
+    },
 
     // setImage(e) {
     //   this.logoloader = true;
@@ -956,7 +963,6 @@ export default {
     //     .postFileCall("uploadimage/", formData)
     //     .then((res) => {
     //       this.form.url = res.apidata.path;
-          
 
     //       this.logoloader = false;
     //       this.$toaster.makeToast("success", "Photo has been updated");
@@ -983,188 +989,188 @@ export default {
     //   }
     // },
 
-    chooseAadharBack() {
-      const fileGet = document.getElementById("aadharback");
+    chooseAadharBack () {
+      const fileGet = document.getElementById('aadharback')
       if (fileGet.files.length > 0) {
-        this.aadharBackCheckbox = true;
+        this.aadharBackCheckbox = true
       } else {
-        this.aadharBackCheckbox = false;
+        this.aadharBackCheckbox = false
       }
-      fileGet.click();
+      fileGet.click()
     },
     // chooseAadhar() {
     //   document.getElementById("aadhar").click();
     // },
-    chooseDrivingLincenseBack() {
-      const getBack = document.getElementById("drivinglincenseback");
+    chooseDrivingLincenseBack () {
+      const getBack = document.getElementById('drivinglincenseback')
       if (getBack.files.length > 0) {
-        this.drivingLincenseBackCheckbox = true;
+        this.drivingLincenseBackCheckbox = true
       } else {
-        this.drivingLincenseBackCheckbox = false;
+        this.drivingLincenseBackCheckbox = false
       }
-      getBack.click();
+      getBack.click()
     },
-    chooseDrivingLincense() {
-      const getFront = document.getElementById("drivinglincense");
+    chooseDrivingLincense () {
+      const getFront = document.getElementById('drivinglincense')
       if (getFront.files.length > 0) {
-        this.drivingLincenseFrontCheckbox = true;
+        this.drivingLincenseFrontCheckbox = true
       } else {
-        this.drivingLincenseFrontCheckbox = false;
+        this.drivingLincenseFrontCheckbox = false
       }
-      getFront.click();
+      getFront.click()
     },
-    choosePassport() {
-      const passportFront = document.getElementById("passport");
+    choosePassport () {
+      const passportFront = document.getElementById('passport')
       if (passportFront.files.length > 0) {
-        this.passportFrontCheckbox = true;
+        this.passportFrontCheckbox = true
       } else {
-        this.passportFrontCheckbox = false;
+        this.passportFrontCheckbox = false
       }
-      passportFront.click();
+      passportFront.click()
     },
-    choosePassportBack() {
-      const passportBack = document.getElementById("passportback");
+    choosePassportBack () {
+      const passportBack = document.getElementById('passportback')
       if (passportBack.files.length > 0) {
-        this.passportBackCheckbox = true;
+        this.passportBackCheckbox = true
       } else {
-        this.passportBackCheckbox = false;
+        this.passportBackCheckbox = false
       }
-      passportBack.click();
+      passportBack.click()
     },
-    chooseImage() {
-      document.getElementById("chooseLogo").click();
+    chooseImage () {
+      document.getElementById('chooseLogo').click()
     },
-    updateUser() {
-      this.updateloader = true;
-      let formData = new FormData();
-      formData.append("first_name", this.form.fName);
-      formData.append("last_name", this.form.lName);
-      formData.append("local_address", this.form.address);
+    updateUser () {
+      this.updateloader = true
+      let formData = new FormData()
+      formData.append('first_name', this.form.fName)
+      formData.append('last_name', this.form.lName)
+      formData.append('local_address', this.form.address)
 
-      formData.append("image", this.form.url || this.selectedLogo);
+      formData.append('image', this.form.url || this.selectedLogo)
 
-      formData.append("city", this.form.city);
-      formData.append("state", this.form.state);
-      formData.append("pin_code", this.form.pin_code);
+      formData.append('city', this.form.city)
+      formData.append('state', this.form.state)
+      formData.append('pin_code', this.form.pin_code)
 
       if (!this.form.fName && !this.form.lName) {
-        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
-        this.updateloader = false;
-        return;
+        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
+        this.updateloader = false
+        return
       }
 
       this.$apiService
         .putCall(`account/updateUserAPIView/${this.id}`, formData)
-        .then((res) => {
-          this.updateloader = false;
-          this.$toaster.makeToast("success", "Details updated successfully");
+        .then(res => {
+          this.updateloader = false
+          this.$toaster.makeToast('success', 'Details updated successfully')
           setTimeout(() => {
-            window.location.reload();
-          }, 500);
+            window.location.reload()
+          }, 500)
         })
-        .catch((error) => {
-          this.updateloader = false;
-          this.$toaster.makeToast("warning", "Details updated error");
-        });
+        .catch(error => {
+          this.updateloader = false
+          this.$toaster.makeToast('warning', 'Details updated error')
+        })
     },
 
-    updateDocuments() {
-      this.docloader = true;
-      let formData = new FormData();
+    updateDocuments () {
+      this.docloader = true
+      let formData = new FormData()
       if (this.selectedImage != null) {
-        formData.append("aadhar_card", this.aadhar_card || this.selectedImage);
+        formData.append('aadhar_card', this.aadhar_card || this.selectedImage)
       }
 
       if (this.drivinglincenseImage != null) {
         formData.append(
-          "driving_lincense",
+          'driving_lincense',
           this.driving_lincense || this.drivinglincenseImage
-        );
+        )
       }
 
-      formData.append("haspassport", this.haspassport);
+      formData.append('haspassport', this.haspassport)
       if (this.passportImage != null) {
-        formData.append("passport", this.passport || this.passportImage);
+        formData.append('passport', this.passport || this.passportImage)
       }
 
       if (this.selectedImageBack != null) {
         formData.append(
-          "back_aadhar_card",
+          'back_aadhar_card',
           this.back_aadhar_card || this.selectedImageBack
-        );
+        )
       }
 
       if (this.drivinglincenseImageBack != null) {
         formData.append(
-          "back_driving_lincense",
+          'back_driving_lincense',
           this.back_driving_lincense || this.drivinglincenseImageBack
-        );
+        )
       }
 
       if (this.passportImageBack != null) {
         formData.append(
-          "back_passport",
+          'back_passport',
           this.back_passport || this.passportImageBack
-        );
+        )
       }
 
       if (
-        formData.has("aadhar_card") &&
-        formData.has("back_aadhar_card") &&
-        formData.has("driving_lincense") &&
-        formData.has("back_driving_lincense")
+        formData.has('aadhar_card') &&
+        formData.has('back_aadhar_card') &&
+        formData.has('driving_lincense') &&
+        formData.has('back_driving_lincense')
       ) {
         this.$apiService
           .putCall(`account/updateDocumentAPIView/${this.id}`, formData)
-          .then((res) => {
+          .then(res => {
             if (!res.isError && formData) {
-              this.docloader = false;
+              this.docloader = false
               this.$toaster.makeToast(
-                "success",
-                "Documents updated successfully"
-              );
+                'success',
+                'Documents updated successfully'
+              )
             } else {
-              this.docloader = false;
-              this.$toaster.makeToast("warning", "Documents updated failed");
+              this.docloader = false
+              this.$toaster.makeToast('warning', 'Documents updated failed')
             }
           })
-          .catch((error) => {
-            this.docloader = false;
-            this.$toaster.makeToast("warning", "Documents updated failed");
-          });
+          .catch(error => {
+            this.docloader = false
+            this.$toaster.makeToast('warning', 'Documents updated failed')
+          })
       } else {
-        this.docloader = false;
+        this.docloader = false
         this.$toaster.makeToast(
-          "warning",
-          "Aadhar Card,Driving Lincense is mandatory "
-        );
+          'warning',
+          'Aadhar Card,Driving Lincense is mandatory '
+        )
       }
     },
-    getCompanyData() {
-      this.isLoading = true;
+    getCompanyData () {
+      this.isLoading = true
       this.$apiService
-        .getCall("getCompanyData")
-        .then((res) => {
-          this.form = res.apidata.data;
+        .getCall('getCompanyData')
+        .then(res => {
+          this.form = res.apidata.data
           if (this.form.logo) {
             this.$apiService
-              .postCall("download", { urlPath: this.form.logo })
-              .then((res) => {
-                document.getElementById("logo").src =
-                  "data:image/jpeg;base64," + res.apidata.fileData;
-                this.isLoading = false;
+              .postCall('download', { urlPath: this.form.logo })
+              .then(res => {
+                document.getElementById('logo').src =
+                  'data:image/jpeg;base64,' + res.apidata.fileData
+                this.isLoading = false
               })
-              .catch((error) => {
-                this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-                this.isLoading = false;
-              });
+              .catch(error => {
+                this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+                this.isLoading = false
+              })
           }
-          this.isLoading = false;
+          this.isLoading = false
         })
-        .catch((error) => {
-          this.isLoading = false;
-          console.log(error);
-        });
+        .catch(error => {
+          this.isLoading = false
+          console.log(error)
+        })
     },
     // async getCarDetails() {
     //   try {
@@ -1178,62 +1184,62 @@ export default {
     //     console.log(error);
     //   }
     // },
-    changePassword() {
-      this.submitloader = true;
+    changePassword () {
+      this.submitloader = true
       if (this.newpassword && this.oldpassword && this.confirmpassword) {
         if (this.newpassword != this.confirmpassword) {
-          this.$toaster.makeToast("warning", message.VALIDATION_ERROR);
-          this.submitloader = false;
-          return;
+          this.$toaster.makeToast('warning', message.VALIDATION_ERROR)
+          this.submitloader = false
+          return
         }
 
         if (this.newpassword.length < 5) {
-          this.$toaster.makeToast("warning", message.PASSWORDNOT_OK);
-          this.submitloader = false;
-          return;
+          this.$toaster.makeToast('warning', message.PASSWORDNOT_OK)
+          this.submitloader = false
+          return
         }
 
         if (this.confirmpassword.length < 5) {
-          this.$toaster.makeToast("warning", message.PASSWORDNOT_OK);
-          this.submitloader = false;
-          return;
+          this.$toaster.makeToast('warning', message.PASSWORDNOT_OK)
+          this.submitloader = false
+          return
         }
 
         let requestData = {
           newpassword: this.newpassword,
           oldpassword: this.oldpassword,
-          confirmpassword: this.confirmpassword,
-        };
+          confirmpassword: this.confirmpassword
+        }
         this.$apiService
-          .postCall("change-password", requestData)
-          .then((res) => {
+          .postCall('change-password', requestData)
+          .then(res => {
             if (res.error) {
-              this.$toaster.makeToast("warning", message.MISMATCH_ERROR);
-              this.submitloader = false;
-              return;
+              this.$toaster.makeToast('warning', message.MISMATCH_ERROR)
+              this.submitloader = false
+              return
             }
 
-            this.$toaster.makeToast("success", message.UPDATE_MESSAGE);
-            this.clearModalForm();
-            this.$bvModal.hide("modal-center");
-            this.submitloader = false;
+            this.$toaster.makeToast('success', message.UPDATE_MESSAGE)
+            this.clearModalForm()
+            this.$bvModal.hide('modal-center')
+            this.submitloader = false
           })
-          .catch((error) => {
-            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-            this.submitloader = false;
-          });
+          .catch(error => {
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+            this.submitloader = false
+          })
       } else {
-        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
-        this.submitloader = false;
+        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
+        this.submitloader = false
       }
     },
-    clearModalForm() {
-      this.newpassword = "";
-      this.confirmpassword = "";
-      this.oldpassword = "";
+    clearModalForm () {
+      this.newpassword = ''
+      this.confirmpassword = ''
+      this.oldpassword = ''
     },
-    reset() {
-      this.submitloader = true;
+    reset () {
+      this.submitloader = true
       // if (this.email) {
       //   this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
       //   this.submitloader = false;
@@ -1241,40 +1247,40 @@ export default {
       // }
 
       this.$apiService
-        .postCall("forget-password", { email: this.form.email })
-        .then((res) => {
+        .postCall('forget-password', { email: this.form.email })
+        .then(res => {
           if (res.error) {
-            this.notFound = true;
-            this.$toaster.makeToast("warning", message.NOT_FOUND);
-            this.submitloader = false;
+            this.notFound = true
+            this.$toaster.makeToast('warning', message.NOT_FOUND)
+            this.submitloader = false
           } else {
             this.$toaster.makeToast(
-              "success",
+              'success',
               message.EMAIL_VERIFICATION_MESSAGE
-            );
-            this.notFound = false;
-            this.submitloader = false;
-            this.$bvModal.hide("modal-center");
+            )
+            this.notFound = false
+            this.submitloader = false
+            this.$bvModal.hide('modal-center')
             setTimeout(() => {
-              this.$router.push("/app/sessions/signIn");
-            }, 3000);
+              this.$router.push('/app/sessions/signIn')
+            }, 3000)
           }
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.submitloader = false;
-          console.log(error);
-        });
-    },
-  },
-};
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.submitloader = false
+          console.log(error)
+        })
+    }
+  }
+}
 </script>
 <style scoped>
 #logo {
-  /* max-width: 20.66667%;
-  min-width: 25.66667%; */
-  /* max-height: 10rem; */
-  /* min-height: 10rem; */
+  max-width: 20.66667%;
+  min-width: 25.66667%;
+  max-height: 10rem;
+  min-height: 10rem;
 }
 
 /* #doc {
@@ -1287,8 +1293,8 @@ export default {
 #loader {
   top: 50%;
   left: 50%;
-  position: fixed;
-  z-index: 10;
+  position: absolute;
+  z-index: 100;
 }
 
 .for-border {
@@ -1353,12 +1359,12 @@ export default {
 }
 
 img {
-    max-width: 26%;
-    border-radius: 8px;
+  max-width: 26%;
+  border-radius: 8px;
 }
 
 .w-59 {
-    width: 59% !important;
+  width: 59% !important;
 }
 
 /* Style for the container to improve readability and appearance */
