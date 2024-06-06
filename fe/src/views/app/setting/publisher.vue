@@ -74,8 +74,8 @@
               required
               placeholder="Contact number"
               style="height: 34px"
-              type="text"
-              @keydown="checkLength"
+              type="number"
+      @keydown="checkLengthPhone"
               id="input-contact-number"
             ></b-form-input>
           </b-form-group>
@@ -90,8 +90,8 @@
               required
               placeholder="Agency center code"
               style="height: 34px"
-              type="text"
-              @keydown="checkLengthCode"
+              type="number"
+      @keydown="checkLengthPhone2"
               id="input-agency-center-code"
             ></b-form-input>
           </b-form-group>
@@ -152,9 +152,34 @@
         Edit publisher
       </label>
       <b-row class="px-3">
+
         <b-col md="12">
-          <b-form-group label="Enter publisher name" label-for="input-title">
-            <b-form-textarea
+          <b-form-group label="First Name" label-for="input-first-name">
+            <b-form-input
+              v-model="getFirstName"
+              required
+              placeholder="First name"
+              style="height: 34px"
+              type="text"
+              id="input-first-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Last Name" label-for="input-last-name">
+            <b-form-input
+              v-model="getLastName"
+              required
+              placeholder="Last name"
+              style="height: 34px"
+              type="text"
+              id="input-last-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <!-- <b-col md="12">
+          <b-form-group label="Name" label-for="input-title">
+            <b-form-input
               disabled
               v-model="getpublisherName"
               required
@@ -162,31 +187,31 @@
               style="height: 34px"
               type="text"
               id="input-name"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
-        </b-col>
+        </b-col> -->
         <b-col md="12">
           <b-form-group label="Contact number" label-for="input-title">
-            <b-form-textarea
+            <b-form-input
               v-model="getphoneNumber"
               required
               placeholder="Phone number"
               style="height: 34px"
               type="number"
               id="input-phoneNumber"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="12">
           <b-form-group label="Agency center code" label-for="input-title">
-            <b-form-textarea
+            <b-form-input
               v-model="getcenterCode"
               required
               placeholder="Agency center code"
               style="height: 34px"
               type="number"
               id="input-agency"
-            ></b-form-textarea>
+            ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="6">
@@ -248,6 +273,7 @@
         </b-col>
       </b-row>
     </b-modal>
+    
     <b-modal
       id="modal-cancelReason"
       size="md"
@@ -496,20 +522,17 @@
                   </div>
                 </div>
               </span>
-              <span v-else-if="props.column.field === 'reason_show'">
-                <div v-if="props.row.reason">{{ props.row.reason }}</div>
-                <div v-else>......</div>
-              </span>
+       
+              <span v-else-if="props.column.field === 'reason'">
+              <div>{{ props.row.reason }}</div>
+           
+            </span>
               <span v-else-if="props.column.field === 'show_img'">
                 <div>
                   <img
                     :src="props.row.icon"
                     alt=""
-                    :style="{
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '197px'
-                    }"
+                    :style="{ width: '50px', height: '50px', borderRadius: '197px', objectFit:'cover' }"
                   />
                 </div>
               </span>
@@ -591,7 +614,7 @@ export default {
         },
         {
           label: 'Name',
-          field: 'user_name',
+          field: 'first_name',
           filterOptions: {
             enabled: true,
             placeholder: 'User Name'
@@ -623,7 +646,7 @@ export default {
         },
         {
           label: 'Reason',
-          field: 'reason_show',
+          field: 'reason',
           filterOptions: {
             enabled: true,
             placeholder: 'Reason'
@@ -655,7 +678,10 @@ export default {
       contact_number: '',
       agency_center_code: '',
       icon: '',
-      ForDropwDow: []
+      ForDropwDow: [],
+      getFirstName:"",
+      getLastName:""
+
     }
   },
   mounted () {
@@ -701,6 +727,29 @@ export default {
   },
 
   methods: {
+
+    checkLengthPhone (event) {
+      if (this.contact_number.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    checkLengthPhone2 (event) {
+      if (this.agency_center_code.toString().length >= 13 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+
+    checkLengthPhoneEdt (event) {
+      if (this.getphoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    checkLengthPhoneEdit2 (event) {
+      if (this.getcenterCode.toString().length >= 13 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+               
     async fetchUserNames () {
       debugger
       await this.getAllUsers()
@@ -1060,6 +1109,8 @@ export default {
       this.getcenterCode = data.agency_center_code
       this.getphoneNumber = data.contact_number
       this.getpublisherName = data.user_name
+      this.getFirstName = data.first_name
+      this.getLastName = data.last_name
       this.images = data.icon
       this.uplodedImages = data.icon
       console.log(data.icon)
