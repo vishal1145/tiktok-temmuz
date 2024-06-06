@@ -201,7 +201,7 @@
             <b-col md="6">
               <b-form-group label="First Name" label-for="input-1">
                 <b-form-input
-                  v-model="form.fName"
+                  v-model="userName"
                   type="text"
                   required
                   placeholder="First Name"
@@ -213,7 +213,7 @@
             <b-col md="6">
               <b-form-group label="Last Name" label-for="input-1">
                 <b-form-input
-                  v-model="form.lName"
+                  v-model="surName"
                   type="text"
                   required
                   placeholder="Last Name"
@@ -255,14 +255,14 @@
               <b-button
                 v-if="!updateloader"
                 variant="primary ripple"
-                @click="updateUser()"
+               
                 >Update</b-button
               >
             </b-col>
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Bank Account" class="for-profile">
+      <b-card title="Bank Account" class="for-profile" style=" display:none">
         <b-form>
           <b-row>
             <b-col md="6">
@@ -460,6 +460,8 @@ export default {
       referralLink: '',
       clickOtp: false,
       verified: null,
+      userName: '',
+      surName:'',
       tictocName: '',
       phoneNumber:'',
       isOtp: null,
@@ -520,7 +522,7 @@ export default {
     this.role = localStorage.getItem('role')
     if (this.user_id) {
       // this.isEdit = true;
-      // this.getProfileDetails()
+      this.getProfileDetails()
     }
     // this.getCompanyData();
   },
@@ -554,6 +556,26 @@ export default {
       // Match with regex
       else e.preventDefault() // If not match, don't add to input text
     },
+    getProfileDetails () {
+      this.isLoading = true
+      this.$apiService
+        .getCall(`auth/user/${this.user_id}`)
+        .then(res => {
+          // this.form = res.apidata.data
+          
+
+          this.userName= res.apidata.data.name
+          this.surName = res.apidata.data.surname;
+          this.tictocName = res.apidata.data.tiktok_username;
+          this.phoneNumber= res.apidata.data.contact_number;
+         
+          this.isLoading = false
+        })
+        .catch(error => {
+          this.isLoading = false
+         
+        })
+    },
 
     copyReferralLink () {
       const el = document.createElement('textarea')
@@ -568,12 +590,7 @@ export default {
       this.showMail = true
       this.clearModalForm()
     },
-    clickBookCar () {
-      this.$router.push('/app/sessions/searchCar')
-    },
-    clickAddAmount () {
-      this.$router.push('/app/mydesk/transaction')
-    },
+   
 
     clickOtpVarified () {
       this.clickOtp = true
@@ -1165,32 +1182,7 @@ export default {
         )
       }
     },
-    getCompanyData () {
-      this.isLoading = true
-      this.$apiService
-        .getCall('getCompanyData')
-        .then(res => {
-          this.form = res.apidata.data
-          if (this.form.logo) {
-            this.$apiService
-              .postCall('download', { urlPath: this.form.logo })
-              .then(res => {
-                document.getElementById('logo').src =
-                  'data:image/jpeg;base64,' + res.apidata.fileData
-                this.isLoading = false
-              })
-              .catch(error => {
-                this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-                this.isLoading = false
-              })
-          }
-          this.isLoading = false
-        })
-        .catch(error => {
-          this.isLoading = false
-          console.log(error)
-        })
-    },
+    
     // async getCarDetails() {
     //   try {
     //     this.loader = true;
