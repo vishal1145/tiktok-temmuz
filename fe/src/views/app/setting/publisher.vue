@@ -16,114 +16,127 @@
         Add Creators
       </label>
       <b-row class="px-3">
-  <b-col md="12"     v-if="role == 'admin'" >
-    <b-form-group label="Select Member" label-for="input-title">
-      <b-form-select v-model="selectedUserId" :options="userNames" required placeholder="Select User Name" id="input-name">
-      </b-form-select>
-    </b-form-group>
-  </b-col>
-  <b-col md="12">
-    <b-form-group label="First Name" label-for="input-first-name">
-      <b-form-input
-        v-model="first_name"
-        required
-        placeholder="First name"
-        style="height: 34px"
-        type="text"
-        id="input-first-name"
-      ></b-form-input>
-    </b-form-group>
-  </b-col>
-  <b-col md="12">
-    <b-form-group label="Last Name" label-for="input-last-name">
-      <b-form-input
-        v-model="last_name"
-        required
-        placeholder="Last name"
-        style="height: 34px"
-        type="text"
-        id="input-last-name"
-      ></b-form-input>
-    </b-form-group>
-  </b-col>
-  <b-col md="12">
-    <b-form-group label="TikTok Username" label-for="input-tiktok-username">
-      <b-form-input
-        v-model="tiktok_username"
-        required
-        placeholder="TikTok username"
-        style="height: 34px"
-        type="text"
-        id="input-tiktok-username"
-      ></b-form-input>
-    </b-form-group>
-  </b-col>
-  <b-col md="12">
-    <b-form-group label="Contact Number" label-for="input-contact-number">
-      <b-form-input
-        v-model="contact_number"
-        required
-        placeholder="Contact number"
-        style="height: 34px"
-        type="text"
-        @keydown="checkLength"
-        id="input-contact-number"
-      ></b-form-input>
-    </b-form-group>
-  </b-col>
-  <b-col md="12">
-    <b-form-group label="Agency Center Code" label-for="input-agency-center-code">
-      <b-form-input
-        v-model="agency_center_code"
-        required
-        placeholder="Agency center code"
-        style="height: 34px"
-        type="text"
-        @keydown="checkLengthCode"
-        id="input-agency-center-code"
-      ></b-form-input>
-    </b-form-group>
-  </b-col>
-  <b-col md="6">
-    <b-form-group label="Select Images" label-for="input-images">
-      <b-form-file
-        v-model="images"
-        @input="handleImageSelection"
-        placeholder="Choose files or drop them here"
-        drop-placeholder="Drop files here..."
-        accept=".png,.jpg,.jpeg"
-      ></b-form-file>
-    </b-form-group>
-  </b-col>
-  <b-col md="6" class="justify-content-end d-flex align-items-center">
-    <img
-      v-if="uplodedImages"
-      :src="uplodedImages"
-      alt=""
-      class="img-fluid"
-      height="50"
-      width="50"
-    />
-  </b-col>
-  <b-col>
-    <div class="d-flex justify-content-end">
-      <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
-        Close
-      </b-button>
-      <b-button
-        v-if="!imgLoader"
-        class="mb-2"
-        variant="primary ripple"
-        @click="addPublisher()"
-      >
-        Add
-      </b-button>
-      <div class="spinner spinner-primary imgloader" v-if="imgLoader"></div>
-    </div>
-  </b-col>
-</b-row>
-
-
+        <b-col md="12" v-if="role == 'admin'">
+          <b-form-group label="Select Member" label-for="input-title">
+            <b-form-select
+              v-model="selectedUserId"
+              :options="userNames"
+              required
+              placeholder="Select User Name"
+              id="input-name"
+            >
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="First Name" label-for="input-first-name">
+            <b-form-input
+              v-model="first_name"
+              required
+              placeholder="First name"
+              style="height: 34px"
+              type="text"
+              id="input-first-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Last Name" label-for="input-last-name">
+            <b-form-input
+              v-model="last_name"
+              required
+              placeholder="Last name"
+              style="height: 34px"
+              type="text"
+              id="input-last-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group
+            label="TikTok Username"
+            label-for="input-tiktok-username"
+          >
+            <b-form-input
+              v-model="tiktok_username"
+              required
+              placeholder="TikTok username"
+              style="height: 34px"
+              type="text"
+              id="input-tiktok-username"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Contact Number" label-for="input-contact-number">
+            <b-form-input
+              v-model="contact_number"
+              required
+              placeholder="Contact number"
+              style="height: 34px"
+              type="text"
+              @keydown="checkLength"
+              id="input-contact-number"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group
+            label="Agency Center Code"
+            label-for="input-agency-center-code"
+          >
+            <b-form-input
+              v-model="agency_center_code"
+              required
+              placeholder="Agency center code"
+              style="height: 34px"
+              type="text"
+              @keydown="checkLengthCode"
+              id="input-agency-center-code"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="6">
+          <b-form-group label="Select Images" label-for="input-images">
+            <b-form-file
+              v-model="images"
+              @input="handleImageSelection"
+              placeholder="Choose files or drop them here"
+              drop-placeholder="Drop files here..."
+              accept=".png,.jpg,.jpeg"
+            ></b-form-file>
+          </b-form-group>
+        </b-col>
+        <b-col md="6" class="justify-content-end d-flex align-items-center">
+          <img
+            v-if="uplodedImages"
+            :src="uplodedImages"
+            alt=""
+            class="img-fluid"
+            height="50"
+            width="50"
+          />
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
+              Close
+            </b-button>
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2"
+              variant="primary ripple"
+              @click="addPublisher()"
+            >
+              Add
+            </b-button>
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
+          </div>
+        </b-col>
+      </b-row>
     </b-modal>
     <b-modal
       v-model="showAddModalEdit"
@@ -187,7 +200,10 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center py-2">
+        <b-col
+          md="6"
+          class="justify-content-end d-flex align-items-center py-2"
+        >
           <img
             :src="this.uplodedImages"
             alt=""
@@ -277,100 +293,99 @@
     </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
-    <div class="d-flex flex-column gap-5" style="gap: 13px;">
-     
-
-      <div class="card ">
-          <div
-            class="card-header d-flex flex-row justify-content-between "
-            style="
-   
-    background-color: white;
-"
+    <div class="d-flex flex-column gap-5" style="gap: 13px">
+      <div class="card">
+        <div
+          class="card-header d-flex flex-row justify-content-between"
+          style="background-color: white"
+        >
+          <h4
+            class="card-title"
+            style="margin: 0px; background-color: white; color: #000000c4"
           >
-            <h4
-              class="card-title"
-              style="margin: 0px;background-color: white;color: #000000c4;"
+            Filters
+          </h4>
+          <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+          <div class="heading-elements">
+            <ul
+              class="list-inline mb-0 d-flex flex-row justify-content-around"
+              style="gap: 9px"
             >
-              Filters
-            </h4>
-            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
-            <div class="heading-elements">
-              <ul
-                class="list-inline mb-0 d-flex flex-row justify-content-around"
-                style="
-    gap: 9px;
-"
-              >
-                <li>
-                  <a data-action="collapse pe-auto" @click="toggleFlexDiv"
-                    ><i
-                      class="fa fa-chevron-circle-down"
-                      aria-hidden="true"
-                      style="
-    cursor: pointer;
-"
-                    ></i
-                  ></a>
-                </li>
-                <li>
-                  <a data-action=" pe-auto" @click="clearFilters"
-                    ><i
-                      class="fa fa-refresh"
-                      aria-hidden="true"
-                      style="
-    cursor: pointer;
-"
-                    ></i
-                  ></a>
-                </li>
-                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+              <li>
+                <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                  ><i
+                    class="fa fa-chevron-circle-down"
+                    aria-hidden="true"
+                    style="cursor: pointer"
+                  ></i
+                ></a>
+              </li>
+              <li>
+                <a data-action=" pe-auto" @click="clearFilters"
+                  ><i
+                    class="fa fa-refresh"
+                    aria-hidden="true"
+                    style="cursor: pointer"
+                  ></i
+                ></a>
+              </li>
+              <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
     cursor: pointer;
 "></i></a></li> -->
-              </ul>
-            </div>
+            </ul>
           </div>
+        </div>
+        <div
+          class="d-flex flex-row card-body flex-wrap"
+          :style="{ display: flexDivDisplay }"
+        >
           <div
-            class="d-flex flex-row card-body flex-wrap"
-            :style="{ display: flexDivDisplay }"
+            class="col-12 col-sm-6 col-lg-3"
+            style="padding-right: 0px; padding-left: 0px"
           >
-            <div class="col-12 col-sm-6 col-lg-3" style="
-    padding-right: 0px;
-    padding-left: 0px;
-">
-              <label for="users-list-search">Search</label>
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="users-list-search"
-                  placeholder="Search..."
-                  style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
-                  v-model="searchTerm"
-                  @input="onSearchTermChange"
-                />
-              </fieldset>
-            </div>
+            <label for="users-list-search">Search</label>
+            <fieldset class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="users-list-search"
+                placeholder="Search..."
+                style="
+                  color: grey;
+                  padding-bottom: 7px;
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchTerm"
+                @input="onSearchTermChange"
+              />
+            </fieldset>
+          </div>
 
-            <div class="col-12 col-sm-6 col-lg-3 paddingzero" >
-              <label for="users-list-verified">Action</label>
-              <fieldset class="form-group">
-                <select
-                  class="form-control "
-                  id="users-list-verified"
-                  style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
-                  v-model="filterStatus"
-                  @change="onStatusChange"
-                >
-                  <option value="">All</option>
-                  <option value="Approved">Approved</option>
-                  <option value="Rejected">Rejected</option>
-                  <option value="Under Review">Under Review</option>
-                </select>
-              </fieldset>
-            </div>
+          <div class="col-12 col-sm-6 col-lg-3 paddingzero">
+            <label for="users-list-verified">Action</label>
+            <fieldset class="form-group">
+              <select
+                class="form-control"
+                id="users-list-verified"
+                style="
+                  color: grey;
+                  padding-bottom: 7px;
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="filterStatus"
+                @change="onStatusChange"
+              >
+                <option value="">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Under Review">Under Review</option>
+              </select>
+            </fieldset>
+          </div>
 
-            <!-- <div class="col-12 col-sm-6 col-lg-3">
+          <!-- <div class="col-12 col-sm-6 col-lg-3">
     <button
       class="btn btn-primary mt-4"
       @click="clearFilters"
@@ -379,143 +394,143 @@
       Clear Filters
     </button>
   </div> -->
-          </div>
         </div>
-      <div
-        class="d-flex flex-column gap-5 card"
-        style="
-    gap: 13px;
-"
-      >
-     
-
-        
-            <div
-            class="card-header d-flex flex-row justify-content-between"
-            style="background-color: white;
-"
+      </div>
+      <div class="d-flex flex-column gap-5 card" style="gap: 13px">
+        <div
+          class="card-header d-flex flex-row justify-content-between"
+          style="background-color: white"
+        >
+          <h4
+            class="card-title"
+            style="margin: 0px; background-color: white; color: #000000c4"
           >
-            <h4
-              class="card-title"
-              style="margin: 0px;background-color: white;color: #000000c4;"
+            Creators
+          </h4>
+          <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+          <div class="heading-elements">
+            <ul
+              class="list-inline mb-0 d-flex flex-row justify-content-around"
+              style="gap: 9px"
             >
-              Creators
-            </h4>
-            <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
-            <div class="heading-elements">
-              <ul
-                class="list-inline mb-0 d-flex flex-row justify-content-around"
-                style="gap: 9px;"
-              >
               <button
-         
-        @click="showAddModal = true"
-        class="btn btn-primary mb-3"
-        style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
-      >
-        Add New
-      </button>
-                <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+                @click="showAddModal = true"
+                class="btn btn-primary mb-3"
+                style="
+                  padding-top: 2px;
+                  padding-bottom: 2px;
+                  background: white;
+                  color: #000000a8;
+                  border: 1px solid gray;
+                "
+              >
+                Add New
+              </button>
+              <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
     cursor: pointer;
 "></i></a></li> -->
-              </ul>
-            </div>
+            </ul>
           </div>
-          <div class="card-body">
-                  <vue-good-table
-          :columns="columns"
-          :line-numbers="false"
-          :pagination-options="paginationOptions"
-          styleClass="tableOne vgt-table"
-          :rows="filteredFaqs"
-          
-        >
-          <template slot="table-row" slot-scope="props">
-            <span v-if="props.column.field === 'actions'">
-              <div
-                v-if="
-                role == 'user'
-              "
-              >
-                <span @click="clickEdit(props.row)" class="btn p-0"
-                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
-                ></span>
-
-                <span @click="clickDelete(props.row)" class="btn pl-3"
-                  ><i class="fa fa-trash" aria-hidden="true"></i
-                ></span>
-              </div>
-
-              <div
-                class="d-flex"
-                v-else-if="
-                role == 'user' &&
-                props.row.status != 'Approved' &&
-                props.row.status != 'Rejected'
-              "
-              >
+        </div>
+        <div class="card-body">
+          <vue-good-table
+            :columns="columns"
+            :line-numbers="false"
+            :pagination-options="paginationOptions"
+            styleClass="tableOne vgt-table"
+            :rows="filteredFaqs"
+          >
+            <template slot="table-row" slot-scope="props">
+              <span v-if="props.column.field === 'actions'">
                 <div
-                  class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
-                  @click="clickAccept(props.row._id)"
+                  v-if="
+                    role == 'user' &&
+                    props.row.status != 'Approved' &&
+                    props.row.status != 'Rejected'
+                  "
                 >
-                  Approve
-                </div>
-                <div
-                  class="badge badge-danger border bg-danger text-white ul-cursor--pointer p-2"
-                  @click="clickReject(props.row._id)"
-                >
-                  Reject
+                  <span @click="clickEdit(props.row)" class="btn p-0"
+                    ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                  ></span>
+
+                  <span @click="clickDelete(props.row)" class="btn pl-3"
+                    ><i class="fa fa-trash" aria-hidden="true"></i
+                  ></span>
                 </div>
 
-                <!-- <div v-else>
+                <div
+                  class="d-flex"
+                  v-else-if="
+                    role == 'admin' &&
+                    props.row.status != 'Approved' &&
+                    props.row.status != 'Rejected'
+                  "
+                >
+                  <div
+                    class="badge border mr-2 bg-success text-white ul-cursor--pointer p-2"
+                    @click="clickAccept(props.row._id)"
+                  >
+                    Approve
+                  </div>
+                  <div
+                    class="badge border bg-danger text-white ul-cursor--pointer p-2"
+                    @click="clickReject(props.row._id)"
+                  >
+                    Reject
+                  </div>
+
+                  <!-- <div v-else>
                 <span class="badge badge-warning ">{{ props.row.status }}</span>
               </div> -->
-              </div>
-              <div>
-                <div v-if="props.row.status === 'Approved'">
-                  <span class="badge badge-success">{{
-                    props.row.status
-                  }}</span>
                 </div>
-                <div v-else-if="props.row.status === 'Rejected'">
-                  <span class="badge badge-danger">{{ props.row.status }}</span>
+                <div>
+                  <div v-if="props.row.status === 'Approved'">
+                    <span class="badge badge-success">{{
+                      props.row.status
+                    }}</span>
+                  </div>
+                  <div v-else-if="props.row.status === 'Rejected'">
+                    <span class="badge badge-danger">{{
+                      props.row.status
+                    }}</span>
+                  </div>
                 </div>
-              </div>
-            </span>
-            <span v-else-if="props.column.field === 'reason_show'">
-              <div v-if="props.row.reason">{{ props.row.reason }}</div>
-              <div v-else>......</div>
-            </span>
-            <span v-else-if="props.column.field === 'show_img'">
-              <div>
-                <img
-                  :src="props.row.icon"
-                  alt=""
-                  :style="{ width: '50px', height: '50px', borderRadius: '197px' }"
-                />
-              </div>
-            </span>
+              </span>
+              <span v-else-if="props.column.field === 'reason_show'">
+                <div v-if="props.row.reason">{{ props.row.reason }}</div>
+                <div v-else>......</div>
+              </span>
+              <span v-else-if="props.column.field === 'show_img'">
+                <div>
+                  <img
+                    :src="props.row.icon"
+                    alt=""
+                    :style="{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '197px'
+                    }"
+                  />
+                </div>
+              </span>
 
-            <span v-else-if="props.column.field === 'user_name'">
-              <div>
-                <div>{{ props.row.first_name }}&nbsp;  {{ props.row.last_name }}</div>
-              </div>
-            </span>
+              <span v-else-if="props.column.field === 'user_name'">
+                <div>
+                  <div>
+                    {{ props.row.first_name }}&nbsp; {{ props.row.last_name }}
+                  </div>
+                </div>
+              </span>
 
-            <span v-else-if="props.column.field === 'tiktok_username'">
-              <div>
-                <div>{{ props.row.tiktok_username }}</div>
-              </div>
-            </span>
+              <span v-else-if="props.column.field === 'tiktok_username'">
+                <div>
+                  <div>{{ props.row.tiktok_username }}</div>
+                </div>
+              </span>
+            </template>
+          </vue-good-table>
+        </div>
 
-            
-          </template>
-        </vue-good-table>
-          </div>
-
-     
-
-  
         <!-- <div v-if="loader" class="loader">No data is available</div> -->
       </div>
     </div>
@@ -524,11 +539,10 @@
 </template>
 
 <script>
-
 export default {
-  data() {
+  data () {
     return {
-      rows:[],
+      rows: [],
       selectedUserName: null,
       getphoneNumber: '',
       getcenterCode: '',
@@ -536,7 +550,7 @@ export default {
       uplodedImages: '',
       imgLoader: false,
       userNames: [],
-      flexDivDisplay: "flex!important",
+      flexDivDisplay: 'flex!important',
       filteredFaqs: [],
       searchTerm: '',
       filterStatus: '',
@@ -573,52 +587,47 @@ export default {
         {
           label: 'Icons',
           field: 'show_img',
-          sortable: false,
-
-       
-          
+          sortable: false
         },
         {
           label: 'Name',
           field: 'user_name',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name',
-          },
-          
+            placeholder: 'User Name'
+          }
         },
         {
           label: 'TikTok Name',
           field: 'tiktok_username',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name',
-          },
-          
+            placeholder: 'User Name'
+          }
         },
         {
           label: 'Contact number',
           field: 'contact_number',
           filterOptions: {
             enabled: true,
-            placeholder: 'Contact Number',
-          },
+            placeholder: 'Contact Number'
+          }
         },
         {
           label: 'Agency code',
           field: 'agency_center_code',
           filterOptions: {
             enabled: true,
-            placeholder: 'Agency Code',
-          },
+            placeholder: 'Agency Code'
+          }
         },
         {
           label: 'Reason',
           field: 'reason_show',
           filterOptions: {
             enabled: true,
-            placeholder: 'Reason',
-          },
+            placeholder: 'Reason'
+          }
         },
         {
           label: 'Actions',
@@ -639,42 +648,41 @@ export default {
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
         nextLabel: 'Next', // Custom label for the next button
         prevLabel: 'Previous' // Custom label for the previous button
-      }, 
-      first_name:"",
-    last_name: "",
- tiktok_username: "",
- contact_number:"",
- agency_center_code: "",
- icon:"",
- ForDropwDow:[]
-
+      },
+      first_name: '',
+      last_name: '',
+      tiktok_username: '',
+      contact_number: '',
+      agency_center_code: '',
+      icon: '',
+      ForDropwDow: []
     }
   },
-  mounted() {
-    this.clearFilters();
-    this.filterData();
-    this.addCssRule();
-    this.fetchUserNames();
-    this.getAllUsers();
+  mounted () {
+    this.clearFilters()
+    this.filterData()
+    this.addCssRule()
+    this.fetchUserNames()
+    this.getAllUsers()
 
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },
   computed: {
-    containerClasses() {
+    containerClasses () {
       return {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
     }
   },
-  created() {
-    this.fetchUserNames();
-    this.getAllUsers();
+  created () {
+    this.fetchUserNames()
+    this.getAllUsers()
 
-    this.filterData();
+    this.filterData()
 
-    this.clearFilters();
+    this.clearFilters()
 
     // const accessToken = localStorage.getItem('accesstoken');
     this.user_id = localStorage.getItem('user_id')
@@ -685,109 +693,111 @@ export default {
     this.fetchPublisher()
 
     if (!localStorage.getItem('pageReloaded')) {
-      localStorage.setItem('pageReloaded', 'true');
-      window.location.reload();
+      localStorage.setItem('pageReloaded', 'true')
+      window.location.reload()
     } else {
-     
-      localStorage.removeItem('pageReloaded');
+      localStorage.removeItem('pageReloaded')
     }
-
   },
- 
+
   methods: {
-    async fetchUserNames() {
+    async fetchUserNames () {
       debugger
-      await this.getAllUsers();
+      await this.getAllUsers()
       this.userNames = this.rows.map(row => ({
         value: row._id,
         text: row.name
-      }));
+      }))
     },
-    async getAllUsers() {
+    async getAllUsers () {
       debugger
 
-      this.loader = true;
+      this.loader = true
       try {
-        const response = await this.$apiService.getCall("user/get-all-members");
-        if (response && response.isError === false && response.apidata && response.apidata.data) {
-          const userData = response.apidata.data;
-          this.rows = userData;
-          console.log(userData);
+        const response = await this.$apiService.getCall('user/get-all-members')
+        if (
+          response &&
+          response.isError === false &&
+          response.apidata &&
+          response.apidata.data
+        ) {
+          const userData = response.apidata.data
+          this.rows = userData
+          console.log(userData)
         } else {
-          this.$toaster.makeToast("warning", "Failed to fetch user data");
+          this.$toaster.makeToast('warning', 'Failed to fetch user data')
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
-        this.$toaster.makeToast("error", "Error fetching user data");
+        console.error('Error fetching user data:', error)
+        this.$toaster.makeToast('error', 'Error fetching user data')
       } finally {
-        this.loader = false;
+        this.loader = false
       }
     },
 
-
-
-
-    toggleFlexDiv() {
+    toggleFlexDiv () {
       this.flexDivDisplay =
-        this.flexDivDisplay === "flex!important"
-          ? "none!important"
-          : "flex!important"; // Toggle the display property
+        this.flexDivDisplay === 'flex!important'
+          ? 'none!important'
+          : 'flex!important' // Toggle the display property
     },
-    filterData() {
+    filterData () {
       this.filteredFaqs = this.faqs.filter(faq => {
         // Check search term
         const matchesSearchTerm =
           faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
           faq.contact_number.includes(this.searchTerm) ||
           faq.agency_center_code.includes(this.searchTerm) ||
-          (faq.reason && faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()));
+          (faq.reason &&
+            faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
-        console.log('matchesSearchTerm:', matchesSearchTerm);
+        console.log('matchesSearchTerm:', matchesSearchTerm)
 
         // Check filter status
-        const matchesStatus = this.filterStatus === '' || faq.status === this.filterStatus;
+        const matchesStatus =
+          this.filterStatus === '' || faq.status === this.filterStatus
 
-        console.log('matchesStatus:', matchesStatus);
+        console.log('matchesStatus:', matchesStatus)
 
-        return matchesSearchTerm && matchesStatus;
-      });
+        return matchesSearchTerm && matchesStatus
+      })
     },
 
-    onSearchTermChange(event) {
-      this.searchTerm = event.target.value;
-      this.filterData();
+    onSearchTermChange (event) {
+      this.searchTerm = event.target.value
+      this.filterData()
     },
-    onStatusChange(event) {
-      this.filterStatus = event.target.value;
-      this.filterData();
+    onStatusChange (event) {
+      this.filterStatus = event.target.value
+      this.filterData()
     },
-    clearFilters() {
-      this.searchTerm = '';
-      this.filterStatus = '';
-      this.filterData();
+    clearFilters () {
+      this.searchTerm = ''
+      this.filterStatus = ''
+      this.filterData()
     },
-    onSearchTermChange(event) {
-      this.searchTerm = event.target.value;
-      this.filterData();
+    onSearchTermChange (event) {
+      this.searchTerm = event.target.value
+      this.filterData()
     },
-    onStatusChange(event) {
-      this.filterStatus = event.target.value;
-      this.filterData();
+    onStatusChange (event) {
+      this.filterStatus = event.target.value
+      this.filterData()
     },
-    checkLength(event) {
+    checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    clickCancle() {
+    clickCancle () {
       this.$bvModal.hide('modal-cancelReason')
     },
-    checkLengthCode(event) {
+    checkLengthCode (event) {
       if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    async fetchPublisher() {
+    async fetchPublisher () {
       this.loader = true
       try {
         var url = ''
@@ -812,11 +822,9 @@ export default {
         } else {
           // this.faqs = response.apidata.data;
 
-          this.faqs = response.apidata.data;
+          this.faqs = response.apidata.data
           this.filteredFaqs = this.faqs
           this.ForDropwDow = this.faqs
-
-
 
           // this.faqs = this.faqs.filter(e => e._id == this.user_id)
 
@@ -829,11 +837,13 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    handelUserField() {
-      this.searchUser = this.faqs.filter(user => user.user_name.toLowerCase().includes(this.publisherName.toLowerCase()));
+    handelUserField () {
+      this.searchUser = this.faqs.filter(user =>
+        user.user_name.toLowerCase().includes(this.publisherName.toLowerCase())
+      )
       // console.log(myData);
     },
-    async fetchUser() {
+    async fetchUser () {
       this.loader = true
 
       try {
@@ -852,13 +862,12 @@ export default {
         })
 
         // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
-        console.log(response);
+        console.log(response)
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
           this.loader = false
-          this.getUserName = response.apidata.data.user_name;
-
+          this.getUserName = response.apidata.data.user_name
         }
       } catch (error) {
         this.loader = false
@@ -869,8 +878,8 @@ export default {
         )
       }
     },
-    gethandleImageSelection() { },
-    async handleImageSelection() {
+    gethandleImageSelection () {},
+    async handleImageSelection () {
       this.imgLoader = true
 
       try {
@@ -905,7 +914,7 @@ export default {
       }
     },
 
-    truncateDescription(description) {
+    truncateDescription (description) {
       const words = description.split(' ')
       if (words.length > 13) {
         return words.slice(0, 13).join(' ') + '...'
@@ -914,7 +923,7 @@ export default {
       }
     },
 
-    async clickAccept(id) {
+    async clickAccept (id) {
       try {
         var req = {
           status: 'Approved'
@@ -939,80 +948,79 @@ export default {
         // console.error(error)
       }
     },
-    async clickReject(id) {
+    async clickReject (id) {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
 
-    async addPublisher() {
-  // Check if all required fields are filled
-  if (
-    !this.first_name ||
-    !this.last_name ||
-    !this.tiktok_username ||
-    !this.contact_number ||
-    !this.agency_center_code ||
-    !this.images
-  ) {
-    this.$toaster.makeToast(
-      'warning',
-      'Please fill in all the required fields'
-    );
-    setTimeout(() => (this.errorMessage = ''), 2000);
-    return;
-  }
+    async addPublisher () {
+      // Check if all required fields are filled
+      if (
+        !this.first_name ||
+        !this.last_name ||
+        !this.tiktok_username ||
+        !this.contact_number ||
+        !this.agency_center_code ||
+        !this.images
+      ) {
+        this.$toaster.makeToast(
+          'warning',
+          'Please fill in all the required fields'
+        )
+        setTimeout(() => (this.errorMessage = ''), 2000)
+        return
+      }
 
-  this.loader = true;
-  try {
-  
-    let requestData = {
-      user_id: this.role === 'admin' ?  this.selectedUserId : localStorage.getItem('user_id'),
-      first_name: this.first_name,
-      last_name: this.last_name,
-      tiktok_username: this.tiktok_username,
-      contact_number: this.contact_number,
-      agency_center_code: this.agency_center_code,
-      icon: this.uplodedImages,
-  
-     
-    };
+      this.loader = true
+      try {
+        let requestData = {
+          user_id:
+            this.role === 'admin'
+              ? this.selectedUserId
+              : localStorage.getItem('user_id'),
+          first_name: this.first_name,
+          last_name: this.last_name,
+          tiktok_username: this.tiktok_username,
+          contact_number: this.contact_number,
+          agency_center_code: this.agency_center_code,
+          icon: this.uplodedImages
+        }
 
-    if(this.role === 'admin' ) {
-      requestData.status = 'Approved',
-      requestData.reason ='Added By Admin' 
-    }
-    // Make the API call
-    const res = await this.$apiService.postCall(
-      'publisher/create/',
-      requestData
-    );
+        if (this.role === 'admin') {
+          ;(requestData.status = 'Approved'),
+            (requestData.reason = 'Added By Admin')
+        }
+        // Make the API call
+        const res = await this.$apiService.postCall(
+          'publisher/create/',
+          requestData
+        )
 
-    // Handle the response
-    if (res.error) {
-      this.loader = false;
-      this.$toaster.makeToast('warning', res.message);
-    } else {
-      this.fetchPublisher();
-      this.isEdit = false;
-      this.showAddModal = false;
-      this.loader = false;
-      this.first_name = '';
-      this.last_name = '';
-      this.tiktok_username = '';
-      this.contact_number = '';
-      this.agency_center_code = '';
-      this.icon = null;
-      this.$toaster.makeToast('success', 'Data added successfully');
-    }
-  } catch (error) {
-    this.loader = false;
-    this.$toaster.makeToast('warning', 'Error: Server Error');
-    console.error(error); // Added console log to catch block
-  }
-},
+        // Handle the response
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.fetchPublisher()
+          this.isEdit = false
+          this.showAddModal = false
+          this.loader = false
+          this.first_name = ''
+          this.last_name = ''
+          this.tiktok_username = ''
+          this.contact_number = ''
+          this.agency_center_code = ''
+          this.icon = null
+          this.$toaster.makeToast('success', 'Data added successfully')
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        console.error(error) // Added console log to catch block
+      }
+    },
 
-
-    async editPublisher() {
+    async editPublisher () {
       this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
@@ -1047,7 +1055,7 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    clickEdit(data) {
+    clickEdit (data) {
       this.updateId = data._id
       this.getcenterCode = data.agency_center_code
       this.getphoneNumber = data.contact_number
@@ -1095,7 +1103,7 @@ export default {
     //     // Handle error, such as displaying an error message
     //   }
     // },
-    clickRejectButton() {
+    clickRejectButton () {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
         this.deletePublisher()
       } else {
@@ -1105,7 +1113,7 @@ export default {
         )
       }
     },
-    async deletePublisher() {
+    async deletePublisher () {
       this.loader = true
       try {
         var req = {
@@ -1134,7 +1142,7 @@ export default {
         // console.error(error)
       }
     },
-    async clickDelete(data) {
+    async clickDelete (data) {
       try {
         // Show confirmation dialog
         const result = await this.$swal({
@@ -1175,19 +1183,19 @@ export default {
         console.error('Error deleting FAQ:', error)
       }
     },
-    closeModal() {
+    closeModal () {
       this.isEdit = false
-      this.phoneNumber = '';
-      this.centerCode = '';
-      this.publisherName = '';
-      this.uplodedImages = null;
+      this.phoneNumber = ''
+      this.centerCode = ''
+      this.publisherName = ''
+      this.uplodedImages = null
       this.showAddModal = false // Set showAddModal to false to hide the modal
     },
-    closeModalEdit() {
+    closeModalEdit () {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
     },
 
-    addCssRule() {
+    addCssRule () {
       const style = document.createElement('style')
       style.type = 'text/css'
       const cssRule =
@@ -1276,19 +1284,19 @@ imgloader {
 }
 
 .fa-chevron-circle-down {
-  content: "\f13a";
+  content: '\f13a';
   color: #808080cf;
   width: 20px;
 }
 
 .fa-refresh {
-  content: "\f13a";
+  content: '\f13a';
   color: #808080cf;
   width: 20px;
 }
 
 .fa-times {
-  content: "\f13a";
+  content: '\f13a';
   color: #808080cf;
   width: 20px;
 }
@@ -1299,16 +1307,15 @@ imgloader {
   }
 }
 
-
 .badge-success {
-    color: #10b981;
-    background-color: #ffffff!important; 
-    border: 1px solid #10b981;
+  color: #10b981;
+  background-color: #ffffff !important;
+  border: 1px solid #10b981;
 }
 
 .badge-danger {
-    color: #ef4444;
-     background-color: #fcfbfb!important; 
-    border: 1px solid #ef4444;
+  color: #ef4444;
+  background-color: #fcfbfb !important;
+  border: 1px solid #ef4444;
 }
 </style>
