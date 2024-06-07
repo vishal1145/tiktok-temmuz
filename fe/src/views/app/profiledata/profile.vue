@@ -224,7 +224,7 @@
           </b-row>
           <b-row>
             <b-col md="6 mb-25">
-              <b-form-group label="Tictoc Name" label-for="input-3">
+              <b-form-group label="Tiktok Name" label-for="input-3">
                 <b-form-input
                   v-model="tictocName"
                   type="text"

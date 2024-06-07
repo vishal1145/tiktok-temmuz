@@ -2,78 +2,77 @@
   <div class="main-content">
     <!-- <div class="font-weight-bold fa-2x text-light">Payment Request</div>
     <hr class="mt-1" /> -->
-
     <b-modal
-      v-model="modalVisible"
-      id="modal-add"
-      size="md"
-      title="Add Publisher"
-      style="height: 100px"
-      hide-footer
-      hide-header
-      centered
-
+  v-model="modalVisible"
+  id="modal-add"
+  size="md"
+  title="Create Payment"
+  style="height: auto"
+  hide-footer
+  hide-header
+  centered
+ 
       ref="withdrawModal"
-    >
-
-    <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Withdraw Amount
+>
+<label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Withdraw
       </label>
-      <b-row class="px-3">
-        <b-col md="12">
-          <b-form-group label="Amount" label-for="input-title">
-            <b-form-input
-              v-model="publisherName"
-              required
-              placeholder="Amount"
-              style="height: 34px"
-              type="text"
-              @change="handelUserField"
-              id="input-name"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="12">
-          <b-form-group label="Status" label-for="input-title " class="d-none">
-            <b-form-input
-              v-model="phoneNumber"
-              required
-              placeholder="Status"
-              style="height: 34px d-none"
-              type="number"
-              @keydown="checkLength"
-              id="input-phoneNumber"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col md="12">
-        
-  <b-form-group label="Notes" label-for="input-notes">
-    <b-form-textarea
-      v-model="centerCode"
-      required
-      placeholder="Notes"
-      style="height: 44px"
-      @keydown="checkLengthCode"
-      id="input-notes"
-    ></b-form-textarea>
-  </b-form-group>
+<b-row class="px-3">
+    <b-col md="12" class="d-none">
+      <b-form-group label="User Name" label-for="input-user-name">
+        <b-form-input
+          v-model="userName"
+          required
+          placeholder="User Name"
+          style="height: 34px"
+          type="text"
+          id="input-user-name"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Amount" label-for="input-amount">
+        <b-form-input
+          v-model="amount"
+          required
+          placeholder="Amount"
+          style="height: 34px"
+          type="number"
+          id="input-amount"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Status" label-for="input-status">
+        <b-form-input
+          v-model="status"
+          required
+          placeholder="Status"
+          style="height: 34px"
+          type="text"
+          id="input-status"
+        ></b-form-input>
+      </b-form-group>
+    </b-col>
+    <b-col md="12">
+      <b-form-group label="Notes" label-for="input-notes">
+        <b-form-textarea
+          v-model="notes"
+          required
+          placeholder="Notes"
+          style="height: 44px"
+          id="input-notes"
+        ></b-form-textarea>
+      </b-form-group>
+    </b-col>
+    <b-col md="12" class="pb-3">
+      <div>
+        <button @click="createUser" class="btn btn-primary">Submit</button>
+      </div>
+    </b-col>
+  </b-row>
+</b-modal>
 
-
-        </b-col>
-
-        <b-col md="12" class="pb-3">
-  <div>
-    <button class="btn btn-primary">Submit</button>
-  </div>
-        </b-col>
-
-
-
-     
-      </b-row>
-    
-    </b-modal>
     <!-- <div class="wrapper"> -->
     <b-modal id="modal-lg" size="lg" title="Documents" style="height: 100px">
       <!-- <div style="position: absolute; right: 10px" class="dropdown">
@@ -360,27 +359,31 @@
           </div>
       <div class="card-body">
         <vue-good-table
-          :columns="visibleColumns"
-          :line-numbers="false"
-          :pagination-options="paginationOptions"
-          styleClass="tableOne vgt-table"
-          :rows="filteredFaqs"
-        >
-         
-        <template slot="table-row" slot-scope="props">
-    <div>
-      <!-- For the 'Action' column -->
-      <div class="d-flex flex-row " style="gap:12px;" v-if="isAdmin && props.column.field === 'action'">
-        <button @click="approveRow(props.row)" class="btn btn-primary btn-success">Approve</button>
-        <button @click="unapproveRow(props.row)" class="btn btn-primary btn-danger">Unapprove</button>
-      </div>
-      <!-- If it's not the 'Action' column -->
-      <div v-else>
-        <span v-text="props.formattedRow[props.column.field]"></span>
-      </div>
-    </div>
-  </template>
-        </vue-good-table>
+      :columns="visibleColumns"
+      :line-numbers="false"
+      :pagination-options="paginationOptions"
+      styleClass="tableOne vgt-table"
+      :rows="rows"
+    >
+    <template slot="table-row" slot-scope="props">
+       
+       
+              <span v-if="props.column.field === 'user_name'">
+              <div>{{ props.row.user_name }}</div>
+           
+            </span>
+              <span v-else-if="props.column.field === 'request_date'">
+                <div>{{ props.row.request_date }}</div>
+              </span>
+              <span v-else-if="props.column.field === 'amount'">
+                <div>{{ props.row.amount }}</div>
+              </span>     <span v-else-if="props.column.field === 'notes'">
+                <div>{{ props.row.notes }}</div>
+              </span>     <span v-else-if="props.column.field === 'action'">
+                <div>{{ props.row.action }}</div>
+              </span>    
+            </template>
+    </vue-good-table>
       </div>
     </div>
   </div>
@@ -434,7 +437,7 @@ export default {
         },
         {
           label: "Request Date",
-          field: "Request_Date"
+          field: "request_date" // Correct field name
         },
         {
           label: "Amount",
@@ -456,7 +459,7 @@ export default {
       columnsForRegularUser: [
         {
           label: "Request Date",
-          field: "Request_Date"
+          field: "request_date" // Correct field name
         },
         {
           label: "Amount",
@@ -475,6 +478,7 @@ export default {
           field: "action"
         }
       ],
+    
       rows: [],
       originalRows: [],
       form: {
@@ -493,30 +497,17 @@ export default {
       name: "",
       contact_number: "",
       email: "",
+
+      userName: '', // Initialize userName variable
+      amount: '',
+      status: '',
+      notes: '',
+      loader: false,
+      UserID:"",
     
       
   filteredFaqs: [
-    { "user_name": "John Doe", "Request_Date": "2024-05-01", "amount": 100, "status": "Approved", "notes": "Lorem ipsum", "action": "Approved" },
-    { "user_name": "Alice Smith", "Request_Date": "2024-05-02", "amount": 150, "status": "Rejected", "notes": "Dolor sit amet", "action": "Approved" },
-    { "user_name": "Bob Johnson", "Request_Date": "2024-05-03", "amount": 120, "status": "Approved", "notes": "Consectetur adipiscing elit", "action": "Unapproved" },
-    { "user_name": "Emily Brown", "Request_Date": "2024-05-04", "amount": 200, "status": "Pending", "notes": "Sed do eiusmod tempor incididunt", "action": "Unapproved" },
-    { "user_name": "David Wilson", "Request_Date": "2024-05-05", "amount": 180, "status": "Approved", "notes": "Ut labore et dolore magna aliqua", "action": "Approved" },
-    { "user_name": "Emma Taylor", "Request_Date": "2024-05-06", "amount": 90, "status": "Rejected", "notes": "Ut enim ad minim veniam", "action": "Unapproved" },
-    { "user_name": "James Anderson", "Request_Date": "2024-05-07", "amount": 110, "status": "Approved", "notes": "Quis nostrud exercitation ullamco", "action": "Approved" },
-    { "user_name": "Olivia Martinez", "Request_Date": "2024-05-08", "amount": 130, "status": "Rejected", "notes": "Laboris nisi ut aliquip ex ea commodo", "action": "Approved" },
-    { "user_name": "William Thomas", "Request_Date": "2024-05-09", "amount": 140, "status": "Approved", "notes": "Duis aute irure dolor in reprehenderit", "action": "Unapproved" },
-    { "user_name": "Sophia Garcia", "Request_Date": "2024-05-10", "amount": 160, "status": "Pending", "notes": "Voluptate velit esse cillum dolore", "action": "Approved" },
-    { "user_name": "Alexander Hernandez", "Request_Date": "2024-05-11", "amount": 170, "status": "Approved", "notes": "Eu fugiat nulla pariatur", "action": "Unapproved" },
-    { "user_name": "Mia Lopez", "Request_Date": "2024-05-12", "amount": 190, "status": "Rejected", "notes": "Excepteur sint occaecat cupidatat", "action": "Approved" },
-    { "user_name": "Daniel Perez", "Request_Date": "2024-05-13", "amount": 210, "status": "Approved", "notes": "Non proident, sunt in culpa qui officia", "action": "Approved" },
-    { "user_name": "Isabella Gonzalez", "Request_Date": "2024-05-14", "amount": 220, "status": "Rejected", "notes": "Deserunt mollit anim id est laborum", "action": "Unapproved" },
-    { "user_name": "Benjamin Ramirez", "Request_Date": "2024-05-15", "amount": 230, "status": "Approved", "notes": "Sed ut perspiciatis unde omnis iste", "action": "Approved" },
-    { "user_name": "Charlotte Torres", "Request_Date": "2024-05-16", "amount": 240, "status": "Pending", "notes": "Natus error sit voluptatem accusantium", "action": "Unapproved" },
-    { "user_name": "Michael Flores", "Request_Date": "2024-05-17", "amount": 250, "status": "Approved", "notes": "Doloremque laudantium, totam rem aperiam", "action": "Approved" },
-    { "user_name": "Ava Gonzales", "Request_Date": "2024-05-18", "amount": 260, "status": "Rejected", "notes": "Eaque ipsa quae ab illo inventore", "action": "Unapproved" },
-    { "user_name": "Ethan Hill", "Request_Date": "2024-05-19", "amount": 270, "status": "Approved", "notes": "Veritatis et quasi architecto beatae vitae", "action": "Approved" },
-    { "user_name": "Madison Carter", "Request_Date": "2024-05-20", "amount": 280, "status": "Rejected", "notes": "Nemo enim ipsam voluptatem quia voluptas", "action": "Unapproved" },
-    { "user_name": "Noah Phillips", "Request_Date": "2024-05-21", "amount": 290, "status": "Approved", "notes": "Sit aspernatur aut odit aut fugit", "action": "Approved" }
+  
   ],
 
 
@@ -544,6 +535,7 @@ export default {
     isAdmin() {
       // Retrieve user role from local storage
       const userRole = localStorage.getItem("role");
+      this.UserID = localStorage.getItem("user_id")
       return userRole === "admin";
     },
     visibleColumns() {
@@ -559,6 +551,164 @@ export default {
     this.reloadPageOnce();
   },
   methods: {
+
+    getAllUsers() {
+  debugger;
+  this.loader = true; // Set loader to true to indicate data loading
+  this.UserID = localStorage.getItem("user_id");
+  this.role = localStorage.getItem('role')
+
+  // Define API URL based on role
+  let url = '';
+
+  if (this.role == 'admin') {
+    url = 'transition/payments';
+    this.$apiService
+      .getCall(url)
+      .then(response => {
+        const userData = response.apidata;
+
+        this.rows = userData;
+        console.log(userData);
+        this.$toaster.makeToast("success", "Fetching user data is successful");
+      })
+      .catch(error => {
+        console.error("Error fetching user data:", error);
+        this.$toaster.makeToast("error", "Error fetching user data");
+      })
+      .finally(() => {
+        this.loader = false; // Set loader to false regardless of success or failure
+      });
+  } else {
+    url = 'transition/payment_user';
+    const user = {
+      user_id: this.UserID,
+    };
+    this.$apiService
+      .postCall(url, user)
+      .then(response => {
+        const userData = response.apidata.data;
+        this.rows = userData;
+        console.log(userData);
+        this.$toaster.makeToast("success", "Fetching user data is successful");
+      })
+      .catch(error => {
+        console.error("Error fetching user data:", error);
+        this.$toaster.makeToast("error", "Error fetching user data");
+      })
+      .finally(() => {
+        this.loader = false; // Set loader to false regardless of success or failure
+      });
+  }
+}
+,
+
+// Similarly update other CRUD operation methods
+
+
+
+
+createUser() {
+      this.loader = true; // Set loader to true to indicate data loading
+      const user = {
+        user_id:this.UserID,
+        // user_name: this.userName, // Include userName in the user object
+        amount: this.amount,
+        status: this.status,
+        notes: this.notes,
+        request_date: new Date() ,
+      };
+      // Make API call to create user
+      this.loader = true
+      this.$apiService
+        .postCall("transition/payments", user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
+        .then(response => {
+          if (response && response.isError === false) {
+            this.$toaster.makeToast("success", "User created successfully");
+           this.closeModal12()
+           this.loader = false
+            // Optionally, update UI or perform other actions if needed
+          } else {
+            this.$toaster.makeToast("warning", "Failed to create user");
+          }
+        })
+        .catch(error => {
+          console.error("Error creating user:", error);
+          this.$toaster.makeToast("error", "Error creating user");
+        })
+        .finally(() => {
+          this.loader = false; // Set loader to false regardless of success or failure
+        });
+    },
+deleteUser(userId) {
+  this.loader = true; // Set loader to true to indicate data loading
+
+  // Make API call to delete user by ID
+  this.$apiService
+    .deleteCall(`transition/payments/${userId}`) // Assuming the endpoint for deleting a user by ID is "transition/payments/:id"
+    .then(response => {
+      if (response && response.isError === false) {
+        this.$toaster.makeToast("success", "User deleted successfully");
+        // Optionally, update UI or perform other actions if needed
+      } else {
+        this.$toaster.makeToast("warning", "Failed to delete user");
+      }
+    })
+    .catch(error => {
+      console.error("Error deleting user:", error);
+      this.$toaster.makeToast("error", "Error deleting user");
+    })
+    .finally(() => {
+      this.loader = false; // Set loader to false regardless of success or failure
+    });
+},
+
+getUserById(userId) {
+  this.loader = true; // Set loader to true to indicate data loading
+
+  // Make API call to get user by ID
+  this.$apiService
+    .getCall(`transition/payments/${userId}`) // Assuming the endpoint for getting a user by ID is "transition/payments/:id"
+    .then(response => {
+      if (response && response.isError === false && response.apidata && response.apidata.data) {
+        const user = response.apidata.data;
+        // Optionally, do something with the user data
+      } else {
+        this.$toaster.makeToast("warning", "Failed to fetch user");
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching user:", error);
+      this.$toaster.makeToast("error", "Error fetching user");
+    })
+    .finally(() => {
+      this.loader = false; // Set loader to false regardless of success or failure
+    });
+},
+
+updateUser(userId, updatedUserData) {
+  this.loader = true; // Set loader to true to indicate data loading
+
+  // Make API call to update user by ID
+  this.$apiService
+    .putCall(`transition/payments/${userId}`, updatedUserData) // Assuming the endpoint for updating a user by ID is "transition/payments/:id" and updated user data is passed as the payload
+    .then(response => {
+      if (response && response.isError === false) {
+        this.$toaster.makeToast("success", "User updated successfully");
+        // Optionally, update UI or perform other actions if needed
+      } else {
+        this.$toaster.makeToast("warning", "Failed to update user");
+      }
+    })
+    .catch(error => {
+      console.error("Error updating user:", error);
+      this.$toaster.makeToast("error", "Error updating user");
+    })
+    .finally(() => {
+      this.loader = false; // Set loader to false regardless of success or failure
+    });
+}
+,
 
     openWithdrawModal() {
       this.$refs.withdrawModal.show();
@@ -659,7 +809,7 @@ export default {
     // },
 
     handleChange(user) {
-      debugger;
+      // debugger;
 
       // Filter the rows based on the user_name
       const matchedRows = this.rows.filter(row => row.name === user);
@@ -812,35 +962,64 @@ export default {
     //         });
     //     },
 
-    getAllUsers() {
-      this.loader = true;
-      this.$apiService
-        .getCall("user/get-all-members")
-        .then(response => {
-          // console.log("Response:", response);
-          if (
-            response &&
-            response.isError === false &&
-            response.apidata &&
-            response.apidata.data
-          ) {
-            const userData = response.apidata.data;
-            // console.log("User data:", userData);
-            this.rows = userData;
-            this.allUsers = userData.map(e => e.name);
+    // getAllUsers() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall("transition/payments")
+    //     .then(response => {
+    //       // console.log("Response:", response);
+    //       if (
+    //         response &&
+    //         response.isError === false &&
+    //         response.apidata &&
+    //         response.apidata.data
+    //       ) {
+    //         const userData = response.apidata.data;
+    //         // console.log("User data:", userData);
+    //         this.rows = userData;
+    //         this.allUsers = userData.map(e => e.name);
 
-            //  this.$toaster.makeToast("success", "User data fetched successfully");
-          } else {
-            this.$toaster.makeToast("warning", "Failed to fetch user data");
-          }
-          this.loader = false;
-        })
-        .catch(error => {
-          console.error("Error fetching user data:", error);
-          this.$toaster.makeToast("error", "Error fetching user data");
-          this.loader = false;
-        });
-    },
+    //         //  this.$toaster.makeToast("success", "User data fetched successfully");
+    //       } else {
+    //         this.$toaster.makeToast("warning", "Failed to fetch user data");
+    //       }
+    //       this.loader = false;
+    //     })
+    //     .catch(error => {
+    //       console.error("Error fetching user data:", error);
+    //       this.$toaster.makeToast("error", "Error fetching user data");
+    //       this.loader = false;
+    //     });
+    // },
+    // getAllUsers() {
+    //   this.loader = true;
+    //   this.$apiService
+    //     .getCall("transition/payments")
+    //     .then(response => {
+    //       // console.log("Response:", response);
+    //       if (
+    //         response &&
+    //         response.isError === false &&
+    //         response.apidata &&
+    //         response.apidata.data
+    //       ) {
+    //         const userData = response.apidata.data;
+    //         // console.log("User data:", userData);
+    //         this.rows = userData;
+    //         this.allUsers = userData.map(e => e.name);
+
+    //         //  this.$toaster.makeToast("success", "User data fetched successfully");
+    //       } else {
+    //         this.$toaster.makeToast("warning", "Failed to fetch user data");
+    //       }
+    //       this.loader = false;
+    //     })
+    //     .catch(error => {
+    //       console.error("Error fetching user data:", error);
+    //       this.$toaster.makeToast("error", "Error fetching user data");
+    //       this.loader = false;
+    //     });
+    // },
     generateID() {
       this.clearform();
       this.generateIDloader = true;

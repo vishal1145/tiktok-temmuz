@@ -207,7 +207,8 @@
             <b-form-input
               v-model="getphoneNumber"
               required
-              placeholder="Phone number"
+              placeholder="Contact number"
+                @keydown="checkLengthPhoneEdt"
            style="height: 43px;background-color: white;border: 1px solid #80808038;"
               type="number"
               id="input-phoneNumber"
@@ -549,7 +550,7 @@
                 </div>
               </span>
 
-              <span v-else-if="props.column.field === 'user_name'">
+              <span v-else-if="props.column.field === 'first_name'">
                 <div>
                   <div>
                     {{ props.row.first_name }}&nbsp; {{ props.row.last_name }}
@@ -597,7 +598,6 @@ export default {
       userNames: [],
       flexDivDisplay: 'flex!important',
       filteredFaqs: [],
-      searchTerm: '',
       filterStatus: '',
       faqs: [],
       role: '',
@@ -725,8 +725,6 @@ export default {
     }
   },
   created () {
-    
-
     this.fetchUserNames()
     this.getAllUsers()
 
@@ -754,7 +752,7 @@ export default {
     handleChange(user) {
 
       this.selectedUserId=user._id;
-      debugger;
+
 
       // // Filter the rows based on the user_name
       // const matchedRows = this.rows.filter(row => row.first_name === user);
@@ -788,7 +786,7 @@ export default {
     },
                
     async fetchUserNames () {
-      debugger
+ 
       await this.getAllUsers()
       this.userNames = this.rows.map(row => ({
         value: row._id,
@@ -796,7 +794,7 @@ export default {
       }))
     },
     async getAllUsers () {
-      debugger
+
 
       this.loader = true
       try {
