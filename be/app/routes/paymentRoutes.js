@@ -8,7 +8,7 @@ router.get('/payments/:id', paymentController.getPaymentById);
 router.put('/payments/:id', paymentController.updatePayment);
 router.delete('/payments/:id', paymentController.deletePayment);
 
-router.get("/payment_user", paymentController.getOnlyUser);
+router.post("/payment_user", paymentController.getOnlyUser);
 
 
 
