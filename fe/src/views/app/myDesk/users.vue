@@ -479,7 +479,7 @@
                   >
                   <!-- <button class="outline-primary btn btn-primary">Block</button> -->
                 </div>
-                <!-- <div>
+                <div>
             <span @click="clickEdit(props.row)" class="btn p-0"
                   ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
                 ></span>
@@ -487,7 +487,7 @@
                 <span @click="clickDelete(props.row)" class="btn pl-3"
                   ><i class="fa fa-trash" aria-hidden="true"></i
                 ></span>
-          </div> -->
+          </div> 
               </div>
             </span>
           </template>

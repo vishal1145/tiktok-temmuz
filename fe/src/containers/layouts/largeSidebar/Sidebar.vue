@@ -196,7 +196,7 @@
 
         <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-              :class="{ active: selectedParentMenu == 'uploadFile' }"
+               :class="{ active: isActive('/app/mydesk/uploadFile') }"
             class="nav-item"
             data-item="uploadFile"
             :data-submenu="false"
@@ -208,7 +208,25 @@
             </a>
             <div class="triangle"></div>
           </router-link>
+        </li> 
+<!-- 
+        <li v-if="isAdmin === 'admin' "
+            @mouseenter="toggleSubMenu"
+            :class="{ active: isActive('/app/mydesk/uploadFile') }"
+            class="nav-item"
+            data-item="Setting"
+            :data-submenu="false"
+        >
+          <router-link tag="a" classto="/app/mydesk/uploadFile">
+            <a class="nav-item-hold nav-item"   >
+              <i class="nav-icon i-Data-Transfer"></i>
+
+              <span class="nav-text">{{ $t("Upload") }}</span>
+            </a>
+            <div class="triangle"></div>
+          </router-link>
         </li>
+         -->
 
         <li v-if="isAdmin === 'admin' "
             @mouseenter="toggleSubMenu"

@@ -157,13 +157,30 @@
                     v-if="isShowOtp"
                   >
                     <b-form-group :label="$t('Otp')" class="text-12 pw">
-                      <b-form-input
+                      <!-- <b-form-input
                         class="form-control-rounded pw"
                         type="number"
                         @keydown="checkLengthOtp"
                         v-model="phoneOtp"
                         required
-                      ></b-form-input>
+                      ></b-form-input> -->
+
+
+                      <div>
+
+  <div class="verification-code--inputs d-flex flex-row" style="
+    gap: 20px;
+">
+    <input type="text" maxlength="1"  v-model="phoneOtp1" />
+    <input type="text" maxlength="1"  v-model="phoneOtp2" />
+    <input type="text" maxlength="1"  v-model="phoneOtp3"/>
+    <input type="text" maxlength="1"  v-model="phoneOtp4"/>
+    <input type="text" maxlength="1"  v-model="phoneOtp5"/>
+    <input type="text" maxlength="1"  v-model="phoneOtp6"/>
+  </div>
+  <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
+
+</div>
                     </b-form-group>
                     <div>
                       <b-col md="12 ml-5" v-if="isLoading">
@@ -594,6 +611,12 @@ export default {
       isShowOtp: false,
       isShowPhone: true,
       phoneOtp: '',
+            phoneOtp1: '',
+            phoneOtp2: '',
+            phoneOtp3: '',
+            phoneOtp4: '',
+            phoneOtp5: '',
+            phoneOtp6: '',
       otpVerified: false,
       otpSent: false,
       dateRange: {
@@ -667,7 +690,17 @@ export default {
   },
   created () {},
 
+
+  watch: {
+  concatenatedPhoneOtp: function(newValue) {
+    document.getElementById("verificationCode").value = newValue;
+  }
+},
+
   computed: {
+    concatenatedPhoneOtp: function() {
+    return this.phoneOtp1 + this.phoneOtp2 + this.phoneOtp3 + this.phoneOtp4 + this.phoneOtp5 + this.phoneOtp6;
+  },
     validation () {
       return this.userId.length > 4 && this.userId.length < 13
     },
@@ -836,7 +869,7 @@ export default {
       this.loader = true
       let requestData = {
         contact_number: this.PhoneNumber,
-        otp: this.phoneOtp
+        otp: this.concatenatedPhoneOtp
       }
 
       this.$apiService
@@ -1584,5 +1617,31 @@ img {
   border-color: #007bff; /* Bootstrap primary color, or any color you prefer */
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Optional: add shadow for better visibility */
+}
+
+
+
+
+.verification-code {
+    max-width: 300px;
+    position: relative;
+    margin:50px auto;
+    text-align:center;
+}
+.control-label{
+  display:block;
+  margin:40px auto;
+  font-weight:900;
+}
+.verification-code--inputs input[type=text] {
+    border: 2px solid #e1e1e1;
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 6px;
 }
 </style>

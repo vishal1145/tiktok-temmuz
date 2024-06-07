@@ -176,9 +176,8 @@
                       id="tiktokCode"
                     />
                   </div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between">
+
+                  <div class="d-flex justify-content-between">
                 <div class="mb-3 w-50">
                   <label for="img-btn" class="form-label">Select Image</label>
                   <b-form-group label-for="input-images">
@@ -210,6 +209,9 @@
                   />
                 </b-col>
               </div>
+                </div>
+              </div>
+       
 
               <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" id="agree" />

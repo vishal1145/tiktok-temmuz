@@ -42,7 +42,7 @@
         ></b-form-input>
       </b-form-group>
     </b-col>
-    <b-col md="12">
+    <b-col md="12" class="d-none">
       <b-form-group label="Status" label-for="input-status">
         <b-form-input
           v-model="status"
@@ -67,7 +67,7 @@
     </b-col>
     <b-col md="12" class="pb-3">
       <div>
-        <button @click="createUser" class="btn btn-primary">Submit</button>
+        <button @click="createUser" :disabled="isSubmitting" class="btn btn-primary">Submit</button>
       </div>
     </b-col>
   </b-row>
@@ -372,9 +372,10 @@
               <div>{{ props.row.user_name }}</div>
            
             </span>
-              <span v-else-if="props.column.field === 'request_date'">
-                <div>{{ props.row.request_date }}</div>
-              </span>
+            <span v-else-if="props.column.field === 'request_date'">
+  <div>{{ formatDate(props.row.request_date) }}</div>
+</span>
+
               <span v-else-if="props.column.field === 'amount'">
                 <div>{{ props.row.amount }}</div>
               </span>     <span v-else-if="props.column.field === 'notes'">
@@ -410,6 +411,7 @@ export default {
 
   data() {
     return {
+      isSubmitting: false,
       pageReloaded: false,
       modalVisible: false,
       logo: require("@/assets/images/faces/17.jpg"),
@@ -523,6 +525,7 @@ export default {
   },
 
     computed: {
+      
      getfilterdata() {
       const matchedRows = this.rows.filter(row => row.id == this.use_id);
       if (this.use_id != null) {
@@ -551,9 +554,14 @@ export default {
     this.reloadPageOnce();
   },
   methods: {
+ 
+    formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  },
 
     getAllUsers() {
-  debugger;
+
   this.loader = true; // Set loader to true to indicate data loading
   this.UserID = localStorage.getItem("user_id");
   this.role = localStorage.getItem('role')
@@ -609,6 +617,7 @@ export default {
 
 
 createUser() {
+  this.isSubmitting = true;
       this.loader = true; // Set loader to true to indicate data loading
       const user = {
         user_id:this.UserID,
@@ -624,9 +633,10 @@ createUser() {
         .postCall("transition/payments", user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
         .then(response => {
           if (response && response.isError === false) {
-            this.$toaster.makeToast("success", "User created successfully");
+            this.$toaster.makeToast("success", "Withdraw successfully");
            this.closeModal12()
            this.loader = false
+           this.getAllUsers();
             // Optionally, update UI or perform other actions if needed
           } else {
             this.$toaster.makeToast("warning", "Failed to create user");
@@ -637,7 +647,9 @@ createUser() {
           this.$toaster.makeToast("error", "Error creating user");
         })
         .finally(() => {
-          this.loader = false; // Set loader to false regardless of success or failure
+          this.loader = false;
+  this.isSubmitting = true;
+  // Set loader to false regardless of success or failure
         });
     },
 deleteUser(userId) {
