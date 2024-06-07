@@ -4,8 +4,8 @@ const PaymentSchema = new mongoose.Schema({
   user_name: { type: String },
   request_date: { type: Date, required: true },
   amount: { type: Number, required: true, min: 0 },
-  status: { type: String },
-  notes: { type: String, default: "" },
+  status: { type: String, default: "Pending" },
+  notes: { type: String, default: null },
   action: { type: String },
   user_id: { type: mongoose.Types.ObjectId, ref: "member" },
 

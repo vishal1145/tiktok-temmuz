@@ -50,3 +50,24 @@ exports.isMemberExists = async (body) => {
   const user = await tiktokUsersModel.findOne({ contact_number: body.contact_number });
   return { user };
 }
+
+exports.memberDelete = async (_id) => {
+  const member = await tiktokUsersModel.findById(_id);
+  if(member) {
+    await tiktokUsersModel.findByIdAndDelete(_id);
+  }else{
+    throw new Error('user is not found');
+  }
+}
+
+exports.memberUpdate = async (body) => {
+  console.log("node", body)
+  await tiktokUsersModel.findByIdAndUpdate(body._id, {
+    $set: { 
+      contact_number: body.contact_number,
+      name: body.name,
+      surname: body.surname,
+      tiktok_username: body.tiktok_username
+    },
+  })
+}

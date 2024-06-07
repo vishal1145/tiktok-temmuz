@@ -1,6 +1,8 @@
 const {
   tiktokLogin,
-  isMemberExists
+  isMemberExists,
+  memberDelete,
+  memberUpdate
 } = require("../services/tiktokusers.service");
 const { getToken } = require('../util')
 
@@ -28,5 +30,23 @@ exports.isMemberExists = async (req, res) => {
     }
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+}
+
+exports.memberDelete = async (req, res) => {
+  try {
+    await memberDelete(req.params.id);
+    res.status(200).json({ success: true, msg: 'user deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+} 
+
+exports.memberUpdate = async (req, res) => {
+  try {
+    await memberUpdate(req.body);
+    res.status(200).json({ success: true, msg: 'user updated' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 }
