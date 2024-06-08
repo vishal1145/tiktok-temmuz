@@ -62,49 +62,7 @@
 </b-form-group>
 
 
-                    <!-- <b-form-group
-                      :label="$t('Password')"
-                      class="text-12 pw my-2"
-                    >
-                      <div
-                        class="position-absolute for-eye"
-                        @click="togglePasswordVisibility"
-                      >
-                        <i v-if="showPassword" class="fa fa-eye"></i>
-                        <i v-else class="fa fa-eye-slash"></i>
-                      </div>
-                      <b-form-input
-                        class="form-control-rounded pw"
-                        :type="showPassword ? 'text' : 'password'"
-                        v-model="password"
-                      ></b-form-input>
-                    </b-form-group>
-
-                    <div class="mb-2 d-flex flex-row justify-content-between">
-                      <div class="form-check pw">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="remember-me"
-                        />
-                        <label class="form-check-label ml-1" for="remember-me">
-                          Remember Me
-                        </label>
-                      </div>
-
                       <div>
-                        <div class="mt-3 text-center">
-                          <a
-                            @click="showChild(3)"
-                            style="text-decoration: underline; cursor: pointer"
-                            class="text-primary"
-                          >
-                            {{ $t('Forgot Password') }}
-                          </a>
-                        </div>
-                      </div>
-                    </div> -->
-                    <div>
                       <b-col md="12 ml-5" v-if="isLoading">
                         <div class="spinner spinner-primary ml-5"></div>
                       </b-col>
@@ -119,20 +77,7 @@
                         {{ $t('Send Otp') }}
                       </b-button>
                     </div>
-                    <!-- <div v-once class="typo__p" v-if="loading">
-                      <div class="spinner sm spinner-primary mt-3"></div>
-                    </div>
-
-                    <p class="pw text-center py-2">
-                      New on our platform?
-                      <a
-                        href="#"
-                        @click.prevent="showChild(2)"
-                        class="text-primary text-decoration-underline"
-                      >
-                        {{ $t('Create an account') }}
-                      </a>
-                    </p> -->
+                 
                   </b-form>
 
                   <p class=" pw text-center pt-2 mb-0"    v-if="isShowPhone">
@@ -157,13 +102,7 @@
                     v-if="isShowOtp"
                   >
                     <b-form-group :label="$t('Otp')" class="text-12 pw">
-                      <!-- <b-form-input
-                        class="form-control-rounded pw"
-                        type="number"
-                        @keydown="checkLengthOtp"
-                        v-model="phoneOtp"
-                        required
-                      ></b-form-input> -->
+                    
 
 
                       <div>
@@ -175,8 +114,8 @@
     <input type="text" maxlength="1"  v-model="phoneOtp2" />
     <input type="text" maxlength="1"  v-model="phoneOtp3"/>
     <input type="text" maxlength="1"  v-model="phoneOtp4"/>
-    <input type="text" maxlength="1"  v-model="phoneOtp5"/>
-    <input type="text" maxlength="1"  v-model="phoneOtp6"/>
+    <!-- <input type="text" maxlength="1"  v-model="phoneOtp5"/>
+    <input type="text" maxlength="1"  v-model="phoneOtp6"/> -->
   </div>
   <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
 
@@ -419,13 +358,7 @@
                       {{ $t('Sign Up ') }}
                     </b-button>
                     <div class="mt-3 text-center">
-                      <!-- <a
-                    @click="showChild(1)"
-                    style="text-decoration: underline; cursor: pointer"
-                    class="text-primary"
-                  >
-                    {{ $t('Sign In') }}
-                  </a> -->
+                    
 
                       <p class="pw text-center pb-2">
                         Already have an account?
@@ -825,12 +758,8 @@ export default {
       this.isShowName = false
       this.isShowtikTokUser = true
     },
-    // formSubmittikTokUser () {
-    //   this.isShowtikTokUser = false
-    //   this.isShowGmsVerification = true
-    // },
+    
     formSubmittikTokUser () {
-      // this.isShowGmsVerification = false
 
       this.loader = true
       let requestData = {
@@ -952,42 +881,14 @@ export default {
               this.isShowPhone = false
             }
 
-            // localStorage.setItem('accesstoken', user.apidata.access_token)
-            // localStorage.setItem('role', user.apidata.role)
-            // localStorage.setItem('user_id', user.apidata.user_id)
-
-            // const rememberMeChecked =
-            //   document.getElementById('remember-me').checked
-
-            // const expiryTime = rememberMeChecked
-            //   ? 30 * 24 * 60 * 60 * 1000
-            //   : 1 * 60 * 60 * 1000
-
-            // if (user.apidata.role == 'admin') {
-            //   setTimeout(() => {
-            //     this.$router.push('/app/mydesk/users')
-            //   }, 500)
-            // } else {
-            //   {
-            //     setTimeout(() => {
-            //       this.$router.push('/app/setting/publisher')
-            //     }, 500)
-            //   }
-            // }
-
-            // Set expiry time for the token in cookies
-            // this.setCookie('accesstoken', user.apidata.access_token, expiryTime)
-
-            // setTimeout(() => {
-            //   window.location.reload()
-            // }, 3000)
+          
           }
           this.loader = false
         })
         .catch(function (error) {
           this.loader = false
           this.$toaster.makeToast('warning', 'Error: ServerError')
-          // localStorage.removeItem('userInfo')
+       
           this.$store.commit('setError', { message: error })
         })
     },
@@ -1000,19 +901,17 @@ export default {
     },
 
     signUpSubmit () {
-      // debugger;
+   
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
         this.loader = true
-        // this.$store.commit("setLoading", true);
-        // this.$store.commit("clearError");
+     
         const requestData = {
           role: 'user',
           email: this.email,
           password: this.password,
-          // "first_name": this.fName,
           contact_number: this.phone,
           user_name: this.user_name
         }
@@ -1020,8 +919,6 @@ export default {
         this.$apiService
           .postCall('auth/register', requestData)
           .then(user => {
-            // this.$router.push("signIn");
-            // this.$store.commit("setLoading", false);
             if (!user.error) {
               setTimeout(() => {
                 // this.submitStatus = "OK";
@@ -1047,39 +944,16 @@ export default {
               this.loader = false
               return
             }
-            // else {
-            //   this.$router.push("signIn");
-
-            //   setTimeout(() => {
-            //     this.submitStatus = "OK";
-            //     this.$router.push("signIn");
-            //   }, 2000);
-            //   this.$toaster.makeToast("success", "User successfully registered");
-            //   this.isLoading = false;
-            //   this.alertShow = true;
-            //   return;
-            // }
-
-            // if (requestData) {
-            //   setTimeout(() => {
-            //     this.submitStatus = "OK";
-            //     this.$router.push("/app/sessions/signIn");
-            //   }, 3000);
-            //   this.$toaster.makeToast("success", "User successfully registered");
-            //   this.isLoading = false;
-            // }
-            // this.alertShow = true;
-          })
+              })
           .catch(error => {
             this.loader = false
-            // this.$store.commit("setLoading", false);
+         
             localStorage.removeItem('userInfo')
             this.$store.commit('setError', { message: error })
 
             console.log(error)
           })
-        // this.signUserUp({ email: this.email, password: this.password });
-        // this.submitStatus = "PENDING";
+       
       }
     },
     reset () {
@@ -1154,23 +1028,7 @@ export default {
       this.$bvModal.hide('modal-signUp')
       this.$bvModal.hide('modal-signIn')
     },
-    // clickBookNow (carId, amount) {
-    //   this.carId = carId
-    //   var storedUser = localStorage.getItem('userInfo')
 
-    //   var parsedUser = JSON.parse(storedUser)
-
-    //   if (parsedUser && parsedUser.data && parsedUser.data.id !== null) {
-    //     this.id = parsedUser.data.id
-
-    //     this.$router.push('/app/myDesk/bookCars?id=' + carId)
-    //     // const apiUrl = `carBooking/?userId=${this.id}&amount=${amount}&carId=${carId}&no_of_days=3`;
-
-    //     // window.location.href = this.$apiService.getAppendedUrl(apiUrl);
-    //   } else {
-    //     this.$bvModal.show('modal-signIn')
-    //   }
-    // },
     openPopup () {
       this.$bvModal.show('modal-signIn')
       this.$bvModal.hide('modal-signUp')

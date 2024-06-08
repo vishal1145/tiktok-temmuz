@@ -236,7 +236,7 @@
                         placeholder="Search..."
                         style="color: grey;padding-bottom: 7px;border: 1px solid rgba(128, 128, 128, 0.32) !important;background-color: rgb(135 131 131 / 0%);"
                         v-model="searchTerm"
-                        @input="onSearchTermChange"
+                       
                       />
                     </fieldset>
                   </div>
@@ -369,7 +369,7 @@
        
        
               <span v-if="props.column.field === 'user_name'">
-              <div>{{ props.row.user_name }}</div>
+              <div>{{ props.row.user_id?props.row.user_id.name :'' }} </div>
            
             </span>
             <span v-else-if="props.column.field === 'request_date'">
@@ -380,9 +380,64 @@
                 <div>{{ props.row.amount }}</div>
               </span>     <span v-else-if="props.column.field === 'notes'">
                 <div>{{ props.row.notes }}</div>
-              </span>     <span v-else-if="props.column.field === 'action'">
-                <div>{{ props.row.action }}</div>
               </span>    
+              <span v-else-if="props.column.field === 'action'">
+                <div
+                  v-if="
+                    role == 'user' &&
+                    props.row.status != 'Approved' &&
+                    props.row.status != 'Canceled'
+                  "
+                >
+                 <div
+                    class="badge border mr-2 bg-success text-white ul-cursor--pointer p-2"
+                    @click="clickPaid(props.row._id)"
+                  >
+                    Paid
+                  </div>
+                </div>
+
+                <div
+                  class="d-flex"
+                  v-else-if="
+                    role == 'admin' &&
+                    (props.row.status != 'Approved' &&
+                    props.row.status != 'Paid')
+                  "
+                >
+                  <div
+                    class="badge border mr-2 bg-success text-white ul-cursor--pointer p-2"
+                    @click="clickAccept(props.row._id)"
+                  >
+                    Approve
+                  </div>
+                  <div
+                    class="badge border bg-primary text-white ul-cursor--pointer p-2"
+                    @click="clickPaid(props.row._id)"
+                  >
+                    Paid
+                  </div>
+
+                  <!-- <div v-else>
+                <span class="badge badge-warning ">{{ props.row.status }}</span>
+              </div> -->
+                </div>
+                <div>
+                  <div v-if="props.row.status === 'Approved'">
+                     <div
+                    class="badge border bg-primary text-white ul-cursor--pointer p-2"
+                    @click="clickPaid(props.row._id)"
+                  >
+                    Paid
+                  </div>
+                  </div>
+                  <div v-else-if="props.row.status === 'Paid'">
+                    <span class="badge badge-success">{{
+                      props.row.status
+                    }}</span>
+                  </div>
+                </div>
+              </span>   
             </template>
     </vue-good-table>
       </div>
@@ -475,10 +530,10 @@ export default {
           label: "Notes",
           field: "notes"
         },
-        {
-          label: "Action",
-          field: "action"
-        }
+        // {
+        //   label: "Action",
+        //   field: "action"
+        // }
       ],
     
       rows: [],
@@ -548,7 +603,9 @@ export default {
   created() {
     this.getAllUsers();
     this.getAllTransaction();
-    this.role = parsedUser.data.role;
+     this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
+    // this.role = parsedUser.data.role;
     this.originalRows = [...this.rows];
 
     this.reloadPageOnce();
@@ -558,7 +615,59 @@ export default {
     formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     return new Date(dateString).toLocaleDateString(undefined, options);
-  },
+    },
+    async clickAccept(id) {
+     this.loader = true;
+      try {
+        var req = {
+          status: 'Approved'
+        }
+
+        const res = await this.$apiService.postCall(
+          `transition/update-payment-status/${id}`,
+          req
+        )
+      
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('success', ' Payment status Approved successfully')
+          this.getAllUsers()
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
+    async clickPaid (id) {
+      this.loader = true;
+      try {
+        var req = {
+          status: 'Paid'
+        }
+
+        const res = await this.$apiService.postCall(
+          `transition/update-payment-status/${id}`,
+          req
+        )
+      
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('success', ' Payment status Canceled successfully')
+          this.getAllUsers()
+        }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
+      }
+    },
 
     getAllUsers() {
 
@@ -570,7 +679,7 @@ export default {
   let url = '';
 
   if (this.role == 'admin') {
-    url = 'transition/payments';
+    url = 'user/all-payments';
     this.$apiService
       .getCall(url)
       .then(response => {
@@ -623,7 +732,7 @@ createUser() {
         user_id:this.UserID,
         // user_name: this.userName, // Include userName in the user object
         amount: this.amount,
-        status: this.status,
+        // status: this.status,
         notes: this.notes,
         request_date: new Date() ,
       };

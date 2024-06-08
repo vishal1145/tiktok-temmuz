@@ -65,30 +65,9 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <!-- <b-col md="12">
-          <b-form-group label="TikTok Name" label-for="input-title">
-            <b-form-input
-              v-model="centerCode"
-              required
-              placeholder="TikTok Name"
-              style="height: 34px"
-              type="number"
-              @keydown="checkLengthCode"
-              id="input-agency"
-            ></b-form-input>
-          </b-form-group>
-        </b-col> -->
+      
 
-        <!-- <b-form-group label="" label-for="input-description">
-            <b-form-textarea
-              v-model="description"
-              required
-              placeholder="Description"
-              style="height: 60px"
-              type="text"
-              id="input-description"
-            ></b-form-textarea>
-          </b-form-group> -->
+      
 
         <b-col>
           <div class="d-flex justify-content-end">
@@ -113,136 +92,90 @@
     </b-modal>
 
     <b-modal
-      v-model="modalVisible"
-      id="modal-add"
+      v-model="showEditModal"
+      id="modal-edit"
       size="md"
-      title="Add Publisher"
-      style="height: 100px"
+      
+     
       hide-footer
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">{{
-        isEdit ? 'In Progress' : 'In Progress'
-      }}</label>
+      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Edit Members
+      </label>
       <b-row class="px-3">
-        <!-- <b-form-textarea
-              v-model="description"
+       <b-col md="12">
+          <b-form-group label="Enter name" label-for="input-title">
+            <b-form-input
+              v-model="getuserName"
               required
-              placeholder="Description"
-              style="height: 60px"
+              placeholder="Enter name"
+              style="height: 34px"
               type="text"
-              id="input-description"
-            ></b-form-textarea>
-          </b-form-group> -->
+              id="input-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Enter surname" label-for="input-title">
+            <b-form-input
+              v-model="getuserSurName"
+              required
+              placeholder="Enter surname"
+              style="height: 34px"
+              type="text"
+              id="input-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="TikTok Name" label-for="input-title">
+            <b-form-input
+              v-model="gettikTokUserName"
+              required
+              placeholder="Enter TikTok username"
+              style="height: 34px"
+              type="text"
+              id="input-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="Contact number" label-for="input-title">
+            <b-form-input
+              v-model="getphoneNumber"
+              required
+              placeholder="Phone number"
+              style="height: 34px"
+              type="number"
+              @keydown="checkLength"
+              id="input-phoneNumber"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
 
         <b-col>
           <div class="d-flex justify-content-end">
-            <b-button class="mb-2 mr-2" @click="closeModal12()">Close</b-button>
+           
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeEditModal()"
+              >Close</b-button
+            >
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2"
+              variant="primary ripple"
+              @click="formSubmitEditMember()"
+              >Edit</b-button
+            >
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
           </div>
-        </b-col>
-      </b-row>
-    </b-modal>
-    <!-- <div class="wrapper"> -->
-    <b-modal id="modal-lg" size="lg" title="Documents" style="height: 100px">
-      <!-- <div style="position: absolute; right: 10px" class="dropdown">
-            <i class="fa fa-bars fa-2x" aria-hidden="true">
-              <div class="dropdown-content">
-                <a :href="pdfsrc"
-                  ><span
-                    ><i class="fa fa-download" style="margin-right: 0.3rem"></i
-                    >Download</span
-                  ></a
-                >
-              </div>
-            </i>
+          <!-- <div class="d-flex justify-content-end">
+            <b-button class="mb-2 mr-2" @click="closeEditModal()">Close</b-button>
           </div> -->
-
-      <b-row>
-        <b-col md="6">
-          <h5 style="font-weight: 800; font-size: 18px">Aadhar Card</h5></b-col
-        >
-        <!-- <b-col><b-button @click="clickDownload">download</b-button></b-col> -->
-      </b-row>
-      <b-row class="my-4" v-if="aadharFront">
-        <b-col md="6">
-          <a download :href="aadharFront" title="aadharFront" target="_blank">
-            <img
-              :src="aadharFront"
-              style="max-height: 120px !important; width: auto"
-            />
-          </a>
-        </b-col>
-
-        <b-col md="6">
-          <a download :href="aadharBack" title="aadharBack" target="_blank">
-            <img
-              v-if="aadharBack"
-              :src="aadharBack"
-              style="max-height: 120px !important; width: auto"
-          /></a>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <h5 style="font-weight: 800; font-size: 18px">
-            Driving Licence
-          </h5></b-col
-        >
-      </b-row>
-      <b-row class="my-4" v-if="divinglicense">
-        <b-col md="6">
-          <a
-            download
-            :href="divinglicense"
-            title="divinglicense"
-            target="_blank"
-          >
-            <img
-              v-if="divinglicense"
-              :src="divinglicense"
-              style="max-height: 120px !important; width: auto"
-            />
-          </a>
-        </b-col>
-        <b-col md="6">
-          <a
-            download
-            :href="divinglicenseBack"
-            title="divinglicenseBack"
-            target="_blank"
-          >
-            <img
-              v-if="divinglicenseBack"
-              :src="divinglicenseBack"
-              style="max-height: 120px !important; width: auto"
-            />
-          </a>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <h5 style="font-weight: 800; font-size: 18px">Passport</h5></b-col
-        >
-      </b-row>
-      <b-row class="my-4" v-if="passport">
-        <b-col md="6">
-          <a download :href="passport" title="passport" target="_blank">
-            <img
-              v-if="passport"
-              :src="passport"
-              style="max-height: 120px !important; width: auto"
-            />
-          </a>
-        </b-col>
-        <b-col md="6">
-          <a download :href="passportBack" title="passportBack" target="_blank">
-            <img
-              v-if="passportBack"
-              :src="passportBack"
-              style="max-height: 120px !important; width: auto"
-            />
-          </a>
         </b-col>
       </b-row>
     </b-modal>
@@ -309,9 +242,7 @@
                   ></i
                 ></a>
               </li>
-              <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
-    cursor: pointer;
-"></i></a></li> -->
+             
             </ul>
           </div>
         </div>
@@ -360,24 +291,11 @@
                         <option value="">All</option>
                         <option value="Approved" selected>Block</option>
                         <option value="Rejected">UnBlock</option>
-                        <!-- <option value="Under Review">Under Review</option> -->
+               
                       </select>
                     </fieldset>
                   </div>
 
-                  <!-- <div class="col-12 col-sm-6 col-lg-3">
-                                                <label for="users-list-verified">Verified</label>
-                                                <fieldset class="form-group">
-                                                    <select class="form-control multiselect__tags" id="users-list-verified" style="
-    color: gray;
-    padding-bottom: 7px;
-">
-                                                        <option value="">All</option>
-                                                        <option value="true">Yes</option>
-                                                        <option value="false">No</option>
-                                                    </select>
-                                                </fieldset>
-                                            </div> -->
                 </div>
               </form>
             </div>
@@ -398,20 +316,13 @@
         >
           Members
         </h4>
-        <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+
         <div class="heading-elements">
           <ul
             class="list-inline mb-0 d-flex flex-row justify-content-around"
             style="gap: 9px"
           >
-            <!-- <button
-        v-if="role != 'admin'"
-        @click="showAddModal = true"
-        class="btn btn-primary mb-3"
-        style="padding-top: 2px;padding-bottom: 2px;background: white;color: #000000a8;border: 1px solid gray;"
-      >
-        Add New
-      </button> -->
+     
 
             <b-button
               v-if="role != 'admin'"
@@ -422,9 +333,7 @@
               <span class="ul-btn__text ml-1">Add New</span>
             </b-button>
 
-            <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
-    cursor: pointer;
-"></i></a></li> -->
+         
           </ul>
         </div>
       </div>
@@ -484,7 +393,7 @@
                   ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
                 ></span>
 
-                <span @click="clickDelete(props.row)" class="btn pl-3"
+                <span @click="formSubmitDeleteMember(props.row)" class="btn pl-3"
                   ><i class="fa fa-trash" aria-hidden="true"></i
                 ></span>
           </div> 
@@ -542,7 +451,7 @@ export default {
       filteredRows: [],
       showAddModal: false,
       pageReloaded: false,
-      modalVisible: false,
+      showEditModal: false,
       logo: require('@/assets/images/faces/17.jpg'),
       use_id: null,
       matchUser: '',
@@ -607,6 +516,11 @@ export default {
       userName: '',
       userSurName: '',
       tikTokUserName: '',
+      updateId:null,
+ getphoneNumber:null,
+      getuserName:null,
+      getuserSurName:null,
+      gettikTokUserName:null,
       imgLoader: false,
       generateIDloader: false,
       submitloader: false,
@@ -646,14 +560,83 @@ export default {
       }
     },
 
+    clickEdit(data) {
+      
+       this.updateId = data._id
+      this.getphoneNumber = data.contact_number;
+
+      this.getuserName = data.name;
+      this.getuserSurName = data.surname;
+      this.gettikTokUserName = data.tiktok_username;
+      
+
+      this.showEditModal = true
+    },
+
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
+     formSubmitEditMember () {
+
+      this.imgLoader = true
+      let requestData = {
+        contact_number: this.getphoneNumber,
+        role: 'user',
+        name: this.getuserName,
+        surname: this.getuserSurName,
+        tiktok_username: this.gettikTokUserName,
+        _id:this.updateId,
+      }
+
+      this.$apiService
+        .postCall('auth/member-update', requestData)
+        .then(user => {
+          if (user.error) {
+            this.imgLoader = false
+            this.$toaster.makeToast('warning', user.message)
+          } else {
+            this.imgLoader = false
+            this.$toaster.makeToast('success', 'User Update successfully')
+            this.showEditModal = false
+            this.getAllUsers()
+          }
+        })
+        .catch(function (error) {
+          this.$toaster.makeToast('warning', 'Error: server error')
+          this.imgLoader = false
+
+          this.$store.commit('setError', { message: error })
+        })
+    },
+     formSubmitDeleteMember (data) {
+
+      this.loader = true
+     
+
+      this.$apiService
+        .getCall(`auth/member-delete/${data._id}`)
+        .then(user => {
+          if (user.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', user.message)
+          } else {
+            this.loader = false
+            this.$toaster.makeToast('success', 'User delete successfully')
+            this.showEditModal = false
+            this.getAllUsers();
+          }
+        })
+        .catch(function (error) {
+          this.$toaster.makeToast('warning', 'Error: server error')
+          this.loader = false
+
+          this.$store.commit('setError', { message: error })
+        })
+    },
 
     formSubmitAddMember () {
-      // this.isShowGmsVerification = false
 
       this.imgLoader = true
       let requestData = {
@@ -703,11 +686,11 @@ export default {
     },
     openModal12 () {
       // Set the flag to true to show the modal
-      this.modalVisible = true
+      this.showEditModal = true
     },
-    closeModal12 () {
+    closeEditModal () {
       // Set the flag to false to hide the modal
-      this.modalVisible = false
+      this.showEditModal = false
     },
     openModal (rowData) {
       this.aadharFront = rowData.aadhar_card
@@ -722,149 +705,18 @@ export default {
     vueDocuments (rowData) {
       this.popUpWindow = true
     },
-    // getAllUsers() {
-    //   this.loader = true;
-    //   this.$apiService
-    //     .getCall("account/")
-    //     .then((res) => {
-    //       let rowData = [];
-
-    //       if (res.apidata.length > 0) {
-    //         rowData = res.apidata;
-    //         rowData = res.apidata.filter((value) => !value.is_superuser);
-    //         rowData = res.apidata.filter(
-    //           (value) => value.first_name !== null && value.last_name !== null
-    //         );
-    //         // rowData.forEach((element) => {
-    //         //   element.time = element.time
-    //         //     ? moment(element.time).format("DD/MM/YYYY")
-    //         //     : "";
-    //         // });
-    //         rowData.forEach((value) => {
-    //           // value.date_joined=value.date_joined?moment(value.date_joined).format("DD/MM/YYYY"):"";
-    //           value.full_name =
-    //             value.first_name || value.last_name
-    //               ? value.first_name + " " + value.last_name
-    //               : "";
-    //         });
-    //       }
-    //       this.allUsers = rowData.map((e) => e.full_name);
-    //       this.usersInfo = rowData.map((user) => ({
-    //         id: user.id,
-    //         fullName: user.full_name,
-    //       }));
-
-    //       console.log("jjkkj",rowData)
-    //       this.rows = rowData;
-
-    //       this.loader = false;
-    //     })
-    //     .catch((error) => {
-    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //       this.loader = false;
-    //     });
-    // },
-
-    //     handleChange(user) {
-    //     if (user) { //Ensure user is not null or undefined
-    //         // Assuming `user` is an object with an `id` property
-    //         const userId = user.id; // Extract the ID of the selected option
-    //         this.getAllTransaction(
-    //             this.startDate,
-    //             this.endDate,
-    //             userId, // Pass the user ID to getAllTransaction
-    //             this.selectCar
-    //         );
-    //     }
-    // },
-
+   
     handleChange (user) {
       debugger
 
-      // Filter the rows based on the user_name
       const matchedRows = this.rows.filter(row => row.name === user)
 
-      // Update the rows with the filtered results
       this.rows = matchedRows
 
-      // Log the matched rows to the console
       console.log('Matched Rows:', matchedRows)
     },
 
-    // handleChange(user) {
-    //   console.log(user);
-    //   const use_id1 = this.usersInfo.find((e) => e.user_name == user);
-    //   console.log(use_id1);
-    //   if (use_id1) {
-    //    this.use_id =use_id1.id;
-    //   }
-
-    // },
-
-    //   getAllTransaction(startDate, endDate, uId, carId) {
-    //   this.loader = true;
-    //   let query = ``;
-    //   if (startDate) {
-    //     query = query + `startDate=${startDate}`;
-    //   }
-    //   if (endDate) {
-    //     query = query + `&endDate=${endDate}`;
-    //   }
-    //   if (uId) { // Use uId instead of id
-    //     query += `id=${uId}`; // Append user ID to the query
-    //   }
-    //   if (carId) {
-    //     query = query + `&reg_number=${carId}`;
-    //   }
-    //   this.$apiService
-    //     .getCall(`account/?${query}`)
-    //     .then((res) => {
-    //       let rowData = [];
-
-    //         // if (this.role === "Admin") {
-    //         //   this.allDate = res.apidata.map((e) => e.time);
-    //         //   rowData = res.apidata.filter((value) => value.userId == this.userId);
-    //         // } else {
-    //         //   this.allUsers = res.apidata.map((e) => e.full_name);
-    //         //   this.usersInfo = res.apidata.map((user) => ({
-    //         //     id: user.id,
-    //         //     fullName: user.full_name,
-    //         //   }));
-    //         //   rowData = res.apidata;
-    //         // }
-    //         rowData =res.apidata;
-
-    //         rowData.forEach((element) => {
-    //           element.date_joined = element.date_joined
-    //             ? moment(element.date_joined).format("DD MMM YYYY h:mm A")
-    //             : "";
-    //             element.full_name =
-    //             element.first_name || element.last_name
-    //                   ? element.first_name + " " + element.last_name
-    //                   : "";
-    //         });
-    //         this.allUsers = rowData.map((e) => e.full_name);
-    //           this.usersInfo = rowData.map((user) => ({
-    //             id: user.id,
-    //             fullName: user.full_name,
-    //           }));
-
-    //       this.rows = rowData;
-    //       console.log("rowData", rowData);
-
-    //       this.loader = false;
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //       this.loader = false;
-    //     });
-    // },
-    // formatPrice(value) {
-    //   let val = (value / 1).toFixed(0).replace(".", ",");
-    //   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // },
-
+    
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
     },
@@ -897,42 +749,7 @@ export default {
           this.$toaster.makeToast('warning', 'Have Server error')
         })
     },
-    //  getAllUsers() {
-    //       this.loader = true;
-    //       this.$apiService
-    //         .getCall("account/")
-    //         .then((res) => {
-    //           let rowData = [];
-
-    //           if (res.apidata.length > 0) {
-    //             // rowData = res.apidata;
-    //             rowData = res.apidata.filter((value) => !value.is_superuser);
-    //             // rowData.forEach((element) => {
-    //             //   element.time = element.time
-    //             //     ? moment(element.time).format("DD/MM/YYYY")
-    //             //     : "";
-    //             // });
-    //             rowData.forEach((value) => {
-    //               value.date_joined = value.date_joined
-    //                 ? moment(value.date_joined).format("DD/MM/YYYY")
-    //                 : "";
-    //               value.full_name =
-    //                 value.first_name || value.last_name
-    //                   ? value.first_name + " " + value.last_name
-    //                   : "";
-    //             });
-    //           }
-    //           this.rows = rowData;
-
-    //           this.loader = false;
-    //         })
-    //         .catch((error) => {
-    //           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //           this.loader = false;
-    //         });
-    //     },
-
-    getfilterdata () {
+        getfilterdata () {
       if (!this.searchTerm) {
         return this.rows
       }
