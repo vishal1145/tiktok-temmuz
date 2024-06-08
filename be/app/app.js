@@ -72,6 +72,7 @@ app.use("/dashboard", authenticatingUser, require("./routes/dashboard.route"));
 app.use("/transaction", authenticatingUser, require("./routes/transaction.route"));
 
 
-
+const commissionRoutes = require('./routes/commission.route');
+app.use('/commission', commissionRoutes);
 
 module.exports = app;
