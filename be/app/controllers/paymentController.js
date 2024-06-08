@@ -49,13 +49,13 @@ exports.getPaymentById = async (req, res) => {
   }
 };
 
-exports.updatePayment = async (req, res) => {
+exports.updatePaymentStatus = async (req, res) => {
   try {
-    const payment = await paymentService.updatePayment(req.params.id, req.body);
+    const payment = await paymentService.updatePaymentStatus(req.params.id, req.body);
     if (!payment) {
       return res.status(404).json({ message: "Payment not found" });
     }
-    res.status(200).json(payment);
+    res.status(200).json({ success: true, msg: "Payment Status Updated"});
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

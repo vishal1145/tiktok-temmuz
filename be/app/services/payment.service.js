@@ -17,7 +17,7 @@ exports.createPayment = async (paymentData) => {
 };
 
 exports.getPayments = () => {
-    return Payment.find();
+    return Payment.find().populate("user_id");
   };
 
 
@@ -33,20 +33,9 @@ exports.getPaymentById = async (id) => {
   return payment;
 };
 
-exports.updatePayment = async (id, updateData) => {
-  const { user_name, request_date, amount, status, notes, action } = updateData;
-  const payment = await Payment.findByIdAndUpdate(
-    id,
-    {
-      user_name,
-      request_date,
-      amount,
-      status,
-      notes,
-      action,
-    },
-    { new: true }
-  );
+exports.updatePaymentStatus = async (id, updateData) => {
+  const { status } = updateData;
+  const payment = await Payment.findByIdAndUpdate(id,{ status });
   return payment;
 };
 
