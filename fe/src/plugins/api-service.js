@@ -4,10 +4,10 @@ export default {
     let app = new Vue({
       data() {
         return {
-          // apiUrl: 'http://localhost:8000/'
-          // apiUrl: 'https://deliveryapi.algofolks.com/' 
+          // apiUrl: 'http://localhost:4000/'
+        
           apiUrl:'https://tiktok.algofolks.com/'
-          // apiUrl:'https://bew.zoombacars.in/'
+        
           
         };
       },

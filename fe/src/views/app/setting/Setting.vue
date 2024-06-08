@@ -10,23 +10,26 @@
     <hr class="mt-1" />
     <b-row>
       <b-col md="4">
-        <b-form-group label="0-2.000.000 diamonds" label-for="input-firstValue">
+        <b-form-group label="0-2.000.000 diamonds %" label-for="input-firstValue">
           <b-form-input
             v-model="firstValue"
             required
             placeholder="Enter value in %"
-            type="text"
+            type="number"
+           
+             @keydown="validateInput"
             id="input-firstValue"
           ></b-form-input>
         </b-form-group>
       </b-col>
       <b-col md="4">
-        <b-form-group label="2.000.000+ diamonds" label-for="input-secondValue">
+        <b-form-group label="2.000.000+ diamonds %" label-for="input-secondValue">
           <b-form-input
             v-model="secondValue"
             required
             placeholder="Enter value in %"
-            type="text"
+            type="number"
+            @keydown="validateInputSec"
             id="input-secondValue"
           ></b-form-input>
         </b-form-group>
@@ -38,7 +41,7 @@
           variant="primary ripple"
           class="mb-2 btnSmall"
           @click="clickCommission()"
-          >Add commission</b-button
+          >Update</b-button
         >
       </b-col>
     </b-row>
@@ -74,18 +77,63 @@ export default {
         this.theme = 'light_theme'
       }
     },
+    validateInput(event) {
+      const key = event.key;
+      const value = this.firstValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > 100) {
+        event.preventDefault();
+      }
+    },
+    validateInputSec(event) {
+      const key = event.key;
+      const value = this.secondValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > this.firstValue) {
+        event.preventDefault();
+      }
+    },
     getCommissionData () {
       this.loader = true
       this.$apiService
         .getCall('commission/')
         .then(res => {
           if (!res.error) {
-            console.log(res);
-            // const res = this.data.find(item => item._id === this.user_id)
-            // if (res) {
-            //   this.firstValue = res.first_commission
-            //   this.secondValue = res.second_commission
-            // }
+            
+            
+              this.firstValue = res.apidata.first_commission
+              this.secondValue = res.apidata.second_commission
+            
 
             console.log(res)
             this.loader = false
@@ -113,7 +161,7 @@ export default {
           .then(res => {
             if (!res.error) {
               this.$toaster.makeToast('success', 'Commission add successfully')
-              this.$bvModal.hide('modal-asign-driver')
+              this.getCommissionData();
 
               this.loader = false
             } else {
