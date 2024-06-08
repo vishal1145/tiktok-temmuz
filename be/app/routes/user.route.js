@@ -13,6 +13,7 @@ const {
   newEmailUpdate,
   newEmailVerifyOtp,
 } = require("../controllers/user.controller");
+const { getPayments } = require('../controllers/payment.controller');
 
 const { getAllMembersPublishers} = require("../controllers/publisher.controller");
 
@@ -25,5 +26,7 @@ router.post("/update-email-preferences", updateEmailPreferences);
 router.post("/new-email-update", newEmailUpdate);
 router.post("/new-email-verify-otp", newEmailVerifyOtp);
 router.get("/get-all-members-publishers", getAllMembersPublishers);
+router.get('/all-payments', getPayments);
+
 
 module.exports = router;

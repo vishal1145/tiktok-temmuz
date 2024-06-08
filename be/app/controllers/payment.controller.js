@@ -4,7 +4,7 @@ exports.createPayment = async (req, res) => {
   try {
     console.log("cerate payment");
     const payment = await paymentService.createPayment(req.body);
-    res.status(201).json(payment);
+    res.status(200).json({ success: true, msg: "Payment Created"});
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -12,7 +12,7 @@ exports.createPayment = async (req, res) => {
 
 exports.getPayments = async (req, res) => {
   try {
-    const payments = await paymentService.getPayments();
+    const payments = await paymentService.getPayments(req.user._id);
     res.status(200).json(payments);
   } catch (err) {
     res.status(500).json({ message: err.message });
