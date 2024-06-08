@@ -135,7 +135,7 @@ export default {
               this.secondValue = res.apidata.second_commission
             
 
-            console.log(res)
+        
             this.loader = false
           } else {
             this.loader = false

@@ -553,7 +553,7 @@
               <span v-else-if="props.column.field === 'first_name'">
                 <div>
                   <div>
-                    {{ props.row.first_name }}&nbsp; {{ props.row.last_name }}
+                    {{ props.row.first_name }} {{ props.row.last_name }}
                   </div>
                 </div>
               </span>
@@ -761,7 +761,7 @@ export default {
       // this.rows = matchedRows;
 
       // Log the matched rows to the console
-      console.log("Matched Rows:", user);
+      
     },
     checkLengthPhone (event) {
       if (this.contact_number.toString().length >= 10 && event.keyCode !== 8) {
@@ -808,7 +808,7 @@ export default {
           const userData = response.apidata.data
           this.rows = userData
           this.allUsers = userData;
-          console.log(this.allUsers)
+          
         } else {
           this.$toaster.makeToast('warning', 'Failed to fetch user data')
         }
@@ -836,13 +836,13 @@ export default {
           (faq.reason &&
             faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
-        console.log('matchesSearchTerm:', matchesSearchTerm)
+      
 
         // Check filter status
         const matchesStatus =
           this.filterStatus === '' || faq.status === this.filterStatus
 
-        console.log('matchesStatus:', matchesStatus)
+       
 
         return matchesSearchTerm && matchesStatus
       })
@@ -947,7 +947,7 @@ export default {
         })
 
         // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
-        console.log(response)
+    
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
@@ -982,8 +982,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-        // const response = this.$apiService.postCall('util/image/', formData)
-        console.log('Image upload failed', response)
+     
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)
@@ -1018,7 +1017,7 @@ export default {
           `publisher/update-publisher-status/${id}`,
           req
         )
-        console.log(res)
+      
         if (res.error) {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
@@ -1150,7 +1149,7 @@ export default {
       this.getLastName = data.last_name
       this.images = data.icon
       this.uplodedImages = data.icon
-      console.log(data.icon)
+  
 
       this.showAddModalEdit = true
     },
@@ -1213,7 +1212,7 @@ export default {
           `publisher/update-publisher-status/${this.rejectedId}`,
           req
         )
-        console.log(res)
+       
         if (res.error) {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
@@ -1262,8 +1261,7 @@ export default {
           }
         } else {
           this.loader = false
-          // User canceled the deletion, do nothing or show a message
-          console.log('Deletion canceled by user')
+        
         }
       } catch (error) {
         this.$toaster.makeToast('warning', 'Error: Server Error')

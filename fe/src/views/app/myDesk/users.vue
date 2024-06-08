@@ -149,7 +149,7 @@
               placeholder="Phone number"
               style="height: 34px"
               type="number"
-              @keydown="checkLength"
+              @keydown="getcheckLength"
               id="input-phoneNumber"
             ></b-form-input>
           </b-form-group>
@@ -578,6 +578,12 @@ export default {
         event.preventDefault()
       }
     },
+    getcheckLength (event) {
+      if (this.getphoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    
      formSubmitEditMember () {
 
       this.imgLoader = true
@@ -713,7 +719,7 @@ export default {
 
       this.rows = matchedRows
 
-      console.log('Matched Rows:', matchedRows)
+    
     },
 
     

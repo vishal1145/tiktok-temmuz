@@ -302,7 +302,7 @@
                         <label for="users-list-verified">Amount</label>
                         <fieldset class="form-group">
                           <input
-                            type="text"
+                            type="number"
                             class="form-control"
                             id="users-list-amount"
                             placeholder="Search amount"
@@ -809,11 +809,7 @@ export default {
           .then(response => {
             const userData = response.apidata.data
             this.rows = userData
-            console.log(userData)
-            this.$toaster.makeToast(
-              'success',
-              'Fetching user data is successful'
-            )
+           
           })
           .catch(error => {
             console.error('Error fetching user data:', error)
@@ -843,18 +839,20 @@ export default {
         .postCall('transition/payments', user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
         .then(response => {
           if (response && response.isError === false) {
-            this.$toaster.makeToast('success', 'Withdraw successfully')
+            this.$toaster.makeToast('success', 'Payment Request Sent Successfully')
             this.closeModal12()
-            this.loader = false
+            this.loader = false;
+            this.amount = '';
+            this.notes = "";
             this.getAllUsers()
             // Optionally, update UI or perform other actions if needed
           } else {
-            this.$toaster.makeToast('warning', 'Failed to create user')
+            this.$toaster.makeToast('warning', 'Payment Request Sent Fail')
           }
         })
         .catch(error => {
           console.error('Error creating user:', error)
-          this.$toaster.makeToast('error', 'Error creating user')
+          this.$toaster.makeToast('warning', 'Error Server Error')
         })
         .finally(() => {
           this.loader = false
@@ -1043,7 +1041,7 @@ export default {
       this.rows = matchedRows
 
       // Log the matched rows to the console
-      console.log('Matched Rows:', matchedRows)
+     
     },
 
     // handleChange(user) {
