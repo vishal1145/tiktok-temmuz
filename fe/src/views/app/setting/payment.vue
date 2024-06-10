@@ -473,10 +473,8 @@
             </span>
             <span v-else-if="props.column.field === 'status'">
     <div>
-      <div v-if="props.row.status === 'Approved'" class="badge badge-success">Paid</div>
+      <div v-if="props.row.status === 'Paid'" class="badge badge-success">Paid</div>
       <div v-else-if="props.row.status === 'Reject'" class="badge badge-danger">Reject</div>
-      <div v-else-if="props.row.status === 'Pending'" class="badge badge-yellow">Pending</div>
-
       <div v-else>{{ props.row.status }}</div>
     </div>
   </span>
@@ -489,6 +487,7 @@
 </template>
 
 <script>
+
 import moment from 'moment'
 import message from '../../../message'
 import Multiselect from 'vue-multiselect'
@@ -835,10 +834,14 @@ export default {
                   ? value.user_id.name + ' ' + value.user_id.surname
                   : ''
               })
-
               this.rows = paymentData
+      
+              paymentData.forEach((e) => {
+          e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
+        });
             }
-          })
+          })        
+          this.rows = paymentData
           .catch(error => {
             console.error('Error fetching user data:', error)
             this.$toaster.makeToast('error', 'Error fetching payment data')
@@ -870,6 +873,21 @@ export default {
             } else {
               const userData = response.apidata.data
               this.rows = userData
+
+              userData.forEach((e) => {
+          e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
+        });
+        this.rows = userData
+
+
+
+
+
+
+
+
+
+              
               this.loader = false
             }
           })
@@ -1574,11 +1592,4 @@ export default {
   background-color: #ffffff !important;
   border: 1px solid #10b981;
 }
-
-.badge-yellow {
-    color: #f59e0b;
-    background-color: #fcfbfb !important;
-    border: 1px solid #f59e0b;
-}
-
 </style>

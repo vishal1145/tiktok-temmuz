@@ -718,6 +718,7 @@ export default {
       getFirstName:"",
       getLastName:"",
       getTikTok:"",
+      tiktokres:{}
 
     }
   },
@@ -1053,7 +1054,7 @@ export default {
     },
     async addPublisher () {
       // Check if all required fields are filled
-      var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
+      // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
       if (
         !this.first_name ||
         !this.last_name ||
@@ -1069,12 +1070,12 @@ export default {
         setTimeout(() => (this.errorMessage = ''), 2000)
         return
       }
-      if (matchData.length > 0) {
-        this.$toaster.makeToast(
-          'warning',
-          'TikTok Username All Ready exist, Please Try Again'
-        )
-      } else {
+      // if (matchData.length > 0) {
+      //   this.$toaster.makeToast(
+      //     'warning',
+      //     'TikTok Username All Ready exist, Please Try Again'
+      //   )
+      // } else {
          this.loader = true
       try {
         let requestData = {
@@ -1097,10 +1098,16 @@ export default {
           'publisher/create/',
           requestData
         )
+
+        this.tiktokres = res;
+        console.log("res",res)
         // Handle the response
         if (res.error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', res.message)
+          if (this.tiktokres.response.data.message.keyPattern.keyPattern.tiktok_username === 1) {
+    this.$toaster.makeToast('warning', 'TikTok username already exists');
+} else {
+    this.$toaster.makeToast('warning', res.response.data.message.keyPattern.keyPattern.tiktok_username);
+}
         } else {
           this.fetchPublisher();
           this.isEdit = false;
@@ -1116,11 +1123,19 @@ export default {
           this.$toaster.makeToast('success', 'Data added successfully');
         }
       } catch (error) {
+        console.log("eroot",error)
         this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
+        if (this.tiktokres.error.response.data.message.keyPattern.tiktok_username === 1) {
+    this.$toaster.makeToast('warning', 'TikTok username already exists');
+} 
+else
+{
+     this.$toaster.makeToast('warning', 'Error: Server Error')
         console.error(error) // Added console log to catch block
+}
+     
       }
-      }
+      
     },
 
 
