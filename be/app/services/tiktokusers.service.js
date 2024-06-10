@@ -71,3 +71,12 @@ exports.memberUpdate = async (body) => {
     },
   })
 }
+
+exports.memberUpdateProfile = async (body) => {
+  console.log("node", body)
+  await tiktokUsersModel.findByIdAndUpdate(body._id, {
+    $set: { 
+      image: body.image,
+    },
+  })
+}

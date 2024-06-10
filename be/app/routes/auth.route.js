@@ -5,7 +5,7 @@ const router = express.Router()
 
 const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword } = require('../controllers/auth.controller');
 const { validateUserOnRegistration, validateUserOnLogin } = require('../validators/user')
-const { tiktokLogin, isMemberExists, memberDelete, memberUpdate } = require('../controllers/tiktokusers.controller');
+const { tiktokLogin, isMemberExists, memberDelete, memberUpdate, memberUpdateProfile } = require('../controllers/tiktokusers.controller');
 const { verifyRegister, checkEmailExists } = require('../middleware/auth')
 
 // validateUserOnRegistration
@@ -21,8 +21,8 @@ router.get("/user/:id", getUserById);
 
 router.post("/check-member-exists", isMemberExists)
 router.get("/member-delete/:id", memberDelete)
-router.post("/member-update", memberUpdate)
-
+router.post("/member-update", memberUpdate);
+router.post("/member-update-profile", memberUpdateProfile);
 
 
 module.exports = router

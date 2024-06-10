@@ -7,6 +7,7 @@ const memberSchema = new mongoose.Schema({
   name : { type: String },
   surname : { type: String },
   tiktok_username : { type: String },
+  image: { type: String, default: "" }
 })
 
 module.exports = mongoose.model("member", memberSchema);
