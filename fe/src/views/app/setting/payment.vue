@@ -429,7 +429,7 @@
                 "
               >
                 <div
-                  class="badge border mr-2 bg-success text-white ul-cursor--pointer p-2"
+                  class="badge badge-success"
                   @click="clickPaid(props.row._id)"
                 >
                   Paid
@@ -451,7 +451,7 @@
                   Approve
                 </div>
                 <div
-                  class="badge border bg-primary text-white ul-cursor--pointer p-2"
+                  class="badge border bg-danger text-white ul-cursor--pointer p-2"
                   @click="clickPaid(props.row._id)"
                 >
                 Reject
@@ -464,14 +464,14 @@
               <div>
                 <div v-if="props.row.status === 'Approved'">
                   <div
-                    class=" p-1 badge badge-success"
+                    class="  badge badge-success"
                     @click="clickPaid(props.row._id)"
                   >
                     Paid
                   </div>
                 </div>
                 <div v-else-if="props.row.status === 'Reject'">
-                  <span class="badge border bg-primary text-white ul-cursor--pointer p-1">{{
+                  <span class=" badge badge-danger">{{
                     props.row.status
                   }}</span>
                 </div>
@@ -1565,5 +1565,17 @@ export default {
 
 .btn {
   padding: 0.2rem 1.1rem;
+}
+
+
+.badge-danger {
+    color: #ef4444;
+    background-color: #fcfbfb !important;
+    border: 1px solid #ef4444;
+}
+.badge-success {
+    color: #10b981;
+    background-color: #ffffff !important;
+    border: 1px solid #10b981;
 }
 </style>
