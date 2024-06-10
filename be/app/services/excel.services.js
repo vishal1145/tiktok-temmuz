@@ -13,7 +13,7 @@ exports.getCreatorsEarnings = async (_id) => {
     const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
     return data;
   } else {
-    throw new Error("User do not have Creators");
+    return "User do not have Creators";
   }
 
 };
