@@ -16,6 +16,7 @@
             required
             placeholder="Enter value in %"
             type="number"
+            class="form-control"
            style="height: 34px"
               
              @keydown="validateInput"
@@ -31,6 +32,7 @@
             placeholder="Enter value in %"
             type="number"
             style="height: 34px"
+            class="form-control"
             @keydown="validateInputSec"
             id="input-secondValue"
           ></b-form-input>

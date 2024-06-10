@@ -65,9 +65,6 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-      
-
-      
 
         <b-col>
           <div class="d-flex justify-content-end">
@@ -95,8 +92,6 @@
       v-model="showEditModal"
       id="modal-edit"
       size="md"
-      
-     
       hide-footer
       hide-header
       centered
@@ -105,7 +100,7 @@
         Edit Members
       </label>
       <b-row class="px-3">
-       <b-col md="12">
+        <b-col md="12">
           <b-form-group label="Enter name" label-for="input-title">
             <b-form-input
               v-model="getuserName"
@@ -157,8 +152,10 @@
 
         <b-col>
           <div class="d-flex justify-content-end">
-           
-            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeEditModal()"
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2 mr-2"
+              @click="closeEditModal()"
               >Close</b-button
             >
             <b-button
@@ -176,6 +173,53 @@
           <!-- <div class="d-flex justify-content-end">
             <b-button class="mb-2 mr-2" @click="closeEditModal()">Close</b-button>
           </div> -->
+        </b-col>
+      </b-row>
+    </b-modal>
+    <b-modal id="modal-add-rates" size="md" hide-footer hide-header centered>
+      <b-row class="p-3">
+        <b-col md="12">
+          <i
+            class="fa   mb-3"
+            aria-hidden="true"
+          >
+            Default Commission Rates
+          </i>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group label="0-2.000.000 diamonds %" class="text-12">
+            <b-form-input
+              class="form-control"
+              type="text"
+              v-model="firstValue"
+            @keydown="validateInput"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="2.000.000+ diamonds %" class="text-12">
+            <b-form-input
+              class="form-control"
+              type="text"
+              v-model="secondValue"
+            @keydown="validateInputSec"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
+            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button
+              class="mb-2"
+              variant="primary ripple"
+              @click="clickAddButton()"
+              >Add</b-button
+            >
+          </div>
         </b-col>
       </b-row>
     </b-modal>
@@ -242,7 +286,6 @@
                   ></i
                 ></a>
               </li>
-             
             </ul>
           </div>
         </div>
@@ -291,11 +334,9 @@
                         <option value="">All</option>
                         <option value="Approved" selected>Block</option>
                         <option value="Rejected">UnBlock</option>
-               
                       </select>
                     </fieldset>
                   </div>
-
                 </div>
               </form>
             </div>
@@ -322,25 +363,21 @@
             class="list-inline mb-0 d-flex flex-row justify-content-around"
             style="gap: 9px"
           >
-     
-
             <b-button
               v-if="role != 'admin'"
               @click="showAddModal = true"
               variant="primary ripple btn-icon m-1"
               style="
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background: white;
-    color: rgba(0, 0, 0, 0.66);
-    border: 1px solid gray;
-"
+                padding-top: 2px;
+                padding-bottom: 2px;
+                background: white;
+                color: rgba(0, 0, 0, 0.66);
+                border: 1px solid gray;
+              "
             >
               <span class="ul-btn__icon d-none"><i class="i-Gear-2"></i></span>
               <span class="ul-btn__text ml-1">Add New</span>
             </b-button>
-
-         
           </ul>
         </div>
       </div>
@@ -378,32 +415,51 @@
               </div>
             </span>
             <span v-else-if="props.column.field === 'contact_number'">
-              <div class="d-flex flex-column">
-                <div class="d-flex">
+              <div class="d-flex flex-row">
+               
                   {{ props.row.contact_number }}
-                </div>
+               
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
+            </span>
+             <span v-else-if="props.column.field === 'show_commission'">
+             
+                <div class="d-flex" v-if="props.row.first_commission">
+                   {{ props.row.first_commission }} |  {{ props.row.second_commission }} 
+                 
+                </div>
+                
+                
+              
             </span>
             <span v-else-if="props.column.field === 'button'">
               <div class="d-flex flex-row" style="gap: 12px">
                 <div>
-                  <b-button
+                   <b-button
+                  size="sm"
+                  variant="outline-primary ripple m-1 btn-small"
+                  @click="clickAddRates(props.row)"
+                  >Update Rate</b-button
+                >
+                  <!-- <b-button
                     size="sm"
                     variant="outline-primary ripple m-1 btn-small"
                     >Block</b-button
-                  >
-                  <!-- <button class="outline-primary btn btn-primary">Block</button> -->
+                  > -->
+              
                 </div>
                 <div>
-            <span @click="clickEdit(props.row)" class="btn p-0"
-                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
-                ></span>
+                  <span @click="clickEdit(props.row)" class="btn p-0"
+                    ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                  ></span>
 
-                <span @click="formSubmitDeleteMember(props.row)" class="btn pl-3"
-                  ><i class="fa fa-trash" aria-hidden="true"></i
-                ></span>
-          </div> 
+                  <span
+                    @click="formSubmitDeleteMember(props.row)"
+                    class="btn pl-3"
+                    ><i class="fa fa-trash" aria-hidden="true"></i
+                  ></span>
+                </div>
+               
               </div>
             </span>
           </template>
@@ -503,6 +559,13 @@ export default {
             placeholder: 'Search name'
           }
         },
+        {
+          label: 'Commission rate\'s',
+          field: 'show_commission',
+          filterOptions: {
+            enabled: false
+          }
+        },
 
         {
           label: 'Action',
@@ -510,7 +573,8 @@ export default {
           filterOptions: {
             enabled: false
           }
-        }
+        },
+         
       ],
       rows: [],
       originalRows: [],
@@ -523,11 +587,11 @@ export default {
       userName: '',
       userSurName: '',
       tikTokUserName: '',
-      updateId:null,
- getphoneNumber:null,
-      getuserName:null,
-      getuserSurName:null,
-      gettikTokUserName:null,
+      updateId: null,
+      getphoneNumber: null,
+      getuserName: null,
+      getuserSurName: null,
+      gettikTokUserName: null,
       imgLoader: false,
       generateIDloader: false,
       submitloader: false,
@@ -539,16 +603,27 @@ export default {
 
       name: '',
       contact_number: '',
-      email: ''
+      email: '',
+      updateloader:false,
+          secondValue:'',
+          firstValue:'',
+      getUid: '',
+      getfirstValue: '',
+      getsecondValue:''
+          
+
     }
   },
-  created () {
+  created() {
+   
     this.getAllUsers()
     this.getAllTransaction()
+   
     this.role = parsedUser.data.role
     this.originalRows = [...this.rows]
 
-    this.reloadPageOnce()
+    // this.reloadPageOnce();
+ 
   },
   methods: {
     closeModal () {
@@ -567,15 +642,13 @@ export default {
       }
     },
 
-    clickEdit(data) {
-      
-       this.updateId = data._id
-      this.getphoneNumber = data.contact_number;
+    clickEdit (data) {
+      this.updateId = data._id
+      this.getphoneNumber = data.contact_number
 
-      this.getuserName = data.name;
-      this.getuserSurName = data.surname;
-      this.gettikTokUserName = data.tiktok_username;
-      
+      this.getuserName = data.name
+      this.getuserSurName = data.surname
+      this.gettikTokUserName = data.tiktok_username
 
       this.showEditModal = true
     },
@@ -590,9 +663,98 @@ export default {
         event.preventDefault()
       }
     },
+  
+    clickAddRates(data) {
+      this.getUid = data._id;
+      this.firstValue = data.first_commission;
+      this.secondValue = data.second_commission;
+      this.$bvModal.show('modal-add-rates');
+    },
+    clickCancle() {
+        this.$bvModal.hide('modal-add-rates');
+    },
+    clickAddButton() {
     
-     formSubmitEditMember () {
+      if (this.firstValue && this.secondValue) {
+        this.updateloader = true
+        let reqData = {
+          'first_commission': this.firstValue,
+          'second_commission': this.secondValue,
+          '_id': this.getUid
+        }
+        this.$apiService
+          .postCall('auth/member-update-commission/', reqData)
+          .then(res => {
+            if (!res.error) {
+              this.$toaster.makeToast('success', 'Commission add successfully');
+              this.$bvModal.hide('modal-add-rates');
+              this.firstValue = '';
+              this.secondValue='';
+              this.getAllUsers();
+              this.updateloader = false
+            } else {
+              this.updateloader = false
+              this.$toaster.makeToast('warning', 'Commission add failed')
+            }
+          })
+          .catch(error => {
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
 
+            this.updateloader = false
+          })
+      } else {
+        this.$toaster.makeToast('warning', 'All filed is required')
+      }
+    
+    },
+     validateInputSec(event) {
+      const key = event.key;
+      const value = this.secondValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > 100) {
+        event.preventDefault();
+      }
+    },
+    validateInput(event) {
+      const key = event.key;
+      const value = this.firstValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > this.secondValue) {
+        event.preventDefault();
+      }
+    },
+
+    formSubmitEditMember () {
       this.imgLoader = true
       let requestData = {
         contact_number: this.getphoneNumber,
@@ -600,7 +762,7 @@ export default {
         name: this.getuserName,
         surname: this.getuserSurName,
         tiktok_username: this.gettikTokUserName,
-        _id:this.updateId,
+        _id: this.updateId
       }
 
       this.$apiService
@@ -623,10 +785,8 @@ export default {
           this.$store.commit('setError', { message: error })
         })
     },
-     formSubmitDeleteMember (data) {
-
+    formSubmitDeleteMember (data) {
       this.loader = true
-     
 
       this.$apiService
         .getCall(`auth/member-delete/${data._id}`)
@@ -638,7 +798,7 @@ export default {
             this.loader = false
             this.$toaster.makeToast('success', 'User delete successfully')
             this.showEditModal = false
-            this.getAllUsers();
+            this.getAllUsers()
           }
         })
         .catch(function (error) {
@@ -650,7 +810,6 @@ export default {
     },
 
     formSubmitAddMember () {
-
       this.imgLoader = true
       let requestData = {
         contact_number: this.phoneNumber,
@@ -718,18 +877,15 @@ export default {
     vueDocuments (rowData) {
       this.popUpWindow = true
     },
-   
+
     handleChange (user) {
       debugger
 
       const matchedRows = this.rows.filter(row => row.name === user)
 
       this.rows = matchedRows
-
-    
     },
 
-    
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
     },
@@ -762,7 +918,7 @@ export default {
           this.$toaster.makeToast('warning', 'Have Server error')
         })
     },
-        getfilterdata () {
+    getfilterdata () {
       if (!this.searchTerm) {
         return this.rows
       }
