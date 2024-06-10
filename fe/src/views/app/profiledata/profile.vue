@@ -255,6 +255,7 @@
               <b-button
                 v-if="!updateloader"
                 variant="primary ripple"
+                  @click="updateUser"
                
                 >Update</b-button
               >
@@ -550,12 +551,13 @@ export default {
   //   }
   // },
   methods: {
-    isLetter (e) {
-      let char = String.fromCharCode(e.keyCode) // Get the character
-      if (/^[A-Za-z]+$/.test(char)) return true
-      // Match with regex
-      else e.preventDefault() // If not match, don't add to input text
-    },
+    // isLetter (e) {
+    //   let char = String.fromCharCode(e.keyCode) // Get the character
+    //   if (/^[A-Za-z]+$/.test(char)) return true
+    //   // Match with regex
+    //   else e.preventDefault() // If not match, don't add to input text
+    // },
+
     getProfileDetails () {
       this.isLoading = true
       this.$apiService
@@ -610,27 +612,27 @@ export default {
           this.$toaster.makeToast('warning', 'Some think error')
         })
     },
-    handelForOtp (e) {
-      if (this.forOtp.length == 4) {
-        this.loader = true
-        this.clickOtp = false
+    // handelForOtp (e) {
+    //   if (this.forOtp.length == 4) {
+    //     this.loader = true
+    //     this.clickOtp = false
 
-        this.$apiService
-          .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
-          .then(res => {
-            if (!res.apidata.isError) {
-              this.$toaster.makeToast('success', 'Verify successfully')
-              window.location.reload()
+    //     this.$apiService
+    //       .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
+    //       .then(res => {
+    //         if (!res.apidata.isError) {
+    //           this.$toaster.makeToast('success', 'Verify successfully')
+    //            window.location.reload()
 
-              this.loader = false
-            }
-          })
-          .catch(error => {
-            this.loader = false
-            this.$toaster.makeToast('warning', 'Some think error')
-          })
-      }
-    },
+    //           this.loader = false
+    //         }
+    //       })
+    //       .catch(error => {
+    //         this.loader = false
+    //         this.$toaster.makeToast('warning', 'Some think error')
+    //       })
+    //   }
+    // },
     clickEmailVarified () {
       this.loader = true
       const reqData = {
@@ -1076,39 +1078,35 @@ export default {
     chooseImage () {
       document.getElementById('chooseLogo').click()
     },
-    updateUser () {
-      this.updateloader = true
-      let formData = new FormData()
-      formData.append('first_name', this.form.fName)
-      formData.append('last_name', this.form.lName)
-      formData.append('local_address', this.form.address)
+    updateUser() {
+  this.updateloader = true;
 
-      formData.append('image', this.form.url || this.selectedLogo)
+  let userData = {};
 
-      formData.append('city', this.form.city)
-      formData.append('state', this.form.state)
-      formData.append('pin_code', this.form.pin_code)
+  if (this.userName) userData.name = this.userName;
+  if (this.surName) userData.surname = this.surName;
+  if (this.phoneNumber) userData.contact_number = this.phoneNumber;
+  if (this.tictocName) userData.tiktok_username = this.tictocName;
+  userData._id = this.user_id;
 
-      if (!this.form.fName && !this.form.lName) {
-        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
-        this.updateloader = false
-        return
-      }
+  if (!this.userName && !this.surName) {
+    this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE);
+    this.updateloader = false;
+    return;
+  }
 
-      this.$apiService
-        .putCall(`account/updateUserAPIView/${this.id}`, formData)
-        .then(res => {
-          this.updateloader = false
-          this.$toaster.makeToast('success', 'Details updated successfully')
-          setTimeout(() => {
-            window.location.reload()
-          }, 500)
-        })
-        .catch(error => {
-          this.updateloader = false
-          this.$toaster.makeToast('warning', 'Details updated error')
-        })
-    },
+  this.$apiService.postCall('auth/member-update', userData)
+    .then(res => {
+      this.updateloader = false;
+      this.$toaster.makeToast('success', 'Details updated successfully');
+      
+    })
+    .catch(error => {
+      this.updateloader = false;
+      this.$toaster.makeToast('warning', 'Details update error');
+    });
+},
+
 
     updateDocuments () {
       this.docloader = true
