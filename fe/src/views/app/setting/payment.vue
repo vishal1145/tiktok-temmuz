@@ -842,8 +842,9 @@ export default {
           .finally(() => {
             this.loader = false // Set loader to false regardless of success or failure
           })
-      } else {
-        this.loader = true 
+      } else 
+      {
+    
         url = 'transition/payment_user'
         const user = {
           user_id: this.UserID
