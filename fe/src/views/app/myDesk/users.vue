@@ -328,8 +328,15 @@
               v-if="role != 'admin'"
               @click="showAddModal = true"
               variant="primary ripple btn-icon m-1"
+              style="
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background: white;
+    color: rgba(0, 0, 0, 0.66);
+    border: 1px solid gray;
+"
             >
-              <span class="ul-btn__icon"><i class="i-Gear-2"></i></span>
+              <span class="ul-btn__icon d-none"><i class="i-Gear-2"></i></span>
               <span class="ul-btn__text ml-1">Add New</span>
             </b-button>
 

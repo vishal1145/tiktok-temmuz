@@ -293,7 +293,8 @@
                             "
                           >
                             <option value>All</option>
-                            <option value="Paid">Paid</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Reject">Reject</option>
                             <option value="Pending">Pending</option>
                           </select>
                         </fieldset>
@@ -402,11 +403,15 @@
           :rows="filteredRows"
         >
           <template slot="table-row" slot-scope="props">
-            <span v-if="props.column.field === 'user_name'">
+            <span v-if="props.column.field === 'full_name'">
               <div>{{ props.row.full_name ? props.row.full_name : '' }}</div>
             </span>
             <span v-else-if="props.column.field === 'request_date'">
-              <div>{{ formatDate(props.row.request_date) }}</div>
+              <div>{{formatDate(props.row.request_date) 
+                }}</div>
+
+
+            
             </span>
 
             <span v-else-if="props.column.field === 'amount'">
@@ -436,7 +441,7 @@
                 v-else-if="
                   role == 'admin' &&
                   props.row.status != 'Approved' &&
-                  props.row.status != 'Paid'
+                  props.row.status != 'Reject'
                 "
               >
                 <div
@@ -449,7 +454,7 @@
                   class="badge border bg-primary text-white ul-cursor--pointer p-2"
                   @click="clickPaid(props.row._id)"
                 >
-                  Paid
+                Reject
                 </div>
 
                 <!-- <div v-else>
@@ -459,14 +464,14 @@
               <div>
                 <div v-if="props.row.status === 'Approved'">
                   <div
-                    class="badge border bg-primary text-white ul-cursor--pointer p-2"
+                    class=" p-1 badge badge-success"
                     @click="clickPaid(props.row._id)"
                   >
                     Paid
                   </div>
                 </div>
-                <div v-else-if="props.row.status === 'Paid'">
-                  <span class="badge badge-success">{{
+                <div v-else-if="props.row.status === 'Reject'">
+                  <span class="badge border bg-primary text-white ul-cursor--pointer p-1">{{
                     props.row.status
                   }}</span>
                 </div>
@@ -526,23 +531,43 @@ export default {
       columnsForAdmin: [
         {
           label: 'User Name',
-          field: 'user_name'
+          field: 'full_name',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'User Name'
+          }
         },
         {
           label: 'Request Date',
-          field: 'request_date' // Correct field name
+          field: 'request_date' ,
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Request Date'
+          }
         },
         {
           label: 'Amount',
-          field: 'amount'
+          field: 'amount',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Amount'
+          }
         },
         {
           label: 'Status',
-          field: 'status'
+          field: 'status',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Status'
+          }
         },
         {
           label: 'Notes',
-          field: 'notes'
+          field: 'notes',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Notes'
+          }
         },
         {
           label: 'Action',
@@ -552,19 +577,36 @@ export default {
       columnsForRegularUser: [
         {
           label: 'Request Date',
-          field: 'request_date' // Correct field name
+          field: 'request_date',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Request Date'
+          }
         },
         {
           label: 'Amount',
-          field: 'amount'
+          field: 'amount',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Amount'
+          }
         },
         {
           label: 'Status',
-          field: 'status'
+          field: 'status',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Status'
+          }
         },
         {
           label: 'Notes',
-          field: 'notes'
+          field: 'notes',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Notes'
+          }
+          
         }
         // {
         //   label: "Action",
@@ -690,7 +732,7 @@ export default {
     // this.role = parsedUser.data.role;
     this.originalRows = [...this.rows]
 
-    this.reloadPageOnce()
+    // this.reloadPageOnce()
   },
   methods: {
     formatDate (dateString) {
@@ -738,7 +780,7 @@ export default {
       this.loader = true
       try {
         var req = {
-          status: 'Paid'
+          status: 'Reject'
         }
 
         const res = await this.$apiService.postCall(
@@ -753,7 +795,7 @@ export default {
           this.loader = false
           this.$toaster.makeToast(
             'success',
-            ' Payment status Canceled successfully'
+            ' Payment status Rejected successfully'
           )
           this.getAllUsers()
         }
@@ -765,7 +807,7 @@ export default {
     },
 
     getAllUsers () {
-      this.loader = true // Set loader to true to indicate data loading
+     // Set loader to true to indicate data loading
       this.UserID = localStorage.getItem('user_id')
       this.role = localStorage.getItem('role')
 
@@ -773,6 +815,7 @@ export default {
       let url = ''
 
       if (this.role == 'admin') {
+        this.loader = true 
         url = 'user/all-payments'
         this.$apiService
           .getCall(url)
@@ -800,6 +843,7 @@ export default {
             this.loader = false // Set loader to false regardless of success or failure
           })
       } else {
+        this.loader = true 
         url = 'transition/payment_user'
         const user = {
           user_id: this.UserID
@@ -811,16 +855,19 @@ export default {
             this.rows = userData
            
           })
+          
+          
+
           .catch(error => {
             console.error('Error fetching user data:', error)
             this.$toaster.makeToast('error', 'Error fetching user data')
           })
           .finally(() => {
-            this.loader = false // Set loader to false regardless of success or failure
+            this.loader = false 
           })
       }
     },
-    // Similarly update other CRUD operation methods
+
 
     createUser () {
       this.isSubmitting = true
@@ -856,7 +903,7 @@ export default {
         })
         .finally(() => {
           this.loader = false
-          this.isSubmitting = true
+          this.isSubmitting = false
           // Set loader to false regardless of success or failure
         })
     },
