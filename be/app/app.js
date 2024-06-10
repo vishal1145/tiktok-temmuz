@@ -16,6 +16,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "images")));
+app.use(express.static(path.join(__dirname, "excels")));
 // parse requests of content-type - application/json
 app.use(express.json());
 const { authenticatingUser } = require("./middleware/auth");
