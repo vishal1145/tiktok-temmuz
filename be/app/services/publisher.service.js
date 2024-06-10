@@ -38,6 +38,9 @@ exports.updatePublisher = async (id, data) => {
   try {
     await PublisherModel.findByIdAndUpdate(id, {
       $set: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        tiktok_username: data.tiktok_username,
         contact_number: data.contact_number,
         agency_center_code: data.agency_center_code,
         icon: data.icon
