@@ -14,7 +14,7 @@ const {
   newEmailVerifyOtp,
 } = require("../controllers/user.controller");
 const { getPayments } = require('../controllers/payment.controller');
-
+const { getCreatorsEarnings } = require("../controllers/excels.controller");
 const { getAllMembersPublishers} = require("../controllers/publisher.controller");
 
 router.get("/user-by-id", getUserById);
@@ -27,6 +27,8 @@ router.post("/new-email-update", newEmailUpdate);
 router.post("/new-email-verify-otp", newEmailVerifyOtp);
 router.get("/get-all-members-publishers", getAllMembersPublishers);
 router.get('/all-payments', getPayments);
+router.post('/creators-earnings', getCreatorsEarnings);
+
 
 
 module.exports = router;
