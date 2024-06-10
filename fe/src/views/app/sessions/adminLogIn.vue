@@ -605,7 +605,7 @@ export default {
     },
     handleClick(event) {
       this.$router.push("/");
-      console.log('Clicked at:', event.clientX, event.clientY);
+     
     },
     copyReferralLink() {
       const el = document.createElement("textarea");

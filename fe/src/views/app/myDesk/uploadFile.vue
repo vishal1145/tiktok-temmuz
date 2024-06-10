@@ -357,7 +357,7 @@ export default {
       this.$refs.fileInput.click()
     },
     handelDate (e) {
-      console.log(e)
+   
     },
     handleFileUpload (event) {
       const file = event.target.files[0]
@@ -401,7 +401,7 @@ export default {
       }
     },
     clickView (id) {
-      console.log(id)
+      
     },
     // readFile (file) {
     //   const reader = new FileReader()
@@ -428,13 +428,13 @@ export default {
           (faq.reason &&
             faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
-        console.log('matchesSearchTerm:', matchesSearchTerm)
+       
 
         // Check filter status
         const matchesStatus =
           this.filterStatus === '' || faq.status === this.filterStatus
 
-        console.log('matchesStatus:', matchesStatus)
+     
 
         return matchesSearchTerm && matchesStatus
       })
@@ -527,7 +527,7 @@ export default {
         })
 
         // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
-        console.log(response)
+      
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
@@ -562,8 +562,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-        // const response = this.$apiService.postCall('util/image/', formData)
-        console.log('Image upload failed', response)
+       
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)

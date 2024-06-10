@@ -407,11 +407,7 @@
               <div>{{ props.row.full_name ? props.row.full_name : '' }}</div>
             </span>
             <span v-else-if="props.column.field === 'request_date'">
-              <div>{{formatDate(props.row.request_date) 
-                }}</div>
-
-
-            
+              <div>{{ formatDate(props.row.request_date) }}</div>
             </span>
 
             <span v-else-if="props.column.field === 'amount'">
@@ -454,7 +450,7 @@
                   class="badge border bg-danger text-white ul-cursor--pointer p-2"
                   @click="clickPaid(props.row._id)"
                 >
-                Reject
+                  Reject
                 </div>
 
                 <!-- <div v-else>
@@ -464,16 +460,14 @@
               <div>
                 <div v-if="props.row.status === 'Approved'">
                   <div
-                    class="  badge badge-success"
+                    class="badge badge-success"
                     @click="clickPaid(props.row._id)"
                   >
                     Paid
                   </div>
                 </div>
                 <div v-else-if="props.row.status === 'Reject'">
-                  <span class=" badge badge-danger">{{
-                    props.row.status
-                  }}</span>
+                  <span class="badge badge-danger">{{ props.row.status }}</span>
                 </div>
               </div>
             </span>
@@ -539,7 +533,7 @@ export default {
         },
         {
           label: 'Request Date',
-          field: 'request_date' ,
+          field: 'request_date',
           filterOptions: {
             enabled: true,
             placeholder: 'Request Date'
@@ -606,7 +600,6 @@ export default {
             enabled: true,
             placeholder: 'Notes'
           }
-          
         }
         // {
         //   label: "Action",
@@ -807,11 +800,8 @@ export default {
     },
 
     getAllUsers () {
-
-
-
-    this.loader = true;
-     // Set loader to true to indicate data loading
+      this.loader = true
+      // Set loader to true to indicate data loading
       this.UserID = localStorage.getItem('user_id')
       this.role = localStorage.getItem('role')
 
@@ -819,7 +809,7 @@ export default {
       let url = ''
 
       if (this.role == 'admin') {
-        this.loader = true 
+        this.loader = true
         url = 'user/all-payments'
         this.$apiService
           .getCall(url)
@@ -846,49 +836,44 @@ export default {
           .finally(() => {
             this.loader = false // Set loader to false regardless of success or failure
           })
-      } else 
-      { debugger
-       
+      } else {
+        debugger
 
-
-    this.loader = true;
+        this.loader = true
 
         url = 'transition/payment_user'
         const user = {
           user_id: this.UserID
-        }        
-        this.loader = false 
+        }
+        this.loader = false
         this.$apiService
-           
 
           .postCall(url, user)
 
-          
           .then(response => {
-
-            const userData = response.apidata.data
-            this.rows = userData
-
-            this.loader = true 
-           
+            if (response.isError) {
+              this.$toaster.makeToast('warning', 'Error fetching payment data')
+              this.loader = false
+            } else if (response.apidata.msg == 'No Record Found') {
+              this.$toaster.makeToast('warning', response.apidata.msg)
+              this.loader = false
+            } else {
+              const userData = response.apidata.data
+              this.rows = userData
+              this.loader = false
+            }
           })
-          
-         
-          
 
           .catch(error => {
             console.error('Error fetching user data:', error)
-            this.$toaster.makeToast('error', 'Error fetching user data')
-             this.loader = false 
-     
+            this.$toaster.makeToast('error', 'Error fetching payment data')
+            this.loader = false
           })
           .finally(() => {
-            this.loader = false 
-           
+            this.loader = false
           })
       }
     },
-
 
     createUser () {
       this.isSubmitting = true
@@ -907,11 +892,14 @@ export default {
         .postCall('transition/payments', user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
         .then(response => {
           if (response && response.isError === false) {
-            this.$toaster.makeToast('success', 'Payment Request Sent Successfully')
+            this.$toaster.makeToast(
+              'success',
+              'Payment Request Sent Successfully'
+            )
             this.closeModal12()
-            this.loader = false;
-            this.amount = '';
-            this.notes = "";
+            this.loader = false
+            this.amount = ''
+            this.notes = ''
             this.getAllUsers()
             // Optionally, update UI or perform other actions if needed
           } else {
@@ -1109,7 +1097,6 @@ export default {
       this.rows = matchedRows
 
       // Log the matched rows to the console
-     
     },
 
     // handleChange(user) {
@@ -1567,15 +1554,14 @@ export default {
   padding: 0.2rem 1.1rem;
 }
 
-
 .badge-danger {
-    color: #ef4444;
-    background-color: #fcfbfb !important;
-    border: 1px solid #ef4444;
+  color: #ef4444;
+  background-color: #fcfbfb !important;
+  border: 1px solid #ef4444;
 }
 .badge-success {
-    color: #10b981;
-    background-color: #ffffff !important;
-    border: 1px solid #10b981;
+  color: #10b981;
+  background-color: #ffffff !important;
+  border: 1px solid #10b981;
 }
 </style>

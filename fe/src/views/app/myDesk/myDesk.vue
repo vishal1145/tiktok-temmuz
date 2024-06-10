@@ -1856,7 +1856,7 @@ export default {
       document.getElementById("inviteedocument").click();
     },
     chooseFile() {
-      console.log("file");
+      
     },
     send() {
       let requestData = {
@@ -1910,7 +1910,7 @@ export default {
         })
         .catch((error) => {
           this.downloadloader = false;
-          console.log(error);
+           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
     selectionChanged() {
@@ -1934,7 +1934,7 @@ export default {
           console.log(res);
         })
         .catch((error) => {
-          console.log(error);
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
     OpenSendAudit(id) {
@@ -1964,12 +1964,12 @@ export default {
           this.$toaster.makeToast("success", message.UPDATE_MESSAGE);
           this.loader = false;
           this.getCompanyData();
-          console.log(res);
+         
         })
         .catch((error) => {
           this.loader = false;
           this.$$toaster.makeToast("warning", message.VALIDATION_ERROR);
-          console.log(error);
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
     downloadAudit() {

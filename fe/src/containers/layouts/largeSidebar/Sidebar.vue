@@ -159,7 +159,7 @@
           </router-link>
         </li>
          <!-- creaters -->
-         <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+         <li 
             @mouseenter="toggleSubMenu"
                      :class="{ active: isActive('/app/setting/publisher') }"
          
@@ -177,7 +177,7 @@
         </li>
 
 
-        <li v-if="isAdmin === 'user' || isAdmin === 'admin'"
+        <li
             @mouseenter="toggleSubMenu"
              :class="{ active: isActive('/app/setting/payment') }"
         

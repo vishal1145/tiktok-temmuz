@@ -904,7 +904,7 @@ router.afterEach(() => {
   // NProgress.done();
   // if (isMobile) {
   if (window.innerWidth <= 1200) {
-    // console.log("mobile");
+    
     store.dispatch("changeSidebarProperties");
     if (store.getters.getSideBarToggleProperties.isSecondarySideNavOpen) {
       store.dispatch("changeSecondarySidebarProperties");

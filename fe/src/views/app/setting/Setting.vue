@@ -16,7 +16,8 @@
             required
             placeholder="Enter value in %"
             type="number"
-           
+           style="height: 34px"
+              
              @keydown="validateInput"
             id="input-firstValue"
           ></b-form-input>
@@ -29,6 +30,7 @@
             required
             placeholder="Enter value in %"
             type="number"
+            style="height: 34px"
             @keydown="validateInputSec"
             id="input-secondValue"
           ></b-form-input>
@@ -77,9 +79,9 @@ export default {
         this.theme = 'light_theme'
       }
     },
-    validateInput(event) {
+    validateInputSec(event) {
       const key = event.key;
-      const value = this.firstValue;
+      const value = this.secondValue;
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -100,9 +102,9 @@ export default {
         event.preventDefault();
       }
     },
-    validateInputSec(event) {
+    validateInput(event) {
       const key = event.key;
-      const value = this.secondValue;
+      const value = this.firstValue;
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -119,7 +121,7 @@ export default {
 
       // Allow input if the current value plus the new digit is <= 100
       const newValue = parseInt(value + key, 10);
-      if (newValue > this.firstValue) {
+      if (newValue > this.secondValue) {
         event.preventDefault();
       }
     },

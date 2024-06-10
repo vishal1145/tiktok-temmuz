@@ -719,7 +719,7 @@ export default {
             this.isVerified = false;
             this.$toaster.makeToast("warning", "Mismatched OTP");
           }
-          console.log(res);
+         
         })
         .catch((error) => {
           this.$toaster.makeToast("warning", message.VALIDATION_ERROR);
@@ -806,7 +806,7 @@ export default {
       this.$apiService
         .postCall("getnewPDF", requestData)
         .then((res) => {
-          console.log(res);
+          
           this.pdfsrc = res.apidata.urlPath;
           this.oldurl = res.apidata.oldurl;
           this.isremovable = true;
@@ -815,7 +815,7 @@ export default {
         })
         .catch((error) => {
           this.loader = false;
-          console.log(error);
+           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
     allowDrop(ev) {
@@ -837,10 +837,10 @@ export default {
       this.$apiService
         .postCall("insertAuditLogs", { _id: this.$route.query._id })
         .then((res) => {
-          console.log(res);
+         
         })
         .catch((error) => {
-          console.log(error);
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
   },

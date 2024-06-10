@@ -589,6 +589,7 @@ export default {
       selectedName:"",
       allUsers: [],
       rows: [],
+      updateloader:false,
       selectedUserName: null,
       getphoneNumber: '',
       getcenterCode: '',
@@ -740,12 +741,12 @@ export default {
 
     this.fetchPublisher()
 
-    if (!localStorage.getItem('pageReloaded')) {
-      localStorage.setItem('pageReloaded', 'true')
-      window.location.reload()
-    } else {
-      localStorage.removeItem('pageReloaded')
-    }
+    // if (!localStorage.getItem('pageReloaded')) {
+    //   localStorage.setItem('pageReloaded', 'true')
+    //   window.location.reload()
+    // } else {
+    //   localStorage.removeItem('pageReloaded')
+    // }
   },
 
   methods: {

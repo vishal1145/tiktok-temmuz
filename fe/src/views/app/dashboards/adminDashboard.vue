@@ -925,7 +925,7 @@ export default {
             }
 
             // months = months.reverse();
-            console.log(months);
+  
             this.chartOptionsData = {
               colors: ["rgba(196, 181, 253, 1)", "#a78bfa"],
               xaxis: {

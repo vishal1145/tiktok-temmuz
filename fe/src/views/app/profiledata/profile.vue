@@ -978,7 +978,7 @@ export default {
         } else {
           this.logoloader = false
           this.selectedLogo = response.apidata.url
-          console.log(this.selectedLogo)
+         
           this.$toaster.makeToast('success', 'Profile update successfully')
         }
       } catch (error) {
@@ -1280,7 +1280,7 @@ export default {
         .catch(error => {
           this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
           this.submitloader = false
-          console.log(error)
+         
         })
     }
   }

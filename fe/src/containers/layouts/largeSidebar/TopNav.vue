@@ -1383,7 +1383,7 @@ this.isAdmin=storedUser;
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     clickLogo() {
-      console.log("clock cancel")
+     
       // this.$router.push("/app/sessions/searchCar");
     },
     clickAddAmount() {
@@ -1566,7 +1566,7 @@ this.isAdmin=storedUser;
             localStorage.removeItem("userInfo");
             this.$store.commit("setError", { message: error });
 
-            console.log(error);
+            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
           });
         // this.signUserUp({ email: this.email, password: this.password });
         // this.submitStatus = "PENDING";
@@ -1631,7 +1631,7 @@ this.isAdmin=storedUser;
         .catch((error) => {
           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
           this.resetloader = false;
-          console.log(error);
+          
         });
     },
     makeToast(variant = null) {
@@ -1771,7 +1771,7 @@ deleteCookie(name) {
           }
         })
         .catch((error) => {
-          console.log(error);
+        this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         });
     },
     ...mapActions([

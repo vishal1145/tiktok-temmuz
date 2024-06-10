@@ -43,7 +43,7 @@
           this.loader = false;
         } catch (error) {
           this.loader = false;
-          console.log(error);
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
         }
       },
 

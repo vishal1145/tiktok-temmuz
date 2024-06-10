@@ -330,8 +330,8 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-        // const response = this.$apiService.postCall('util/image/', formData)
-        console.log('Image upload failed', response)
+      
+  
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)
@@ -383,11 +383,8 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-        // const res = await this.$apiService.postCall(
-        //   'publisher/create/',
-        //   requestData
-        // )
-        console.log(res)
+     
+       
         if (res.error) {
           this.imgloader = false
           this.$toaster.makeToast('warning', res.message)
@@ -462,7 +459,7 @@ export default {
               user.error.response.data.email ==
               'user with this email already exists.'
             ) {
-              console.log('eror', user.error.response.data.email)
+             
               this.$toaster.makeToast('warning', 'User email already exists')
               this.isLoading = false
               return
@@ -503,7 +500,7 @@ export default {
             localStorage.removeItem('userInfo')
             this.$store.commit('setError', { message: error })
 
-            console.log(error)
+             this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
           })
         // this.signUserUp({ email: this.email, password: this.password });
         // this.submitStatus = "PENDING";

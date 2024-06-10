@@ -288,18 +288,17 @@ export default {
     // },
 
     async handleImageSelection (image) {
-      console.log('Image upload failed')
-      console.log('Image upload failed', this.images)
+      
       try {
         const formData = new FormData()
         formData.append('image', image)
 
         const response = this.$apiService.postCall('util/image/', formData)
-        console.log('Image upload failed', response)
+      
         if (response.apidata) {
-          console.log('Image upload failed')
+        
         } else {
-          console.log('Image upload failed')
+          
         }
       } catch (error) {
         confirm.log(error)
