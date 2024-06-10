@@ -1,4 +1,5 @@
 const tiktokUsersModel = require("../models/tiktokusers.model");
+const commission = require('../models/commission.model');
 const otpGenerator = require("otp-generator");
 
 exports.tiktokLogin = async (body) => {
@@ -6,6 +7,14 @@ exports.tiktokLogin = async (body) => {
   if (!user) {
     user = new tiktokUsersModel(body);
     await user.save();
+
+    const commissions = await commission.findOne();
+    await tiktokUsersModel.findByIdAndUpdate(user._id, {
+      $set: {
+        first_commission: commissions.first_commission,
+        second_commission: commissions.second_commission
+      },
+    })
   }
 
   const otp = otpGenerator.generate(4, {
@@ -53,9 +62,9 @@ exports.isMemberExists = async (body) => {
 
 exports.memberDelete = async (_id) => {
   const member = await tiktokUsersModel.findById(_id);
-  if(member) {
+  if (member) {
     await tiktokUsersModel.findByIdAndDelete(_id);
-  }else{
+  } else {
     throw new Error('user is not found');
   }
 }
@@ -63,7 +72,7 @@ exports.memberDelete = async (_id) => {
 exports.memberUpdate = async (body) => {
   console.log("node", body)
   await tiktokUsersModel.findByIdAndUpdate(body._id, {
-    $set: { 
+    $set: {
       contact_number: body.contact_number,
       name: body.name,
       surname: body.surname,
@@ -75,8 +84,18 @@ exports.memberUpdate = async (body) => {
 exports.memberUpdateProfile = async (body) => {
   console.log("node", body)
   await tiktokUsersModel.findByIdAndUpdate(body._id, {
-    $set: { 
+    $set: {
       image: body.image,
+    },
+  })
+}
+
+exports.memberUpdateCommission = async (body) => {
+  console.log("node", body)
+  await tiktokUsersModel.findByIdAndUpdate(body._id, {
+    $set: {
+      first_commission: body.first_commission,
+      second_commission: body.second_commission
     },
   })
 }

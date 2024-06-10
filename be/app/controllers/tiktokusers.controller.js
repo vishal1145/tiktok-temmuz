@@ -3,7 +3,8 @@ const {
   isMemberExists,
   memberDelete,
   memberUpdate,
-  memberUpdateProfile
+  memberUpdateProfile,
+  memberUpdateCommission
 
 } = require("../services/tiktokusers.service");
 const { getToken } = require('../util')
@@ -61,3 +62,13 @@ exports.memberUpdateProfile = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 }
+
+exports.memberUpdateCommission = async (req, res) => {
+  try {
+    await memberUpdateCommission(req.body);
+    res.status(200).json({ success: true, msg: 'User Commission Updated' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
