@@ -483,7 +483,7 @@ export default {
       logoloader: false,
       docloader: false,
       loader: false,
-      selectedLogo: 'https://quotestime.in/wp-content/uploads/2024/01/sad-instagram-dp.jpg',
+      selectedLogo: 'https://tiktok.algofolks.com/Screenshot%20from%202024-06-10%2017-46-41.png',
       form: {
         fName: '',
         lName: '',
@@ -570,6 +570,7 @@ export default {
           this.surName = res.apidata.data.surname;
           this.tictocName = res.apidata.data.tiktok_username;
           this.phoneNumber= res.apidata.data.contact_number;
+          this.selectedLogo=res.apidata.data.image;
          
           this.isLoading = false
         })
@@ -953,7 +954,11 @@ export default {
         this.aadharBackCheckbox = false
       }
     },
-
+    handleSelectedLogoUpdate() {
+    // Do something with the updated value of this.selectedLogo
+    console.log('Selected logo updated:', this.selectedLogo);
+    // You can perform any additional actions here
+  },
     async setImage (e) {
       this.logoloader = true
       const file = e.target.files[0]
@@ -973,6 +978,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
+ 
         // const response = this.$apiService.postCall('util/image/', formData)
         if (response.error) {
           this.logoloader = false
@@ -980,6 +986,8 @@ export default {
         } else {
           this.logoloader = false
           this.selectedLogo = response.apidata.url
+          await this.setImageAfter()
+          this.handleSelectedLogoUpdate();
          
           this.$toaster.makeToast('success', 'Profile update successfully')
         }
@@ -989,6 +997,40 @@ export default {
         // confirm.log(error)
       }
     },
+
+
+
+  async setImageAfter(e) {
+  this.logoloader = true;
+
+
+  try {
+    let imageData = {
+      _id: this.user_id,
+      image: this.selectedLogo
+    };
+
+    const response = await new Promise((resolve, reject) => {
+      this.$apiService
+        .postCall('auth/member-update-profile', imageData)
+        .then(data => resolve(data))
+        .catch(error => reject(error));
+    });
+
+    if (response.error) {
+      this.logoloader = false;
+      this.$toaster.makeToast('warning', response.message);
+    } else {
+      this.logoloader = false;
+      this.selectedLogo = response.apidata.url;
+      window.location.reload()
+      // this.$toaster.makeToast('success', 'Profile updated successfully');
+    }
+  } catch (error) {
+    this.logoloader = false;
+    this.$toaster.makeToast('warning', 'Error: Server Error');
+  }
+},
 
     // setImage(e) {
     //   this.logoloader = true;
