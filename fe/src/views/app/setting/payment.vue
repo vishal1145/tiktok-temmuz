@@ -807,6 +807,10 @@ export default {
     },
 
     getAllUsers () {
+
+
+
+    this.loader = true;
      // Set loader to true to indicate data loading
       this.UserID = localStorage.getItem('user_id')
       this.role = localStorage.getItem('role')
@@ -843,28 +847,44 @@ export default {
             this.loader = false // Set loader to false regardless of success or failure
           })
       } else 
-      {
-    
+      { debugger
+       
+
+
+    this.loader = true;
+
         url = 'transition/payment_user'
         const user = {
           user_id: this.UserID
-        }
+        }        
+        this.loader = false 
         this.$apiService
+           
+
           .postCall(url, user)
+
+          
           .then(response => {
+
             const userData = response.apidata.data
             this.rows = userData
+
+            this.loader = true 
            
           })
           
+         
           
 
           .catch(error => {
             console.error('Error fetching user data:', error)
             this.$toaster.makeToast('error', 'Error fetching user data')
+             this.loader = false 
+     
           })
           .finally(() => {
             this.loader = false 
+           
           })
       }
     },
