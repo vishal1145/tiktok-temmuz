@@ -14,7 +14,7 @@ exports.tiktokLogin = async (body) => {
     lowerCaseAlphabets: false,
   });
 
-  await tiktokUsersModel.findOneAndUpdate({ contact_number: body.contact_number }, { otp: '123456' })
+  await tiktokUsersModel.findOneAndUpdate({ contact_number: body.contact_number }, { otp: '1234' })
 
   try {
     // const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
