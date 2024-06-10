@@ -1580,35 +1580,35 @@ export default {
       }
     },
     getEarningData() {
-      this.loader = true;
-       this.$apiService
-          .postCall('user/creators-earnings')
-          .then(response => {
-            if (response.isError) {
-              this.$toaster.makeToast('warning', 'Error fetching earning data');
-                this.loader = false 
-            } else if (response.apidata.msg == "No Record Found") {
-              this.$toaster.makeToast('warning', response.apidata.msg);
-                this.loader = false 
-            } else {
-              const userData = response.apidata.data;
-              userData.forEach((e) => {
-                e.as_of_date=  moment(e.as_of_date).format("DD MMM YYYY h:mm A")
-               })
-              this.rows = userData;
-            this.loader = false 
-            }
-           
-           
-           
-          })
-          .catch(error => {
-            this.loader = false 
-            console.error('Error fetching user data:', error)
-            this.$toaster.makeToast('warning', 'Error fetching earning data')
-          })
-    },
-    gethandleImageSelection () {},
+  this.loader = true;
+  this.$apiService
+    .postCall('user/creators-earnings')
+    .then(response => {
+      // console.log("response",response)s
+      this.loader = false;
+      if (response.isError) {
+        this.$toaster.makeToast('warning', 'Error fetching earning data');
+      } else if (response.apidata.data === "User do not have Creators") {
+        this.$toaster.makeToast('warning', response.apidata.data);
+      } else {
+        const userData = response.data.data; // Ensure this path matches your actual API response structure
+        userData.forEach((e) => {
+          e.as_of_date = moment(e.as_of_date).format("DD MMM YYYY h:mm A");
+        });
+        this.rows = userData;
+      }
+    })
+    .catch(error => {
+      this.loader = false;
+      console.error('Error fetching user data:', error);
+      this.$toaster.makeToast('warning', 'Error fetching earning data');
+    });
+}
+
+    
+
+
+,gethandleImageSelection () {},
     async handleImageSelection () {
       this.imgLoader = true
 

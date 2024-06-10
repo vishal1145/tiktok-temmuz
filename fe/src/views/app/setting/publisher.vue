@@ -161,7 +161,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Edit publisher
+        Update publisher
       </label>
       <b-row class="px-3">
 
@@ -181,6 +181,19 @@
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="getLastName"
+              required
+              placeholder="Last name"
+           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              type="text"
+              id="input-last-name"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group label="TikTok User Name" label-for="input-last-name">
+            <b-form-input
+              v-model="getTikTok"
               required
               placeholder="Last name"
            style="height: 43px;background-color: white;border: 1px solid #80808038;"
@@ -276,7 +289,7 @@
               class="mb-2"
               variant="primary ripple"
               @click="editPublisher()"
-              >Edit</b-button
+              >Update</b-button
             >
             <div
               class="spinner spinner-primary imgloader"
@@ -703,7 +716,8 @@ export default {
       icon: '',
       ForDropwDow: [],
       getFirstName:"",
-      getLastName:""
+      getLastName:"",
+      getTikTok:"",
 
     }
   },
@@ -1037,9 +1051,9 @@ export default {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
-
     async addPublisher () {
       // Check if all required fields are filled
+      var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
       if (
         !this.first_name ||
         !this.last_name ||
@@ -1055,8 +1069,13 @@ export default {
         setTimeout(() => (this.errorMessage = ''), 2000)
         return
       }
-
-      this.loader = true
+      if (matchData.length > 0) {
+        this.$toaster.makeToast(
+          'warning',
+          'TikTok Username All Ready exist, Please Try Again'
+        )
+      } else {
+         this.loader = true
       try {
         let requestData = {
           user_id:
@@ -1070,17 +1089,14 @@ export default {
           agency_center_code: this.agency_center_code,
           icon: this.uplodedImages
         }
-
         if (this.role === 'admin') {
           ;(requestData.status = 'Approved'),
             (requestData.reason = 'Added By Admin')
         }
-        // Make the API call
         const res = await this.$apiService.postCall(
           'publisher/create/',
           requestData
         )
-
         // Handle the response
         if (res.error) {
           this.loader = false
@@ -1104,17 +1120,27 @@ export default {
         this.$toaster.makeToast('warning', 'Error: Server Error')
         console.error(error) // Added console log to catch block
       }
+      }
     },
+
 
     async editPublisher () {
       this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
-          // user_name: this.publisherName,
-          contact_number: this.getphoneNumber,
+
+
+
+          
+
+    first_name:this.getFirstName,
+    last_name: this.getLastName,
+    tiktok_username:this.getTikTok,
+    contact_number: this.getphoneNumber,
           agency_center_code: this.getcenterCode,
           icon: this.uplodedImages
+
           // userId: this.user_id
         }
 
@@ -1150,6 +1176,7 @@ export default {
       this.getLastName = data.last_name
       this.images = data.icon
       this.uplodedImages = data.icon
+      this.getTikTok=data.tiktok_username
   
 
       this.showAddModalEdit = true
