@@ -31,7 +31,9 @@ exports.getPayments = async (_id) => {
 
 exports.getOnlyUser = async (_id) => {
   const publishers = await Payment.aggregate([{ $match: { user_id: new mongoose.Types.ObjectId(_id) } }]);
-  return publishers;
+  const approved_payment = publishers.filter((e)=> e.status == "Approved");
+  const total_withdraw = approved_payment.reduce((accumulator, item) => accumulator + item.amount, 0);
+  return {publishers, total_withdraw};
 };
 
 

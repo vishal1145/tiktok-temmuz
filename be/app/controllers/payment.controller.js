@@ -23,10 +23,9 @@ exports.getPayments = async (req, res) => {
 exports.getOnlyUser = async (req, res) => {
 
   try {
-    const publishers = await paymentService.getOnlyUser(req.body.user_id)
-    console.log('publishers', publishers);
+    const {publishers, total_withdraw} = await paymentService.getOnlyUser(req.body.user_id)
     if (publishers.length > 0) {
-      res.status(200).send({ data: publishers, success: true })
+      res.status(200).send({ data: publishers, total_withdraw:total_withdraw, success: true })
     } else {
       res.status(200).send({ msg: 'No Record Found', success: true })
     }
