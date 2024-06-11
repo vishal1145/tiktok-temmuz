@@ -6,7 +6,7 @@ const {
   updatePassword,
   updateEmailPreferences,
   newEmailUpdate,
-  newEmailVerifyOtp,
+  newEmailVerifyOtp, getCreatorsEarningsGraph
 } = require("../services/user.service");
 
 exports.getUserById = async (req, res) => {
@@ -20,7 +20,7 @@ exports.getUserById = async (req, res) => {
 
 exports.getAllMembers = async (req, res) => {
   try {
-    const {users} = await getAllMembers();
+    const { users } = await getAllMembers();
     res.status(200).send({ data: users, success: true });
   } catch (err) {
     res.status(400).send({ success: false, message: "Users not found" });
@@ -79,8 +79,8 @@ exports.updatePassword = async (req, res) => {
     const user = await updatePassword(requestData);
     if (user) {
       res.status(200).json({ Message: "Password  Updated", success: true });
-    }else {
-      res.status(500).send({success: false, Messege: "Please Enter Valid Old Password"})
+    } else {
+      res.status(500).send({ success: false, Messege: "Please Enter Valid Old Password" })
     }
   } catch (error) {
     res.status(400).send({ Messege: error });
@@ -107,7 +107,7 @@ exports.newEmailUpdate = async (req, res, next) => {
   };
   try {
     const response = await newEmailUpdate(requestData);
-    res.status(200).json({ Message: "OTP sent"});
+    res.status(200).json({ Message: "OTP sent" });
   } catch (err) {
     res.status(500).json({ Message: "Failed to send" });
   }
@@ -131,5 +131,14 @@ exports.newEmailVerifyOtp = async (req, res) => {
     res.status(200).json({ Message: "Email Changed" });
   } catch (err) {
     res.status(401).json({ Message: "Otp Invalid" });
+  }
+};
+
+exports.getCreatorsEarningsGraph = async (req, res) => {
+  try {
+    const {dates, diamonds, earnings} = await getCreatorsEarningsGraph(req.user._id);
+    res.status(200).send({ dates: dates, diamonds: diamonds, earnings: earnings, success: true });
+  } catch (err) {
+    res.status(400).send({ Message: err.message });
   }
 };

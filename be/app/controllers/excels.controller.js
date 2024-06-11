@@ -16,7 +16,7 @@ exports.getCreatorsEarnings = async (req, res) => {
     const earnings = await getCreatorsEarnings(req.user._id);
     res.status(200).send({ data: earnings, success: true });
   } catch (err) {
-    res.status(400).send({ Message: err.Message });
+    res.status(400).send({ Message: err.message });
   }
 };
 

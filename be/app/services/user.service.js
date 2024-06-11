@@ -1,6 +1,8 @@
-const UserModel = require("../models/user.model");
+const UserModel = require("../models/tiktokusers.model");
 const MemberModel = require("../models/tiktokusers.model");
+const PublisherModel = require("../models/creator.model");
 const newEmailUpdateModel = require("../models/new_email_update.model");
+const ExcelDataModel = require("../models/excel_data.model");
 const { decrypt, compare, sendForgetPasswordMail } = require("../util");
 
 exports.getUserById = async (_id) => {
@@ -8,8 +10,8 @@ exports.getUserById = async (_id) => {
 };
 
 exports.getAllMembers = async () => {
-  const users = await MemberModel.find({role:"user"});
-  return {users};
+  const users = await MemberModel.find({ role: "user" });
+  return { users };
 };
 
 
@@ -34,7 +36,7 @@ exports.getEventsStaffUsers = async (type, page, pageSize) => {
     bio: 1,
     image: 1,
     provider: 1,
-    
+
   })
     .populate("service_category")
     .populate("tags")
@@ -46,7 +48,7 @@ exports.getEventsStaffUsers = async (type, page, pageSize) => {
     bio: 1,
     image: 1,
     provider: 1,
-    
+
   });
   // const totalStaff = hireEvents.length;
   const totalPage = Math.ceil(totalStaff / pageSize);
@@ -94,7 +96,7 @@ exports.newEmailUpdate = async ({ newEmail, userId }) => {
     );
     let requestData = {
       newEmail: newEmail,
-      userId:userId,
+      userId: userId,
       otp: otp,
     };
     if (isSent) {
@@ -124,3 +126,30 @@ exports.newEmailVerifyOtp = async (data) => {
     throw new Error({ Message: "failed" });
   }
 };
+
+exports.getCreatorsEarningsGraph = async (_id) => {
+  const creators = await PublisherModel.find({ user_id: _id });
+  if (creators.length > 0) {
+    const usernames = creators.map((e) => e.tiktok_username);
+    const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
+    const dates = data.map((e) => e.as_of_date);
+    const diamonds = data.map((e) => e.diamonds_this_month);
+
+    let user = await UserModel.findById(_id);
+    let first_commission = user.first_commission;
+    let second_commission = user.second_commission;
+
+    const earnings = data.map((d) => calculateEarning(first_commission, second_commission, d));
+    return { dates, diamonds, earnings };
+  } else {
+    return "User do not have Creators";
+  }
+};
+
+function calculateEarning(first_commission, second_commission, d) {
+  var rate = first_commission;
+  if (d.diamonds_this_month >= 200000) {
+    rate = second_commission;
+  }
+  return rate * d.diamonds_this_month / 100;
+}
