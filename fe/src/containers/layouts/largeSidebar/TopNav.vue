@@ -112,11 +112,6 @@
  
 
     <div>
-        <!-- <a class="dropdown-item" href="#" @click.prevent="logoutUser"
-            >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
-          ></a> -->
-
-
       <b-dropdown
         id="dropdown-1"
         text="Dropdown Button"
@@ -176,7 +171,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
    
     >
-    <i class="nav-icon i-Administrator"></i></i> Members
+    <i class="nav-icon i-Administrator"></i> Members
     </a>
 
     <a
@@ -260,30 +255,6 @@
         </div>
       </b-dropdown>
   </div>
-    <!-- <div
-      v-if="userName == null && userName == undefined"
-      class="dropdown pt-2 onlyFormobileView"
-    >
-      <a
-        @click="openPopup"
-        class="btn btn-primary w-100 text-white d-flex flex-row"
-      >
-        <div>
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
-        </div>
-        <div class="ml-2">Sign In</div>
-      </a>
-    </div> -->
-    <!-- <div
-      class="onlyFormobileView"
-      style="padding-top: 0.5em"
-      v-if="userName !== null && userName !== undefined && role !== 'Admin'"
-    >
-      <b-button variant="primary ripple" @click="clickBookCar()">
-        <i class="fa fa-car text-white" aria-hidden="true"></i> Book
-        Car</b-button
-      >
-    </div> -->
 
     <b-modal
       id="modal-attachment-notification"
@@ -707,432 +678,6 @@
         </div>
       </div>
     </b-modal>
-    <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
-
-    <!-- <div class="d-flex align-items-center"> -->
-      <!-- Mega menu -->
-      <!-- <div
-        :class="{ show: isMegaMenuOpen }"
-        class="dropdown mega-menu d-none d-md-block"
-        v-on-clickaway="closeMegaMenu"
-      >
-        <a
-          href="#"
-          class="btn text-muted dropdown-toggle mr-3"
-          id="dropdownMegaMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          @click="toggleMegaMenu"
-          v-if="isHide"
-          >Mega Menu</a
-        >
-        <div
-          class="dropdown-menu text-left"
-          :class="{ show: isMegaMenuOpen }"
-          aria-labelledby="dropdownMenuButton"
-        >
-          <div class="row m-0">
-            <div class="col-md-4 p-4 text-left bg-img">
-              <h2 class="title">
-                Mega Menu
-                <br />Sidebar
-              </h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Asperiores natus laboriosam fugit, consequatur.
-              </p>
-              <p class="mb-30">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Exercitationem odio amet eos dolore suscipit placeat.
-              </p>
-              <button class="btn btn-lg btn-rounded btn-outline-warning">
-                Learn More
-              </button>
-            </div>
-            <div class="col-md-4 p-4 text-left">
-              <p
-                class="text-primary text--cap border-bottom-primary d-inline-block"
-              >
-                Features
-              </p>
-              <div class="menu-icon-grid w-auto p-0">
-                <a href="#"> <i class="i-Shop-4"></i> Home </a>
-                <a href="#"> <i class="i-Library"></i> UI Kits </a>
-                <a href="#"> <i class="i-Drop"></i> Apps </a>
-                <a href="#">
-                  <i class="i-File-Clipboard-File--Text"></i> Forms
-                </a>
-                <a href="#"> <i class="i-Checked-User"></i> Sessions </a>
-                <a href="#"> <i class="i-Ambulance"></i> Support </a>
-              </div>
-            </div>
-            <div class="col-md-4 p-4 text-left">
-              <p
-                class="text-primary text--cap border-bottom-primary d-inline-block"
-              >
-                Components
-              </p>
-              <ul class="links">
-                <li>
-                  <a href="accordion.html">Accordion</a>
-                </li>
-                <li>
-                  <a href="alerts.html">Alerts</a>
-                </li>
-                <li>
-                  <a href="buttons.html">Buttons</a>
-                </li>
-                <li>
-                  <a href="badges.html">Badges</a>
-                </li>
-                <li>
-                  <a href="carousel.html">Carousels</a>
-                </li>
-                <li>
-                  <a href="lists.html">Lists</a>
-                </li>
-                <li>
-                  <a href="popover.html">Popover</a>
-                </li>
-                <li>
-                  <a href="tables.html">Tables</a>
-                </li>
-                <li>
-                  <a href="datatables.html">Datatables</a>
-                </li>
-                <li>
-                  <a href="modals.html">Modals</a>
-                </li>
-                <li>
-                  <a href="nouislider.html">Sliders</a>
-                </li>
-                <li>
-                  <a href="tabs.html">Tabs</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- / Mega menu -->
-      <!-- <div class="search-bar" @click="toggleSearch" v-if="isHide">
-        <input type="text" placeholder="Search" />
-        <i class="search-icon text-muted i-Magnifi-Glass1"></i>
-      </div> -->
-    <!-- </div> -->
-
- 
-
-    <!-- <div
-      class="header-part-right pr-3 hiddenWallet"
-      :class="{ admin: role === 'User' || role == undefined }"
-    > -->
-      <!-- Full screen toggle -->
-
-      <!-- <i
-        class="i-Full-Screen header-icon d-none d-sm-inline-block"
-        @click="handleFullScreen"
-      ></i> -->
-      <!-- <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i> -->
-      <!-- Grid menu Dropdown -->
-
-      <!-- <div class="dropdown">
-        <b-dropdown
-          id="dropdown"
-          text="Dropdown Button"
-          class="m-md-2"
-          toggle-class="text-decoration-none"
-          no-caret
-          variant="link"
-        >
-          <template slot="button-content">
-            <i
-              class="i-Safe-Box text-muted header-icon"
-              role="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            ></i>
-          </template>
-          <div class="menu-icon-grid">
-            <router-link tag="a" class to="/app/homes/home.v1">
-              <a href="#" style="color: black">
-                <i class="nav-icon i-Clock-3"></i> Home
-              </a>
-            </router-link>
-
-            <router-link tag="a" class to="/app/mydesk/mydesk">
-              <a href="#" style="color: black; width: 100px">
-                <i class="nav-icon i-Shop-4"></i> My Desk
-              </a>
-            </router-link>
-
-            <router-link tag="a" class to="/app/mydesk/template">
-              <a href="#" style="color: black">
-                <i class="nav-icon i-Shop-4"></i>Template
-              </a>
-            </router-link>
-
-            <router-link tag="a" class to="/app/accounts/Branding">
-              <a href="#" style="color: black">
-                <i class="nav-icon i-Library"></i>Account
-              </a>
-            </router-link>
-
-            <router-link tag="a" class to="/app/setting/api">
-              <a href="#" style="color: black">
-                <i class="nav-icon i-Library"></i>Setting
-              </a>
-            </router-link>
-
-            <router-link tag="a" class to="/app/mydesk/activitylogs">
-              <a href="#" style="color: black; width: px">
-                <i class="nav-icon i-Library"></i>Activity Logs
-              </a>
-            </router-link>
-            <router-link tag="a" class to="/app/mydesk/activitylogs">
-              <a class="nav-item-hold" href="#">
-                <i class="nav-icon i-Shop-4"></i>
-                <span class="nav-text">{{ $t("Activity Logs") }}</span>
-              </a>
-
-              <div class="triangle"></div>
-            </router-link>
-
-            <a href="#"> <i class="i-Checked-User"></i> Sessions </a>
-            <a href="#"> <i class="i-Ambulance"></i> Support </a>
-          </div>
-        </b-dropdown>
-      </div> -->
-<!-- 
-      <div
-        v-if="
-          userName !== null &&
-          userName !== undefined &&
-          role !== 'Admin' &&
-          notificationData
-        "
-        @click="clickNotification()"
-        class="position-relative ul-cursor--pointer mr-2"
-      >
-        <i class="fa fa-bell fa-2x text-warning" aria-hidden="true"></i>
-        <div class="for-icon position-absolute text-center">
-          <strong class="text-10 text-white">{{
-            notificationData.length
-          }}</strong>
-        </div>
-      </div> -->
-      <!-- <div
-        class="d-flex justify-content-center align-content-center"
-        v-if="userName !== null && userName !== undefined && role !== 'Admin'"
-      >
-        <div class="mr-2 align-self-center"> -->
-          <!-- <i class="fa fa-car mr-2 text-primary" aria-hidden="true"></i> -->
-          <!-- <a
-            class="text-primary"
-            @click="clickBookCar()"
-            style="text-decoration: underline !important; cursor: pointer"
-          >
-          Book Car</a
-          > -->
-          <!-- <b-button variant="primary ripple" @click="clickBookCar()">
-            <i class="fa fa-car mr-2 text-white" aria-hidden="true"></i> Book
-            Car</b-button
-          >
-        </div> -->
-        <!-- <div class=""> -->
-          <!-- <i class="fa fa-car mr-2 text-p    <b-button variant="primary ripple" @click="clickAddAmount()">
-            Wallet</b-button
-          > rimary" aria-hidden="true"></i> -->
-          <!-- <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Current -&nbsp;
-              <span style=""> ₹ {{ totalBalance }}/- &nbsp;</span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <div class="dropdown-item d-flex justify-content-between">
-                <div>Wallet</div>
-                <div>₹ {{ userBalance }}</div>
-              </div>
-              <div class="dropdown-item d-flex justify-content-between">
-                <div>Security</div>
-                <div>₹ {{ securityBalance }}</div>
-              </div>
-              <div
-                class="dropdown-item ul-cursor--pointer"
-                style="text-decoration: underline"
-                @click="clickAddAmount()"
-              >
-                See more
-              </div>
-            </div>
-          </div> -->
-
-          <!-- <div class="dropdown">
-            <b-dropdown
-              id="dropdown-6"
-              :text="`Current - ₹ ${formatPrice(totalBalance)}`"
-              class="m-md-2"
-              toggle-class=""
-              no-caret
-              style="
-                border: 1px solid rgba(0, 0, 0, 0.265);
-                color: black;
-
-                border-radius: 5px;
-                /* text-underline-offset: unset; */
-              "
-            >
-              <div class="dropdown-item d-flex justify-content-between px-3">
-                <div>Wallet</div>
-                <div>₹ {{ formatPrice(userBalance) }}</div>
-              </div>
-              <div class="dropdown-item d-flex justify-content-between px-3">
-                <div>Security</div>
-                <div>₹ {{ formatPrice(securityBalance) }}</div>
-              </div>
-              <div class="dropdown-item d-flex justify-content-between px-3">
-                <div>
-                  Bonus & <br />
-                  Rewards
-                </div>
-                <div>₹ {{ formatPrice(referral_balance) }}</div>
-              </div>
-
-              <div
-                class="dropdown-item ul-cursor--pointer px-3"
-                style="text-decoration: underline"
-                @click="clickAddAmount()"
-              >
-                See more
-              </div>
-            </b-dropdown>
-          </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-
-      <!-- Notificaiton -->
-
-      <!-- <div class="dropdown"> -->
-        <!-- <b-dropdown
-          id="dropdown-1"
-          text="Dropdown Button"
-          class="m-md-2 badge-top-container"
-          toggle-class="text-decoration-none"
-          no-caret
-          variant="link"
-          v-if="scrollHide"
-        > -->
-          <!-- <template slot="button-content" v-if="scrollHide">
-            <span class="badge badge-primary">3</span>
-            <i class="i-Bell text-muted header-icon"></i>
-          </template> -->
-          <!-- Notification dropdown -->
-          <!-- <vue-perfect-scrollbar
-            :settings="{ suppressScrollX: true, wheelPropagation: false }"
-            :class="{ open: getSideBarToggleProperties.isSideNavOpen }"
-            ref="myData"
-            class="dropdown-menu-right rtl-ps-none notification-dropdown ps scroll"
-            v-if="scrollHide"
-          > -->
-            <!-- <div class="dropdown-menu-right rtl-ps-none notification-dropdown"> -->
-            <!-- <div class="dropdown-item d-flex">
-              <div class="notification-icon">
-                <i class="i-Speach-Bubble-6 text-primary mr-1"></i>
-              </div>
-              <div class="notification-details flex-grow-1">
-                <p class="m-0 d-flex align-items-center"> -->
-                  <!-- <span>New message</span> -->
-                  <!-- <span class="badge badge-pill badge-primary ml-1 mr-1">new</span> -->
-                  <!-- <span class="flex-grow-1"></span>
-                  <span class="text-small text-muted ml-auto">10 sec ago</span> -->
-                <!-- </p>
-                <p class="text-small text-muted m-0">
-                  James: Hey! are you busy?
-                </p>
-              </div> -->
-            <!-- </div>
-            <div class="dropdown-item d-flex">
-              <div class="notification-icon">
-                <i class="i-Receipt-3 text-success mr-1"></i>
-              </div> -->
-              <!-- <div class="notification-details flex-grow-1">
-                <p class="m-0 d-flex align-items-center">
-                  <span>New order received</span> -->
-                  <!-- <span class="badge badge-pill badge-success ml-1 mr-1">new</span> -->
-                  <!-- <span class="flex-grow-1"></span>
-                  <span class="text-small text-muted ml-auto">2 hours ago</span>
-                </p>
-                <p class="text-small text-muted m-0">1 Headphone, 3 iPhone x</p>
-              </div>
-            </div>
-            <div class="dropdown-item d-flex">
-              <div class="notification-icon">
-                <i class="i-Empty-Box text-danger mr-1"></i>
-              </div>
-              <div class="notification-details flex-grow-1">
-                <p class="m-0 d-flex align-items-center">
-                  <span>Product out of stock</span> -->
-                  <!-- <span class="badge badge-pill badge-danger ml-1 mr-1">3</span> -->
-                  <!-- <span class="flex-grow-1"></span>
-                  <span class="text-small text-muted ml-auto"
-                    >10 hours ago</span
-                  >
-                </p>
-                <p class="text-small text-muted m-0">
-                  Headphone E67, R98, XL90, Q77
-                </p>
-              </div>
-            </div>
-            <div class="dropdown-item d-flex">
-              <div class="notification-icon">
-                <i class="i-Data-Power text-success mr-1"></i>
-              </div>
-              <div class="notification-details flex-grow-1">
-                <p class="m-0 d-flex align-items-center">
-                  <span>Server Up!</span> -->
-                  <!-- <span class="badge badge-pill badge-success ml-1 mr-1">3</span> -->
-                  <!-- <span class="flex-grow-1"></span>
-                  <span class="text-small text-muted ml-auto"
-                    >14 hours ago</span
-                  >
-                </p>
-                <p class="text-small text-muted m-0">
-                  Server rebooted successfully
-                </p> -->
-              <!-- </div> -->
-            <!-- </div> -->
-            <!-- </div> -->
-          </vue-perfect-scrollbar>
-        </b-dropdown>
-      </div>
-      <!-- Notificaiton End -->
-
-      <!-- User avatar dropdown -->
-      <!-- <div v-if="userName == null && userName == undefined" class="dropdown"> -->
-        <!-- <a
-          @click="openPopup"
-          class="btn btn-primary w-100 text-white d-flex flex-row"
-        >
-          <div>
-            <i class="fa fa-sign-in" aria-hidden="true"></i>
-          </div>
-          <div class="ml-2">Sign In</div>
-        </a> -->
-      <!-- </div> -->
-
-     
-    </div>
-
   </div>
 
   <!-- header top menu end -->
@@ -1160,28 +705,7 @@ export default {
   data() {
     return {
       img: img,
-      data: [
-        {
-          id: 1,
-          message:
-            "1 hii this mass inf. you for jhkkh fdh kjdf hsdhkjf sdfjhfd djhf kdhkfj sdfhf ..",
-        },
-        {
-          id: 2,
-          message:
-            "2 hii this mass inf. you for ... you for jhkkh fdh kjdf hsdhkjf sdfjhfd djhf kdhkfj sdfhf ..",
-        },
-        {
-          id: 4,
-          message:
-            "3 hii this mass inf. you for jhkkh fdh kjdf hsdhkjf sdfjhfd djhf kdhkfj sdfhf ..",
-        },
-        {
-          id: 3,
-          message:
-            "4 hii this mass inf. you for jhkkh fdh kjdf hsdhkjf sdfjhfd djhf kdhkfj sdfhf ..",
-        },
-      ],
+     
       referral: "",
       notificationData: [],
       userBalance: "",
@@ -1271,7 +795,7 @@ export default {
   //   },
   // },
   mounted() {
-    this.addCssRule();
+    // this.addCssRule();
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },
@@ -1279,24 +803,11 @@ export default {
     var storedUser = localStorage.getItem("role"); 
 
 // var parsedUser = JSON.parse(storedUser);
-this.isAdmin=storedUser;
+     this.isAdmin=storedUser;
     this.referral = this.$route.query.ref;
     var storedUser = localStorage.getItem("userInfo");
-
-    var parsedUser = JSON.parse(storedUser);
-
-    if (parsedUser && parsedUser.data && parsedUser.data.id !== null) {
-      
-      this.userName = parsedUser.data.email.replace("@gmail.com", "");
-      this.role = parsedUser.data.role;
-      this.id = parsedUser.data.id;
-      this.getProfileDetails();
-      this.getNotificationData();
-      // if (this.role !== "Admin") {
-      //   this.getTotalBalance();
-      // }
-    }
-   
+      this.checkExpToken();
+      // this.getNotificationData();
   },
   computed: {
     ...mapGetters(["getSideBarToggleProperties"]),
@@ -1593,6 +1104,20 @@ this.isAdmin=storedUser;
     //     console.log(e);
     //   }
     // },
+    checkExpToken() {
+       try {
+         const response =  this.$apiService.getCall('user/get-all-members')
+        if (
+          response.message==='Invalid token'
+        ) {
+          this.$router.push('/app/sessions/signIn');
+          this.$toaster.makeToast('warning', response.message);    
+        } 
+      } catch (e) {
+        this.$toaster.makeToast('warning', 'Server Error');  
+      }
+      
+    },
     reset() {
       this.resetloader = true;
       var reqData = {
@@ -1870,12 +1395,6 @@ deleteCookie(name) {
   right: 12px;
   top: 7px;
   cursor: pointer;
-}
-/* .modal-body {
-  padding: 0px;
-} */
-.modal-body {
-  padding: 0;
 }
 #modal-attachment-notification.modal .modal-dialog {
   position: fixed !important;

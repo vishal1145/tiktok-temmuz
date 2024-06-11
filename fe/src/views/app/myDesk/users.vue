@@ -97,7 +97,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update Members
+        Edit Members
       </label>
       <b-row class="px-3">
         <b-col md="12">
@@ -163,7 +163,7 @@
               class="mb-2"
               variant="primary ripple"
               @click="formSubmitEditMember()"
-              >Update</b-button
+              >Edit</b-button
             >
             <div
               class="spinner spinner-primary imgloader"
@@ -217,7 +217,7 @@
               class="mb-2"
               variant="primary ripple"
               @click="clickAddButton()"
-              >Add</b-button
+              >Update</b-button
             >
           </div>
         </b-col>
@@ -425,7 +425,7 @@
              <span v-else-if="props.column.field === 'show_commission'">
              
                 <div class="d-flex" v-if="props.row.first_commission">
-                   {{ props.row.first_commission }} |  {{ props.row.second_commission }} 
+                  0-2.000.000 diamonds: {{ props.row.first_commission }} <br>2.000.000+ diamonds:  {{ props.row.second_commission }} 
                  
                 </div>
                 
@@ -686,7 +686,7 @@ export default {
           .postCall('auth/member-update-commission/', reqData)
           .then(res => {
             if (!res.error) {
-              this.$toaster.makeToast('success', 'Commission add successfully');
+              this.$toaster.makeToast('success', 'Commission update successfully');
               this.$bvModal.hide('modal-add-rates');
               this.firstValue = '';
               this.secondValue='';
@@ -694,7 +694,7 @@ export default {
               this.updateloader = false
             } else {
               this.updateloader = false
-              this.$toaster.makeToast('warning', 'Commission add failed')
+              this.$toaster.makeToast('warning', 'Commission update failed')
             }
           })
           .catch(error => {
