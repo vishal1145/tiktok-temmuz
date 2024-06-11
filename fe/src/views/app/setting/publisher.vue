@@ -490,7 +490,7 @@
             :line-numbers="false"
             :pagination-options="paginationOptions"
             styleClass="tableOne vgt-table"
-            :rows="filteredRows"
+            :rows="doubledNumber"
           >
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field === 'actions'">
@@ -726,11 +726,13 @@ export default {
     }
   },
   mounted () {
+    
     this.clearFilters()
     this.filterData()
     this.addCssRule()
     this.fetchUserNames()
     this.getAllUsers()
+
 
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
@@ -742,7 +744,53 @@ export default {
         'important-container': this.isImportant
       }
     },
-    filteredRows () {
+
+    doubledNumber() {
+      return this.filteredRows32()
+    }
+    // filteredRows32 () {
+    //   const query = this.searchTerm.toLowerCase().trim()
+    //   const select_status = this.selectedStatus
+
+    //   return this.faqs.filter(row => {
+    //     const matchesQuery = query
+    //       ? row.first_name && row.first_name.toLowerCase().includes(query)
+    //       : true
+    //       const matchesStatus = select_status
+    //       ? row.status === select_status
+    //       : true
+          
+    //     return matchesQuery && matchesStatus
+    //   })
+  
+    // },
+    
+
+  },
+  created () {
+     this.filteredRows32()
+    this.fetchUserNames()
+    this.getAllUsers()
+
+    this.filterData()
+
+    this.clearFilters()
+
+ 
+    this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
+
+
+
+    this.fetchPublisher()
+
+  },
+
+  methods: {
+
+
+    filteredRows32 () {
+      
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus
 
@@ -756,34 +804,6 @@ export default {
         return matchesQuery && matchesStatus
       })
     },
-
-  },
-  created () {
-    this.filteredRows()
-    this.fetchUserNames()
-    this.getAllUsers()
-
-    this.filterData()
-
-    this.clearFilters()
-
-    // const accessToken = localStorage.getItem('accesstoken');
-    this.user_id = localStorage.getItem('user_id')
-    this.role = localStorage.getItem('role')
-
-    // this.fetchUser()
-
-    this.fetchPublisher()
-
-    // if (!localStorage.getItem('pageReloaded')) {
-    //   localStorage.setItem('pageReloaded', 'true')
-    //   window.location.reload()
-    // } else {
-    //   localStorage.removeItem('pageReloaded')
-    // }
-  },
-
-  methods: {
     handleChange(user) {
 
       this.selectedUserId=user._id;
@@ -943,6 +963,8 @@ export default {
           // this.faqs = response.apidata.data;
 
           this.faqs = response.apidata.data
+          this.filteredFaqs = response.apidata.data
+
           this.filteredFaqs = this.faqs
           this.ForDropwDow = this.faqs
 
