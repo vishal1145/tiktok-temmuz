@@ -1078,9 +1078,7 @@ export default {
   background: #fff;
   z-index: 100;
 }
-.modal-body {
-  padding: 0;
-}
+
 .main-div {
   /* display: -webkit-box;
     display: -ms-flexbox;
@@ -1228,7 +1226,7 @@ export default {
 }
 
 .form-control {
-  border: 5px solid rgba(255, 0, 0, 0) !important;
+  border: 2px solid rgba(255, 0, 0, 0);
 }
 .carousel-control-next {
   right: 25px;
@@ -1472,7 +1470,7 @@ img {
 
 .select-input:focus,
 .phone-input:focus {
-  border-color: #007bff; /* Bootstrap primary color, or any color you prefer */
+  border-color: #007bff00; /* Bootstrap primary color, or any color you prefer */
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Optional: add shadow for better visibility */
 }

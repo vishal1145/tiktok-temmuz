@@ -253,14 +253,13 @@
             </div>
 
             <div
-              class="card-content collapse show"
+                       class="d-flex flex-row card-body flex-wrap gap-between"
               :style="{ display: flexDivDisplay }"
             >
-              <div class="card-body">
-                <div class="users-list-filter">
-                  <form>
-                    <div class="row">
-                      <div class="col-12 col-sm-6 col-lg-3">
+             
+                    
+                    <div class="row w-100">
+                      <div class="col-12 col-sm-6 col-lg-3 px-0">
                         <label for="users-list-search">User Name</label>
                         <fieldset class="form-group">
                           <input
@@ -278,7 +277,7 @@
                           />
                         </fieldset>
                       </div>
-                      <div class="col-12 col-sm-6 col-lg-3">
+                      <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
                         <label for="users-list-status">Status</label>
                         <fieldset class="form-group">
                           <select
@@ -299,7 +298,7 @@
                           </select>
                         </fieldset>
                       </div>
-                      <div class="col-12 col-sm-6 col-lg-3">
+                      <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
                         <label for="users-list-verified">Amount</label>
                         <fieldset class="form-group">
                           <input
@@ -318,9 +317,7 @@
                         </fieldset>
                       </div>
                     </div>
-                  </form>
-                </div>
-              </div>
+                
             </div>
           </div>
         </div>
@@ -342,7 +339,7 @@
               </div>
               <div class="col-5 text-center text-sm-left">
                 <div class="card-body pb-0 px-0 px-md-4">
-                  <img
+                  <img class="sizeImage"
                     src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
                     height="140"
                     alt="view sales"
@@ -1595,6 +1592,22 @@ export default {
     color: #f59e0b;
     background-color: #fcfbfb !important;
     border: 1px solid #f59e0b;
+}
+
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+     margin-right: 0px!important;
+   margin-left: 0px!important;
+}
+
+.sizeImage {
+  width: 25%;
+  height: 100%; 
 }
 
 </style>

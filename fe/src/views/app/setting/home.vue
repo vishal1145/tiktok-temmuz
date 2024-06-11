@@ -48,7 +48,9 @@
           </div>
         </div>
       </b-col>
-      <b-col lg="6" xl="6" md="6" sm="6" class="">
+      <b-col lg="6" xl="6" md="6" sm="6" class="" style="
+    padding-right: 30px!important;
+">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
             <h5 class="text-muted text-10">INCOME</h5>
@@ -801,4 +803,15 @@ table.vgt-table td {
 .w-59 {
   width: 59% !important;
 }
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+     margin-right: 0px!important;
+   margin-left: 0px!important;
+}
+
 </style>

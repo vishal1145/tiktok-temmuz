@@ -442,9 +442,7 @@ export default {
   top: 7px;
   cursor: pointer;
 }
-.modal-body {
-  padding: 0;
-}
+
 /* @media screen and (min-width: 768px) {
   .modal.show .modal-dialog {
     width: 20rem;

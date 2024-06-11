@@ -57,7 +57,7 @@
 
     <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
 
-    <div class="main-div">
+    <div class="">
       <b-card title="Profile" class="for-profile">
         <b-form>
           <b-row class="my-3">
@@ -1416,6 +1416,36 @@ img {
 
 .w-59 {
   width: 59% !important;
+}
+
+
+
+.form-control {
+    border: initial;
+    outline: initial !important;
+    background: #F3F4F6;
+    border: 1px solid #9CA3AF;
+    color: #111827;
+}
+
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+     margin-right: 0px!important;
+   margin-left: 0px!important;
+}
+
+
+.col-md-6 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+     padding-right: 15px !important;
+  
 }
 
 /* Style for the container to improve readability and appearance */

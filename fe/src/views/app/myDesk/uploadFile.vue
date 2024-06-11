@@ -125,7 +125,7 @@
             ></b-form-file>
           </b-form-group>
         <div class=" d-flex justify-content-center align-items-center" >
-            <b-button variant="primary" @click="saveExcelData()" style="height: 37px;" class="mt-2"
+            <b-button variant="primary" @click="saveExcelData()" style="height: 34px;" class="mt-2"
               >Upload</b-button
             >
         </div>

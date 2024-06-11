@@ -12,12 +12,12 @@
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Add Creators
       </label>
-      <b-row class="px-3">
-        <b-col md="12" v-if="role == 'admin'">
-          <b-form-group label="Select Member" label-for="input-title">
+      <b-row class="">
+        <b-col md="12" v-if="role == 'admin'" class="px-0">
+          <b-form-group label="Select Member" class="w-100" label-for="input-title">
             <!-- <b-form-select
               v-model="selectedUserId"
               :options="userNames"
@@ -38,7 +38,7 @@
             ></multiselect>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="first_name"
@@ -54,7 +54,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="last_name"
@@ -70,7 +70,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group
             label="TikTok Username"
             label-for="input-tiktok-username"
@@ -89,7 +89,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Contact Number" label-for="input-contact-number">
             <b-form-input
               v-model="contact_number"
@@ -101,12 +101,12 @@
                 border: 1px solid #80808038;
               "
               type="number"
-              @keydown="checkLengthPhone"
+      @keydown="checkLengthPhone"
               id="input-contact-number"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group
             label="Agency Center Code"
             label-for="input-agency-center-code"
@@ -126,7 +126,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6">
+        <b-col md="6" class="px-0">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
@@ -139,7 +139,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2"
+          class="justify-content-end d-flex align-items-center py-2 px-0"
         >
           <img
             v-if="uplodedImages"
@@ -148,6 +148,9 @@
             class="img-fluid"
             height="50"
             width="50"
+            style="
+    width: 4vw;
+"
           />
         </b-col>
         <b-col>
@@ -428,7 +431,7 @@
           </div>
         </div>
         <div
-          class="d-flex flex-row card-body flex-wrap"
+          class="d-flex flex-row card-body flex-wrap gap-between"
           :style="{ display: flexDivDisplay }"
         >
           <div
@@ -887,7 +890,7 @@ export default {
         ) {
           const userData = response.apidata.data
           this.rows = userData
-          this.allUsers = userData
+          this.allUsers = userData;
 
           const usersWithFullName = userData.map(user => ({
             ...user,
@@ -1509,4 +1512,16 @@ imgloader {
   background-color: #fcfbfb !important;
   border: 1px solid #ef4444;
 }
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+     margin-right: 0px!important;
+   margin-left: 0px!important;
+}
+
+
 </style>

@@ -12,11 +12,11 @@
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Add Members
       </label>
-      <b-row class="px-3">
-        <b-col md="12">
+      <b-row class="">
+        <b-col md="12" class="px-0">
           <b-form-group label="Enter name" label-for="input-title">
             <b-form-input
               v-model="userName"
@@ -28,7 +28,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Enter surname" label-for="input-title">
             <b-form-input
               v-model="userSurName"
@@ -40,7 +40,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="tikTokUserName"
@@ -52,7 +52,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="phoneNumber"
@@ -97,7 +97,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update Members
+        Edit Members
       </label>
       <b-row class="px-3">
         <b-col md="12">
@@ -163,7 +163,7 @@
               class="mb-2"
               variant="primary ripple"
               @click="formSubmitEditMember()"
-              >Update</b-button
+              >Edit</b-button
             >
             <div
               class="spinner spinner-primary imgloader"
@@ -291,14 +291,13 @@
         </div>
 
         <div
-          class="card-content collapse show"
+          class="d-flex flex-row card-body flex-wrap gap-between"
           :style="{ display: flexDivDisplay }"
         >
-          <div class="card-body">
-            <div class="users-list-filter">
-              <form>
-                <div class="row">
-                  <div class="col-12 col-sm-6 col-lg-3">
+        
+         
+                <div class="row w-100">
+                  <div class="col-12 col-sm-6 col-lg-3 px-0 ">
                     <label for="users-list-search">Search</label>
                     <fieldset class="form-group">
                       <input
@@ -307,27 +306,27 @@
                         id="users-list-search"
                         placeholder="Search..."
                         style="
-                          color: grey;
-                          padding-bottom: 7px;
+                          color: grey!important;
+                          padding-bottom: 7px!important;
                           border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                          background-color: rgb(135 131 131 / 0%);
+                          background-color: rgb(135 131 131 / 0%)!important;
                         "
                         v-model="searchTerm"
                         @input="filteredRows = getfilterdata"
                       />
                     </fieldset>
                   </div>
-                  <div class="col-12 col-sm-6 col-lg-3 paddingzero">
+                  <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero ">
                     <label for="users-list-verified">Action</label>
                     <fieldset class="form-group">
                       <select
                         class="form-control"
                         id="users-list-verified"
                         style="
-                          color: grey;
-                          padding-bottom: 7px;
+                          color: grey!important;
+                          padding-bottom: 7px!important;
                           border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                          background-color: rgb(135 131 131 / 0%);
+                          background-color: rgb(135 131 131 / 0%)!important;
                         "
                         v-model="filterStatus"
                       >
@@ -338,9 +337,8 @@
                     </fieldset>
                   </div>
                 </div>
-              </form>
-            </div>
-          </div>
+      
+   
         </div>
       </div>
     </div>
@@ -1205,5 +1203,33 @@ export default {
   content: '\f13a';
   color: #808080cf;
   width: 20px;
+}
+
+.modal-body {
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem !important;
+}
+
+
+.form-control {
+    border: initial;
+    outline: initial !important;
+    background: #F3F4F6;
+    border: 1px solid #9CA3AF;
+    color: #111827;
+}
+
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+     margin-right: 0px!important;
+   margin-left: 0px!important;
 }
 </style>

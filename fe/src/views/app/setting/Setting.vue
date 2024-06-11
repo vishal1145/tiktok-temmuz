@@ -24,7 +24,7 @@
           ></b-form-input>
         </b-form-group>
       </b-col>
-      <b-col md="4">
+      <b-col md="4" class="ml-3">
         <b-form-group label="2.000.000+ diamonds %" label-for="input-secondValue">
           <b-form-input
             v-model="secondValue"

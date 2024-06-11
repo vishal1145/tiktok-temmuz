@@ -223,9 +223,7 @@ export default {
     background: #fff;
     z-index: 100;
 }
-.modal-body {
-  padding: 0;
-}
+
 .for-card{
   width: 50%;
   margin-left: 11rem;

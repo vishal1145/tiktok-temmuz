@@ -693,9 +693,7 @@ export default {
   top: 7px;
   cursor: pointer;
 }
-.modal-body {
-  padding: 0;
-}
+
 #modal-congratulations .modal-content {
   border-radius: 1.3rem !important;
 }
