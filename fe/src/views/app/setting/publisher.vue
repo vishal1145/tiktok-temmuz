@@ -771,7 +771,7 @@ export default {
     this.clearFilters()
     // this.filterData()
     this.addCssRule()
-    this.fetchUserNames()
+    // this.fetchUserNames()
     this.getAllUsers()
 
     // this.$bvModal.show("modal-congratulations");
@@ -807,7 +807,7 @@ export default {
   },
   created () {
     this.filteredRows32()
-    this.fetchUserNames()
+    // this.fetchUserNames()
     this.getAllUsers()
 
     // this.filterData()
@@ -871,13 +871,13 @@ export default {
       }
     },
 
-    async fetchUserNames () {
-      await this.getAllUsers()
-      this.userNames = this.rows.map(row => ({
-        value: row._id,
-        text: row.name
-      }))
-    },
+    // async fetchUserNames () {
+    //   await this.getAllUsers()
+    //   this.userNames = this.rows.map(row => ({
+    //     value: row._id,
+    //     text: row.name
+    //   }))
+    // },
     async getAllUsers () {
       this.loader = true
       try {

@@ -13,10 +13,10 @@
       centered
       ref="withdrawModal"
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+      <label class=" pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Withdraw
       </label>
-      <b-row class="px-3">
+      <b-row class="">
         <b-col md="12" class="d-none">
           <b-form-group label="User Name" label-for="input-user-name">
             <b-form-input
