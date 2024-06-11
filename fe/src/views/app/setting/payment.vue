@@ -472,9 +472,11 @@
               </div>
             </span>
             <span v-else-if="props.column.field === 'status'">
-    <div>
-      <div v-if="props.row.status === 'Paid'" class="badge badge-success">Paid</div>
+              <div>
+      <div v-if="props.row.status === 'Approved'" class="badge badge-success">Paid</div>
       <div v-else-if="props.row.status === 'Reject'" class="badge badge-danger">Reject</div>
+      <div v-else-if="props.row.status === 'Pending'" class="badge badge-yellow">Pending</div>
+
       <div v-else>{{ props.row.status }}</div>
     </div>
   </span>
@@ -1592,4 +1594,12 @@ export default {
   background-color: #ffffff !important;
   border: 1px solid #10b981;
 }
+
+
+.badge-yellow {
+    color: #f59e0b;
+    background-color: #fcfbfb !important;
+    border: 1px solid #f59e0b;
+}
+
 </style>
