@@ -35,7 +35,7 @@
           :options="[...allUsers]"
           :multiple="false"
           :limit="1"
-          label="name"
+           label="fullName"
      
         ></multiselect>
           </b-form-group>
@@ -728,7 +728,7 @@ export default {
   mounted () {
     
     this.clearFilters()
-    this.filterData()
+    // this.filterData()
     this.addCssRule()
     this.fetchUserNames()
     this.getAllUsers()
@@ -772,7 +772,7 @@ export default {
     this.fetchUserNames()
     this.getAllUsers()
 
-    this.filterData()
+    // this.filterData()
 
     this.clearFilters()
 
@@ -863,6 +863,15 @@ export default {
           const userData = response.apidata.data
           this.rows = userData
           this.allUsers = userData;
+
+          const usersWithFullName = userData.map(user => ({
+        ...user,
+        fullName: `${user.name} ${user.surname}`
+      }));
+
+      this.rows = usersWithFullName;
+      this.allUsers = usersWithFullName;
+
           
         } else {
           this.$toaster.makeToast('warning', 'Failed to fetch user data')
@@ -881,49 +890,49 @@ export default {
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-    filterData () {
-      this.filteredFaqs = this.faqs.filter(faq => {
-        // Check search term
-        const matchesSearchTerm =
-          faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-          faq.contact_number.includes(this.searchTerm) ||
-          faq.agency_center_code.includes(this.searchTerm) ||
-          (faq.reason &&
-            faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
+    // filterData () {
+    //   this.filteredFaqs = this.faqs.filter(faq => {
+    //     // Check search term
+    //     const matchesSearchTerm =
+    //       faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+    //       faq.contact_number.includes(this.searchTerm) ||
+    //       faq.agency_center_code.includes(this.searchTerm) ||
+    //       (faq.reason &&
+    //         faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
       
 
-        // Check filter status
-        const matchesStatus =
-          this.filterStatus === '' || faq.status === this.filterStatus
+    //     // Check filter status
+    //     const matchesStatus =
+    //       this.filterStatus === '' || faq.status === this.filterStatus
 
        
 
-        return matchesSearchTerm && matchesStatus
-      })
-    },
+    //     return matchesSearchTerm && matchesStatus
+    //   })
+    // },
 
-    onSearchTermChange (event) {
-      this.searchTerm = event.target.value
-      this.filterData()
-    },
-    onStatusChange (event) {
-      this.filterStatus = event.target.value
-      this.filterData()
-    },
+    // onSearchTermChange (event) {
+    //   this.searchTerm = event.target.value
+    //   this.filterData()
+    // },
+    // onStatusChange (event) {
+    //   this.filterStatus = event.target.value
+    //   this.filterData()
+    // },
     clearFilters () {
       this.searchTerm = ''
       this.selectedStatus = ''
    this.getAllUsers()
     },
-    onSearchTermChange (event) {
-      this.searchTerm = event.target.value
-      this.filterData()
-    },
-    onStatusChange (event) {
-      this.filterStatus = event.target.value
-      this.filterData()
-    },
+    // onSearchTermChange (event) {
+    //   this.searchTerm = event.target.value
+    //   this.filterData()
+    // },
+    // onStatusChange (event) {
+    //   this.filterStatus = event.target.value
+    //   this.filterData()
+    // },
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
