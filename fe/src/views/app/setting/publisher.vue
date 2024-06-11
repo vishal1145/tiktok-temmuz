@@ -28,16 +28,14 @@
             </b-form-select> -->
 
             <multiselect
-          @input="handleChange"
-          v-model="selectedName"
-        
-          placeholder="Select Member"
-          :options="[...allUsers]"
-          :multiple="false"
-          :limit="1"
-           label="fullName"
-     
-        ></multiselect>
+              @input="handleChange"
+              v-model="selectedName"
+              placeholder="Select Member"
+              :options="[...allUsers]"
+              :multiple="false"
+              :limit="1"
+              label="fullName"
+            ></multiselect>
           </b-form-group>
         </b-col>
         <b-col md="12">
@@ -46,7 +44,11 @@
               v-model="first_name"
               required
               placeholder="First name"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-first-name"
             ></b-form-input>
@@ -58,7 +60,11 @@
               v-model="last_name"
               required
               placeholder="Last name"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -73,7 +79,11 @@
               v-model="tiktok_username"
               required
               placeholder="TikTok username"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-tiktok-username"
             ></b-form-input>
@@ -85,9 +95,13 @@
               v-model="contact_number"
               required
               placeholder="Contact number"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="number"
-      @keydown="checkLengthPhone"
+              @keydown="checkLengthPhone"
               id="input-contact-number"
             ></b-form-input>
           </b-form-group>
@@ -101,9 +115,13 @@
               v-model="agency_center_code"
               required
               placeholder="Agency center code"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="number"
-      @keydown="checkLengthPhone2"
+              @keydown="checkLengthPhone2"
               id="input-agency-center-code"
             ></b-form-input>
           </b-form-group>
@@ -119,7 +137,10 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="justify-content-end d-flex align-items-center py-2">
+        <b-col
+          md="6"
+          class="justify-content-end d-flex align-items-center py-2"
+        >
           <img
             v-if="uplodedImages"
             :src="uplodedImages"
@@ -164,14 +185,17 @@
         Update publisher
       </label>
       <b-row class="px-3">
-
         <b-col md="12">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
               required
               placeholder="First name"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-first-name"
             ></b-form-input>
@@ -183,7 +207,11 @@
               v-model="getLastName"
               required
               placeholder="Last name"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -196,7 +224,11 @@
               v-model="getTikTok"
               required
               placeholder="Last name"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -221,8 +253,12 @@
               v-model="getphoneNumber"
               required
               placeholder="Contact number"
-                @keydown="checkLengthPhoneEdt"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              @keydown="checkLengthPhoneEdt"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="number"
               id="input-phoneNumber"
             ></b-form-input>
@@ -234,7 +270,11 @@
               v-model="getcenterCode"
               required
               placeholder="Agency center code"
-           style="height: 43px;background-color: white;border: 1px solid #80808038;"
+              style="
+                height: 43px;
+                background-color: white;
+                border: 1px solid #80808038;
+              "
               type="number"
               id="input-agency"
             ></b-form-input>
@@ -299,7 +339,7 @@
         </b-col>
       </b-row>
     </b-modal>
-    
+
     <b-modal
       id="modal-cancelReason"
       size="md"
@@ -409,7 +449,6 @@
                   background-color: rgb(135 131 131 / 0%);
                 "
                 v-model="searchTerm"
-                @input="onSearchTermChange"
               />
             </fieldset>
           </div>
@@ -427,7 +466,6 @@
                   background-color: rgb(135 131 131 / 0%);
                 "
                 v-model="selectedStatus"
-                @change="onStatusChange"
               >
                 <option value="">All</option>
                 <option value="Approved">Approved</option>
@@ -548,17 +586,21 @@
                   </div>
                 </div>
               </span>
-       
+
               <span v-else-if="props.column.field === 'reason'">
-              <div>{{ props.row.reason }}</div>
-           
-            </span>
+                <div>{{ props.row.reason }}</div>
+              </span>
               <span v-else-if="props.column.field === 'show_img'">
                 <div>
                   <img
                     :src="props.row.icon"
                     alt=""
-                    :style="{ width: '50px', height: '50px', borderRadius: '197px', objectFit:'cover' }"
+                    :style="{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '197px',
+                      objectFit: 'cover'
+                    }"
                   />
                 </div>
               </span>
@@ -588,10 +630,9 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+import Multiselect from 'vue-multiselect'
 
 export default {
-
   components: {
     // VueEditor,
     // VueDocumentEditor
@@ -599,10 +640,10 @@ export default {
   },
   data () {
     return {
-      selectedName:"",
+      selectedName: '',
       allUsers: [],
       rows: [],
-      updateloader:false,
+      updateloader: false,
       selectedUserName: null,
       getphoneNumber: '',
       getcenterCode: '',
@@ -715,24 +756,20 @@ export default {
       agency_center_code: '',
       icon: '',
       ForDropwDow: [],
-      getFirstName:"",
-      getLastName:"",
-      getTikTok:"",
-      tiktokres:{},
-      selectedStatus:"",
-      searchTerm:""
-
-
+      getFirstName: '',
+      getLastName: '',
+      getTikTok: '',
+      tiktokres: {},
+      selectedStatus: '',
+      searchTerm: ''
     }
   },
   mounted () {
-    
     this.clearFilters()
     // this.filterData()
     this.addCssRule()
     this.fetchUserNames()
     this.getAllUsers()
-
 
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
@@ -745,7 +782,7 @@ export default {
       }
     },
 
-    doubledNumber() {
+    doubledNumber () {
       return this.filteredRows32()
     }
     // filteredRows32 () {
@@ -759,16 +796,14 @@ export default {
     //       const matchesStatus = select_status
     //       ? row.status === select_status
     //       : true
-          
+
     //     return matchesQuery && matchesStatus
     //   })
-  
-    // },
-    
 
+    // },
   },
   created () {
-     this.filteredRows32()
+    this.filteredRows32()
     this.fetchUserNames()
     this.getAllUsers()
 
@@ -776,21 +811,14 @@ export default {
 
     this.clearFilters()
 
- 
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
 
-
-
     this.fetchPublisher()
-
   },
 
   methods: {
-
-
     filteredRows32 () {
-      
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus
 
@@ -798,16 +826,14 @@ export default {
         const matchesQuery = query
           ? row.first_name && row.first_name.toLowerCase().includes(query)
           : true
-          const matchesStatus = select_status
+        const matchesStatus = select_status
           ? row.status === select_status
           : true
         return matchesQuery && matchesStatus
       })
     },
-    handleChange(user) {
-
-      this.selectedUserId=user._id;
-
+    handleChange (user) {
+      this.selectedUserId = user._id
 
       // // Filter the rows based on the user_name
       // const matchedRows = this.rows.filter(row => row.first_name === user);
@@ -816,7 +842,6 @@ export default {
       // this.rows = matchedRows;
 
       // Log the matched rows to the console
-      
     },
     checkLengthPhone (event) {
       if (this.contact_number.toString().length >= 10 && event.keyCode !== 8) {
@@ -824,7 +849,10 @@ export default {
       }
     },
     checkLengthPhone2 (event) {
-      if (this.agency_center_code.toString().length >= 13 && event.keyCode !== 8) {
+      if (
+        this.agency_center_code.toString().length >= 13 &&
+        event.keyCode !== 8
+      ) {
         event.preventDefault()
       }
     },
@@ -839,9 +867,8 @@ export default {
         event.preventDefault()
       }
     },
-               
+
     async fetchUserNames () {
- 
       await this.getAllUsers()
       this.userNames = this.rows.map(row => ({
         value: row._id,
@@ -849,8 +876,6 @@ export default {
       }))
     },
     async getAllUsers () {
-
-
       this.loader = true
       try {
         const response = await this.$apiService.getCall('user/get-all-members')
@@ -862,17 +887,15 @@ export default {
         ) {
           const userData = response.apidata.data
           this.rows = userData
-          this.allUsers = userData;
+          this.allUsers = userData
 
           const usersWithFullName = userData.map(user => ({
-        ...user,
-        fullName: `${user.name} ${user.surname}`
-      }));
+            ...user,
+            fullName: `${user.name} ${user.surname}`
+          }))
 
-      this.rows = usersWithFullName;
-      this.allUsers = usersWithFullName;
-
-          
+          this.rows = usersWithFullName
+          this.allUsers = usersWithFullName
         } else {
           this.$toaster.makeToast('warning', 'Failed to fetch user data')
         }
@@ -900,13 +923,9 @@ export default {
     //       (faq.reason &&
     //         faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
-      
-
     //     // Check filter status
     //     const matchesStatus =
     //       this.filterStatus === '' || faq.status === this.filterStatus
-
-       
 
     //     return matchesSearchTerm && matchesStatus
     //   })
@@ -923,7 +942,7 @@ export default {
     clearFilters () {
       this.searchTerm = ''
       this.selectedStatus = ''
-   this.getAllUsers()
+      this.getAllUsers()
     },
     // onSearchTermChange (event) {
     //   this.searchTerm = event.target.value
@@ -965,21 +984,18 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-
+       
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
-          // this.faqs = response.apidata.data;
-
-          this.faqs = response.apidata.data
-          this.filteredFaqs = response.apidata.data
-
-          this.filteredFaqs = this.faqs
-          this.ForDropwDow = this.faqs
-
-          // this.faqs = this.faqs.filter(e => e._id == this.user_id)
-
-          // this.$toaster.makeToast('success', 'publisher data get successfully');
+          if (response.apidata.msg) {
+            this.faqs = []
+          } else {
+            this.faqs = response.apidata.data
+            this.filteredFaqs = response.apidata.data
+            this.filteredFaqs = this.faqs
+            this.ForDropwDow = this.faqs
+          }
         }
         this.loader = false
       } catch (error) {
@@ -1013,7 +1029,7 @@ export default {
         })
 
         // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
-    
+
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
@@ -1048,7 +1064,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-     
+
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)
@@ -1083,7 +1099,7 @@ export default {
           `publisher/update-publisher-status/${id}`,
           req
         )
-      
+
         if (res.error) {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
@@ -1126,7 +1142,7 @@ export default {
       //     'TikTok Username All Ready exist, Please Try Again'
       //   )
       // } else {
-         this.loader = true
+      this.loader = true
       try {
         let requestData = {
           user_id:
@@ -1149,60 +1165,58 @@ export default {
           requestData
         )
 
-        this.tiktokres = res;
-        console.log("res",res)
+        this.tiktokres = res
         // Handle the response
         if (res.error) {
-          if (this.tiktokres.response.data.message.keyPattern.keyPattern.tiktok_username === 1) {
-    this.$toaster.makeToast('warning', 'TikTok username already exists');
-} else {
-    this.$toaster.makeToast('warning', res.response.data.message.keyPattern.keyPattern.tiktok_username);
-}
+          if (
+            this.tiktokres.response.data.message.keyPattern.keyPattern
+              .tiktok_username === 1
+          ) {
+            this.$toaster.makeToast('warning', 'TikTok username already exists')
+          } else {
+            this.$toaster.makeToast(
+              'warning',
+              res.response.data.message.keyPattern.keyPattern.tiktok_username
+            )
+          }
         } else {
-          this.fetchPublisher();
-          this.isEdit = false;
-          this.showAddModal = false;
-          this.loader = false;
-          this.first_name = '';
-          this.last_name = '';
-          this.tiktok_username = '';
-          this.uplodedImages = '';
-          this.contact_number = '';
-          this.agency_center_code = '';
-          this.icon = null;
-          this.$toaster.makeToast('success', 'Data added successfully');
+          this.fetchPublisher()
+          this.isEdit = false
+          this.showAddModal = false
+          this.loader = false
+          this.first_name = ''
+          this.last_name = ''
+          this.tiktok_username = ''
+          this.uplodedImages = ''
+          this.contact_number = ''
+          this.agency_center_code = ''
+          this.icon = null
+          this.$toaster.makeToast('success', 'Data added successfully')
         }
       } catch (error) {
-        console.log("eroot",error)
+        console.log('eroot', error)
         this.loader = false
-        if (this.tiktokres.error.response.data.message.keyPattern.tiktok_username === 1) {
-    this.$toaster.makeToast('warning', 'TikTok username already exists');
-} 
-else
-{
-     this.$toaster.makeToast('warning', 'Error: Server Error')
-        console.error(error) // Added console log to catch block
-}
-     
+        if (
+          this.tiktokres.error.response.data.message.keyPattern
+            .tiktok_username === 1
+        ) {
+          this.$toaster.makeToast('warning', 'TikTok username already exists')
+        } else {
+          this.$toaster.makeToast('warning', 'Error: Server Error')
+          console.error(error) // Added console log to catch block
+        }
       }
-      
     },
-
 
     async editPublisher () {
       this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
-
-
-
-          
-
-    first_name:this.getFirstName,
-    last_name: this.getLastName,
-    tiktok_username:this.getTikTok,
-    contact_number: this.getphoneNumber,
+          first_name: this.getFirstName,
+          last_name: this.getLastName,
+          tiktok_username: this.getTikTok,
+          contact_number: this.getphoneNumber,
           agency_center_code: this.getcenterCode,
           icon: this.uplodedImages
 
@@ -1241,8 +1255,7 @@ else
       this.getLastName = data.last_name
       this.images = data.icon
       this.uplodedImages = data.icon
-      this.getTikTok=data.tiktok_username
-  
+      this.getTikTok = data.tiktok_username
 
       this.showAddModalEdit = true
     },
@@ -1305,7 +1318,7 @@ else
           `publisher/update-publisher-status/${this.rejectedId}`,
           req
         )
-       
+
         if (res.error) {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
@@ -1354,7 +1367,6 @@ else
           }
         } else {
           this.loader = false
-        
         }
       } catch (error) {
         this.$toaster.makeToast('warning', 'Error: Server Error')
@@ -1391,7 +1403,6 @@ else
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
-
 /* Modal overlay */
 .modal-overlay {
   position: fixed;
