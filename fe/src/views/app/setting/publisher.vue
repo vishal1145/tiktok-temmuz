@@ -759,6 +759,7 @@ export default {
 
   },
   created () {
+    this.filteredRows()
     this.fetchUserNames()
     this.getAllUsers()
 
