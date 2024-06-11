@@ -1610,4 +1610,20 @@ export default {
   height: 100%; 
 }
 
+.form-control {
+    border: initial;
+    outline: initial !important;
+    background: #F3F4F6;
+    border: 1px solid #9CA3AF;
+    color: #111827;
+}
+
+.modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0rem;
+}
+
 </style>
