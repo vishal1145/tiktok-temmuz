@@ -558,14 +558,14 @@ export default {
             placeholder: 'Amount'
           }
         },
-        {
-          label: 'Status',
-          field: 'status',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Status'
-          }
-        },
+        // {
+        //   label: 'Status',
+        //   field: 'status',
+        //   filterOptions: {
+        //     enabled: true,
+        //     placeholder: 'Status'
+        //   }
+        // },
         {
           label: 'Notes',
           field: 'notes',
@@ -730,7 +730,7 @@ export default {
   },
   created () {
     this.getAllUsers()
-    this.getAllTransaction()
+    // this.getAllTransaction()
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
     // this.role = parsedUser.data.role;
@@ -739,6 +739,7 @@ export default {
     // this.reloadPageOnce()
   },
   methods: {
+    
     formatDate (dateString) {
       const options = {
         year: 'numeric',
@@ -763,21 +764,18 @@ export default {
           req
         )
 
-        if (res.error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', res.message)
-        } else {
+      
           this.loader = false
           this.$toaster.makeToast(
             'success',
             ' Payment status Approved successfully'
           )
           this.getAllUsers()
-        }
+        
       } catch (error) {
         this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
-        // console.error(error)
+        // this.$toaster.makeToast('warning', 'Error: Server Error')
+         console.error(error)
       }
     },
     async clickPaid (id) {
@@ -792,20 +790,17 @@ export default {
           req
         )
 
-        if (res.error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', res.message)
-        } else {
+      
           this.loader = false
           this.$toaster.makeToast(
             'success',
             ' Payment status Rejected successfully'
           )
           this.getAllUsers()
-        }
+        
       } catch (error) {
         this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // this.$toaster.makeToast('warning', 'Error: Server Error')
         // console.error(error)
       }
     },

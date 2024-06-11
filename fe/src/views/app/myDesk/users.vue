@@ -97,7 +97,7 @@
       centered
     >
       <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Edit Members
+        Update Members
       </label>
       <b-row class="px-3">
         <b-col md="12">
@@ -163,7 +163,7 @@
               class="mb-2"
               variant="primary ripple"
               @click="formSubmitEditMember()"
-              >Edit</b-button
+              >Update</b-button
             >
             <div
               class="spinner spinner-primary imgloader"

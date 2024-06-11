@@ -426,7 +426,7 @@
                   border: 1px solid rgba(128, 128, 128, 0.32) !important;
                   background-color: rgb(135 131 131 / 0%);
                 "
-                v-model="filterStatus"
+                v-model="selectedStatus"
                 @change="onStatusChange"
               >
                 <option value="">All</option>
@@ -490,7 +490,7 @@
             :line-numbers="false"
             :pagination-options="paginationOptions"
             styleClass="tableOne vgt-table"
-            :rows="filteredFaqs"
+            :rows="filteredRows"
           >
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field === 'actions'">
@@ -718,7 +718,10 @@ export default {
       getFirstName:"",
       getLastName:"",
       getTikTok:"",
-      tiktokres:{}
+      tiktokres:{},
+      selectedStatus:"",
+      searchTerm:""
+
 
     }
   },
@@ -738,7 +741,22 @@ export default {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
-    }
+    },
+    filteredRows () {
+      const query = this.searchTerm.toLowerCase().trim()
+      const select_status = this.selectedStatus
+
+      return this.faqs.filter(row => {
+        const matchesQuery = query
+          ? row.first_name && row.first_name.toLowerCase().includes(query)
+          : true
+          const matchesStatus = select_status
+          ? row.status === select_status
+          : true
+        return matchesQuery && matchesStatus
+      })
+    },
+
   },
   created () {
     this.fetchUserNames()
@@ -874,8 +892,8 @@ export default {
     },
     clearFilters () {
       this.searchTerm = ''
-      this.filterStatus = ''
-      this.filterData()
+      this.selectedStatus = ''
+   this.getAllUsers()
     },
     onSearchTermChange (event) {
       this.searchTerm = event.target.value
