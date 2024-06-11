@@ -1104,11 +1104,18 @@ export default {
     //     console.log(e);
     //   }
     // },
-    checkExpToken() {
-       try {
-         const response =  this.$apiService.getCall('user/get-all-members')
+    async checkExpToken() {
+      try {
+        const response = await new Promise((resolve, reject) => {
+          this.$apiService
+            .getCall(`user/get-all-members`)
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
+        //  const response = this.$apiService.getCall('user/get-all-members');
+        
         if (
-          response.message==='Invalid token'
+          response.error.response.data.message==='Invalid token'
         ) {
           this.$router.push('/app/sessions/signIn');
           this.$toaster.makeToast('warning', response.message);    
