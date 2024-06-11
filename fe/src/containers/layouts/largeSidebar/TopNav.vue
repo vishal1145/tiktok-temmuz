@@ -1121,7 +1121,7 @@ export default {
           this.$toaster.makeToast('warning', response.message);    
         } 
       } catch (e) {
-        this.$toaster.makeToast('warning', 'Server Error');  
+        // this.$toaster.makeToast('warning', 'Server Error');  
       }
       
     },
