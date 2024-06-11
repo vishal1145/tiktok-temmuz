@@ -560,15 +560,15 @@ export default {
       dashboardFive,
       spark3,
       sparkData: {
-        series: [
-          {
-            name: 'series2',
-            data: [
-              45, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27,
-              93, 53, 61, 27, 54, 43, 19, 46
-            ]
-          }
-        ]
+        // series: [
+        //   {
+        //     name: 'series2',
+        //     data: [
+        //       45, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27,
+        //       93, 53, 61, 27, 54, 43, 19, 46
+        //     ]
+        //   }
+        // ]
       },
       // spark3: {
       //   series: [
@@ -870,7 +870,7 @@ export default {
           field: 'valid_days_this_month',
           filterOptions: {
             enabled: true,
-            placeholder: 'Earning range'
+            placeholder: 'Search...'
           }
         },
         {
@@ -878,7 +878,15 @@ export default {
           field: 'diamonds_this_month',
           filterOptions: {
             enabled: true,
-            placeholder: 'Earning range'
+            placeholder: 'Search...'
+          }
+        },
+        {
+          label: 'Earning',
+          field: 'earning',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search...'
           }
         },
         {
@@ -886,7 +894,7 @@ export default {
           field: 'live_duration_this_month',
           filterOptions: {
             enabled: true,
-            placeholder: 'Earning range'
+            placeholder: 'Search...'
           }
         },
         {
@@ -894,7 +902,7 @@ export default {
           field: 'percentage_achieved',
           filterOptions: {
             enabled: true,
-            placeholder: 'Earning range'
+            placeholder: 'Search...'
           }
         },
         {
@@ -902,7 +910,7 @@ export default {
           field: 'as_of_date',
           filterOptions: {
             enabled: true,
-            placeholder: 'Earning range'
+            placeholder: 'Search...'
           }
         }
       ],
@@ -949,6 +957,7 @@ export default {
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
     this.getEarningData()
+    this.getGraphData()
   },
   methods: {
     toggleFlexDiv () {
@@ -956,6 +965,41 @@ export default {
         this.flexDivDisplay === 'flex!important'
           ? 'none!important'
           : 'flex!important' // Toggle the display property
+    },
+    getGraphData () {
+      this.loader = true
+
+      this.$apiService
+        .getCall(`user/creators-earnings-graph`)
+        .then(res => {
+          if (res.isError) {
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          } else {
+            var graphData = res.apidata.dates
+            graphData = graphData.map(date =>
+              moment(date).format('YYYY-MM-DDTHH:mm:ss')
+            )
+            var diamondData = res.apidata.diamonds
+            var earningData = res.apidata.earnings
+
+            this.sparkData = {
+              series: [
+                {
+                  name: 'Diamonds',
+                  data: diamondData
+                }
+              ]
+            }
+          }
+
+          // console.log(res);
+
+          this.loader = false
+        })
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
     },
 
     onSearchTermChange (event) {
@@ -1028,7 +1072,6 @@ export default {
       this.$apiService
         .postCall('user/creators-earnings')
         .then(response => {
-         
           this.loader = false
           if (response.isError) {
             this.$toaster.makeToast('warning', 'Error fetching earning data')
@@ -1037,7 +1080,7 @@ export default {
           //   this.$toaster.makeToast('warning', response.apidata.data)
           // }
           else {
-            const userData = response.apidata.data 
+            const userData = response.apidata.data
             userData.forEach(e => {
               e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY h:mm A')
             })

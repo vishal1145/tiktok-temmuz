@@ -48,9 +48,7 @@
           </div>
         </div>
       </b-col>
-      <b-col lg="6" xl="6" md="6" sm="6" class="" style="
-    padding-right: 30px!important;
-">
+      <b-col lg="6" xl="6" md="6" sm="6" class="">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
             <h5 class="text-muted text-10">INCOME</h5>
@@ -64,8 +62,8 @@
               <apexchart
                 type="area"
                 height="150"
-                :options="splineAreaWidget.chartOptions"
-                :series="splineAreaWidgetData.series"
+                :options="yearAreaWidget.chartOptions"
+                :series="yearAreaWidget.series"
               />
             </div>
           </b-card-body>
@@ -85,8 +83,8 @@
               <apexchart
                 type="area"
                 height="150"
-                :options="splineAreaWidgetTwo.chartOptions"
-                :series="splineAreaWidgetTwoData.series"
+                :options="yearAreaWidget.chartOptions"
+                :series="yearAreaWidget.series"
               />
             </div>
           </b-card-body>
@@ -475,9 +473,11 @@
         </b-card>
       </b-col>
     </b-row>
+    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
   </div>
 </template>
 <script>
+import moment from 'moment'
 import { spark3, radialBar } from '@/data/apexChart'
 import {
   splineAreaWidget,
@@ -500,80 +500,10 @@ export default {
   },
   data () {
     return {
-      yearAreaWidget: {
-        series: [
-          {
-            name: 'series7',
-            data: [31, 40, 28, 67, 51, 42, 109,77, 100]
-          },
-          {
-            name: 'series2',
-            data: [11, 32, 45, 24, 32, 34, 52,77, 41]
-          }
-        ],
-
-        chartOptions: {
-          chart: {
-            width: '100%',
-            height: 100,
-            toolbar: {
-              show: false
-            },
-            sparkline: {
-              enabled: true
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth'
-          },
-          legend: {
-            show: false
-          },
-
-          xaxis: {
-            type: 'datetime',
-            categories: [
-              '2018-09-19T00:00:00',
-              '2018-09-19T01:30:00',
-              '2018-09-19T02:30:00',
-              '2018-09-19T03:30:00',
-              '2018-09-19T04:30:00',
-              '2018-09-19T05:30:00',
-              '2018-09-19T05:30:00',
-              '2018-09-19T06:30:00'
-            ],
-            labels: {
-              show: false
-            },
-            axisTicks: {
-              show: false
-            },
-            axisBorder: {
-              show: false
-            }
-          },
-          yaxis: {
-            show: false
-          },
-          grid: {
-            show: false
-          },
-          tooltip: {
-            enabled: true,
-            x: {
-              format: 'dd/MM/yy HH:mm'
-            }
-          },
-          colors: ['#A855F7', '#4caf50'],
-          stroke: {
-            curve: 'straight',
-            width: 1
-          }
-        }
-      },
+      columns: [],
+      rows: [],
+      loader: false,
+      yearAreaWidget: {},
       isCopied: false,
       referralURL: 'https://temmuz.algofolks.com/app/setting/affiliate', // Replace with your actual referral URL
       selected: 'x',
@@ -625,112 +555,11 @@ export default {
       },
       spark3,
       values: [30, 20],
-      max: 100,
-
-      // list
-      columns: [
-        {
-          label: 'Thumbnail ',
-          field: 'img',
-          width: '100px',
-          tdClass: 'gull-border-none text-left'
-        },
-        {
-          label: 'Title',
-          field: 'span',
-          html: true,
-          tdClass: 'gull-border-none text-left'
-        },
-        {
-          label: 'Status',
-          field: 'status',
-          html: true,
-          tdClass: 'text-left gull-border-none',
-          thClass: 'text-left'
-        },
-        {
-          label: 'Created On',
-          field: 'createdAt',
-          type: 'date',
-          dateInputFormat: 'yyyy-mm-dd',
-          dateOutputFormat: 'mmm Do yy',
-          tdClass: 'text-left gull-border-none',
-          thClass: 'text-left'
-        },
-        {
-          label: 'Progress',
-          field: 'progressbar',
-          html: true,
-          tdClass: 'text-left gull-border-none',
-          thClass: 'text-left'
-        }
-      ],
-      rows: [
-        {
-          id: 1,
-          img: require('@/assets/images/products/speaker-1.jpg'),
-          status: '<span class="badge badge-danger">Cancel</span>',
-          span: 'Wireless Bluetooth V4.0 ',
-          createdAt: '2011-10-28',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div>'
-        },
-        {
-          id: 2,
-          img: require('@/assets/images/products/speaker-2.jpg'),
-          status: '<span class="badge badge-warning">Pending</span>',
-          span: 'Portable Speaker with HD Sound',
-          createdAt: '2011-10-28',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-primary" role="progressbar" style="width: 50%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div></div>'
-        },
-        {
-          id: 3,
-          img: require('@/assets/images/products/headphone-2.jpg'),
-          status: '<span class="badge badge-success">Success</span>',
-          span: 'Lightweight On-Ear',
-          createdAt: '2011-10-30',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-danger" role="progressbar" style="width: 75%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">75%</div></div>'
-        },
-        {
-          id: 4,
-          img: require('@/assets/images/products/watch-1.jpg'),
-          status: '<span class="badge badge-danger">Cancel</span>',
-          span: 'Automatic-self-wind mens ',
-          createdAt: '2011-10-11',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-info" role="progressbar" style="width: 100%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div></div>'
-        },
-        {
-          id: 5,
-          img: require('@/assets/images/products/watch-1.jpg'),
-          status: '<span class="badge badge-primary">Approved</span>',
-          span: 'Automatic-self-wind ',
-          createdAt: '2011-10-21',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-warning" role="progressbar" style="width: 80%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">80%</div></div>'
-        },
-        {
-          id: 6,
-          img: require('@/assets/images/products/headphone-3.jpg'),
-          status: '<span class="badge badge-info">Pending</span>',
-          span: 'On-Ear Headphones - Black',
-          createdAt: '2011-10-28',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div></div>'
-        },
-        {
-          id: 7,
-          img: require('@/assets/images/products/headphone-2.jpg'),
-          status: '<span class="badge badge-success">Pending</span>',
-          span: 'Lightweight On-Ear Headphones - Black',
-          createdAt: '2011-10-30',
-          progressbar:
-            '<div class="progress progress--height mt-1" ><div class="progress-bar bg-danger" role="progressbar" style="width: 75%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">75%</div></div>'
-        }
-      ]
+      max: 100
     }
+  },
+  created () {
+    this.getGraphData()
   },
   methods: {
     copyUrl () {
@@ -744,22 +573,99 @@ export default {
           console.error('Could not copy text: ', err)
         })
     },
-      getGraphData() {
-      this.loader = true;
+    getGraphData () {
+      this.loader = true
 
       this.$apiService
-        .getCall(`/`)
-        .then((res) => {
-          let rowData = [];
+        .getCall(`user/creators-earnings-graph`)
+        .then(res => {
+          if (res.isError) {
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          } else {
+            var graphData = res.apidata.dates
+            graphData = graphData.map(date =>
+              moment(date).format('YYYY-MM-DDTHH:mm:ss')
+            )
 
-         
+            // var dates = graphData;
+            var diamondData = res.apidata.diamonds
+            var earningData = res.apidata.earnings
 
-          this.loader = false;
+            this.yearAreaWidget = {
+              series: [
+                {
+                  name: 'Diamonds',
+                  data: diamondData
+                },
+                {
+                  name: 'Earnings',
+                  data: earningData
+                }
+              ],
+
+              chartOptions: {
+                chart: {
+                  width: '100%',
+                  height: 100,
+                  toolbar: {
+                    show: false
+                  },
+                  sparkline: {
+                    enabled: true
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  curve: 'smooth'
+                },
+                legend: {
+                  show: false
+                },
+
+                xaxis: {
+                  type: 'datetime',
+                  categories: graphData,
+                  labels: {
+                    show: false
+                  },
+                  axisTicks: {
+                    show: false
+                  },
+                  axisBorder: {
+                    show: false
+                  }
+                },
+                yaxis: {
+                  show: false
+                },
+                grid: {
+                  show: false
+                },
+                tooltip: {
+                  enabled: true,
+                  x: {
+                    format: 'dd/MM/yy HH:mm'
+                  }
+                },
+                colors: ['#A855F7', '#4caf50'],
+                stroke: {
+                  curve: 'straight',
+                  width: 1
+                }
+              }
+            }
+          }
+
+          // console.log(res);
+
+          this.loader = false
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
     },
     onComplete: function () {
       this.$swal({
@@ -770,7 +676,6 @@ export default {
         timer: 1500
       })
     },
-
 
     copyToClipboard () {
       navigator.clipboard.writeText(this.referralURL).then(
@@ -790,6 +695,12 @@ export default {
 }
 </script>
 <style>
+#loader {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  z-index: 10;
+}
 .gull-border-none {
   border-bottom: none !important;
 }
@@ -803,15 +714,4 @@ table.vgt-table td {
 .w-59 {
   width: 59% !important;
 }
-
-.row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-     margin-right: 0px!important;
-   margin-left: 0px!important;
-}
-
 </style>
