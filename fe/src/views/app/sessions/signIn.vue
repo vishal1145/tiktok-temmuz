@@ -106,19 +106,16 @@
 
 
                       <div>
-
-  <div class="verification-code--inputs d-flex flex-row" style="
-    gap: 20px;
-">
-    <input type="text" maxlength="1"  v-model="phoneOtp1" />
-    <input type="text" maxlength="1"  v-model="phoneOtp2" />
-    <input type="text" maxlength="1"  v-model="phoneOtp3"/>
-    <input type="text" maxlength="1"  v-model="phoneOtp4"/>
-    <!-- <input type="text" maxlength="1"  v-model="phoneOtp5"/>
-    <input type="text" maxlength="1"  v-model="phoneOtp6"/> -->
+  <div class="verification-code--inputs d-flex flex-row" style="gap: 20px;">
+    <input type="text" maxlength="1" v-model="phoneOtp1" @input="moveFocus($event, 'phoneOtp2')" ref="phoneOtp1" />
+    <input type="text" maxlength="1" v-model="phoneOtp2" @input="moveFocus($event, 'phoneOtp3')" ref="phoneOtp2" />
+    <input type="text" maxlength="1" v-model="phoneOtp3" @input="moveFocus($event, 'phoneOtp4')" ref="phoneOtp3" />
+    <input type="text" maxlength="1" v-model="phoneOtp4" @input="moveFocus($event, 'phoneOtp5')" ref="phoneOtp4" />
+    <!-- Uncomment the following lines if you need more inputs -->
+    <!-- <input type="text" maxlength="1" v-model="phoneOtp5" @input="moveFocus($event, 'phoneOtp6')" ref="phoneOtp5" />
+    <input type="text" maxlength="1" v-model="phoneOtp6" ref="phoneOtp6" /> -->
   </div>
   <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
-
 </div>
                     </b-form-group>
                     <div>
@@ -625,15 +622,15 @@ export default {
 
 
   watch: {
-  concatenatedPhoneOtp: function(newValue) {
-    document.getElementById("verificationCode").value = newValue;
-  }
+    concatenatedPhoneOtp: function(newValue) {
+        document.getElementById("verificationCode").value = newValue;
+      }
 },
 
   computed: {
     concatenatedPhoneOtp: function() {
-    return this.phoneOtp1 + this.phoneOtp2 + this.phoneOtp3 + this.phoneOtp4 + this.phoneOtp5 + this.phoneOtp6;
-  },
+        return this.phoneOtp1 + this.phoneOtp2 + this.phoneOtp3 + this.phoneOtp4 + this.phoneOtp5 + this.phoneOtp6;
+      },
     validation () {
       return this.userId.length > 4 && this.userId.length < 13
     },
@@ -649,7 +646,15 @@ export default {
 
   methods: {
     ...mapActions(['login']),
-
+    moveFocus(event, nextField) {
+      if (event.target.value.length === 1) {
+          const nextInput = this.$refs[nextField];
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
+      
+      },
     enforceMaxLength () {
       const inputString = this.phone.toString()
       const cleanedInput = inputString.replace(/^0+|[^0-9]+/g, '')
