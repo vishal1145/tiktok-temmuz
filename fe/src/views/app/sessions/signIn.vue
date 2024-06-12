@@ -97,7 +97,8 @@
 
                   <b-form
                     @submit.prevent="formSubmitOtp"
-                    @keyup.enter="formSubmitOtp"
+                  
+         
                     id="firstOtp"
                     v-if="isShowOtp"
                   >
@@ -105,18 +106,16 @@
                     
 
 
-                      <div>
+                      <div id="app">
   <div class="verification-code--inputs d-flex flex-row" style="gap: 20px;">
-    <input type="text" maxlength="1" v-model="phoneOtp1" @input="moveFocus($event, 'phoneOtp2')" ref="phoneOtp1" />
-    <input type="text" maxlength="1" v-model="phoneOtp2" @input="moveFocus($event, 'phoneOtp3')" ref="phoneOtp2" />
-    <input type="text" maxlength="1" v-model="phoneOtp3" @input="moveFocus($event, 'phoneOtp4')" ref="phoneOtp3" />
-    <input type="text" maxlength="1" v-model="phoneOtp4" @input="moveFocus($event, 'phoneOtp5')" ref="phoneOtp4" />
-    <!-- Uncomment the following lines if you need more inputs -->
-    <!-- <input type="text" maxlength="1" v-model="phoneOtp5" @input="moveFocus($event, 'phoneOtp6')" ref="phoneOtp5" />
-    <input type="text" maxlength="1" v-model="phoneOtp6" ref="phoneOtp6" /> -->
+    <input type="text" maxlength="1" v-model="phoneOtp1" @input="moveFocus($event, 'phoneOtp2')" @keydown="checkBackspace($event, 'phoneOtp1', 'phoneOtp1')" ref="phoneOtp1" />
+    <input type="text" maxlength="1" v-model="phoneOtp2" @input="moveFocus($event, 'phoneOtp3')" @keydown="checkBackspace($event, 'phoneOtp2', 'phoneOtp1')" ref="phoneOtp2" />
+    <input type="text" maxlength="1" v-model="phoneOtp3" @input="moveFocus($event, 'phoneOtp4')" @keydown="checkBackspace($event, 'phoneOtp3', 'phoneOtp2')" ref="phoneOtp3" />
+    <input type="text" maxlength="1" v-model="phoneOtp4" @keydown="checkBackspace($event, 'phoneOtp4', 'phoneOtp3')" ref="phoneOtp4" />
   </div>
   <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
 </div>
+
                     </b-form-group>
                     <div>
                       <b-col md="12 ml-5" v-if="isLoading">
@@ -647,13 +646,21 @@ export default {
   methods: {
     ...mapActions(['login']),
     moveFocus(event, nextField) {
-      if (event.target.value.length === 1) {
+        if (event.target.value.length === 1) {
           const nextInput = this.$refs[nextField];
           if (nextInput) {
             nextInput.focus();
           }
         }
-      
+      },
+      checkBackspace(event, currentField, previousField) {
+        if (event.key === 'Backspace' && event.target.value === '') {
+          const prevInput = this.$refs[previousField];
+          if (prevInput) {
+            prevInput.focus();
+            this[currentField] = ''; 
+          }
+        }
       },
     enforceMaxLength () {
       const inputString = this.phone.toString()
