@@ -13,10 +13,10 @@
       centered
       ref="withdrawModal"
     >
-      <label class=" pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Withdraw
-      </label>
-      <b-row class="">
+      <b-row class="p-2">
+        <b-col>
+          <label style="font-size: 20px"> Withdraw </label>
+        </b-col>
         <b-col md="12" class="d-none">
           <b-form-group label="User Name" label-for="input-user-name">
             <b-form-input
@@ -37,6 +37,7 @@
               placeholder="Amount"
               style="height: 34px"
               type="number"
+              @keydown="validateInputAmount"
               id="input-amount"
             ></b-form-input>
           </b-form-group>
@@ -253,71 +254,68 @@
             </div>
 
             <div
-                       class="d-flex flex-row card-body flex-wrap gap-between"
+              class="d-flex flex-row card-body flex-wrap gap-between"
               :style="{ display: flexDivDisplay }"
             >
-             
-                    
-                    <div class="row w-100">
-                      <div class="col-12 col-sm-6 col-lg-3 px-0">
-                        <label for="users-list-search">User Name</label>
-                        <fieldset class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="users-list-search"
-                            placeholder="Search..."
-                            style="
-                              color: grey;
-                              padding-bottom: 7px;
-                              border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                              background-color: rgb(135 131 131 / 0%);
-                            "
-                            v-model="searchTerm"
-                          />
-                        </fieldset>
-                      </div>
-                      <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
-                        <label for="users-list-status">Status</label>
-                        <fieldset class="form-group">
-                          <select
-                            v-model="selectedStatus"
-                            class="form-control"
-                            id="users-list-status"
-                            style="
-                              color: grey;
-                              padding-bottom: 7px;
-                              border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                              background-color: rgb(135 131 131 / 0%);
-                            "
-                          >
-                            <option value>All</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Reject">Reject</option>
-                            <option value="Pending">Pending</option>
-                          </select>
-                        </fieldset>
-                      </div>
-                      <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
-                        <label for="users-list-verified">Amount</label>
-                        <fieldset class="form-group">
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="users-list-amount"
-                            placeholder="Search amount"
-                            style="
-                              color: grey;
-                              padding-bottom: 7px;
-                              border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                              background-color: rgb(135 131 131 / 0%);
-                            "
-                            v-model="searchAmount"
-                          />
-                        </fieldset>
-                      </div>
-                    </div>
-                
+              <div class="row w-100">
+                <div class="col-12 col-sm-6 col-lg-3 px-0">
+                  <label for="users-list-search">User Name</label>
+                  <fieldset class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="users-list-search"
+                      placeholder="Search..."
+                      style="
+                        color: grey;
+                        padding-bottom: 7px;
+                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                        background-color: rgb(135 131 131 / 0%);
+                      "
+                      v-model="searchTerm"
+                    />
+                  </fieldset>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
+                  <label for="users-list-status">Status</label>
+                  <fieldset class="form-group">
+                    <select
+                      v-model="selectedStatus"
+                      class="form-control"
+                      id="users-list-status"
+                      style="
+                        color: grey;
+                        padding-bottom: 7px;
+                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                        background-color: rgb(135 131 131 / 0%);
+                      "
+                    >
+                      <option value>All</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Reject">Reject</option>
+                      <option value="Pending">Pending</option>
+                    </select>
+                  </fieldset>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
+                  <label for="users-list-verified">Amount</label>
+                  <fieldset class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="users-list-amount"
+                      placeholder="Search amount"
+                      style="
+                        color: grey;
+                        padding-bottom: 7px;
+                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                        background-color: rgb(135 131 131 / 0%);
+                      "
+                      v-model="searchAmount"
+                    />
+                  </fieldset>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -328,7 +326,7 @@
                 <div class="card-body text-nowrap">
                   <h5 class="card-title mb-0">Congratulations John! 🎉</h5>
                   <p class="">Best seller of the month</p>
-                  <h4 class="text-primary mb-1">$48.9k</h4>
+                  <h4 class="text-primary mb-1">${{totalWithDraw}}</h4>
                   <a
                     class="btn btn-primary waves-effect waves-light"
                     style="color: white; padding-top: 3px; padding-bottom: 3px"
@@ -339,7 +337,8 @@
               </div>
               <div class="col-5 text-center text-sm-left">
                 <div class="card-body pb-0 px-0 px-md-4">
-                  <img class="sizeImage"
+                  <img
+                    class="sizeImage"
                     src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
                     height="140"
                     alt="view sales"
@@ -382,12 +381,8 @@
                 border: 1px solid gray;
               "
             >
-              <!-- -->
               Add New
-            </button>
-            <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
-    cursor: pointer;
-"></i></a></li> -->
+            </button>         
           </ul>
         </div>
       </div>
@@ -470,14 +465,28 @@
             </span>
             <span v-else-if="props.column.field === 'status'">
               <div>
-      <div v-if="props.row.status === 'Approved'" class="badge badge-success">Paid</div>
-      <div v-else-if="props.row.status === 'Reject'" class="badge badge-danger">Reject</div>
-      <div v-else-if="props.row.status === 'Pending'" class="badge badge-yellow">Pending</div>
+                <div
+                  v-if="props.row.status === 'Approved'"
+                  class="badge badge-success"
+                >
+                  Paid
+                </div>
+                <div
+                  v-else-if="props.row.status === 'Reject'"
+                  class="badge badge-danger"
+                >
+                  Reject
+                </div>
+                <div
+                  v-else-if="props.row.status === 'Pending'"
+                  class="badge badge-yellow"
+                >
+                  Pending
+                </div>
 
-      <div v-else>{{ props.row.status }}</div>
-    </div>
-  </span>
-
+                <div v-else>{{ props.row.status }}</div>
+              </div>
+            </span>
           </template>
         </vue-good-table>
       </div>
@@ -486,7 +495,6 @@
 </template>
 
 <script>
-
 import moment from 'moment'
 import message from '../../../message'
 import Multiselect from 'vue-multiselect'
@@ -495,8 +503,7 @@ import Multiselect from 'vue-multiselect'
 // import VueDocumentEditor from 'vue-document-editor'
 export default {
   metaInfo: {
-    // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Users'
+    title: 'Payment'
   },
   components: {
     // VueEditor,
@@ -509,6 +516,7 @@ export default {
       selectedStatus: '',
       searchAmount: '',
       searchTerm: '',
+      totalWithDraw:0,
       isSubmitting: false,
       pageReloaded: false,
       modalVisible: false,
@@ -638,7 +646,6 @@ export default {
       amount: '',
       status: '',
       notes: '',
-      loader: false,
       UserID: '',
 
       filteredFaqs: [],
@@ -674,49 +681,7 @@ export default {
       })
     },
 
-    //   const query = this.searchTerm.toLowerCase().trim()
-    //   const amount_data = this.searchAmount.trim()
-
-    //   const select_status = this.selectedStatus
-    //   // if (!query && !select_status && !amount) {
-    //   //   return this.rows
-    //   // } else {
-    //   if (query) {
-    //     return this.rows.filter(row => {
-    //       return row.full_name && row.full_name.toLowerCase().includes(query)
-    //     })
-    //   } else if (select_status) {
-    //     return this.rows.filter(row => {
-    //       return !select_status || row.status === select_status
-    //     })
-    //   } else if (amount_data) {
-    //     return this.rows.filter(row => {
-    //       return !amount_data || row.amount.toString().includes(amount_data)
-    //     })
-    //   } else {
-    //     return this.rows;
-    //   }
-
-    //   // return this.rows.filter(row => {
-    //   //   const matchesStatus = !select_status || row.status === select_status;
-    //   //   console.log(matchesStatus);
-    //   //   const matchesQuery = row.full_name && row.full_name.toLowerCase().includes(query);
-    //   //   return matchesQuery || matchesStatus;
-    //   // })
-    //   // }
-    // },
-
-    //  getfilterdata() {
-    //   const matchedRows = this.rows.filter(row => row.id == this.use_id);
-    //   if (this.use_id != null) {
-    //     return matchedRows;
-    //   } else {
-    //     console.log("hkdshkchsdjk", this.rows);
-    //     return this.rows;
-    //   }
-    // },
-    isAdmin () {
-      // Retrieve user role from local storage
+       isAdmin () {
       const userRole = localStorage.getItem('role')
       this.UserID = localStorage.getItem('user_id')
       return userRole === 'admin'
@@ -727,16 +692,12 @@ export default {
   },
   created () {
     this.getAllUsers()
-    // this.getAllTransaction()
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
     // this.role = parsedUser.data.role;
     this.originalRows = [...this.rows]
-
-    // this.reloadPageOnce()
   },
   methods: {
-    
     formatDate (dateString) {
       const options = {
         year: 'numeric',
@@ -761,18 +722,16 @@ export default {
           req
         )
 
-      
-          this.loader = false
-          this.$toaster.makeToast(
-            'success',
-            ' Payment status Approved successfully'
-          )
-          this.getAllUsers()
-        
+        this.loader = false
+        this.$toaster.makeToast(
+          'success',
+          ' Payment status Approved successfully'
+        )
+        this.getAllUsers()
       } catch (error) {
         this.loader = false
         // this.$toaster.makeToast('warning', 'Error: Server Error')
-         console.error(error)
+        console.error(error)
       }
     },
     async clickPaid (id) {
@@ -787,55 +746,49 @@ export default {
           req
         )
 
-      
-          this.loader = false
-          this.$toaster.makeToast(
-            'success',
-            ' Payment status Rejected successfully'
-          )
-          this.getAllUsers()
-        
+        this.loader = false
+        this.$toaster.makeToast(
+          'success',
+          ' Payment status Rejected successfully'
+        )
+        this.getAllUsers()
       } catch (error) {
         this.loader = false
-        // this.$toaster.makeToast('warning', 'Error: Server Error')
-        // console.error(error)
+        this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
 
     getAllUsers () {
       this.loader = true
-      // Set loader to true to indicate data loading
       this.UserID = localStorage.getItem('user_id')
       this.role = localStorage.getItem('role')
-
-      // Define API URL based on role
       let url = ''
 
       if (this.role == 'admin') {
         this.loader = true
         url = 'user/all-payments'
-        this.$apiService
-          .getCall(url)
-          .then(response => {
-            if (response.error) {
-              this.loader = false
-              this.$toaster.makeToast('warning', 'Error fetching payment data')
-            } else {
-              this.loader = false
-              const paymentData = response.apidata
-              paymentData.forEach(value => {
-                value.full_name = value.user_id
-                  ? value.user_id.name + ' ' + value.user_id.surname
-                  : ''
-              })
-              this.rows = paymentData
-      
-              paymentData.forEach((e) => {
-          e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
-        });
-            }
-          })        
-          this.rows = paymentData
+        this.$apiService.getCall(url).then(response => {
+          if (response.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Error fetching payment data')
+          } else {
+            this.loader = false
+            const paymentData = response.apidata
+            paymentData.forEach(value => {
+              value.full_name = value.user_id
+                ? value.user_id.name + ' ' + value.user_id.surname
+                : ''
+            })
+            this.rows = paymentData
+
+            paymentData.forEach(e => {
+              e.request_date = moment(e.request_date).format(
+                'DD MMM YYYY h:mm A'
+              )
+            })
+          }
+        })
+        this.rows = paymentData
           .catch(error => {
             console.error('Error fetching user data:', error)
             this.$toaster.makeToast('error', 'Error fetching payment data')
@@ -844,7 +797,6 @@ export default {
             this.loader = false // Set loader to false regardless of success or failure
           })
       } else {
-        debugger
 
         this.loader = true
 
@@ -852,7 +804,6 @@ export default {
         const user = {
           user_id: this.UserID
         }
-        this.loader = false
         this.$apiService
 
           .postCall(url, user)
@@ -867,21 +818,14 @@ export default {
             } else {
               const userData = response.apidata.data
               this.rows = userData
+              this.totalWithDraw = response.apidata.total_withdraw;
+              userData.forEach(e => {
+                e.request_date = moment(e.request_date).format(
+                  'DD MMM YYYY h:mm A'
+                )
+              })
+              this.rows = userData
 
-              userData.forEach((e) => {
-          e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
-        });
-        this.rows = userData
-
-
-
-
-
-
-
-
-
-              
               this.loader = false
             }
           })
@@ -896,20 +840,39 @@ export default {
           })
       }
     },
+validateInputAmount(event) {
+      const key = event.key;
+      const value = this.amount;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
 
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > this.totalWithDraw) {
+        event.preventDefault();
+      }
+    },
     createUser () {
       this.isSubmitting = true
       this.loader = true // Set loader to true to indicate data loading
       const user = {
         user_id: this.UserID,
-        // user_name: this.userName, // Include userName in the user object
         amount: this.amount,
         // status: this.status,
         notes: this.notes,
         request_date: new Date()
       }
-      // Make API call to create user
-      this.loader = true
       this.$apiService
         .postCall('transition/payments', user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
         .then(response => {
@@ -941,7 +904,6 @@ export default {
     deleteUser (userId) {
       this.loader = true // Set loader to true to indicate data loading
 
-      // Make API call to delete user by ID
       this.$apiService
         .deleteCall(`transition/payments/${userId}`) // Assuming the endpoint for deleting a user by ID is "transition/payments/:id"
         .then(response => {
@@ -1053,161 +1015,18 @@ export default {
     vueDocuments (rowData) {
       this.popUpWindow = true
     },
-    // getAllUsers() {
-    //   this.loader = true;
-    //   this.$apiService
-    //     .getCall("account/")
-    //     .then((res) => {
-    //       let rowData = [];
+      handleChange (user) {
 
-    //       if (res.apidata.length > 0) {
-    //         rowData = res.apidata;
-    //         rowData = res.apidata.filter((value) => !value.is_superuser);
-    //         rowData = res.apidata.filter(
-    //           (value) => value.first_name !== null && value.last_name !== null
-    //         );
-    //         // rowData.forEach((element) => {
-    //         //   element.time = element.time
-    //         //     ? moment(element.time).format("DD/MM/YYYY")
-    //         //     : "";
-    //         // });
-    //         rowData.forEach((value) => {
-    //           // value.date_joined=value.date_joined?moment(value.date_joined).format("DD/MM/YYYY"):"";
-    //           value.full_name =
-    //             value.first_name || value.last_name
-    //               ? value.first_name + " " + value.last_name
-    //               : "";
-    //         });
-    //       }
-    //       this.allUsers = rowData.map((e) => e.full_name);
-    //       this.usersInfo = rowData.map((user) => ({
-    //         id: user.id,
-    //         fullName: user.full_name,
-    //       }));
-
-    //       console.log("jjkkj",rowData)
-    //       this.rows = rowData;
-
-    //       this.loader = false;
-    //     })
-    //     .catch((error) => {
-    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //       this.loader = false;
-    //     });
-    // },
-
-    //     handleChange(user) {
-    //     if (user) { //Ensure user is not null or undefined
-    //         // Assuming `user` is an object with an `id` property
-    //         const userId = user.id; // Extract the ID of the selected option
-    //         this.getAllTransaction(
-    //             this.startDate,
-    //             this.endDate,
-    //             userId, // Pass the user ID to getAllTransaction
-    //             this.selectCar
-    //         );
-    //     }
-    // },
-
-    handleChange (user) {
-      // debugger;
-
-      // Filter the rows based on the user_name
       const matchedRows = this.rows.filter(row => row.name === user)
-
-      // Update the rows with the filtered results
       this.rows = matchedRows
 
-      // Log the matched rows to the console
     },
 
-    // handleChange(user) {
-    //   console.log(user);
-    //   const use_id1 = this.usersInfo.find((e) => e.user_name == user);
-    //   console.log(use_id1);
-    //   if (use_id1) {
-    //    this.use_id =use_id1.id;
-    //   }
-
-    // },
-
-    //   getAllTransaction(startDate, endDate, uId, carId) {
-    //   this.loader = true;
-    //   let query = ``;
-    //   if (startDate) {
-    //     query = query + `startDate=${startDate}`;
-    //   }
-    //   if (endDate) {
-    //     query = query + `&endDate=${endDate}`;
-    //   }
-    //   if (uId) { // Use uId instead of id
-    //     query += `id=${uId}`; // Append user ID to the query
-    //   }
-    //   if (carId) {
-    //     query = query + `&reg_number=${carId}`;
-    //   }
-    //   this.$apiService
-    //     .getCall(`account/?${query}`)
-    //     .then((res) => {
-    //       let rowData = [];
-
-    //         // if (this.role === "Admin") {
-    //         //   this.allDate = res.apidata.map((e) => e.time);
-    //         //   rowData = res.apidata.filter((value) => value.userId == this.userId);
-    //         // } else {
-    //         //   this.allUsers = res.apidata.map((e) => e.full_name);
-    //         //   this.usersInfo = res.apidata.map((user) => ({
-    //         //     id: user.id,
-    //         //     fullName: user.full_name,
-    //         //   }));
-    //         //   rowData = res.apidata;
-    //         // }
-    //         rowData =res.apidata;
-
-    //         rowData.forEach((element) => {
-    //           element.date_joined = element.date_joined
-    //             ? moment(element.date_joined).format("DD MMM YYYY h:mm A")
-    //             : "";
-    //             element.full_name =
-    //             element.first_name || element.last_name
-    //                   ? element.first_name + " " + element.last_name
-    //                   : "";
-    //         });
-    //         this.allUsers = rowData.map((e) => e.full_name);
-    //           this.usersInfo = rowData.map((user) => ({
-    //             id: user.id,
-    //             fullName: user.full_name,
-    //           }));
-
-    //       this.rows = rowData;
-    //       console.log("rowData", rowData);
-
-    //       this.loader = false;
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //       this.loader = false;
-    //     });
-    // },
-    // formatPrice(value) {
-    //   let val = (value / 1).toFixed(0).replace(".", ",");
-    //   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // },
-
+   
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
     },
-    // clickDownload() {
-    //   const url='https://c8.alamy.com/comp/EE0F4R/crying-baby-with-dummy-EE0F4R.jpg';
-    //   const link = document.createElement("a");
-    //   link.href = url;
-    //   link.download = "Aadhar.png";
-    //   document.body.appendChild(link);
-    //   link.click();
-    //   document.body.removeChild(link);
-    // },
-
+   
     clickUnBlock (userId) {
       this.loader = true
       const reqData = {
@@ -1227,100 +1046,7 @@ export default {
           this.$toaster.makeToast('warning', 'Have Server error')
         })
     },
-    //  getAllUsers() {
-    //       this.loader = true;
-    //       this.$apiService
-    //         .getCall("account/")
-    //         .then((res) => {
-    //           let rowData = [];
-
-    //           if (res.apidata.length > 0) {
-    //             // rowData = res.apidata;
-    //             rowData = res.apidata.filter((value) => !value.is_superuser);
-    //             // rowData.forEach((element) => {
-    //             //   element.time = element.time
-    //             //     ? moment(element.time).format("DD/MM/YYYY")
-    //             //     : "";
-    //             // });
-    //             rowData.forEach((value) => {
-    //               value.date_joined = value.date_joined
-    //                 ? moment(value.date_joined).format("DD/MM/YYYY")
-    //                 : "";
-    //               value.full_name =
-    //                 value.first_name || value.last_name
-    //                   ? value.first_name + " " + value.last_name
-    //                   : "";
-    //             });
-    //           }
-    //           this.rows = rowData;
-
-    //           this.loader = false;
-    //         })
-    //         .catch((error) => {
-    //           this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-    //           this.loader = false;
-    //         });
-    //     },
-
-    // getAllUsers() {
-    //   this.loader = true;
-    //   this.$apiService
-    //     .getCall("transition/payments")
-    //     .then(response => {
-    //       // console.log("Response:", response);
-    //       if (
-    //         response &&
-    //         response.isError === false &&
-    //         response.apidata &&
-    //         response.apidata.data
-    //       ) {
-    //         const userData = response.apidata.data;
-    //         // console.log("User data:", userData);
-    //         this.rows = userData;
-    //         this.allUsers = userData.map(e => e.name);
-
-    //         //  this.$toaster.makeToast("success", "User data fetched successfully");
-    //       } else {
-    //         this.$toaster.makeToast("warning", "Failed to fetch user data");
-    //       }
-    //       this.loader = false;
-    //     })
-    //     .catch(error => {
-    //       console.error("Error fetching user data:", error);
-    //       this.$toaster.makeToast("error", "Error fetching user data");
-    //       this.loader = false;
-    //     });
-    // },
-    // getAllUsers() {
-    //   this.loader = true;
-    //   this.$apiService
-    //     .getCall("transition/payments")
-    //     .then(response => {
-    //       // console.log("Response:", response);
-    //       if (
-    //         response &&
-    //         response.isError === false &&
-    //         response.apidata &&
-    //         response.apidata.data
-    //       ) {
-    //         const userData = response.apidata.data;
-    //         // console.log("User data:", userData);
-    //         this.rows = userData;
-    //         this.allUsers = userData.map(e => e.name);
-
-    //         //  this.$toaster.makeToast("success", "User data fetched successfully");
-    //       } else {
-    //         this.$toaster.makeToast("warning", "Failed to fetch user data");
-    //       }
-    //       this.loader = false;
-    //     })
-    //     .catch(error => {
-    //       console.error("Error fetching user data:", error);
-    //       this.$toaster.makeToast("error", "Error fetching user data");
-    //       this.loader = false;
-    //     });
-    // },
-    generateID () {
+     generateID () {
       this.clearform()
       this.generateIDloader = true
       let randomString = ''
@@ -1587,43 +1313,40 @@ export default {
   border: 1px solid #10b981;
 }
 
-
 .badge-yellow {
-    color: #f59e0b;
-    background-color: #fcfbfb !important;
-    border: 1px solid #f59e0b;
+  color: #f59e0b;
+  background-color: #fcfbfb !important;
+  border: 1px solid #f59e0b;
 }
 
-
 .row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-     margin-right: 0px!important;
-   margin-left: 0px!important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
 .sizeImage {
   width: 25%;
-  height: 100%; 
+  height: 100%;
 }
 
 .form-control {
-    border: initial;
-    outline: initial !important;
-    background: #F3F4F6;
-    border: 1px solid #9CA3AF;
-    color: #111827;
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af;
+  color: #111827;
 }
 
 .modal-body {
-    position: relative;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 0rem;
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0rem;
 }
-
 </style>

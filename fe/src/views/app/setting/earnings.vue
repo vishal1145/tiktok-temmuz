@@ -275,27 +275,27 @@
                     <h5 class="card-title">Earning Summary</h5>
                   </div>
                 </b-col>
-                <b-col md="6" class="text-md-right">
+                <!-- <b-col md="6" class="text-md-right">
                   <b-button variant="outline-primary">Summary View</b-button>
-                </b-col>
+                </b-col> -->
               </b-row>
             </b-card-header>
             <b-card-body>
               <b-row>
                 <b-col md="6 " class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
-                    Final Commission Revenue
+                    Diamonds Revenue
                   </h3>
                   <span class="text-muted text-18 font-weight-600"
-                    >$790,420</span
+                    >${{totalDiamondData}}</span
                   >
                 </b-col>
                 <b-col md="6" class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
-                    Final Commission Revenue
+                    Earnings Revenue
                   </h3>
                   <span class="text-muted text-18 font-weight-600"
-                    >July 25,2019</span
+                    >${{ totalEarningData }}</span
                   >
                 </b-col>
               </b-row>
@@ -304,8 +304,8 @@
               <apexchart
                 type="area"
                 height="160"
-                :options="spark3.chartOptions"
-                :series="sparkData.series"
+                :options="yearAreaWidget.chartOptions"
+                :series="yearAreaWidget.series"
               />
             </div>
           </b-card>
@@ -559,6 +559,9 @@ export default {
       splineAreaWidgetFour,
       dashboardFive,
       spark3,
+      yearAreaWidget: {},
+      totalDiamondData: 0,
+      totalEarningData:0,
       sparkData: {
         // series: [
         //   {
@@ -979,9 +982,14 @@ export default {
             graphData = graphData.map(date =>
               moment(date).format('YYYY-MM-DDTHH:mm:ss')
             )
-            var diamondData = res.apidata.diamonds
-            var earningData = res.apidata.earnings
-
+            var diamondData = res.apidata.diamonds;
+            var earningData = res.apidata.earnings;
+             diamondData.forEach((e) => {
+              this.totalDiamondData += Number(e);
+            });
+            earningData.forEach((e) => {
+              this.totalEarningData += e;
+            });
             this.sparkData = {
               series: [
                 {
@@ -989,6 +997,71 @@ export default {
                   data: diamondData
                 }
               ]
+            };
+            this.yearAreaWidget = {
+              series: [
+                {
+                  name: 'Diamonds',
+                  data: diamondData
+                },
+                {
+                  name: 'Earnings',
+                  data: earningData
+                }
+              ],
+
+              chartOptions: {
+                chart: {
+                  width: '100%',
+                  height: 100,
+                  toolbar: {
+                    show: false
+                  },
+                  sparkline: {
+                    enabled: true
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  curve: 'smooth'
+                },
+                legend: {
+                  show: false
+                },
+
+                xaxis: {
+                  type: 'datetime',
+                  categories: graphData,
+                  labels: {
+                    show: false
+                  },
+                  axisTicks: {
+                    show: false
+                  },
+                  axisBorder: {
+                    show: false
+                  }
+                },
+                yaxis: {
+                  show: false
+                },
+                grid: {
+                  show: false
+                },
+                tooltip: {
+                  enabled: true,
+                  x: {
+                    format: 'dd/MM/yy HH:mm'
+                  }
+                },
+                colors: ['#A855F7', '#4caf50'],
+                stroke: {
+                  curve: 'straight',
+                  width: 1
+                }
+              }
             }
           }
 

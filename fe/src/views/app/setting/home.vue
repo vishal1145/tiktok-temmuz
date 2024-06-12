@@ -51,10 +51,10 @@
       <b-col lg="6" xl="6" md="6" sm="6" class="">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
-            <h5 class="text-muted text-10">INCOME</h5>
+            <h5 class="text-muted text-10">Diamond</h5>
             <div class="ul-widget__chart-number">
-              <h2 class="t-font-boldest">$1000</h2>
-              <small class="text-muted">46% compared to last year</small>
+              <h2 class="t-font-boldest">${{ totalDiamondData }}</h2>
+              <!-- <small class="text-muted"><i class="fa fa-diamond" aria-hidden="true"></i></small> -->
             </div>
           </div>
           <b-card-body class="ul-card__widget-chart">
@@ -63,7 +63,7 @@
                 type="area"
                 height="150"
                 :options="yearAreaWidget.chartOptions"
-                :series="yearAreaWidget.series"
+                :series="diamondsDataGraph.series"
               />
             </div>
           </b-card-body>
@@ -72,10 +72,10 @@
       <b-col lg="6" xl="6" md="6" sm="6">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
-            <h5 class="text-muted text-10">APPROVE</h5>
+            <h5 class="text-muted text-10">Earning</h5>
             <div class="ul-widget__chart-number">
-              <h2 class="t-font-boldest">$500</h2>
-              <small class="text-muted">46% compared to last year</small>
+              <h2 class="t-font-boldest">${{ totalEarningData }}</h2>
+              <!-- <small class="text-muted">46% compared to last year</small> -->
             </div>
           </div>
           <b-card-body class="ul-card__widget-chart">
@@ -83,8 +83,8 @@
               <apexchart
                 type="area"
                 height="150"
-                :options="yearAreaWidget.chartOptions"
-                :series="yearAreaWidget.series"
+                :options="earningsDataGraph.chartOptions"
+                :series="earningsDataGraph.series"
               />
             </div>
           </b-card-body>
@@ -143,25 +143,27 @@
                   <h5 class="card-title">Finance Summary</h5>
                 </div>
               </b-col>
-              <b-col md="6" class="text-md-right">
+              <!-- <b-col md="6" class="text-md-right">
                 <b-button variant="outline-primary">Summary View</b-button>
-              </b-col>
+              </b-col> -->
             </b-row>
           </b-card-header>
           <b-card-body>
             <b-row>
               <b-col md="6 " class="mb-4 mb-md-0">
                 <h3 class="text-muted text-14 font-weight-500">
-                  Final Commission Revenue
+                  Diamond Revenue
                 </h3>
-                <span class="text-muted text-18 font-weight-600">$790,420</span>
+                <span class="text-muted text-18 font-weight-600"
+                  >$ {{ totalDiamondData }}</span
+                >
               </b-col>
               <b-col md="6" class="mb-4 mb-md-0">
                 <h3 class="text-muted text-14 font-weight-500">
-                  Final Commission Revenue
+                  Earning Revenue
                 </h3>
                 <span class="text-muted text-18 font-weight-600"
-                  >July 25,2019</span
+                  >$ {{ totalEarningData }}</span
                 >
               </b-col>
             </b-row>
@@ -503,6 +505,8 @@ export default {
       columns: [],
       rows: [],
       loader: false,
+      totalDiamondData: 0,
+      totalEarningData: 0,
       yearAreaWidget: {},
       isCopied: false,
       referralURL: 'https://temmuz.algofolks.com/app/setting/affiliate', // Replace with your actual referral URL
@@ -542,6 +546,8 @@ export default {
       splineAreaWidgetFour,
       dashboardFive,
       radialBar,
+      earningsDataGraph: {},
+      diamondsDataGraph:{},
       sparkData: {
         series: [
           {
@@ -588,8 +594,83 @@ export default {
             )
 
             // var dates = graphData;
-            var diamondData = res.apidata.diamonds
-            var earningData = res.apidata.earnings
+            var diamondData = res.apidata.diamonds;
+            var earningData = res.apidata.earnings;
+            
+            diamondData.forEach((e) => {
+              this.totalDiamondData += Number(e);
+            });
+            earningData.forEach((e) => {
+              this.totalEarningData += e;
+            });
+            this.diamondsDataGraph = {
+              series: [
+                {
+                  name: 'diamonds',
+                  data: diamondData
+                }
+              ]
+            };
+             this.earningsDataGraph = {
+              series: [
+                {
+                  name: 'earnings',
+                  data: earningData
+                }
+               ],
+               chartOptions: {
+                chart: {
+                  width: '100%',
+                  height: 100,
+                  toolbar: {
+                    show: false
+                  },
+                  sparkline: {
+                    enabled: true
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  curve: 'smooth'
+                },
+                legend: {
+                  show: false
+                },
+
+                xaxis: {
+                  type: 'datetime',
+                  categories: graphData,
+                  labels: {
+                    show: false
+                  },
+                  axisTicks: {
+                    show: false
+                  },
+                  axisBorder: {
+                    show: false
+                  }
+                },
+                yaxis: {
+                  show: false
+                },
+                grid: {
+                  show: false
+                },
+                tooltip: {
+                  enabled: true,
+                  x: {
+                    format: 'dd/MM/yy HH:mm'
+                  }
+                },
+                colors: ['#4caf50'],
+                stroke: {
+                  curve: 'straight',
+                  width: 1
+                }
+              }
+            };
 
             this.yearAreaWidget = {
               series: [
