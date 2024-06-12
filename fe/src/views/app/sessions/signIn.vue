@@ -97,9 +97,7 @@
 
                   <b-form
                     @submit.prevent="formSubmitOtp"
-                  
-         
-                    id="firstOtp"
+                   id="firstOtp"
                     v-if="isShowOtp"
                   >
                     <b-form-group :label="$t('Otp')" class="text-12 pw">
@@ -134,30 +132,43 @@
                     </div>
                   </b-form>
                   <b-form
-                    @submit.prevent="formSubmitName"
+                    @submit.prevent="formSubmittikTokUser"
                     id="firstOtp"
                     v-if="isShowName"
                   >
-                    <b-form-group :label="$t('User Name')" class="text-12 pw">
+                    <b-form-group :label="$t('First Name')" class="text-12 pw">
                       <b-form-input
                         class="form-control-rounded pw"
                         type="text"
-                        placeholder="Enter name"
+                        placeholder="First Name"
                         max="30"
                         v-model="userName"
                         required
                       ></b-form-input>
                     </b-form-group>
                     <b-form-group
-                      :label="$t('User Surname')"
+                      :label="$t('Last Name')"
                       class="text-12 pw"
                     >
                       <b-form-input
                         class="form-control-rounded pw"
                         type="text"
-                        placeholder="Enter surname"
+                        placeholder="Enter Last Name"
                         max="30"
                         v-model="userSurName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      :label="$t('TikTok Username')"
+                      class="text-12 pw"
+                  
+                    >
+                      <b-form-input
+                        placeholder="Enter TikTok Username"
+                        class="form-control-rounded pw"
+                        type="text"
+                        v-model="tikTokUserName"
                         required
                       ></b-form-input>
                     </b-form-group>
@@ -177,7 +188,7 @@
                       </b-button>
                     </div>
                   </b-form>
-                  <b-form
+                  <!-- <b-form
                     @submit.prevent="formSubmittikTokUser"
                     id="tikTokUser"
                     v-if="isShowtikTokUser"
@@ -208,7 +219,7 @@
                         {{ $t('Next') }}
                       </b-button>
                     </div>
-                  </b-form>
+                  </b-form> -->
                   <b-form
                     @submit.prevent="formSubmitGms"
                     id="firstOtp"
@@ -653,6 +664,7 @@ export default {
           }
         }
       },
+      
       checkBackspace(event, currentField, previousField) {
         if (event.key === 'Backspace' && event.target.value === '') {
           const prevInput = this.$refs[previousField];
@@ -767,13 +779,16 @@ export default {
     },
 
     formSubmitName () {
+     
       this.isShowName = false
       this.isShowtikTokUser = true
     },
     
     formSubmittikTokUser () {
-
-      this.loader = true
+       this.isShowOtp = true
+      this.isShowName = false
+      this.loader = true   
+     
       let requestData = {
         contact_number: this.PhoneNumber,
         role: 'user',
@@ -791,7 +806,7 @@ export default {
           } else {
             this.$toaster.makeToast('success', 'User create successfully')
             this.isShowtikTokUser = false
-            this.isShowOtp = true
+          
             this.loader = false
 
             // setTimeout(() => {
