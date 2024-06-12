@@ -863,11 +863,7 @@ export default {
         this.aadharBackCheckbox = false
       }
     },
-    handleSelectedLogoUpdate() {
-    // Do something with the updated value of this.selectedLogo
-   
-    // You can perform any additional actions here
-  },
+
     async setImage (e) {
       this.logoloader = true
       const file = e.target.files[0]
@@ -894,10 +890,8 @@ export default {
           this.$toaster.makeToast('warning', response.message)
         } else {
           this.logoloader = false
-          this.selectedLogo = response.apidata.url
-          await this.setImageAfter()
-          this.handleSelectedLogoUpdate();
-         
+          this.selectedLogo = response.apidata.url;
+          await this.setImageAfter()      
           this.$toaster.makeToast('success', 'Profile update successfully')
         }
       } catch (error) {
@@ -931,7 +925,7 @@ export default {
       this.$toaster.makeToast('warning', response.message);
     } else {
       this.logoloader = false;
-      this.selectedLogo = response.apidata.url;
+      // this.selectedLogo = response.apidata.url;
       // this.$toaster.makeToast('success', 'Profile updated successfully');
     }
   } catch (error) {
