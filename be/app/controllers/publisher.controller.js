@@ -36,7 +36,7 @@ exports.getAllMembersPublishers = async (req, res) => {
 exports.createPublisher = async (req, res) => {
   try {
     const publisher = await createPublisher(req.body)
-    res.status(200).send({ referral_url: `${process.env.BASE_URL}app/sessions/affiliate?name=${req.body.tiktok_username}`, success: true });
+    res.status(200).send({ referral_url: `${process.env.APP_URL}app/sessions/affiliate?name=${req.body.tiktok_username}`, success: true });
   } catch (err) {
     res.status(400).send({ message: err, success: false });
   }
