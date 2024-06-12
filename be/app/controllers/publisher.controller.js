@@ -4,7 +4,8 @@ const {
   deletePublisher,
   getAllPublisher,
   getAllMembersPublishers,
-  updatePublisher
+  updatePublisher,
+  getCreator
 } = require("../services/publisher.service");
 
 exports.getAllPublisher = async (req, res) => {
@@ -12,8 +13,13 @@ exports.getAllPublisher = async (req, res) => {
   res.status(200).send({ data: publishers, success: true })
 };
 
+exports.getCreator = async (req, res) => {
+  const publishers = await getCreator(req.query.name)
+  res.status(200).send({ data: publishers, success: true })
+};
+
 exports.getAllMembersPublishers = async (req, res) => {
-  
+
   try {
     const publishers = await getAllMembersPublishers(req.user._id)
     if (publishers.length > 0) {
@@ -21,16 +27,16 @@ exports.getAllMembersPublishers = async (req, res) => {
     } else {
       res.status(200).send({ msg: 'No Record Found', success: true })
     }
-  } catch(error) {
-    res.status(400).send({msg: error.message});
+  } catch (error) {
+    res.status(400).send({ msg: error.message });
   }
-    
+
 }
 
 exports.createPublisher = async (req, res) => {
   try {
     const publisher = await createPublisher(req.body)
-    res.status(201).send({ data: publisher, success: true });
+    res.status(200).send({ referral_url: `${process.env.BASE_URL}app/sessions/affiliate?name=${req.body.tiktok_username}`, success: true });
   } catch (err) {
     res.status(400).send({ message: err, success: false });
   }

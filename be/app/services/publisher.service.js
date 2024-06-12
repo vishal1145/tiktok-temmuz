@@ -13,6 +13,11 @@ exports.getAllMembersPublishers = async (_id) => {
   return publishers;
 };
 
+exports.getCreator = async (name) => {
+  const creator = await PublisherModel.find({ tiktok_username: name});
+  return creator;
+};
+
 exports.createPublisher = async (user_body) => {
   const publisher = PublisherModel(user_body);
   const created = await publisher.save();
