@@ -132,15 +132,48 @@ exports.getCreatorsEarningsGraph = async (_id) => {
   if (creators.length > 0) {
     const usernames = creators.map((e) => e.tiktok_username);
     const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
-    const dates = data.map((e) => e.as_of_date);
-    const diamonds = data.map((e) => e.diamonds_this_month);
+
+    data.sort((a, b) => new Date(a.as_of_date) - new Date(b.as_of_date)); console.log('data', data)
+
+    const dateMap = new Map();
 
     let user = await UserModel.findById(_id);
     let first_commission = user.first_commission;
     let second_commission = user.second_commission;
 
-    const earnings = data.map((d) => calculateEarning(first_commission, second_commission, d));
-    return { dates, diamonds, earnings };
+    data.forEach(item => {
+      const date = item.as_of_date;
+      const diamonds = parseInt(item.diamonds_this_month);
+      const earnings = calculateEarning(first_commission, second_commission, item);
+
+      if (dateMap.has(date)) {
+        const existing = dateMap.get(date);
+        existing.diamonds += diamonds;
+        existing.earnings += earnings;
+        dateMap.set(date, existing);
+      } else {
+        dateMap.set(date, { diamonds, earnings });
+      }
+    });
+
+    const uniqueData = data.filter((item, index) => {
+      if (dateMap.has(item.as_of_date)) {
+        if (index === data.findIndex(i => i.as_of_date === item.as_of_date)) {
+          const dateData = dateMap.get(item.as_of_date);
+          item.diamonds_this_month = dateData.diamonds.toString();
+          item.earnings = dateData.earnings;
+          return true;
+        }
+        return false;
+      }
+      return false;
+    });
+
+    const allDates = uniqueData.map((e)=> e.as_of_date);
+    const totalDiamonds = uniqueData.map((e)=> e.diamonds_this_month);
+    const totalEarnings = uniqueData.map((e)=> e.earnings)
+    
+    return { allDates, totalDiamonds, totalEarnings };
   } else {
     return "User do not have Creators";
   }
