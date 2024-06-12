@@ -1,6 +1,92 @@
 <template>
   <div class="main-content">
     <breadcumb :page="'TikTok'" :folder="'Ajans'" />
+    <b-modal id="modal-addMember" size="md" hide-footer hide-header centered>
+      <b-row class="">
+        <b-col md="12">
+          <h4 class="mb-2">Add Creators</h4>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group
+            label="TikTok Username"
+            label-for="input-tiktok-username"
+          >
+            <b-form-input
+              v-model="tiktok_username"
+              required
+              placeholder="TikTok username"
+              type="text"
+              id="input-tiktok-username"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group
+            label="Agency Center Code"
+            label-for="input-agency-center-code"
+          >
+            <b-form-input
+              v-model="center_code"
+              required
+              placeholder="Agency center code"
+              type="number"
+              @keydown="checkLengthCode"
+              id="input-agency-center-code"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <div class="spinner spinner-primary" v-if="popupLoader"></div>
+            <b-button class="mr-2" v-if="!popupLoader" @click="clickCancle()"
+              >Cancel</b-button
+            >
+            <b-button
+              variant="primary"
+              v-if="!popupLoader"
+              @click="clickAddMember()"
+              >Add</b-button
+            >
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal
+      id="modal-show-referralUrl"
+      size="md"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <b-row class="">
+        <b-col md="12">
+          <h4 class="mb-2">Referral Url</h4>
+        </b-col>
+
+        <b-col md="12">
+          <span>
+            <a
+              :href="referralUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="text-decoration: underline"
+            >
+              {{ referralUrl }}</a
+            ></span
+          >
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
 
     <b-row>
       <b-col sm="12" md="12" xl="12" lg="12" class="mb-30">
@@ -8,13 +94,20 @@
           <div class="d-flex align-items-end row">
             <div class="col-7">
               <div class="card-body text-nowrap">
-                <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
+                <h5 class="card-title mb-0">
+                  Congratulations {{ this.loginUserName }}! 🎉
+                </h5>
+
                 <p>
                   Thank you for being awesome and sharing our platform with
                   others! Below is your unique referral link:
                 </p>
 
-                <div
+                <b-button variant="primary" @click="clickShowPopup()"
+                  >Add Member</b-button
+                >
+
+                <!-- <div
                   data-v-0307aa70=""
                   class="bg-white text-gray d-flex w-59"
                   style="overflow-wrap: anywhere"
@@ -33,7 +126,7 @@
                   >
                     <i class="fa fa-clone" aria-hidden="true"></i>
                   </p>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-5 text-center text-sm-left d-none">
@@ -53,7 +146,7 @@
           <div class="ul-widget__chart-info">
             <h5 class="text-muted text-10">Diamond</h5>
             <div class="ul-widget__chart-number">
-              <h2 class="t-font-boldest">${{ totalDiamondData }}</h2>
+              <h2 class="t-font-boldest">{{ totalDiamondData }}</h2>
               <!-- <small class="text-muted"><i class="fa fa-diamond" aria-hidden="true"></i></small> -->
             </div>
           </div>
@@ -154,9 +247,9 @@
                 <h3 class="text-muted text-14 font-weight-500">
                   Diamond Revenue
                 </h3>
-                <span class="text-muted text-18 font-weight-600"
-                  >$ {{ totalDiamondData }}</span
-                >
+                <span class="text-muted text-18 font-weight-600">{{
+                  totalDiamondData
+                }}</span>
               </b-col>
               <b-col md="6" class="mb-4 mb-md-0">
                 <h3 class="text-muted text-14 font-weight-500">
@@ -509,7 +602,7 @@ export default {
       totalEarningData: 0,
       yearAreaWidget: {},
       isCopied: false,
-      referralURL: 'https://temmuz.algofolks.com/app/setting/affiliate', // Replace with your actual referral URL
+      // referralURL: 'https://temmuz.algofolks.com/app/setting/affiliate', // Replace with your actual referral URL
       selected: 'x',
       options: [
         { value: 'x', text: ' select an option' },
@@ -547,7 +640,7 @@ export default {
       dashboardFive,
       radialBar,
       earningsDataGraph: {},
-      diamondsDataGraph:{},
+      diamondsDataGraph: {},
       sparkData: {
         series: [
           {
@@ -561,10 +654,22 @@ export default {
       },
       spark3,
       values: [30, 20],
-      max: 100
+      max: 100,
+      tiktok_username: '',
+      center_code: '',
+      referralUrl: '',
+      tiktokres: {},
+      role: '',
+      loginUserName: '',
+      popupLoader: false
     }
   },
+  mounted () {
+    // this.$bvModal.show('modal-show-referralUrl');
+  },
   created () {
+    this.userId = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
     this.getGraphData()
   },
   methods: {
@@ -579,6 +684,85 @@ export default {
           console.error('Could not copy text: ', err)
         })
     },
+    checkLengthCode (event) {
+      if (this.center_code.toString().length >= 7 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    async clickAddMember () {
+      this.popupLoader = true
+      if (!this.tiktok_username || !this.center_code) {
+        this.popupLoader = false
+        this.$toaster.makeToast(
+          'warning',
+          'Please fill in all the required fields'
+        )
+      } else {
+        try {
+          let requestData = {
+            user_id: this.userId,
+            tiktok_username: this.tiktok_username,
+            agency_center_code: this.center_code,
+            status: 'Pending Registration'
+          }
+          const res = await new Promise((resolve, reject) => {
+            this.$apiService
+              .postCall('publisher/create/')
+              .then(data => resolve(data))
+              .catch(error => reject(error))
+          })
+          // const res = this.$apiService.postCall(
+          //   'publisher/create/',
+          //   requestData
+          // )
+          this.tiktokres = res
+          if (res.error) {
+            if (
+              this.tiktokres.response.data.message.keyPattern
+                .tiktok_username === 1
+            ) {
+              this.popupLoader = false;
+              this.$toaster.makeToast(
+                'warning',
+                'TikTok username already exists'
+              )
+            } else {
+              this.$toaster.makeToast(
+                'warning',
+                res.response.data.message.keyPattern.keyPattern.tiktok_username
+              )
+            }
+          } else {
+            this.popupLoader = false
+            this.tiktok_username = ''
+            this.center_code = ''
+            this.referralUrl = res.apidata.referral_url
+            this.$bvModal.hide('modal-addMember')
+            this.$bvModal.show('modal-show-referralUrl')
+            this.$toaster.makeToast('success', 'Referral create successfully')
+          }
+        } catch (error) {
+          this.popupLoader = false
+          if (
+            this.tiktokres.error.response.data.message.keyPattern
+              .tiktok_username === 1
+          ) {
+            this.$toaster.makeToast('warning', 'TikTok username already exists')
+          } else {
+            this.$toaster.makeToast('warning', 'Error: Server Error')
+          }
+        }
+      }
+    },
+    clickCancle () {
+      this.$bvModal.hide('modal-show-referralUrl')
+      this.$bvModal.hide('modal-addMember')
+      this.tiktok_username = ''
+      this.center_code = ''
+    },
+    clickShowPopup () {
+      this.$bvModal.show('modal-addMember')
+    },
     getGraphData () {
       this.loader = true
 
@@ -586,160 +770,166 @@ export default {
         .getCall(`user/creators-earnings-graph`)
         .then(res => {
           if (res.isError) {
+            this.loader = false
             this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
           } else {
-            var graphData = res.apidata.dates
-            graphData = graphData.map(date =>
-              moment(date).format('YYYY-MM-DDTHH:mm:ss')
-            )
+            if (res.apidata.dates) {
+              var graphData = res.apidata.dates
+              graphData = graphData.map(date =>
+                moment(date).format('YYYY-MM-DDTHH:mm:ss')
+              )
 
-            // var dates = graphData;
-            var diamondData = res.apidata.diamonds;
-            var earningData = res.apidata.earnings;
-            
-            diamondData.forEach((e) => {
-              this.totalDiamondData += Number(e);
-            });
-            earningData.forEach((e) => {
-              this.totalEarningData += e;
-            });
-            this.diamondsDataGraph = {
-              series: [
-                {
-                  name: 'diamonds',
-                  data: diamondData
-                }
-              ]
-            };
-             this.earningsDataGraph = {
-              series: [
-                {
-                  name: 'earnings',
-                  data: earningData
-                }
-               ],
-               chartOptions: {
-                chart: {
-                  width: '100%',
-                  height: 100,
-                  toolbar: {
-                    show: false
-                  },
-                  sparkline: {
-                    enabled: true
-                  }
-                },
-                dataLabels: {
-                  enabled: false
-                },
-                stroke: {
-                  curve: 'smooth'
-                },
-                legend: {
-                  show: false
-                },
+              // var dates = graphData;
+              var diamondData = res.apidata.diamonds
+              var earningData = res.apidata.earnings
 
-                xaxis: {
-                  type: 'datetime',
-                  categories: graphData,
-                  labels: {
+              diamondData.forEach(e => {
+                this.totalDiamondData += Number(e)
+              })
+              earningData.forEach(e => {
+                this.totalEarningData += e
+              })
+              this.diamondsDataGraph = {
+                series: [
+                  {
+                    name: 'diamonds',
+                    data: diamondData
+                  }
+                ]
+              }
+              this.earningsDataGraph = {
+                series: [
+                  {
+                    name: 'earnings',
+                    data: earningData
+                  }
+                ],
+                chartOptions: {
+                  chart: {
+                    width: '100%',
+                    height: 100,
+                    toolbar: {
+                      show: false
+                    },
+                    sparkline: {
+                      enabled: true
+                    }
+                  },
+                  dataLabels: {
+                    enabled: false
+                  },
+                  stroke: {
+                    curve: 'smooth'
+                  },
+                  legend: {
                     show: false
                   },
-                  axisTicks: {
+
+                  xaxis: {
+                    type: 'datetime',
+                    categories: graphData,
+                    labels: {
+                      show: false
+                    },
+                    axisTicks: {
+                      show: false
+                    },
+                    axisBorder: {
+                      show: false
+                    }
+                  },
+                  yaxis: {
                     show: false
                   },
-                  axisBorder: {
+                  grid: {
                     show: false
+                  },
+                  tooltip: {
+                    enabled: true,
+                    x: {
+                      format: 'dd/MM/yy HH:mm'
+                    }
+                  },
+                  colors: ['#4caf50'],
+                  stroke: {
+                    curve: 'straight',
+                    width: 1
                   }
-                },
-                yaxis: {
-                  show: false
-                },
-                grid: {
-                  show: false
-                },
-                tooltip: {
-                  enabled: true,
-                  x: {
-                    format: 'dd/MM/yy HH:mm'
-                  }
-                },
-                colors: ['#4caf50'],
-                stroke: {
-                  curve: 'straight',
-                  width: 1
                 }
               }
-            };
 
-            this.yearAreaWidget = {
-              series: [
-                {
-                  name: 'Diamonds',
-                  data: diamondData
-                },
-                {
-                  name: 'Earnings',
-                  data: earningData
-                }
-              ],
+              this.yearAreaWidget = {
+                series: [
+                  {
+                    name: 'Diamonds',
+                    data: diamondData
+                  },
+                  {
+                    name: 'Earnings',
+                    data: earningData
+                  }
+                ],
 
-              chartOptions: {
-                chart: {
-                  width: '100%',
-                  height: 100,
-                  toolbar: {
+                chartOptions: {
+                  chart: {
+                    width: '100%',
+                    height: 100,
+                    toolbar: {
+                      show: false
+                    },
+                    sparkline: {
+                      enabled: true
+                    }
+                  },
+                  dataLabels: {
+                    enabled: false
+                  },
+                  stroke: {
+                    curve: 'smooth'
+                  },
+                  legend: {
                     show: false
                   },
-                  sparkline: {
-                    enabled: true
-                  }
-                },
-                dataLabels: {
-                  enabled: false
-                },
-                stroke: {
-                  curve: 'smooth'
-                },
-                legend: {
-                  show: false
-                },
 
-                xaxis: {
-                  type: 'datetime',
-                  categories: graphData,
-                  labels: {
+                  xaxis: {
+                    type: 'datetime',
+                    categories: graphData,
+                    labels: {
+                      show: false
+                    },
+                    axisTicks: {
+                      show: false
+                    },
+                    axisBorder: {
+                      show: false
+                    }
+                  },
+                  yaxis: {
                     show: false
                   },
-                  axisTicks: {
+                  grid: {
                     show: false
                   },
-                  axisBorder: {
-                    show: false
+                  tooltip: {
+                    enabled: true,
+                    x: {
+                      format: 'dd/MM/yy HH:mm'
+                    }
+                  },
+                  colors: ['#A855F7', '#4caf50'],
+                  stroke: {
+                    curve: 'straight',
+                    width: 1
                   }
-                },
-                yaxis: {
-                  show: false
-                },
-                grid: {
-                  show: false
-                },
-                tooltip: {
-                  enabled: true,
-                  x: {
-                    format: 'dd/MM/yy HH:mm'
-                  }
-                },
-                colors: ['#A855F7', '#4caf50'],
-                stroke: {
-                  curve: 'straight',
-                  width: 1
                 }
               }
+            } else {
+              this.loader = false
+              this.$toaster.makeToast('warning', 'Empty Data')
             }
           }
 
-          // console.log(res);
+        
 
           this.loader = false
         })

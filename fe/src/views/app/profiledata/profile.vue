@@ -7,56 +7,6 @@
     </b-row>
 
     <hr class="mt-1" /> -->
-
-    <b-col sm="12" md="12" xl="12" lg="12" class="mb-30 px-0">
-      <div class="card">
-        <div class="d-flex align-items-end row">
-          <div class="col-7">
-            <div class="card-body text-nowrap">
-              <h5 class="card-title mb-0">Congratulations, John! 🎉</h5>
-              <p>
-                Thank you for being awesome and sharing our platform with
-                others! Below is your unique referral link:
-              </p>
-
-              <div
-                data-v-0307aa70=""
-                class="bg-white text-gray d-flex w-59"
-                style="overflow-wrap: anywhere"
-              >
-                <a
-                  data-v-0307aa70=""
-                  :href="`https://temmuz.algofolks.com/app/sessions/affiliate?uid=${user_id}`"
-                  target="_blank"
-                  class="referral-link align-self-center"
-                >
-                  https://temmuz.algofolks.com/app/sessions/affiliate?uid={{
-                    this.user_id
-                  }}</a
-                >
-                <p
-                  class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end"
-                >
-                  <i class="fa fa-clone" aria-hidden="true"></i>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-5 text-center text-sm-left d-none">
-            <div class="card-body pb-0 px-0 px-md-4">
-              <img
-                src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
-                height="140"
-                alt="view sales"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </b-col>
-
-    <!-- <breadcumb :page="'Profile'" :folder="'Profile'" />   -->
-
     <div class="">
       <b-card title="Profile" class="for-profile">
         <b-form>
@@ -204,7 +154,8 @@
                   v-model="userName"
                   type="text"
                   required
-                  placeholder="First Name"
+                  maxlength="20"
+                  placeholder="First Namedfdf"
                   v-on:keypress="isLetter($event)"
                 ></b-form-input>
               </b-form-group>
@@ -215,6 +166,7 @@
                 <b-form-input
                   v-model="surName"
                   type="text"
+                  maxlength="20"
                   required
                   placeholder="Last Name"
                   v-on:keypress="isLetter($event)"
@@ -228,6 +180,7 @@
                 <b-form-input
                   v-model="tictocName"
                   type="text"
+                  disabled
                   required
                   placeholder="Enter tictoc user name"
                 ></b-form-input>
@@ -238,7 +191,8 @@
                 <b-form-input
                   v-model="phoneNumber"
                   type="number"
-                   @keydown="checkLength"
+                  disabled
+                  @keydown="checkLength"
                   required
                   placeholder="Enter phone number"
                 ></b-form-input>
@@ -522,34 +476,10 @@ export default {
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
     if (this.user_id) {
-      // this.isEdit = true;
       this.getProfileDetails()
     }
     // this.getCompanyData();
   },
-  // computed(){
-  //   console.log(this.forOtp)
-  //   if(this.forOtp.length==6){
-  //     this.$apiService
-  //       .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
-  //       .then((res) => {
-  //         if (!res.apidata.isError) {
-  //           this.$toaster.makeToast(
-  //             "success",
-  //             "Verify successfully"
-  //           );
-  //           window.location.reload();
-
-  //           this.loader = false;
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         this.loader = false;
-  //         this.$toaster.makeToast("warning", "Some think error");
-  //       });
-
-  //   }
-  // },
   methods: {
     // isLetter (e) {
     //   let char = String.fromCharCode(e.keyCode) // Get the character
@@ -613,28 +543,7 @@ export default {
           this.$toaster.makeToast('warning', 'Some think error')
         })
     },
-    // handelForOtp (e) {
-    //   if (this.forOtp.length == 4) {
-    //     this.loader = true
-    //     this.clickOtp = false
-
-    //     this.$apiService
-    //       .getCall(`otp/verify/?userId=${this.id}&otp=${this.forOtp}`)
-    //       .then(res => {
-    //         if (!res.apidata.isError) {
-    //           this.$toaster.makeToast('success', 'Verify successfully')
-    //            window.location.reload()
-
-    //           this.loader = false
-    //         }
-    //       })
-    //       .catch(error => {
-    //         this.loader = false
-    //         this.$toaster.makeToast('warning', 'Some think error')
-    //       })
-    //   }
-    // },
-    clickEmailVarified () {
+     clickEmailVarified () {
       this.loader = true
       const reqData = {
         email: this.emailUser
@@ -956,7 +865,7 @@ export default {
     },
     handleSelectedLogoUpdate() {
     // Do something with the updated value of this.selectedLogo
-    console.log('Selected logo updated:', this.selectedLogo);
+   
     // You can perform any additional actions here
   },
     async setImage (e) {
@@ -1023,7 +932,6 @@ export default {
     } else {
       this.logoloader = false;
       this.selectedLogo = response.apidata.url;
-      window.location.reload()
       // this.$toaster.makeToast('success', 'Profile updated successfully');
     }
   } catch (error) {

@@ -202,6 +202,7 @@
                 border: 1px solid #80808038;
               "
               type="text"
+                maxlength='20'
               id="input-first-name"
             ></b-form-input>
           </b-form-group>
@@ -218,6 +219,7 @@
                 border: 1px solid #80808038;
               "
               type="text"
+                maxlength='20'
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
@@ -235,6 +237,7 @@
                 border: 1px solid #80808038;
               "
               type="text"
+              maxlength='20'
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
@@ -282,6 +285,7 @@
               "
               type="number"
               id="input-agency"
+              @keydown="checkLengthPhoneEdit2"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -516,7 +520,10 @@
                 <option value="">All</option>
                 <option value="Approved">Approved</option>
                 <option value="Rejected">Rejected</option>
-                <option value="Under Review">Under Review</option>
+                <option value="Waiting Approval">Waiting Approval</option>
+                <option value="Pending Registration">
+                  Pending Registration
+                </option>
               </select>
             </fieldset>
           </div>
@@ -582,7 +589,8 @@
                   v-if="
                     role == 'user' &&
                     props.row.status != 'Approved' &&
-                    props.row.status != 'Rejected'
+                    props.row.status != 'Rejected' &&
+                    props.row.status != 'Pending Registration'
                   "
                 >
                   <span @click="clickEdit(props.row)" class="btn p-0"
@@ -599,7 +607,8 @@
                   v-else-if="
                     role == 'admin' &&
                     props.row.status != 'Approved' &&
-                    props.row.status != 'Rejected'
+                    props.row.status != 'Rejected' &&
+                    props.row.status != 'Pending Registration'
                   "
                 >
                   <div
@@ -619,8 +628,10 @@
                 <span class="badge badge-warning ">{{ props.row.status }}</span>
               </div> -->
                 </div>
-                <div>
-                  <div v-if="props.row.status === 'Approved'">
+               
+              </span>
+              <span v-else-if="props.column.field === 'show_status'">
+                <div v-if="props.row.status === 'Approved'">
                     <span class="badge badge-success">{{
                       props.row.status
                     }}</span>
@@ -630,9 +641,17 @@
                       props.row.status
                     }}</span>
                   </div>
-                </div>
+                   <div v-else-if="props.row.status === 'Waiting Approval'">
+                    <span class="badge border-warning text-warning p-1" style="border:1px solid yellow ">{{
+                      props.row.status
+                    }}</span>
+                  </div>
+                   <div v-else-if="props.row.status === 'Pending Registration'">
+                    <span class="badge  border p-1">{{
+                      props.row.status
+                    }}</span>
+                  </div>
               </span>
-
               <span v-else-if="props.column.field === 'reason'">
                 <div>{{ props.row.reason }}</div>
               </span>
@@ -770,7 +789,7 @@ export default {
         },
         {
           label: 'Status',
-          field: 'status',
+          field: 'show_status',
           filterOptions: {
             enabled: true,
             placeholder: 'Reason'
@@ -850,24 +869,27 @@ export default {
   },
 
   methods: {
-    filteredRows32() {
-    const query = this.searchTerm.toLowerCase().trim();
-    const select_status = this.selectedStatus;
+    filteredRows32 () {
+      const query = this.searchTerm.toLowerCase().trim()
+      const select_status = this.selectedStatus
 
       return this.faqs.filter(row => {
         const matchesQuery = query
           ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
             (row.last_name && row.last_name.toLowerCase().includes(query)) ||
-          (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
-          (row.contact_number && row.contact_number.toLowerCase().includes(query)) ||
+            (row.tiktok_username &&
+              row.tiktok_username.toLowerCase().includes(query)) ||
+            (row.contact_number &&
+              row.contact_number.toLowerCase().includes(query)) ||
             (row.reason && row.reason.toLowerCase().includes(query)) ||
-          (row.agency_center_code && row.agency_center_code.toLowerCase().includes(query))
-        : true;
+            (row.agency_center_code &&
+              row.agency_center_code.toLowerCase().includes(query))
+          : true
         const matchesStatus = select_status
           ? row.status === select_status
-        : true;
-      return matchesQuery && matchesStatus;
-    });
+          : true
+        return matchesQuery && matchesStatus
+      })
     },
     handleChange (user) {
       this.selectedUserId = user._id
@@ -887,7 +909,16 @@ export default {
     },
     checkLengthPhone2 (event) {
       if (
-        this.agency_center_code.toString().length >= 13 &&
+        this.agency_center_code.toString().length > 13 &&
+        event.keyCode !== 8
+      ) {
+        event.preventDefault()
+      }
+    },
+ 
+     checkCenterCode (event) {
+      if (
+        this.agency_center_code.toString().length > 13 &&
         event.keyCode !== 8
       ) {
         event.preventDefault()
@@ -1012,7 +1043,7 @@ export default {
       this.searchUser = this.faqs.filter(user =>
         user.user_name.toLowerCase().includes(this.publisherName.toLowerCase())
       )
-      // console.log(myData);
+     
     },
     async fetchUser () {
       this.loader = true
