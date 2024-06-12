@@ -184,11 +184,11 @@
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update publisher
+      <label class=" pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Update Creators
       </label>
-      <b-row class="px-3">
-        <b-col md="12">
+      <b-row class="">
+        <b-col md="12" class="px-0">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
@@ -204,7 +204,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="getLastName"
@@ -221,7 +221,7 @@
           </b-form-group>
         </b-col>
 
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="TikTok User Name" label-for="input-last-name">
             <b-form-input
               v-model="getTikTok"
@@ -250,7 +250,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -267,7 +267,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Agency center code" label-for="input-title">
             <b-form-input
               v-model="getcenterCode"
@@ -283,7 +283,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6">
+        <b-col md="6" class="px-0">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="getImages"
@@ -296,7 +296,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2"
+          class="justify-content-end d-flex align-items-center py-2 px-0"
         >
           <img
             :src="this.uplodedImages"
@@ -304,6 +304,9 @@
             class="img-fluid"
             height="50"
             width="50"
+            style="
+    width: 4vw;
+"
           />
         </b-col>
 
@@ -1528,5 +1531,13 @@ imgloader {
    margin-left: 0px!important;
 }
 
+
+.modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0rem;
+}
 
 </style>

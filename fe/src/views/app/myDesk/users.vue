@@ -96,11 +96,11 @@
       hide-header
       centered
     >
-      <label class="px-3 pt-2 pb-1" style="font-size: 20px; margin: 0px">
+      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Update Members
       </label>
-      <b-row class="px-3">
-        <b-col md="12">
+      <b-row class="">
+        <b-col md="12" class="px-0">
           <b-form-group label="Enter name" label-for="input-title">
             <b-form-input
               v-model="getuserName"
@@ -112,7 +112,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Enter surname" label-for="input-title">
             <b-form-input
               v-model="getuserSurName"
@@ -124,7 +124,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="gettikTokUserName"
@@ -136,7 +136,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="px-0">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -151,7 +151,7 @@
         </b-col>
 
         <b-col>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end px-0">
             <b-button
               v-if="!imgLoader"
               class="mb-2 mr-2"
