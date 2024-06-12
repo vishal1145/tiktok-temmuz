@@ -821,20 +821,25 @@ export default {
   },
 
   methods: {
-    filteredRows32 () {
-      const query = this.searchTerm.toLowerCase().trim()
-      const select_status = this.selectedStatus
+    filteredRows32() {
+    const query = this.searchTerm.toLowerCase().trim();
+    const select_status = this.selectedStatus;
 
-      return this.faqs.filter(row => {
-        const matchesQuery = query
-          ? row.first_name && row.first_name.toLowerCase().includes(query)
-          : true
-        const matchesStatus = select_status
-          ? row.status === select_status
-          : true
-        return matchesQuery && matchesStatus
-      })
-    },
+    return this.faqs.filter(row => {
+      const matchesQuery = query
+        ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
+          (row.last_name && row.last_name.toLowerCase().includes(query)) ||
+          (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
+          (row.contact_number && row.contact_number.toLowerCase().includes(query)) ||
+          (row.reason && row.reason.toLowerCase().includes(query)) ||
+          (row.agency_code && row.agency_code.toLowerCase().includes(query))
+        : true;
+      const matchesStatus = select_status
+        ? row.status === select_status
+        : true;
+      return matchesQuery && matchesStatus;
+    });
+  },
     handleChange (user) {
       this.selectedUserId = user._id
 
