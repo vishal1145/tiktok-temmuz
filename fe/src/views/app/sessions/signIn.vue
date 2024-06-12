@@ -847,7 +847,7 @@ export default {
             } else {
               {
                 setTimeout(() => {
-                  this.$router.push('/app/setting/publisher')
+                  this.$router.push('/app/setting/home')
                 }, 500)
               }
             }

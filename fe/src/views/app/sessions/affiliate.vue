@@ -377,17 +377,70 @@ export default {
       }
     },
     async addPublisher () {
-      if (
-        !this.images ||
-        !this.phoneNumber ||
-        !this.centerCode ||
-        !this.userFirstName ||
-        !this.userLastName ||
-        !this.tiktokName
-      ) {
+  if (
+    !this.images ||
+    !this.phoneNumber ||
+    !this.centerCode ||
+    !this.userFirstName ||
+    !this.userLastName ||
+    !this.tiktokName
+  ) {
+    this.$toaster.makeToast('warning', 'All fields are required')
+    return;  // Add this return statement to stop further execution
+  }
+
+  this.loader = true
+  try {
+    //const imageUrls = await this.uploadImages();
+    let requestData = {
+      first_name: this.userFirstName,
+      last_name: this.userLastName,
+      contact_number: this.phoneNumber,
+      agency_center_code: this.centerCode,
+      tiktok_username: this.tiktokName,
+      icon: this.uplodedImages,
+    }
+
+    // Assuming you want to make a POST request
+    const res = await new Promise((resolve, reject) => {
+      this.$apiService
+        .postCall(`publisher/update/${this.userId}`, requestData)
+        .then(data => resolve(data))
+        .catch(error => reject(error))
+    })
+    await this.addStatus()
+
+    if (res.error) {
+      this.loader = false
+      this.$toaster.makeToast('warning', res.message)
+    } else {
+      this.$toaster.makeToast(
+        'success',
+        'Your data has been recorded, and you will be notified shortly.'
+      )
+      this.$router.push('/app/sessions/signIn')
+      this.loader = false
+      this.userFirstName = ''
+      this.userLastName = ''
+      this.tiktokName = ''
+      this.centerCode = ''
+      this.phoneNumber = ''
+      this.uplodedImages = null
+      // this.$toaster.makeToast('success', 'Data added successfully');
+    }
+  } catch (error) {
+    this.loader = false
+    this.$toaster.makeToast('warning', 'Error: Server Error')
+    // console.error(error)
+  }
+}
+,
+    async addStatus () {
+   
+    
         this.$toaster.makeToast('warning', 'All is required fields')
         
-      }
+      
 
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
@@ -396,19 +449,15 @@ export default {
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
-          first_name: this.userFirstName,
-          last_name: this.userLastName,
-          contact_number: this.phoneNumber,
-          agency_center_code: this.centerCode,
-          tiktok_username: this.tiktokName,
-          icon: this.uplodedImages,
+          status: "Waiting Approval"
+          
          
         }
 
         // Assuming you want to make a POST request
         const res = await new Promise((resolve, reject) => {
           this.$apiService
-            .postCall(`publisher/update/${this.userId}`, requestData)
+            .postCall(`publisher/update-publisher-status/${this.userId}`, requestData)
             .then(data => resolve(data))
             .catch(error => reject(error))
         })

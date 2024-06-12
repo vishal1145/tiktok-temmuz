@@ -17,26 +17,28 @@
       </label>
       <b-row class="">
         <b-col md="12" class="px-0">
-          <b-form-group label="Enter name" label-for="input-title">
+          <b-form-group label="First Name" label-for="input-name">
             <b-form-input
               v-model="userName"
               required
-              placeholder="Enter name"
+              placeholder="First Name"
               style="height: 34px"
               type="text"
               id="input-name"
+              maxlength="20"
             ></b-form-input>
           </b-form-group>
         </b-col>
         <b-col md="12" class="px-0">
-          <b-form-group label="Enter surname" label-for="input-title">
+          <b-form-group label="Last Name" label-for="input-title">
             <b-form-input
               v-model="userSurName"
               required
-              placeholder="Enter surname"
+              placeholder="Last Name"
               style="height: 34px"
               type="text"
               id="input-name"
+              maxlength="20"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -45,10 +47,11 @@
             <b-form-input
               v-model="tikTokUserName"
               required
-              placeholder="Enter TikTok username"
+              placeholder="TikTok Username"
               style="height: 34px"
               type="text"
               id="input-name"
+              maxlength="20"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -66,7 +69,7 @@
           </b-form-group>
         </b-col>
 
-        <b-col>
+        <b-col class="px-0">
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
             <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
@@ -591,7 +594,9 @@ export default {
           firstValue:'',
       getUid: '',
       getfirstValue: '',
-      getsecondValue:''
+      getsecondValue:'',
+
+ 
 
 
     }
@@ -767,29 +772,40 @@ export default {
           this.$store.commit('setError', { message: error })
         })
     },
-    formSubmitDeleteMember (data) {
-      this.loader = true
+    formSubmitDeleteMember(data) {
+      this.$swal({
+        title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+    if (result.isConfirmed) {
+      this.loader = true;
 
       this.$apiService
         .getCall(`auth/member-delete/${data._id}`)
         .then(user => {
+          this.loader = false;
           if (user.error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', user.message)
+            this.$toaster.makeToast('warning', user.message);
           } else {
-            this.loader = false
-            this.$toaster.makeToast('success', 'User delete successfully')
-            this.showEditModal = false
-            this.getAllUsers()
+            this.$toaster.makeToast('success', 'User deleted successfully');
+            this.showEditModal = false;
+            this.getAllUsers();
           }
         })
-        .catch(function (error) {
-          this.$toaster.makeToast('warning', 'Error: server error')
-          this.loader = false
+        .catch((error) => {
+          this.$toaster.makeToast('warning', 'Error: server error');
+          this.loader = false;
+          this.$store.commit('setError', { message: error });
+        });
+    }
+  });
+},
 
-          this.$store.commit('setError', { message: error })
-        })
-    },
 
     formSubmitAddMember () {
       this.imgLoader = true

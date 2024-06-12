@@ -37,10 +37,11 @@
               placeholder="Amount"
               style="height: 34px"
               type="number"
-              @keydown="validateInputAmount"
+       
               id="input-amount"
             ></b-form-input>
           </b-form-group>
+          <!-- @keydown="validateInputAmount" -->
         </b-col>
         <b-col md="12" class="d-none">
           <b-form-group label="Status" label-for="input-status">

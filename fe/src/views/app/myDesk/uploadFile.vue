@@ -286,7 +286,9 @@
 </template>
 
 <script>
-import { now } from 'moment'
+import moment from 'moment'
+
+
 export default {
   data () {
     return {
@@ -490,8 +492,17 @@ export default {
           this.$toaster.makeToast('warning', response.message)
         } else {
           // this.faqs = response.apidata.data;
+          
+          const paymentData = response.apidata.data
 
-          this.rowsData = response.apidata.data
+          this.rowsData = paymentData;
+
+paymentData.forEach((e) => {
+  // Format the request_date
+  e.date = moment(e.date).format("DD MMM YYYY h:mm A");
+});
+console.log("paymentData",paymentData)
+this.rows = paymentData;
 
           this.loader = false
         }
