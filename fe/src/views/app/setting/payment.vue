@@ -402,7 +402,7 @@
               <div>{{ props.row.full_name ? props.row.full_name : '' }}</div>
             </span>
             <span v-else-if="props.column.field === 'request_date'">
-              <div>{{ formatDate(props.row.request_date) }}</div>
+              <div>{{ (props.row.request_date) }}</div>
             </span>
 
             <span v-else-if="props.column.field === 'amount'">
