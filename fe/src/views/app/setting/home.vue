@@ -104,7 +104,7 @@
                 </p>
 
                 <b-button variant="primary" @click="clickShowPopup()"
-                  >Add Member</b-button
+                  >Add Creators</b-button
                 >
 
                 <!-- <div
@@ -670,7 +670,8 @@ export default {
   created () {
     this.userId = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-    this.getGraphData()
+    this.getGraphData();
+    this.getProfileDetails();
   },
   methods: {
     copyUrl () {
@@ -721,7 +722,7 @@ export default {
               this.tiktokres.response.data.message.keyPattern
                 .tiktok_username === 1
             ) {
-              this.popupLoader = false;
+              this.popupLoader = false
               this.$toaster.makeToast(
                 'warning',
                 'TikTok username already exists'
@@ -762,6 +763,26 @@ export default {
     },
     clickShowPopup () {
       this.$bvModal.show('modal-addMember')
+    },
+    getProfileDetails () {
+      this.loader = true
+      this.$apiService
+        .getCall(`auth/user/${this.userId}`)
+        .then(res => {
+          console.log(res)
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Fail to fetch user data')
+          } else {
+            this.loginUserName =res.apidata.data.name + ' ' + res.apidata.data.surname
+
+            this.loader = false
+          }
+        })
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Server Error')
+        })
     },
     getGraphData () {
       this.loader = true
@@ -928,8 +949,6 @@ export default {
               this.$toaster.makeToast('warning', 'Empty Data')
             }
           }
-
-        
 
           this.loader = false
         })
