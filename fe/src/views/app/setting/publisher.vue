@@ -12,11 +12,13 @@
       hide-header
       centered
     >
-      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Add Creators
-      </label>
+  
       <b-row class="">
-        <b-col md="12" v-if="role == 'admin'" class="px-0">
+        <b-col md="12">    
+           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Add Creators
+      </label> </b-col>
+        <b-col md="12" v-if="role == 'admin'" >
           <b-form-group
             label="Select Member"
             class="w-100"
@@ -42,7 +44,7 @@
             ></multiselect>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0" v-if="role == 'admin'">
+        <b-col md="12"  v-if="role == 'admin'">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="first_name"
@@ -58,7 +60,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0" v-if="role == 'admin'">
+        <b-col md="12"  v-if="role == 'admin'">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="last_name"
@@ -74,7 +76,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group
             label="TikTok Username"
             label-for="input-tiktok-username"
@@ -93,7 +95,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0" v-if="role == 'admin'">
+        <b-col md="12"  v-if="role == 'admin'">
           <b-form-group label="Contact Number" label-for="input-contact-number">
             <b-form-input
               v-model="contact_number"
@@ -110,7 +112,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group
             label="Agency Center Code"
             label-for="input-agency-center-code"
@@ -130,7 +132,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="px-0" v-if="role == 'admin'">
+        <b-col md="6"  v-if="role == 'admin'">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
@@ -143,7 +145,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2 px-0"
+          class="justify-content-end d-flex align-items-center py-2"
         >
           <img
             v-if="uplodedImages"
@@ -186,11 +188,15 @@
       hide-header
       centered
     >
-      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update Creators
-      </label>
+  
       <b-row class="">
-        <b-col md="12" class="px-0">
+
+
+        <b-col md="12">    
+           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Update Creators
+      </label> </b-col>
+        <b-col md="12" >
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
@@ -207,7 +213,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="getLastName"
@@ -225,7 +231,7 @@
           </b-form-group>
         </b-col>
 
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="TikTok User Name" label-for="input-last-name">
             <b-form-input
               v-model="getTikTok"
@@ -255,7 +261,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -272,7 +278,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Agency center code" label-for="input-title">
             <b-form-input
               v-model="getcenterCode"
@@ -289,7 +295,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="px-0">
+        <b-col md="6" >
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="getImages"
@@ -302,7 +308,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2 px-0"
+          class="justify-content-end d-flex align-items-center py-2 "
         >
           <img
             :src="this.uplodedImages"
@@ -841,7 +847,7 @@ export default {
   mounted () {
     this.clearFilters()
     // this.filterData()
-    this.addCssRule()
+    // this.addCssRule()
 
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
@@ -1399,18 +1405,18 @@ export default {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
     },
 
-    addCssRule () {
-      const style = document.createElement('style')
-      style.type = 'text/css'
-      const cssRule =
-        '#modal-add .modal-content,' +
-        '#modal-add___BV_modal_content_ .modal-content {' +
-        '  padding: 1em !important;' +
-        '}'
+    // addCssRule () {
+    //   const style = document.createElement('style')
+    //   style.type = 'text/css'
+    //   const cssRule =
+    //     '#modal-add .modal-content,' +
+    //     '#modal-add___BV_modal_content_ .modal-content {' +
+    //     '  padding: 1em !important;' +
+    //     '}'
 
-      style.appendChild(document.createTextNode(cssRule))
-      document.head.appendChild(style)
-    }
+    //   style.appendChild(document.createTextNode(cssRule))
+    //   document.head.appendChild(style)
+    // }
   }
 }
 </script>
@@ -1523,21 +1529,5 @@ imgloader {
   border: 1px solid #ef4444;
 }
 
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-}
 
-.modal-body {
-  position: relative;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  padding: 0rem;
-}
 </style>

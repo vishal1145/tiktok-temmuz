@@ -3,9 +3,10 @@
     <breadcumb :page="'TikTok'" :folder="'Ajans'" />
     <b-modal id="modal-addMember" size="md" hide-footer hide-header centered>
       <b-row class="">
-        <b-col md="12">
-          <h4 class="mb-2">Add Creators</h4>
-        </b-col>
+        <b-col md="12">    
+           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
+        Add Creators
+      </label> </b-col>
 
         <b-col md="12">
           <b-form-group
@@ -38,8 +39,8 @@
           </b-form-group>
         </b-col>
 
-        <b-col>
-          <div class="d-flex justify-content-end">
+        <b-col md="12" class="pb-2">
+          <div class="d-flex justify-content-end  ">
             <div class="spinner spinner-primary" v-if="popupLoader"></div>
             <b-button class="mr-2" v-if="!popupLoader" @click="clickCancle()"
               >Cancel</b-button
@@ -670,10 +671,29 @@ export default {
   created () {
     this.userId = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-    this.getGraphData();
-    this.getProfileDetails();
+    this.getGraphData()
+    this.getProfileDetails ()
   },
   methods: {
+    getProfileDetails () {
+      this.loader = true
+      this.$apiService
+        .getCall(`auth/user/${this.userId}`)
+        .then(res => {
+          console.log(res)
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Fail to fetch user data')
+          } else {
+            this.loginUserName =res.apidata.data.name + ' ' + res.apidata.data.surname
+            this.loader = false
+          }
+        })
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Server Error')
+        })
+    },
     copyUrl () {
       const url = 'https://temmuz.algofolks.com/app/sessions/affiliate'
       navigator.clipboard
@@ -722,7 +742,7 @@ export default {
               this.tiktokres.response.data.message.keyPattern
                 .tiktok_username === 1
             ) {
-              this.popupLoader = false
+              this.popupLoader = false;
               this.$toaster.makeToast(
                 'warning',
                 'TikTok username already exists'
@@ -763,26 +783,6 @@ export default {
     },
     clickShowPopup () {
       this.$bvModal.show('modal-addMember')
-    },
-    getProfileDetails () {
-      this.loader = true
-      this.$apiService
-        .getCall(`auth/user/${this.userId}`)
-        .then(res => {
-          console.log(res)
-          if (res.error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', 'Fail to fetch user data')
-          } else {
-            this.loginUserName =res.apidata.data.name + ' ' + res.apidata.data.surname
-
-            this.loader = false
-          }
-        })
-        .catch(error => {
-          this.loader = false
-          this.$toaster.makeToast('warning', 'Server Error')
-        })
     },
     getGraphData () {
       this.loader = true
@@ -950,6 +950,8 @@ export default {
             }
           }
 
+        
+
           this.loader = false
         })
         .catch(error => {
@@ -1003,5 +1005,12 @@ table.vgt-table td {
 
 .w-59 {
   width: 59% !important;
+}
+.form-control {
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af;
+  color: #111827;
 }
 </style>
