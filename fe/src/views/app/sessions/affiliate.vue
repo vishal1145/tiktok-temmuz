@@ -154,14 +154,15 @@
                 </div>
                 <div class="w-50">
                   <div class="mb-3 pl-2">
-                    <label for="email" class="form-label"
+                    <label for="tiktokName" class="form-label"
                       >Tiktok User Name</label
                     >
                     <input
+                    disabled
                       type="text"
                       v-model="tiktokName"
                       class="form-control"
-                      id="email"
+                      id="tiktokName"
                     />
                   </div>
                   <div class="mb-3 pl-2">
@@ -173,6 +174,7 @@
                       v-model="centerCode"
                       @keydown="checkLengthCode"
                       class="form-control"
+                      disabled
                       id="tiktokCode"
                     />
                   </div>
@@ -229,6 +231,7 @@
         </b-col>
       </div>
     </div>
+     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
   </div>
 </template>
 
@@ -273,7 +276,8 @@ export default {
       phoneNumber: '',
       centerCode: '',
       uplodedImages: '',
-      images: null
+      images: null,
+      tikTokUser:''
     }
   },
 
@@ -309,7 +313,8 @@ export default {
     ...mapGetters(['loggedInUser', 'loading', 'error'])
   },
   created () {
-    this.userId = this.$route.query.uid
+    this.tikTokUser = this.$route.query.name;
+    this.getTikTokUser();
   },
 
   methods: {
@@ -346,6 +351,31 @@ export default {
         // confirm.log(error)
       }
     },
+     async getTikTokUser () {
+       this.loader = true;
+      try {
+        const response = await this.$apiService.getCall(`publisher/get-creator?name=${this.tikTokUser}`)
+        if (
+          response.isError === false
+        ) {
+          this.centerCode = response.apidata.data[0].agency_center_code;
+          this.tiktokName = response.apidata.data[0].tiktok_username;
+          this.userId= response.apidata.data[0]._id;
+       
+        this.loader = false
+
+       
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Failed to fetch tiktok user data')
+        }
+      } catch (error) {
+        
+        this.$toaster.makeToast('error', 'Error fetching tiktok data')
+      } finally {
+        this.loader = false
+      }
+    },
     async addPublisher () {
       if (
         !this.images ||
@@ -356,14 +386,13 @@ export default {
         !this.tiktokName
       ) {
         this.$toaster.makeToast('warning', 'All is required fields')
-        setTimeout(() => (this.errorMessage = ''), 2000)
-        return
+        
       }
 
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
       // } else {
-      this.imgloader = true
+      this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -373,20 +402,20 @@ export default {
           agency_center_code: this.centerCode,
           tiktok_username: this.tiktokName,
           icon: this.uplodedImages,
-          user_id: this.userId
+         
         }
 
         // Assuming you want to make a POST request
         const res = await new Promise((resolve, reject) => {
           this.$apiService
-            .postCall('publisher/create/', requestData)
+            .postCall(`publisher/update/${this.userId}`, requestData)
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
      
        
         if (res.error) {
-          this.imgloader = false
+          this.loader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
           this.$toaster.makeToast(
@@ -394,7 +423,7 @@ export default {
             'Your data has been recorded, and you will be notified shortly.'
           )
           this.$router.push('/app/sessions/signIn')
-          this.imgloader = false
+          this.loader = false
           this.userFirstName = ''
           this.userLastName = ''
           this.tiktokName = ''
@@ -404,7 +433,7 @@ export default {
           // this.$toaster.makeToast('success', 'Data added successfully');
         }
       } catch (error) {
-        this.imgloader = false
+        this.loader = false
         this.$toaster.makeToast('warning', 'Error: Server Error')
         // console.error(error)
       }
@@ -585,6 +614,12 @@ form {
   padding-right: 20px;
 }
 .imgloader {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  z-index: 100;
+}
+#loader {
   top: 50%;
   left: 50%;
   position: fixed;

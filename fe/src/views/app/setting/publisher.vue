@@ -42,7 +42,7 @@
             ></multiselect>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" class="px-0" v-if="role == 'admin'">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="first_name"
@@ -58,7 +58,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" class="px-0" v-if="role == 'admin'">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="last_name"
@@ -93,7 +93,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" class="px-0" v-if="role == 'admin'">
           <b-form-group label="Contact Number" label-for="input-contact-number">
             <b-form-input
               v-model="contact_number"
@@ -130,7 +130,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6" class="px-0">
+        <b-col md="6" class="px-0" v-if="role == 'admin'">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
@@ -152,9 +152,7 @@
             class="img-fluid"
             height="50"
             width="50"
-            style="
-    width: 4vw;
-"
+            style="width: 4vw"
           />
         </b-col>
         <b-col>
@@ -188,7 +186,7 @@
       hide-header
       centered
     >
-      <label class=" pt-2 pb-1" style="font-size: 20px; margin: 0px">
+      <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Update Creators
       </label>
       <b-row class="">
@@ -308,9 +306,7 @@
             class="img-fluid"
             height="50"
             width="50"
-            style="
-    width: 4vw;
-"
+            style="width: 4vw"
           />
         </b-col>
 
@@ -349,7 +345,47 @@
         </b-col>
       </b-row>
     </b-modal>
+    <b-modal
+      id="modal-show-referralUrl"
+      size="md"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <b-row class="p-2">
+        <b-col md="12">
+          <!-- <i
+            class="fa fa-exclamation-triangle text-danger mb-3"
+            aria-hidden="true"
+          >
+            Reason for cancellation:
+          </i> -->
+          <h3 class="mb-2">Referral Url</h3>
+        </b-col>
 
+        <b-col md="12">
+          <span
+            >Url:
+            <a :href="referralUrl" target="_blank" rel="noopener noreferrer">
+              {{ referralUrl }}</a
+            ></span
+          >
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <!-- <div class="spinner spinner-primary mr-3" v-if="updateloader"></div> -->
+            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <!-- <b-button
+              class="mb-2"
+              variant="primary ripple"
+              @click="clickRejectButton()"
+              >ok</b-button
+            > -->
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
     <b-modal
       id="modal-cancelReason"
       size="md"
@@ -650,6 +686,7 @@ export default {
   },
   data () {
     return {
+      referralUrl: '',
       selectedName: '',
       allUsers: [],
       rows: [],
@@ -732,6 +769,14 @@ export default {
           }
         },
         {
+          label: 'Status',
+          field: 'status',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Reason'
+          }
+        },
+        {
           label: 'Reason',
           field: 'reason',
           filterOptions: {
@@ -778,8 +823,6 @@ export default {
     this.clearFilters()
     // this.filterData()
     this.addCssRule()
-    // this.fetchUserNames()
-    this.getAllUsers()
 
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
@@ -795,32 +838,11 @@ export default {
     doubledNumber () {
       return this.filteredRows32()
     }
-    // filteredRows32 () {
-    //   const query = this.searchTerm.toLowerCase().trim()
-    //   const select_status = this.selectedStatus
-
-    //   return this.faqs.filter(row => {
-    //     const matchesQuery = query
-    //       ? row.first_name && row.first_name.toLowerCase().includes(query)
-    //       : true
-    //       const matchesStatus = select_status
-    //       ? row.status === select_status
-    //       : true
-
-    //     return matchesQuery && matchesStatus
-    //   })
-
-    // },
   },
   created () {
     this.filteredRows32()
-    // this.fetchUserNames()
     this.getAllUsers()
-
-    // this.filterData()
-
     this.clearFilters()
-
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
 
@@ -832,21 +854,21 @@ export default {
     const query = this.searchTerm.toLowerCase().trim();
     const select_status = this.selectedStatus;
 
-    return this.faqs.filter(row => {
-      const matchesQuery = query
-        ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
-          (row.last_name && row.last_name.toLowerCase().includes(query)) ||
+      return this.faqs.filter(row => {
+        const matchesQuery = query
+          ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
+            (row.last_name && row.last_name.toLowerCase().includes(query)) ||
           (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
           (row.contact_number && row.contact_number.toLowerCase().includes(query)) ||
-          (row.reason && row.reason.toLowerCase().includes(query)) ||
+            (row.reason && row.reason.toLowerCase().includes(query)) ||
           (row.agency_center_code && row.agency_center_code.toLowerCase().includes(query))
         : true;
-      const matchesStatus = select_status
-        ? row.status === select_status
+        const matchesStatus = select_status
+          ? row.status === select_status
         : true;
       return matchesQuery && matchesStatus;
     });
-  },
+    },
     handleChange (user) {
       this.selectedUserId = user._id
 
@@ -902,7 +924,7 @@ export default {
         ) {
           const userData = response.apidata.data
           this.rows = userData
-          this.allUsers = userData;
+          this.allUsers = userData
 
           const usersWithFullName = userData.map(user => ({
             ...user,
@@ -928,51 +950,18 @@ export default {
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-    // filterData () {
-    //   this.filteredFaqs = this.faqs.filter(faq => {
-    //     // Check search term
-    //     const matchesSearchTerm =
-    //       faq.user_name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-    //       faq.contact_number.includes(this.searchTerm) ||
-    //       faq.agency_center_code.includes(this.searchTerm) ||
-    //       (faq.reason &&
-    //         faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
-
-    //     // Check filter status
-    //     const matchesStatus =
-    //       this.filterStatus === '' || faq.status === this.filterStatus
-
-    //     return matchesSearchTerm && matchesStatus
-    //   })
-    // },
-
-    // onSearchTermChange (event) {
-    //   this.searchTerm = event.target.value
-    //   this.filterData()
-    // },
-    // onStatusChange (event) {
-    //   this.filterStatus = event.target.value
-    //   this.filterData()
-    // },
     clearFilters () {
       this.searchTerm = ''
       this.selectedStatus = ''
-      this.getAllUsers()
     },
-    // onSearchTermChange (event) {
-    //   this.searchTerm = event.target.value
-    //   this.filterData()
-    // },
-    // onStatusChange (event) {
-    //   this.filterStatus = event.target.value
-    //   this.filterData()
-    // },
+
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
     clickCancle () {
+      this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
     },
     checkLengthCode (event) {
@@ -1136,21 +1125,29 @@ export default {
     async addPublisher () {
       // Check if all required fields are filled
       // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
-      if (
-        !this.first_name ||
-        !this.last_name ||
-        !this.tiktok_username ||
-        !this.contact_number ||
-        !this.agency_center_code ||
-        !this.images
-      ) {
+      if (this.role === 'admin') {
+        if (
+          !this.first_name ||
+          !this.last_name ||
+          !this.tiktok_username ||
+          !this.contact_number ||
+          !this.agency_center_code ||
+          !this.images
+        ) {
+          this.$toaster.makeToast(
+            'warning',
+            'Please fill in all the required fields'
+          )
+          setTimeout(() => (this.errorMessage = ''), 2000)
+          return
+        }
+      } else if (!this.tiktok_username || !this.agency_center_code) {
         this.$toaster.makeToast(
           'warning',
           'Please fill in all the required fields'
         )
-        setTimeout(() => (this.errorMessage = ''), 2000)
-        return
       }
+
       // if (matchData.length > 0) {
       //   this.$toaster.makeToast(
       //     'warning',
@@ -1164,17 +1161,20 @@ export default {
             this.role === 'admin'
               ? this.selectedUserId
               : localStorage.getItem('user_id'),
-          first_name: this.first_name,
-          last_name: this.last_name,
           tiktok_username: this.tiktok_username,
-          contact_number: this.contact_number,
           agency_center_code: this.agency_center_code,
-          icon: this.uplodedImages
+          status: 'Pending Registration'
         }
+
         if (this.role === 'admin') {
-          ;(requestData.status = 'Approved'),
-            (requestData.reason = 'Added By Admin')
+          requestData.first_name = this.first_name
+          requestData.last_name = this.last_name
+          requestData.contact_number = this.contact_number
+          requestData.icon = this.uplodedImages
+          requestData.status = 'Approved'
+          requestData.reason = 'Added By Admin'
         }
+
         const res = await this.$apiService.postCall(
           'publisher/create/',
           requestData
@@ -1184,8 +1184,8 @@ export default {
         // Handle the response
         if (res.error) {
           if (
-            this.tiktokres.response.data.message.keyPattern.keyPattern
-              .tiktok_username === 1
+            this.tiktokres.response.data.message.keyPattern.tiktok_username ===
+            1
           ) {
             this.$toaster.makeToast('warning', 'TikTok username already exists')
           } else {
@@ -1206,10 +1206,14 @@ export default {
           this.contact_number = ''
           this.agency_center_code = ''
           this.icon = null
-          this.$toaster.makeToast('success', 'Data added successfully')
+          this.referralUrl = res.apidata.referral_url
+          this.$bvModal.show('modal-show-referralUrl')
+          this.$toaster.makeToast('success', 'Referral create successfully')
+          if (this.role === 'admin') {
+            this.$toaster.makeToast('success', 'Data added successfully')
+          }
         }
       } catch (error) {
-        console.log('eroot', error)
         this.loader = false
         if (
           this.tiktokres.error.response.data.message.keyPattern
@@ -1218,7 +1222,6 @@ export default {
           this.$toaster.makeToast('warning', 'TikTok username already exists')
         } else {
           this.$toaster.makeToast('warning', 'Error: Server Error')
-          console.error(error) // Added console log to catch block
         }
       }
     },
@@ -1275,42 +1278,6 @@ export default {
       this.showAddModalEdit = true
     },
 
-    // editFAQ (faq) {
-    //   console.log('FAQcategory:', faq.category) // Log the category value
-    //   this.editFAQData.id = faq.id
-    //   this.editFAQData.title = faq.title
-    //   this.editFAQData.description = faq.description
-    //   this.editFAQData.category = faq.category
-    //   this.showAddModalEdit = true
-    // },
-
-    // async updateFAQ () {
-    //   try {
-    //     const response = await this.$apiService.putCall(
-    //       `faq/?id=${this.editFAQData.id}`,
-    //       {
-    //         title: this.editFAQData.title,
-    //         description: this.editFAQData.description,
-    //         category: this.editFAQData.category
-    //       }
-    //     )
-    //     if (!response.isError) {
-    //       // Handle success, such as updating the UI or fetching FAQs again
-    //       console.log('FAQ updated successfully')
-
-    //       this.fetchFAQs()
-    //       this.closeModalEdit()
-    //       this.editFAQData.category = ''
-    //       this.$toaster.makeToast('success', 'FAQ updated successfully')
-    //     } else {
-    //       console.error('Failed to update FAQ')
-    //       // Handle error, such as displaying an error message
-    //     }
-    //   } catch (error) {
-    //     console.error('Error updating FAQ:', error)
-    //     // Handle error, such as displaying an error message
-    //   }
-    // },
     clickRejectButton () {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
         this.deletePublisher()
@@ -1526,21 +1493,20 @@ imgloader {
 }
 
 .row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-     margin-right: 0px!important;
-   margin-left: 0px!important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
-
 .modal-body {
-    position: relative;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 0rem;
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0rem;
 }
 </style>
