@@ -17,7 +17,11 @@
       </label>
       <b-row class="">
         <b-col md="12" v-if="role == 'admin'" class="px-0">
-          <b-form-group label="Select Member" class="w-100" label-for="input-title">
+          <b-form-group
+            label="Select Member"
+            class="w-100"
+            label-for="input-title"
+          >
             <!-- <b-form-select
               v-model="selectedUserId"
               :options="userNames"
@@ -101,7 +105,7 @@
                 border: 1px solid #80808038;
               "
               type="number"
-      @keydown="checkLengthPhone"
+              @keydown="checkLengthPhone"
               id="input-contact-number"
             ></b-form-input>
           </b-form-group>
@@ -835,7 +839,7 @@ export default {
           (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
           (row.contact_number && row.contact_number.toLowerCase().includes(query)) ||
           (row.reason && row.reason.toLowerCase().includes(query)) ||
-          (row.agency_code && row.agency_code.toLowerCase().includes(query))
+          (row.agency_center_code && row.agency_center_code.toLowerCase().includes(query))
         : true;
       const matchesStatus = select_status
         ? row.status === select_status
@@ -995,7 +999,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-       
+
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
@@ -1539,5 +1543,4 @@ imgloader {
     flex: 1 1 auto;
     padding: 0rem;
 }
-
 </style>

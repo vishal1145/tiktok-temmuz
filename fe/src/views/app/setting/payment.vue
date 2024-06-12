@@ -70,10 +70,13 @@
             <button
               @click="createUser"
               :disabled="isSubmitting"
-              class="btn btn-primary"
+              class="btn btn-primary mr-2"
             >
               Submit
             </button>
+            <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
+              Close
+            </b-button>
           </div>
         </b-col>
       </b-row>
@@ -382,7 +385,7 @@
               "
             >
               Add New
-            </button>         
+            </button>
           </ul>
         </div>
       </div>
@@ -466,7 +469,7 @@
             <span v-else-if="props.column.field === 'status'">
               <div>
                 <div
-                  v-if="props.row.status === 'Approved'"
+                  v-if="props.row.status === 'Paid'"
                   class="badge badge-success"
                 >
                   Paid
@@ -601,6 +604,15 @@ export default {
             placeholder: 'Amount'
           }
         },
+
+        {
+          label: 'Notes',
+          field: 'notes',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Notes'
+          }
+        },
         {
           label: 'Status',
           field: 'status',
@@ -609,14 +621,6 @@ export default {
             placeholder: 'Status'
           }
         },
-        {
-          label: 'Notes',
-          field: 'notes',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Notes'
-          }
-        }
         // {
         //   label: "Action",
         //   field: "action"
@@ -779,13 +783,20 @@ export default {
                 ? value.user_id.name + ' ' + value.user_id.surname
                 : ''
             })
-            this.rows = paymentData
+            this.rows = paymentData;
 
-            paymentData.forEach(e => {
-              e.request_date = moment(e.request_date).format(
-                'DD MMM YYYY h:mm A'
-              )
-            })
+paymentData.forEach((e) => {
+  // Format the request_date
+  e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
+
+  if (e.status === "Approved") {
+    e.status = "Paid";
+  }
+});
+console.log("paymentData",paymentData)
+this.rows = paymentData;
+
+
           }
         })
         this.rows = paymentData
@@ -819,12 +830,22 @@ export default {
               const userData = response.apidata.data
               this.rows = userData
               this.totalWithDraw = response.apidata.total_withdraw;
-              userData.forEach(e => {
-                e.request_date = moment(e.request_date).format(
-                  'DD MMM YYYY h:mm A'
-                )
-              })
               this.rows = userData
+
+
+userData.forEach((e) => {
+// Format the request_date
+e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
+
+if (e.status === "Approved") {
+e.status = "Paid";
+}
+});
+console.log("paymentData",userData)
+this.rows = userData;
+
+
+
 
               this.loader = false
             }
@@ -989,11 +1010,23 @@ validateInputAmount(event) {
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-
     clearFilters () {
-      this.getAllUsers()
-      this.selected = 'Select User'
-    },
+
+     this.searchTerm = '',
+     this.searchAmount ='',
+     this.selectedStatus=''
+     this.getAllUsers()
+
+
+   },
+
+   closeModal () {
+
+ this.notes = ''
+ this.amount = ''
+
+ this.modalVisible = false
+},
     openModal12 () {
       // Set the flag to true to show the modal
       this.modalVisible = true
@@ -1022,11 +1055,11 @@ validateInputAmount(event) {
 
     },
 
-   
+
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
     },
-   
+
     clickUnBlock (userId) {
       this.loader = true
       const reqData = {

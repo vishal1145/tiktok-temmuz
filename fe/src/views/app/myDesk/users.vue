@@ -179,12 +179,7 @@
     <b-modal id="modal-add-rates" size="md" hide-footer hide-header centered>
       <b-row class="p-3">
         <b-col md="12">
-          <i
-            class="fa   mb-3"
-            aria-hidden="true"
-          >
-            Default Commission Rates
-          </i>
+          <i class="fa   mb-3" aria-hidden="true"> Default Commission Rates </i>
         </b-col>
 
         <b-col md="12">
@@ -193,7 +188,7 @@
               class="form-control"
               type="text"
               v-model="firstValue"
-            @keydown="validateInput"
+              @keydown="validateInput"
               required
             ></b-form-input>
           </b-form-group>
@@ -204,7 +199,7 @@
               class="form-control"
               type="text"
               v-model="secondValue"
-            @keydown="validateInputSec"
+              @keydown="validateInputSec"
               required
             ></b-form-input>
           </b-form-group>
@@ -294,51 +289,47 @@
           class="d-flex flex-row card-body flex-wrap gap-between"
           :style="{ display: flexDivDisplay }"
         >
-        
-         
-                <div class="row w-100">
-                  <div class="col-12 col-sm-6 col-lg-3 px-0 ">
-                    <label for="users-list-search">Search</label>
-                    <fieldset class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="users-list-search"
-                        placeholder="Search..."
-                        style="
+          <div class="row w-100">
+            <div class="col-12 col-sm-6 col-lg-3 px-0 ">
+              <label for="users-list-search">Search</label>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="users-list-search"
+                  placeholder="Search..."
+                  style="
                           color: grey!important;
                           padding-bottom: 7px!important;
                           border: 1px solid rgba(128, 128, 128, 0.32) !important;
                           background-color: rgb(135 131 131 / 0%)!important;
                         "
-                        v-model="searchTerm"
-                        @input="filteredRows = getfilterdata"
-                      />
-                    </fieldset>
-                  </div>
-                  <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero ">
-                    <label for="users-list-verified">Action</label>
-                    <fieldset class="form-group">
-                      <select
-                        class="form-control"
-                        id="users-list-verified"
-                        style="
+                  v-model="searchTerm"
+                  @input="filteredRows = getfilterdata"
+                />
+              </fieldset>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero ">
+              <label for="users-list-verified">Action</label>
+              <fieldset class="form-group">
+                <select
+                  class="form-control"
+                  id="users-list-verified"
+                  style="
                           color: grey!important;
                           padding-bottom: 7px!important;
                           border: 1px solid rgba(128, 128, 128, 0.32) !important;
                           background-color: rgb(135 131 131 / 0%)!important;
                         "
-                        v-model="filterStatus"
-                      >
-                        <option value="">All</option>
-                        <option value="Approved" selected>Block</option>
-                        <option value="Rejected">UnBlock</option>
-                      </select>
-                    </fieldset>
-                  </div>
-                </div>
-      
-   
+                  v-model="filterStatus"
+                >
+                  <option value="">All</option>
+                  <option value="Approved" selected>Block</option>
+                  <option value="Rejected">UnBlock</option>
+                </select>
+              </fieldset>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -414,37 +405,31 @@
             </span>
             <span v-else-if="props.column.field === 'contact_number'">
               <div class="d-flex flex-row">
-               
-                  {{ props.row.contact_number }}
-               
+                {{ props.row.contact_number }}
+
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
             </span>
-             <span v-else-if="props.column.field === 'show_commission'">
-             
-                <div class="d-flex" v-if="props.row.first_commission">
-                  0-2.000.000 diamonds: {{ props.row.first_commission }} <br>2.000.000+ diamonds:  {{ props.row.second_commission }} 
-                 
-                </div>
-                
-                
-              
+            <span v-else-if="props.column.field === 'show_commission'">
+              <div class="d-flex" v-if="props.row.first_commission">
+                0-2.000.000 diamonds: {{ props.row.first_commission }}
+                <br />2.000.000+ diamonds: {{ props.row.second_commission }}
+              </div>
             </span>
             <span v-else-if="props.column.field === 'button'">
               <div class="d-flex flex-row" style="gap: 12px">
                 <div>
-                   <b-button
-                  size="sm"
-                  variant="outline-primary ripple m-1 btn-small"
-                  @click="clickAddRates(props.row)"
-                  >Update Rate</b-button
-                >
+                  <b-button
+                    size="sm"
+                    variant="outline-primary ripple m-1 btn-small"
+                    @click="clickAddRates(props.row)"
+                    >Update Rate</b-button
+                  >
                   <!-- <b-button
                     size="sm"
                     variant="outline-primary ripple m-1 btn-small"
                     >Block</b-button
                   > -->
-              
                 </div>
                 <div>
                   <span @click="clickEdit(props.row)" class="btn p-0"
@@ -457,7 +442,6 @@
                     ><i class="fa fa-trash" aria-hidden="true"></i
                   ></span>
                 </div>
-               
               </div>
             </span>
           </template>
@@ -572,7 +556,7 @@ export default {
             enabled: false
           }
         },
-         
+
       ],
       rows: [],
       originalRows: [],
@@ -608,20 +592,20 @@ export default {
       getUid: '',
       getfirstValue: '',
       getsecondValue:''
-          
+
 
     }
   },
   created() {
-   
+
     this.getAllUsers()
     this.getAllTransaction()
-   
+
     this.role = parsedUser.data.role
     this.originalRows = [...this.rows]
 
     // this.reloadPageOnce();
- 
+
   },
   methods: {
     closeModal () {
@@ -661,7 +645,7 @@ export default {
         event.preventDefault()
       }
     },
-  
+
     clickAddRates(data) {
       this.getUid = data._id;
       this.firstValue = data.first_commission;
@@ -672,7 +656,7 @@ export default {
         this.$bvModal.hide('modal-add-rates');
     },
     clickAddButton() {
-    
+
       if (this.firstValue && this.secondValue) {
         this.updateloader = true
         let reqData = {
@@ -703,7 +687,7 @@ export default {
       } else {
         this.$toaster.makeToast('warning', 'All filed is required')
       }
-    
+
     },
      validateInputSec(event) {
       const key = event.key;
@@ -852,7 +836,7 @@ export default {
 
     clearFilters () {
       this.getAllUsers()
-      this.selected = 'Select User'
+      this.searchTerm = ''
     },
     openModal12 () {
       // Set the flag to true to show the modal
