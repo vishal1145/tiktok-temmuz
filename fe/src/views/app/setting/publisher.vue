@@ -134,12 +134,12 @@
         </b-col>
         <b-col>
           <div class="d-flex justify-content-end">
-            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()">
+            <b-button v-if="!imgLoader" class=" mr-2" @click="closeModal()">
               Close
             </b-button>
             <b-button
               v-if="!imgLoader"
-              class="mb-2"
+              class=""
               variant="primary ripple"
               @click="addPublisher()"
             >

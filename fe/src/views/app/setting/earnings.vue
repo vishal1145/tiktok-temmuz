@@ -266,7 +266,7 @@
 
     <div class="d-flex flex-column gap-5" style="gap: 13px">
       <div>
-        <b-col class="mb-30 col">
+        <div class="mb-30">
           <b-card no-body class="o-hidden">
             <b-card-header header-bg-variant="transparent">
               <b-row style="align-items: center">
@@ -309,7 +309,7 @@
               />
             </div>
           </b-card>
-        </b-col>
+        </div>
       </div>
       <div class="card pb-2">
         <div

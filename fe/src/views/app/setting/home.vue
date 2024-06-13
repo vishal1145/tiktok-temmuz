@@ -39,7 +39,7 @@
           </b-form-group>
         </b-col>
 
-        <b-col md="12" class="pb-2">
+        <b-col md="12" class="">
           <div class="d-flex justify-content-end  ">
             <div class="spinner spinner-primary" v-if="popupLoader"></div>
             <b-button class="mr-2" v-if="!popupLoader" @click="clickCancle()"

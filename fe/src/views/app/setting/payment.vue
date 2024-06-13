@@ -13,7 +13,7 @@
       centered
       ref="withdrawModal"
     >
-      <b-row class="p-2">
+      <b-row class="">
         <b-col>
           <label style="font-size: 20px"> Withdraw </label>
         </b-col>
@@ -66,7 +66,7 @@
             ></b-form-textarea>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="pb-3">
+        <b-col md="12" class="text-right">
           <div>
             <button
               @click="createUser"
@@ -75,7 +75,7 @@
             >
               Submit
             </button>
-            <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
+            <b-button v-if="!imgLoader" class="" @click="closeModal()">
               Close
             </b-button>
           </div>
@@ -1353,15 +1353,7 @@ validateInputAmount(event) {
   border: 1px solid #f59e0b;
 }
 
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-}
+
 
 .sizeImage {
   width: 25%;
@@ -1376,11 +1368,5 @@ validateInputAmount(event) {
   color: #111827;
 }
 
-.modal-body {
-  position: relative;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  padding: 0rem;
-}
+
 </style>
