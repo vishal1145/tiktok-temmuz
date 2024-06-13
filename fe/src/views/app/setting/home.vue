@@ -82,7 +82,7 @@
           >
         </b-col>
         <b-col>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mt-2">
             <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
           </div>
         </b-col>
@@ -728,7 +728,7 @@ export default {
           }
           const res = await new Promise((resolve, reject) => {
             this.$apiService
-              .postCall('publisher/create/')
+              .postCall('publisher/create/',requestData)
               .then(data => resolve(data))
               .catch(error => reject(error))
           })

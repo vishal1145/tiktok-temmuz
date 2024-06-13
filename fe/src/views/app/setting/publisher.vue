@@ -50,11 +50,7 @@
               v-model="first_name"
               required
               placeholder="First name"
-              style="
-                height: 43px;
-                background-color: white;
-                border: 1px solid #80808038;
-              "
+             
               type="text"
               id="input-first-name"
             ></b-form-input>
@@ -66,11 +62,7 @@
               v-model="last_name"
               required
               placeholder="Last name"
-              style="
-                height: 43px;
-                background-color: white;
-                border: 1px solid #80808038;
-              "
+             
               type="text"
               id="input-last-name"
             ></b-form-input>
@@ -85,11 +77,7 @@
               v-model="tiktok_username"
               required
               placeholder="TikTok username"
-              style="
-                height: 43px;
-                background-color: white;
-                border: 1px solid #80808038;
-              "
+             
               type="text"
               id="input-tiktok-username"
             ></b-form-input>
@@ -101,11 +89,7 @@
               v-model="contact_number"
               required
               placeholder="Contact number"
-              style="
-                height: 43px;
-                background-color: white;
-                border: 1px solid #80808038;
-              "
+             
               type="number"
               @keydown="checkLengthPhone"
               id="input-contact-number"
@@ -121,11 +105,7 @@
               v-model="agency_center_code"
               required
               placeholder="Agency center code"
-              style="
-                height: 43px;
-                background-color: white;
-                border: 1px solid #80808038;
-              "
+            
               type="number"
               @keydown="checkLengthPhone2"
               id="input-agency-center-code"
@@ -371,21 +351,21 @@
           >
             Reason for cancellation:
           </i> -->
-          <h3 class="mb-2">Referral Url</h3>
+          <h4 class="mb-2">Referral Url</h4>
         </b-col>
 
         <b-col md="12">
           <span
-            >Url:
+            >
             <a :href="referralUrl" target="_blank" rel="noopener noreferrer">
               {{ referralUrl }}</a
             ></span
           >
         </b-col>
         <b-col>
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mt-2">
             <!-- <div class="spinner spinner-primary mr-3" v-if="updateloader"></div> -->
-            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class="mb-2" @click="clickCancle()">Cancel</b-button>
             <!-- <b-button
               class="mb-2"
               variant="primary ripple"
