@@ -98,10 +98,7 @@
             </ul>
           </div>
         </div>
-        <div
-          class="d-flex flex-row card-body flex-wrap"
-        
-        >
+        <div class="d-flex flex-row card-body flex-wrap">
           <b-form-group label="As Of Date" label-for="input-date">
             <b-form-input
               @change="handelDate"
@@ -124,13 +121,15 @@
               drop-placeholder="Drop files here..."
             ></b-form-file>
           </b-form-group>
-        <div class=" d-flex justify-content-center align-items-center" >
-            <b-button variant="primary" @click="saveExcelData()" style="height: 34px;" class="mt-2"
+          <div class="d-flex justify-content-center align-items-center">
+            <b-button
+              variant="primary"
+              @click="saveExcelData()"
+              style="height: 34px"
+              class="mt-2"
               >Upload</b-button
             >
-        </div>
-            
-        
+          </div>
 
           <!-- <div class="col-12 col-sm-6 col-lg-3 paddingzero">
             <label for="end-date">Select Date</label>
@@ -288,7 +287,6 @@
 <script>
 import moment from 'moment'
 
-
 export default {
   data () {
     return {
@@ -358,9 +356,7 @@ export default {
     clickUploadFile () {
       this.$refs.fileInput.click()
     },
-    handelDate (e) {
-   
-    },
+    handelDate (e) {},
     handleFileUpload (event) {
       const file = event.target.files[0]
       this.selectExcelFile = file
@@ -402,9 +398,7 @@ export default {
         this.$toaster.makeToast('warning', 'Please select a file and date')
       }
     },
-    clickView (id) {
-      
-    },
+    clickView (id) {},
     // readFile (file) {
     //   const reader = new FileReader()
     //   reader.onload = () => {
@@ -430,13 +424,9 @@ export default {
           (faq.reason &&
             faq.reason.toLowerCase().includes(this.searchTerm.toLowerCase()))
 
-       
-
         // Check filter status
         const matchesStatus =
           this.filterStatus === '' || faq.status === this.filterStatus
-
-     
 
         return matchesSearchTerm && matchesStatus
       })
@@ -492,17 +482,17 @@ export default {
           this.$toaster.makeToast('warning', response.message)
         } else {
           // this.faqs = response.apidata.data;
-          
+
           const paymentData = response.apidata.data
 
-          this.rowsData = paymentData;
+          this.rowsData = paymentData
 
-paymentData.forEach((e) => {
-  // Format the request_date
-  e.date = moment(e.date).format("DD MMM YYYY h:mm A");
-});
-console.log("paymentData",paymentData)
-this.rows = paymentData;
+          paymentData.forEach(e => {
+            // Format the request_date
+            e.date = moment(e.date).format('DD MMM YYYY')
+          })
+          console.log('paymentData', paymentData)
+          this.rows = paymentData
 
           this.loader = false
         }
@@ -538,7 +528,7 @@ this.rows = paymentData;
         })
 
         // const response = this.$apiService.getCall(`user/user-by-id/${this.user_id}`)
-      
+
         if (response.error) {
           this.$toaster.makeToast('warning', response.message)
         } else {
@@ -573,7 +563,7 @@ this.rows = paymentData;
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-       
+
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)

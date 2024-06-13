@@ -284,10 +284,10 @@
               <b-row>
                 <b-col md="6 " class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
-                    Diamonds Revenue
+                  <i class="fa fa-diamond" aria-hidden="true"></i>  Diamonds Revenue
                   </h3>
                   <span class="text-muted text-18 font-weight-600"
-                    >${{totalDiamondData}}</span
+                    > <i class="fa fa-diamond" aria-hidden="true"></i> {{totalDiamondData}}</span
                   >
                 </b-col>
                 <b-col md="6" class="mb-4 mb-md-0">
@@ -986,10 +986,12 @@ export default {
             var earningData = res.apidata.earnings;
              diamondData.forEach((e) => {
               this.totalDiamondData += Number(e);
-            });
+             });
+             this.totalDiamondData = this.totalDiamondData.toFixed(2);
             earningData.forEach((e) => {
               this.totalEarningData += e;
             });
+             this.totalEarningData = this.totalEarningData.toFixed(2);
             this.sparkData = {
               series: [
                 {
@@ -1155,7 +1157,7 @@ export default {
           else {
             const userData = response.apidata.data
             userData.forEach(e => {
-              e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY h:mm A')
+              e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY')
             })
             this.rows = userData
           }

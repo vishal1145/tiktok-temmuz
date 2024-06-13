@@ -499,8 +499,11 @@ export default {
           this.userName= res.apidata.data.name
           this.surName = res.apidata.data.surname;
           this.tictocName = res.apidata.data.tiktok_username;
-          this.phoneNumber= res.apidata.data.contact_number;
-          this.selectedLogo=res.apidata.data.image;
+          this.phoneNumber = res.apidata.data.contact_number;
+          if (res.apidata.data.image) {
+             this.selectedLogo=res.apidata.data.image;
+          }
+         
          
           this.isLoading = false
         })

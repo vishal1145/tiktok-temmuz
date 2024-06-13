@@ -145,9 +145,9 @@
       <b-col lg="6" xl="6" md="6" sm="6" class="">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
-            <h5 class="text-muted text-10">Diamond</h5>
+            <h5 class="text-muted text-10"><i class="fa fa-diamond" aria-hidden="true"></i> Diamond</h5>
             <div class="ul-widget__chart-number">
-              <h2 class="t-font-boldest">{{ totalDiamondData }}</h2>
+              <h2 class="t-font-boldest"> <i class="fa fa-diamond" aria-hidden="true"></i> {{ totalDiamondData }}</h2>
               <!-- <small class="text-muted"><i class="fa fa-diamond" aria-hidden="true"></i></small> -->
             </div>
           </div>
@@ -246,9 +246,9 @@
             <b-row>
               <b-col md="6 " class="mb-4 mb-md-0">
                 <h3 class="text-muted text-14 font-weight-500">
-                  Diamond Revenue
+                <i class="fa fa-diamond" aria-hidden="true"></i> Diamond Revenue
                 </h3>
-                <span class="text-muted text-18 font-weight-600">{{
+                <span class="text-muted text-18 font-weight-600"> <i class="fa fa-diamond" aria-hidden="true"></i>{{
                   totalDiamondData
                 }}</span>
               </b-col>
@@ -807,9 +807,11 @@ export default {
               diamondData.forEach(e => {
                 this.totalDiamondData += Number(e)
               })
+              this.totalDiamondData = this.totalDiamondData.toFixed(2);
               earningData.forEach(e => {
                 this.totalEarningData += e
               })
+              this.totalEarningData = this.totalEarningData.toFixed(2);
               this.diamondsDataGraph = {
                 series: [
                   {

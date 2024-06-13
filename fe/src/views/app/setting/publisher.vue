@@ -12,13 +12,13 @@
       hide-header
       centered
     >
-  
       <b-row class="">
-        <b-col md="12">    
-           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Add Creators
-      </label> </b-col>
-        <b-col md="12" v-if="role == 'admin'" >
+        <b-col md="12">
+          <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
+            Add Creators
+          </label>
+        </b-col>
+        <b-col md="12" v-if="role == 'admin'">
           <b-form-group
             label="Select Member"
             class="w-100"
@@ -44,31 +44,29 @@
             ></multiselect>
           </b-form-group>
         </b-col>
-        <b-col md="12"  v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="first_name"
               required
               placeholder="First name"
-             
               type="text"
               id="input-first-name"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12"  v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="last_name"
               required
               placeholder="Last name"
-             
               type="text"
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group
             label="TikTok Username"
             label-for="input-tiktok-username"
@@ -77,26 +75,24 @@
               v-model="tiktok_username"
               required
               placeholder="TikTok username"
-             
               type="text"
               id="input-tiktok-username"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12"  v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'">
           <b-form-group label="Contact Number" label-for="input-contact-number">
             <b-form-input
               v-model="contact_number"
               required
               placeholder="Contact number"
-             
               type="number"
               @keydown="checkLengthPhone"
               id="input-contact-number"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group
             label="Agency Center Code"
             label-for="input-agency-center-code"
@@ -105,14 +101,13 @@
               v-model="agency_center_code"
               required
               placeholder="Agency center code"
-            
               type="number"
               @keydown="checkLengthPhone2"
               id="input-agency-center-code"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6"  v-if="role == 'admin'">
+        <b-col md="6" v-if="role == 'admin'">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
@@ -168,15 +163,13 @@
       hide-header
       centered
     >
-  
       <b-row class="">
-
-
-        <b-col md="12">    
-           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update Creators
-      </label> </b-col>
-        <b-col md="12" >
+        <b-col md="12">
+          <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
+            Update Creators
+          </label>
+        </b-col>
+        <b-col md="12">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
@@ -188,12 +181,12 @@
                 border: 1px solid #80808038;
               "
               type="text"
-                maxlength='20'
+              maxlength="20"
               id="input-first-name"
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="getLastName"
@@ -205,13 +198,13 @@
                 border: 1px solid #80808038;
               "
               type="text"
-                maxlength='20'
+              maxlength="20"
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
         </b-col>
 
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="TikTok User Name" label-for="input-last-name">
             <b-form-input
               v-model="getTikTok"
@@ -223,7 +216,7 @@
                 border: 1px solid #80808038;
               "
               type="text"
-              maxlength='20'
+              maxlength="20"
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
@@ -241,7 +234,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -258,7 +251,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Agency center code" label-for="input-title">
             <b-form-input
               v-model="getcenterCode"
@@ -275,7 +268,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6" >
+        <b-col md="6">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="getImages"
@@ -288,7 +281,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2 "
+          class="justify-content-end d-flex align-items-center py-2"
         >
           <img
             :src="this.uplodedImages"
@@ -355,8 +348,7 @@
         </b-col>
 
         <b-col md="12">
-          <span
-            >
+          <span>
             <a :href="referralUrl" target="_blank" rel="noopener noreferrer">
               {{ referralUrl }}</a
             ></span
@@ -614,29 +606,26 @@
                 <span class="badge badge-warning ">{{ props.row.status }}</span>
               </div> -->
                 </div>
-               
               </span>
               <span v-else-if="props.column.field === 'show_status'">
                 <div v-if="props.row.status === 'Approved'">
-                    <span class="badge badge-success">{{
-                      props.row.status
-                    }}</span>
-                  </div>
-                  <div v-else-if="props.row.status === 'Rejected'">
-                    <span class="badge badge-danger">{{
-                      props.row.status
-                    }}</span>
-                  </div>
-                   <div v-else-if="props.row.status === 'Waiting Approval'">
-                    <span class="badge border-warning text-warning p-1" style="border:1px solid yellow ">{{
-                      props.row.status
-                    }}</span>
-                  </div>
-                   <div v-else-if="props.row.status === 'Pending Registration'">
-                    <span class="badge  border p-1">{{
-                      props.row.status
-                    }}</span>
-                  </div>
+                  <span class="badge badge-success">{{
+                    props.row.status
+                  }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Rejected'">
+                  <span class="badge badge-danger">{{ props.row.status }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Waiting Approval'">
+                  <span class="badge border border-warning text-warning p-1">{{
+                    props.row.status
+                  }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Pending Registration'">
+                  <span class="badge border-warning text-warning border p-1">{{
+                    props.row.status
+                  }}</span>
+                </div>
               </span>
               <span v-else-if="props.column.field === 'reason'">
                 <div>{{ props.row.reason }}</div>
@@ -901,8 +890,8 @@ export default {
         event.preventDefault()
       }
     },
- 
-     checkCenterCode (event) {
+
+    checkCenterCode (event) {
       if (
         this.agency_center_code.toString().length > 13 &&
         event.keyCode !== 8
@@ -1029,7 +1018,6 @@ export default {
       this.searchUser = this.faqs.filter(user =>
         user.user_name.toLowerCase().includes(this.publisherName.toLowerCase())
       )
-     
     },
     async fetchUser () {
       this.loader = true
@@ -1163,6 +1151,80 @@ export default {
           'warning',
           'Please fill in all the required fields'
         )
+      } else {
+        this.loader = true
+        try {
+          let requestData = {
+            user_id:
+              this.role === 'admin'
+                ? this.selectedUserId
+                : localStorage.getItem('user_id'),
+            tiktok_username: this.tiktok_username,
+            agency_center_code: this.agency_center_code,
+            status: 'Pending Registration'
+          }
+
+          if (this.role === 'admin') {
+            requestData.first_name = this.first_name
+            requestData.last_name = this.last_name
+            requestData.contact_number = this.contact_number
+            requestData.icon = this.uplodedImages
+            requestData.status = 'Approved'
+            requestData.reason = 'Added By Admin'
+          }
+
+          const res = await this.$apiService.postCall(
+            'publisher/create/',
+            requestData
+          )
+
+          this.tiktokres = res
+          // Handle the response
+          if (res.error) {
+            if (
+              this.tiktokres.response.data.message.keyPattern
+                .tiktok_username === 1
+            ) {
+              this.$toaster.makeToast(
+                'warning',
+                'TikTok username already exists'
+              )
+            } else {
+              this.$toaster.makeToast(
+                'warning',
+                res.response.data.message.keyPattern.keyPattern.tiktok_username
+              )
+            }
+          } else {
+            this.fetchPublisher()
+            this.isEdit = false
+            this.showAddModal = false
+            this.loader = false
+            this.first_name = ''
+            this.last_name = ''
+            this.tiktok_username = ''
+            this.uplodedImages = ''
+            this.contact_number = ''
+            this.agency_center_code = ''
+            this.icon = null
+            this.referralUrl = res.apidata.referral_url
+            this.$bvModal.show('modal-show-referralUrl')
+            this.$toaster.makeToast('success', 'Referral create successfully')
+            if (this.role === 'admin') {
+              this.$toaster.makeToast('success', 'Data added successfully')
+            }
+          }
+        } catch (error) {
+          this.loader = false
+          if (
+            this.tiktokres.error.response.data.message.keyPattern
+              .tiktok_username === 1
+          ) {
+            this.$toaster.makeToast('warning', 'TikTok username already exists')
+          } else {
+            this.$toaster.makeToast('warning', 'Error: Server Error')
+          }
+        }
       }
 
       // if (matchData.length > 0) {
@@ -1171,76 +1233,6 @@ export default {
       //     'TikTok Username All Ready exist, Please Try Again'
       //   )
       // } else {
-      this.loader = true
-      try {
-        let requestData = {
-          user_id:
-            this.role === 'admin'
-              ? this.selectedUserId
-              : localStorage.getItem('user_id'),
-          tiktok_username: this.tiktok_username,
-          agency_center_code: this.agency_center_code,
-          status: 'Pending Registration'
-        }
-
-        if (this.role === 'admin') {
-          requestData.first_name = this.first_name
-          requestData.last_name = this.last_name
-          requestData.contact_number = this.contact_number
-          requestData.icon = this.uplodedImages
-          requestData.status = 'Approved'
-          requestData.reason = 'Added By Admin'
-        }
-
-        const res = await this.$apiService.postCall(
-          'publisher/create/',
-          requestData
-        )
-
-        this.tiktokres = res
-        // Handle the response
-        if (res.error) {
-          if (
-            this.tiktokres.response.data.message.keyPattern.tiktok_username ===
-            1
-          ) {
-            this.$toaster.makeToast('warning', 'TikTok username already exists')
-          } else {
-            this.$toaster.makeToast(
-              'warning',
-              res.response.data.message.keyPattern.keyPattern.tiktok_username
-            )
-          }
-        } else {
-          this.fetchPublisher()
-          this.isEdit = false
-          this.showAddModal = false
-          this.loader = false
-          this.first_name = ''
-          this.last_name = ''
-          this.tiktok_username = ''
-          this.uplodedImages = ''
-          this.contact_number = ''
-          this.agency_center_code = ''
-          this.icon = null
-          this.referralUrl = res.apidata.referral_url
-          this.$bvModal.show('modal-show-referralUrl')
-          this.$toaster.makeToast('success', 'Referral create successfully')
-          if (this.role === 'admin') {
-            this.$toaster.makeToast('success', 'Data added successfully')
-          }
-        }
-      } catch (error) {
-        this.loader = false
-        if (
-          this.tiktokres.error.response.data.message.keyPattern
-            .tiktok_username === 1
-        ) {
-          this.$toaster.makeToast('warning', 'TikTok username already exists')
-        } else {
-          this.$toaster.makeToast('warning', 'Error: Server Error')
-        }
-      }
     },
 
     async editPublisher () {
@@ -1383,7 +1375,7 @@ export default {
     },
     closeModalEdit () {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
-    },
+    }
 
     // addCssRule () {
     //   const style = document.createElement('style')
@@ -1508,6 +1500,4 @@ imgloader {
   background-color: #fcfbfb !important;
   border: 1px solid #ef4444;
 }
-
-
 </style>

@@ -420,19 +420,19 @@
                   props.row.status != 'Canceled'
                 "
               >
-                <div
+                <!-- <div
                   class="badge badge-success"
                   @click="clickPaid(props.row._id)"
                 >
                   Paid
-                </div>
+                </div> -->
               </div>
 
               <div
                 class="d-flex"
                 v-else-if="
                   role == 'admin' &&
-                  props.row.status != 'Approved' &&
+                  props.row.status != 'Paid' &&
                   props.row.status != 'Reject'
                 "
               >
@@ -444,7 +444,7 @@
                 </div>
                 <div
                   class="badge border bg-danger text-white ul-cursor--pointer p-2"
-                  @click="clickPaid(props.row._id)"
+                  @click="clickReject(props.row._id)"
                 >
                   Reject
                 </div>
@@ -454,7 +454,7 @@
               </div> -->
               </div>
               <div>
-                <div v-if="props.row.status === 'Approved'">
+                <div v-if="props.row.status === 'Paid'">
                   <div
                     class="badge badge-success"
                     @click="clickPaid(props.row._id)"
@@ -719,7 +719,7 @@ export default {
       this.loader = true
       try {
         var req = {
-          status: 'Approved'
+          status: 'Paid'
         }
 
         const res = await this.$apiService.postCall(
@@ -739,7 +739,7 @@ export default {
         console.error(error)
       }
     },
-    async clickPaid (id) {
+    async clickReject (id) {
       this.loader = true
       try {
         var req = {
