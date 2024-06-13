@@ -21,6 +21,7 @@ exports.getCreatorsEarnings = async (_id) => {
   if (creators.length > 0) {
     const usernames = creators.map((e) => e.tiktok_username);
     const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
+    data.sort((a, b) => new Date(a.as_of_date) - new Date(b.as_of_date));
 
     let user = await UserModel.findById(_id);
     let first_commission = user.first_commission;
