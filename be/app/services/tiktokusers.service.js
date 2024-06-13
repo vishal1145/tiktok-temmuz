@@ -12,7 +12,8 @@ exports.tiktokLogin = async (body) => {
     await tiktokUsersModel.findByIdAndUpdate(user._id, {
       $set: {
         first_commission: commissions.first_commission,
-        second_commission: commissions.second_commission
+        second_commission: commissions.second_commission,
+        third_commission: commissions.third_commission
       },
     })
   }
@@ -95,7 +96,8 @@ exports.memberUpdateCommission = async (body) => {
   await tiktokUsersModel.findByIdAndUpdate(body._id, {
     $set: {
       first_commission: body.first_commission,
-      second_commission: body.second_commission
+      second_commission: body.second_commission,
+      third_commission: body.third_commission
     },
   })
 }

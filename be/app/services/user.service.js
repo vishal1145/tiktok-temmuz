@@ -140,11 +140,12 @@ exports.getCreatorsEarningsGraph = async (_id) => {
     let user = await UserModel.findById(_id);
     let first_commission = user.first_commission;
     let second_commission = user.second_commission;
+    let third_commission= user.third_commission;
 
     data.forEach(item => {
       const date = item.as_of_date;
       const diamonds = parseInt(item.diamonds_this_month);
-      const earnings = calculateEarning(first_commission, second_commission, item);
+      const earnings = calculateEarning(first_commission, second_commission, third_commission, item);
 
       if (dateMap.has(date)) {
         const existing = dateMap.get(date);
@@ -179,10 +180,13 @@ exports.getCreatorsEarningsGraph = async (_id) => {
   }
 };
 
-function calculateEarning(first_commission, second_commission, d) {
+function calculateEarning(first_commission, second_commission, third_commission, d) {
   var rate = first_commission;
-  if (d.diamonds_this_month >= 200000) {
+  if (d.diamonds_this_month >= 300000 && d.diamonds_this_month < 500000) {
     rate = second_commission;
+  }
+  if (d.diamonds_this_month >= 500000) {
+    rate = third_commission;
   }
   return rate * d.diamonds_this_month / 100;
 }

@@ -10,6 +10,7 @@ const memberSchema = new mongoose.Schema({
   image: { type: String, default: "" },
   first_commission: { type: String },
   second_commission: { type: String },
+  third_commission: { type: String },
 })
 
 module.exports = mongoose.model("member", memberSchema);

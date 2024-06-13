@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const commissionSchema = new mongoose.Schema({
   first_commission: { type: String, default: 1 },
   second_commission: { type: String, default: 2 },
+  third_commission: { type: String, default: 3 }
   // uid: { type: String,unique: true},
   
 });

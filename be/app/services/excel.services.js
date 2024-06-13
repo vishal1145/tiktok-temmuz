@@ -8,10 +8,13 @@ exports.getExcels = async () => {
   return await ExcelModel.find();
 };
 
-function calculateEarning(first_commission, second_commission, d) {
+function calculateEarning(first_commission, second_commission, third_commission, d) {
   var rate = first_commission;
-  if (d.diamonds_this_month >= 200000) {
+  if (d.diamonds_this_month >= 300000 && d.diamonds_this_month < 500000) {
     rate = second_commission;
+  }
+  if (d.diamonds_this_month >= 500000) {
+    rate = third_commission;
   }
   return rate * d.diamonds_this_month / 100;
 }
@@ -26,10 +29,11 @@ exports.getCreatorsEarnings = async (_id) => {
     let user = await UserModel.findById(_id);
     let first_commission = user.first_commission;
     let second_commission = user.second_commission;
+    let third_commission = user.third_commission;
 
     var newdata = data.map((d) => {
       const doc = d._doc;
-      var earning = calculateEarning(first_commission, second_commission, d);
+      var earning = calculateEarning(first_commission, second_commission, third_commission, d);
       return {
         ...doc,
         earning
