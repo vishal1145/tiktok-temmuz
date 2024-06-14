@@ -3,7 +3,7 @@
 const express = require("express")
 const router = express.Router()
 
-const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword } = require('../controllers/auth.controller');
+const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword, dashBoardCount } = require('../controllers/auth.controller');
 const { validateUserOnRegistration, validateUserOnLogin } = require('../validators/user')
 const { tiktokLogin, isMemberExists, memberDelete, memberUpdate, memberUpdateProfile, memberUpdateCommission } = require('../controllers/tiktokusers.controller');
 const { verifyRegister, checkEmailExists } = require('../middleware/auth')
@@ -24,5 +24,5 @@ router.get("/member-delete/:id", memberDelete)
 router.post("/member-update", memberUpdate);
 router.post("/member-update-profile", memberUpdateProfile);
 router.post("/member-update-commission", memberUpdateCommission);
-
+router.get("/dashboard-count", dashBoardCount);
 module.exports = router

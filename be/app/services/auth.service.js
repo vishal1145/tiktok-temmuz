@@ -5,8 +5,8 @@ const { decrypt, compare, sendForgetPasswordMail } = require('../util')
 
 exports.register = async (user_body) => {
     const password = await decrypt(user_body.password);
-    if(!user_body.location) {
-      delete user_body.location;
+    if (!user_body.location) {
+        delete user_body.location;
     }
     const user = new UserModel({
         ...user_body,
@@ -70,12 +70,19 @@ exports.getUserById = async (_id) => {
 
 exports.updatePassword = async (data) => {
     const password = data.newPassword;
-    const user = await UserModel.findOne({email: data.email });
+    const user = await UserModel.findOne({ email: data.email });
     if (user) {
         const newPassword = await decrypt(password);
         await UserModel.findByIdAndUpdate(user._id, {
-          $set: { password: newPassword },
+            $set: { password: newPassword },
         });
         return true;
     } else return false;
-  };
+};
+
+exports.dashBoardCount = async (data) => {
+    const membes = "10";
+    const creators = "10";
+    const payment_request = '20';
+    return { membes, creators, payment_request }
+};

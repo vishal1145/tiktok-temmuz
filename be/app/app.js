@@ -71,9 +71,6 @@ app.use("/arrivedCustomer", require("./routes/customer.route"));
 //app.use("/dashboard", authenticatingUser, require("./routes/dashboard.route"));
 app.use("/dashboard", authenticatingUser, require("./routes/dashboard.route"));
 app.use("/transaction", authenticatingUser, require("./routes/transaction.route"));
-
-
-const commissionRoutes = require('./routes/commission.route');
-app.use('/commission', commissionRoutes);
+app.use("/commission", require('./routes/commission.route'));
 
 module.exports = app;

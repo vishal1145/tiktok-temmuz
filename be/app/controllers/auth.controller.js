@@ -1,4 +1,4 @@
-const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword } = require('../services/auth.service');
+const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword, dashBoardCount } = require('../services/auth.service');
 const { getToken } = require('../util')
 
 exports.register = async (req, res, next) => {
@@ -90,3 +90,13 @@ exports.updatePassword = async (req, res) => {
         res.status(400).send({ Messege: error.message });
     }
 };
+
+exports.dashBoardCount = async (req, res) => {
+    try {
+        const { membes, creators, payment_request } = await dashBoardCount();
+        res.status(200).json({ success: true, membes: membes, creators: creators, payment_request: payment_request });
+    } catch (error) {
+        res.status(400).send({ Messege: error.message });
+    }
+
+}
