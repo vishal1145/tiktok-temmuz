@@ -70,7 +70,7 @@ export default {
                         this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
                         this.tiktok_username = res.apidata.data.tiktok_username;
                         this.loader = false
-                        this.url = window.location.protocol + '://' + window.location.host + "/app/sessions/affiliate?u="+ this.tiktok_username
+                        this.url =  'https://' + window.location.host + "/app/sessions/affiliate?u="+ this.tiktok_username
                     }
                 })
                 .catch(error => {

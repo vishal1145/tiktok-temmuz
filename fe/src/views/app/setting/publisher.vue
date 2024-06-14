@@ -847,6 +847,7 @@ export default {
     this.role = localStorage.getItem('role')
 
     this.fetchPublisher()
+    this.getProfileDetails();
   },
 
   methods: {
@@ -1212,8 +1213,7 @@ export default {
             this.uplodedImages = ''
             this.contact_number = ''
             this.agency_center_code = ''
-            this.icon = null
-            this.referralUrl = res.apidata.referral_url
+            this.icon = null            
             this.$bvModal.show('modal-show-referralUrl')
             this.$toaster.makeToast('success', 'Referral create successfully')
             if (this.role === 'admin') {
@@ -1381,7 +1381,30 @@ export default {
     },
     closeModalEdit () {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
-    }
+    },
+    getProfileDetails() {
+            this.loader = true
+            this.$apiService
+                .getCall(`auth/user/${this.userId}`)
+                .then(res => {
+                    console.log(res)
+                    // if (res.error) {
+                    //     this.loader = false
+                    //     this.$toaster.makeToast('warning', 'Fail to fetch user data')
+                    // } else {
+                    //     this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
+                        var tiktok_username = res.apidata.data.tiktok_username;
+                        this.loader = false
+                        var url =  'https://' + window.location.host + "/app/sessions/affiliate?u="+ tiktok_username
+                        this.referralUrl = url;
+                    //}
+                })
+                .catch(error => {
+                    this.loader = false
+                    this.$toaster.makeToast('warning', 'Server Error')
+                })
+        },
+    
 
     // addCssRule () {
     //   const style = document.createElement('style')

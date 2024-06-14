@@ -158,7 +158,6 @@
                       >Tiktok User Name</label
                     >
                     <input
-                    disabled
                       type="text"
                       v-model="tiktokName"
                       class="form-control"
@@ -174,7 +173,6 @@
                       v-model="centerCode"
                       @keydown="checkLengthCode"
                       class="form-control"
-                      disabled
                       id="tiktokCode"
                     />
                   </div>
@@ -269,6 +267,7 @@ export default {
       isLoading: false,
       showPassword: false,
       imgLoader: false,
+      loader:false,
       userId: '',
       userFirstName: '',
       userLastName: '',
@@ -277,7 +276,8 @@ export default {
       centerCode: '',
       uplodedImages: '',
       images: null,
-      tikTokUser:''
+      tikTokUser:'',
+      memberTikTokUser:'',
     }
   },
 
@@ -314,7 +314,9 @@ export default {
   },
   created () {
     this.tikTokUser = this.$route.query.name;
-    this.getTikTokUser();
+    this.memberTikTokUser = this.$route.query.u;
+    //this.getTikTokUser();
+    this.getMemberTikTokUser()
   },
 
   methods: {
@@ -351,6 +353,31 @@ export default {
         // confirm.log(error)
       }
     },
+    async getMemberTikTokUser() {
+      this.loader = true;
+      try {
+        const response = await this.$apiService.getCall(`publisher/get-member?name=${this.memberTikTokUser}`)
+        if (
+          response.isError === false
+        ) {
+          //this.centerCode = response.apidata.data[0].agency_center_code;
+          //this.tiktokName = response.apidata.data[0].tiktok_username;
+          this.userId= response.apidata.data[0]._id;
+       
+        this.loader = false
+
+       
+        } else {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Failed to fetch tiktok user data')
+        }
+      } catch (error) {
+        
+        this.$toaster.makeToast('error', 'Error fetching tiktok data')
+      } finally {
+        this.loader = false
+      }
+    },
      async getTikTokUser () {
        this.loader = true;
       try {
@@ -378,7 +405,6 @@ export default {
     },
     async addPublisher () {
   if (
-    !this.images ||
     !this.phoneNumber ||
     !this.centerCode ||
     !this.userFirstName ||
@@ -392,15 +418,30 @@ export default {
   this.loader = true
   try {
     //const imageUrls = await this.uploadImages();
+    
+    let requestData1 = {
+      tiktok_username: this.tiktokName,
+      userId: this.userId
+    }
+    var canUpdate = await this.$apiService
+        .postCall(`publisher/can-update`, requestData1)
+
+
+     console.log(canUpdate);
+     return;
+
+    if(!canUpdate)    {
+      alert("you are not allowed to fill the application ");
+    }
+
     let requestData = {
       first_name: this.userFirstName,
       last_name: this.userLastName,
       contact_number: this.phoneNumber,
       agency_center_code: this.centerCode,
       tiktok_username: this.tiktokName,
-      icon: this.uplodedImages,
+      icon: this.uplodedImages || null,
     }
-
     // Assuming you want to make a POST request
     const res = await new Promise((resolve, reject) => {
       this.$apiService

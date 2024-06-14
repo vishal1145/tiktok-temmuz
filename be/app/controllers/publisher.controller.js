@@ -5,7 +5,9 @@ const {
   getAllPublisher,
   getAllMembersPublishers,
   updatePublisher,
-  getCreator
+  getCreator,
+  getMember,
+  canUpdatePublisher
 } = require("../services/publisher.service");
 
 exports.getAllPublisher = async (req, res) => {
@@ -17,6 +19,12 @@ exports.getCreator = async (req, res) => {
   const publishers = await getCreator(req.query.name)
   res.status(200).send({ data: publishers, success: true })
 };
+
+exports.getMember = async (req, res) => {
+  const publishers = await getMember(req.query.name)
+  res.status(200).send({ data: publishers, success: true })
+};
+
 
 exports.getAllMembersPublishers = async (req, res) => {
 
@@ -62,6 +70,19 @@ exports.updatePublisher = async (req, res) => {
       res.send({ success: true, data: "Publisher Updated" })
     } else {
       res.status(400).send({ message: "Please check publisher Id" })
+    }
+  } catch (err) {
+    res.status(400).send({ message: "Bad request" })
+  }
+}
+
+exports.canUpdatePublisher = async (req, res) => {
+  try {
+    const result = await canUpdatePublisher(req.body)
+    if (result) {
+      res.send({ success: true, canUpdate: true })
+    } else {
+      res.status(400).send({ success: true, canUpdate: false , message: "Please check publisher Id" })
     }
   } catch (err) {
     res.status(400).send({ message: "Bad request" })

@@ -7,7 +7,9 @@ const {
   deletePublisher,
   getAllPublisher,
   updatePublisher,
-  getCreator
+  getCreator,
+  getMember,
+  canUpdatePublisher
 } = require("../controllers/publisher.controller");
 
 router.post("/create", createPublisher);
@@ -15,6 +17,8 @@ router.post("/update-publisher-status/:id", updatePublisherStatus);
 router.post("/delete/:id", deletePublisher);
 router.get("/get-all", getAllPublisher);
 router.post("/update/:id", updatePublisher);
+router.post("/can-update", canUpdatePublisher);
+router.get("/get-member", getMember);
 router.get("/get-creator", getCreator);
 
 module.exports = router;

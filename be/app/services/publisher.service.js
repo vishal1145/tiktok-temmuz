@@ -1,5 +1,5 @@
 const PublisherModel = require("../models/creator.model");
-
+const tiktokUsersModel = require("../models/tiktokusers.model");
 const mongoose = require("mongoose");
 
 // admin case
@@ -17,6 +17,13 @@ exports.getCreator = async (name) => {
   const creator = await PublisherModel.find({ tiktok_username: name});
   return creator;
 };
+
+exports.getMember = async (name) => {
+  const member = await tiktokUsersModel.find({ tiktok_username: name });
+  return member;
+};
+
+
 
 exports.createPublisher = async (user_body) => {
   const publisher = PublisherModel(user_body);
@@ -39,6 +46,19 @@ exports.updatePublisherStatus = async (id, data) => {
     return false;
   }
 }
+
+
+exports.canUpdatePublisher = async (data) => {
+  
+  let isEXist = await PublisherModel.findOne({
+      tiktok_username: data.tiktok_username,
+      user_id: data.userId
+  });
+
+  return isEXist;
+  //return true;
+};
+
 exports.updatePublisher = async (id, data) => {
   try {
     await PublisherModel.findByIdAndUpdate(id, {
