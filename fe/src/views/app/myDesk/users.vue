@@ -186,7 +186,7 @@
         </b-col>
 
         <b-col md="12">
-          <b-form-group label="0-2.000.000 diamonds %" class="text-12">
+          <b-form-group label="0-3.000.000 diamonds %" class="text-12">
             <b-form-input
               class="form-control"
               type="text"
@@ -197,12 +197,23 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="2.000.000+ diamonds %" class="text-12">
+          <b-form-group label="3.000.000 - 5.000.000 diamonds %" class="text-12">
             <b-form-input
               class="form-control"
               type="text"
               v-model="secondValue"
               @keydown="validateInputSec"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group label="5.000.000+ diamonds %" class="text-12">
+            <b-form-input
+              class="form-control"
+              type="text"
+              v-model="thirdValue"
+              @keydown="validateInputThird"
               required
             ></b-form-input>
           </b-form-group>
@@ -415,8 +426,9 @@
             </span>
             <span v-else-if="props.column.field === 'show_commission'">
               <div class="d-flex" v-if="props.row.first_commission">
-                0-2.000.000 diamonds: {{ props.row.first_commission }}
-                <br />2.000.000+ diamonds: {{ props.row.second_commission }}
+                0-3.000.000 diamonds: {{ props.row.first_commission }}
+                <br />3.000.0000 - 5.000.000 = diamonds: {{ props.row.second_commission }}
+                <br />5.000.000+ diamonds: {{ props.row.third_commission }}
               </div>
             </span>
             <span v-else-if="props.column.field === 'button'">
@@ -545,12 +557,14 @@ export default {
           }
         },
         {
-          label: 'Commission rate\'s',
-          field: 'show_commission',
-          filterOptions: {
-            enabled: false
-          }
-        },
+  label: 'Commission rate\'s',
+  field: 'show_commission',
+  filterOptions: {
+    enabled: false
+  },
+  width: '280px' 
+},
+
 
         {
           label: 'Action',
@@ -592,6 +606,7 @@ export default {
       updateloader:false,
           secondValue:'',
           firstValue:'',
+          thirdValue:'',
       getUid: '',
       getfirstValue: '',
       getsecondValue:'',
@@ -655,6 +670,7 @@ export default {
       this.getUid = data._id;
       this.firstValue = data.first_commission;
       this.secondValue = data.second_commission;
+      this.thirdValue = data.third_commission;
       this.$bvModal.show('modal-add-rates');
     },
     clickCancle() {
@@ -662,11 +678,12 @@ export default {
     },
     clickAddButton() {
 
-      if (this.firstValue && this.secondValue) {
+      if (this.firstValue && this.secondValue && this.thirdValue) {
         this.updateloader = true
         let reqData = {
           'first_commission': this.firstValue,
           'second_commission': this.secondValue,
+          'third_commission':this.thirdValue,
           '_id': this.getUid
         }
         this.$apiService
@@ -677,6 +694,7 @@ export default {
               this.$bvModal.hide('modal-add-rates');
               this.firstValue = '';
               this.secondValue='';
+              this.thirdValue='';
               this.getAllUsers();
               this.updateloader = false
             } else {
@@ -737,6 +755,30 @@ export default {
       // Allow input if the current value plus the new digit is <= 100
       const newValue = parseInt(value + key, 10);
       if (newValue > this.secondValue) {
+        event.preventDefault();
+      }
+    },
+
+    validateInputThird(event) {
+      const key = event.key;
+      const value = this.thirdValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > 100) {
         event.preventDefault();
       }
     },

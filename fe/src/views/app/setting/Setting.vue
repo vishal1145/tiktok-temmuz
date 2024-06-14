@@ -10,7 +10,7 @@
     <hr class="mt-1" />
     <b-row>
       <b-col md="4">
-        <b-form-group label="0-2.000.000 diamonds %" label-for="input-firstValue">
+        <b-form-group label="0-3.000.000 diamonds %1" label-for="input-firstValue">
           <b-form-input
             v-model="firstValue"
             required
@@ -24,8 +24,8 @@
           ></b-form-input>
         </b-form-group>
       </b-col>
-      <b-col md="4" class="ml-3">
-        <b-form-group label="2.000.000+ diamonds %" label-for="input-secondValue">
+      <b-col md="4" class="">
+        <b-form-group label="3.000.000 - 5.000.000 = diamonds %2" label-for="input-secondValue">
           <b-form-input
             v-model="secondValue"
             required
@@ -35,6 +35,20 @@
             class="form-control"
             @keydown="validateInputSec"
             id="input-secondValue"
+          ></b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col md="4" class="">
+        <b-form-group label="5.000.000+ diamonds %3" label-for="input-thirdValue">
+          <b-form-input
+            v-model="thirdValue"
+            required
+            placeholder="Enter value in %"
+            type="number"
+            style="height: 34px"
+            class="form-control"
+            @keydown="validateInputThird"
+            id="input-thirdValue"
           ></b-form-input>
         </b-form-group>
       </b-col>
@@ -61,6 +75,7 @@ export default {
       theme: 'light_theme',
       firstValue: '',
       secondValue: '',
+      thirdValue:'',
       loader: false,
       user_id: '',
       role: ''
@@ -79,6 +94,29 @@ export default {
         this.theme = 'dark_theme'
       } else {
         this.theme = 'light_theme'
+      }
+    },
+    validateInputThird(event) {
+      const key = event.key;
+      const value = this.thirdValue;
+      if (
+        key === 'Backspace' ||
+        key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'Tab' ||
+        key === 'Delete'
+      ) {
+        return;
+      }
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
+        return;
+      }
+
+      // Allow input if the current value plus the new digit is <= 100
+      const newValue = parseInt(value + key, 10);
+      if (newValue > 100) {
+        event.preventDefault();
       }
     },
     validateInputSec(event) {
@@ -137,6 +175,7 @@ export default {
             
               this.firstValue = res.apidata.first_commission
               this.secondValue = res.apidata.second_commission
+              this.thirdValue = res.apidata.third_commission
             
 
         
@@ -153,11 +192,12 @@ export default {
         })
     },
     clickCommission () {
-      if (this.firstValue && this.secondValue) {
+      if (this.firstValue && this.secondValue && this.thirdValue) {
         this.loader = true
         let reqData = {
           first_commission: this.firstValue,
           second_commission: this.secondValue,
+          third_commission:this.thirdValue
           // uid: this.user_id
         }
         this.$apiService
