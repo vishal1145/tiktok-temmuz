@@ -266,13 +266,13 @@
 
     <div class="d-flex flex-column gap-5" style="gap: 13px">
       <div>
-        <div class="mb-30">
+        <div class="">
           <b-card no-body class="o-hidden">
             <b-card-header header-bg-variant="transparent">
               <b-row style="align-items: center">
-                <b-col md="6">
+                <b-col >
                   <div class="ul-card-widget__head-label">
-                    <h5 class="card-title">Earning Summary</h5>
+                    <h5 class="card-title mb-0">Earning Summary</h5>
                   </div>
                 </b-col>
                 <!-- <b-col md="6" class="text-md-right">
@@ -378,26 +378,20 @@
 
           <div
             class="col-12 col-sm-6 col-lg-3 paddingzero"
-            style="display: none"
+              style="padding-right: 0px; "
+            
           >
-            <label for="users-list-verified">Earning range</label>
+            <label for="users-list-verified">Select User</label>
             <fieldset class="form-group">
-              <select
-                class="form-control"
-                id="users-list-verified"
-                style="
-                  color: grey;
-                  padding-bottom: 7px;
-                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                  background-color: rgb(135 131 131 / 0%);
-                "
-                v-model="filterStatus"
-                @change="onStatusChange"
-              >
-                <option value="">All</option>
-                <option value="Approved">Maximum</option>
-                <option value="Rejected">Minimum</option>
-              </select>
+              <multiselect
+              @input="handleChange"
+              v-model="selectedName"
+              placeholder="Select User"
+              :options="[...allUsers]"
+              :multiple="false"
+              :limit="1"
+              label="fullName"
+            ></multiselect>
             </fieldset>
           </div>
           <div
@@ -522,6 +516,7 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
 import moment from 'moment'
 import { spark3, radialBar } from '@/data/apexChart'
 import {
@@ -533,6 +528,13 @@ import {
 } from '@/data/widgetStatistics'
 
 export default {
+
+  components: {
+    // VueEditor,
+    // VueDocumentEditor
+    multiselect: Multiselect,
+
+  },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: 'Earning'
@@ -545,6 +547,7 @@ export default {
   },
   data () {
     return {
+      allUsers: [],
       startDate: '',
       endDate: '',
       selected: 'x',
@@ -963,6 +966,11 @@ export default {
     this.getGraphData()
   },
   methods: {
+    handleChange (user) {
+      this.selectedUserId = user._id
+
+  
+    },
     toggleFlexDiv () {
       this.flexDivDisplay =
         this.flexDivDisplay === 'flex!important'
@@ -1446,8 +1454,24 @@ export default {
   }
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
+
+
+
+.multiselect__tags {
+    min-height: 34px!important;
+    display: block!important;
+    padding: 5px 3px 0px 8px!important;
+    border-radius: 5px!important;
+    border: 1px solid #d8d8d8!important;
+    background: #fff;
+    font-size: 14px!important;
+   
+}
+
+
 /* Modal overlay */
 .modal-overlay {
   position: fixed;
@@ -1531,6 +1555,9 @@ imgloader {
   color: #808080cf;
   width: 20px;
 }
+
+
+
 
 @media only screen and (max-width: 600px) {
   .paddingzero {

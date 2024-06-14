@@ -262,7 +262,7 @@
               :style="{ display: flexDivDisplay }"
             >
               <div class="row w-100">
-                <div class="col-12 col-sm-6 col-lg-3 px-0">
+                <div class="col-12 col-sm-6 col-lg-3 pr-0">
                   <label for="users-list-search">User Name</label>
                   <fieldset class="form-group">
                     <input
@@ -280,7 +280,7 @@
                     />
                   </fieldset>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
+                <div class="col-12 col-sm-6 col-lg-3 pr-0">
                   <label for="users-list-status">Status</label>
                   <fieldset class="form-group">
                     <select
