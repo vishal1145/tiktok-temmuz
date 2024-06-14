@@ -178,40 +178,41 @@
                   </div>
 
                   <div class="d-flex justify-content-between">
-                <div class="mb-3 w-50">
-                  <label for="img-btn" class="form-label">Select Image</label>
-                  <b-form-group label-for="input-images">
-                    <b-form-file
-                      v-model="images"
-                      @input="handleImageSelection"
-                      placeholder="Choose image"
-                      drop-placeholder="Drop files here..."
-                      accept=".png,.jpg,.jpeg"
-                    ></b-form-file>
-                  </b-form-group>
-                </div>
+                    <div class="mb-3 w-50">
+                      <label for="img-btn" class="form-label"
+                        >Select Image</label
+                      >
+                      <b-form-group label-for="input-images">
+                        <b-form-file
+                          v-model="images"
+                          @input="handleImageSelection"
+                          placeholder="Choose image"
+                          drop-placeholder="Drop files here..."
+                          accept=".png,.jpg,.jpeg"
+                        ></b-form-file>
+                      </b-form-group>
+                    </div>
 
-                <div
-                  class="spinner spinner-primary imgloader"
-                  v-if="imgLoader"
-                ></div>
-                <b-col
-                  md="6"
-                  class="justify-content-end d-flex align-items-center pb-2"
-                >
-                  <img
-                    v-if="uplodedImages"
-                    :src="this.uplodedImages"
-                    alt=""
-                    class="img-fluid"
-                    height="50"
-                    width="50"
-                  />
-                </b-col>
-              </div>
+                    <div
+                      class="spinner spinner-primary imgloader"
+                      v-if="imgLoader"
+                    ></div>
+                    <b-col
+                      md="6"
+                      class="justify-content-end d-flex align-items-center pb-2"
+                    >
+                      <img
+                        v-if="uplodedImages"
+                        :src="this.uplodedImages"
+                        alt=""
+                        class="img-fluid"
+                        height="50"
+                        width="50"
+                      />
+                    </b-col>
+                  </div>
                 </div>
               </div>
-       
 
               <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" id="agree" />
@@ -229,7 +230,7 @@
         </b-col>
       </div>
     </div>
-     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
+    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
   </div>
 </template>
 
@@ -267,7 +268,7 @@ export default {
       isLoading: false,
       showPassword: false,
       imgLoader: false,
-      loader:false,
+      loader: false,
       userId: '',
       userFirstName: '',
       userLastName: '',
@@ -276,8 +277,9 @@ export default {
       centerCode: '',
       uplodedImages: '',
       images: null,
-      tikTokUser:'',
-      memberTikTokUser:'',
+      tikTokUser: '',
+      memberTikTokUser: '',
+      canUpdateData: ''
     }
   },
 
@@ -313,8 +315,8 @@ export default {
     ...mapGetters(['loggedInUser', 'loading', 'error'])
   },
   created () {
-    this.tikTokUser = this.$route.query.name;
-    this.memberTikTokUser = this.$route.query.u;
+    this.tikTokUser = this.$route.query.name
+    this.memberTikTokUser = this.$route.query.u
     //this.getTikTokUser();
     this.getMemberTikTokUser()
   },
@@ -337,8 +339,7 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-      
-  
+
         if (response.error) {
           this.imgLoader = false
           this.$toaster.makeToast('warning', response.message)
@@ -353,135 +354,154 @@ export default {
         // confirm.log(error)
       }
     },
-    async getMemberTikTokUser() {
-      this.loader = true;
+    async getMemberTikTokUser () {
+      this.loader = true
       try {
-        const response = await this.$apiService.getCall(`publisher/get-member?name=${this.memberTikTokUser}`)
-        if (
-          response.isError === false
-        ) {
+        const response = await this.$apiService.getCall(
+          `publisher/get-member?name=${this.memberTikTokUser}`
+        )
+        if (response.isError === false) {
+          if (response.apidata.data.length > 0) {
+            this.userId = response.apidata.data[0]._id
+            this.loader = false
+          } else {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Empty Data')
+          }
           //this.centerCode = response.apidata.data[0].agency_center_code;
           //this.tiktokName = response.apidata.data[0].tiktok_username;
-          this.userId= response.apidata.data[0]._id;
-       
-        this.loader = false
+          //   this.userId= response.apidata.data[0]._id;
 
-       
+          // this.loader = false
         } else {
           this.loader = false
           this.$toaster.makeToast('warning', 'Failed to fetch tiktok user data')
         }
       } catch (error) {
-        
         this.$toaster.makeToast('error', 'Error fetching tiktok data')
       } finally {
         this.loader = false
       }
     },
-     async getTikTokUser () {
-       this.loader = true;
+    async getTikTokUser () {
+      this.loader = true
       try {
-        const response = await this.$apiService.getCall(`publisher/get-creator?name=${this.tikTokUser}`)
-        if (
-          response.isError === false
-        ) {
-          this.centerCode = response.apidata.data[0].agency_center_code;
-          this.tiktokName = response.apidata.data[0].tiktok_username;
-          this.userId= response.apidata.data[0]._id;
-       
-        this.loader = false
+        const response = await this.$apiService.getCall(
+          `publisher/get-creator?name=${this.tikTokUser}`
+        )
+        if (response.isError === false) {
+          this.centerCode = response.apidata.data[0].agency_center_code
+          this.tiktokName = response.apidata.data[0].tiktok_username
+          this.userId = response.apidata.data[0]._id
 
-       
+          this.loader = false
         } else {
           this.loader = false
           this.$toaster.makeToast('warning', 'Failed to fetch tiktok user data')
         }
       } catch (error) {
-        
         this.$toaster.makeToast('error', 'Error fetching tiktok data')
       } finally {
         this.loader = false
+      }
+    },
+    async canUpdate () {
+      try {
+        let requestData1 = {
+          tiktok_username: this.tiktokName,
+          userId: this.userId
+        }
+        var resp = await this.$apiService.postCall(
+          `publisher/can-update`,
+          requestData1
+        )
+
+        if (response.error) {
+          this.$toaster.makeToast('error', 'Error update')
+
+          this.loader = false
+        } else {
+          this.loader = false
+          this.canUpdateData = resp.apidata.canUpdate
+        }
+      } catch (error) {
+        this.$toaster.makeToast('error', 'Error server Error')
       }
     },
     async addPublisher () {
-  if (
-    !this.phoneNumber ||
-    !this.centerCode ||
-    !this.userFirstName ||
-    !this.userLastName ||
-    !this.tiktokName
-  ) {
-    this.$toaster.makeToast('warning', 'All fields are required')
-    return;  // Add this return statement to stop further execution
-  }
+      if (
+        !this.phoneNumber ||
+        !this.centerCode ||
+        !this.userFirstName ||
+        !this.userLastName ||
+        !this.tiktokName
+      ) {
+        this.$toaster.makeToast('warning', 'All fields are required')
+      }
+      let requestData1 = {
+          tiktok_username: this.tiktokName,
+          userId: this.userId
+        }
+        var resp = await this.$apiService.postCall(
+          `publisher/can-update`,
+          requestData1
+        )
+      var canUpdateData = resp.apidata.canUpdate;
+      if (canUpdateData==true) {
+        this.loader = true
 
-  this.loader = true
-  try {
-    //const imageUrls = await this.uploadImages();
-    
-    let requestData1 = {
-      tiktok_username: this.tiktokName,
-      userId: this.userId
-    }
-    var canUpdate = await this.$apiService
-        .postCall(`publisher/can-update`, requestData1)
+        try {
+          //const imageUrls = await this.uploadImages();
 
+          let requestData = {
+            first_name: this.userFirstName,
+            last_name: this.userLastName,
+            contact_number: this.phoneNumber,
+            agency_center_code: this.centerCode,
+            tiktok_username: this.tiktokName,
+            icon: this.uplodedImages || null
+          }
+          // Assuming you want to make a POST request
+          const res = await new Promise((resolve, reject) => {
+            this.$apiService
+              .postCall(`publisher/update/${this.userId}`, requestData)
+              .then(data => resolve(data))
+              .catch(error => reject(error))
+          })
+          await this.addStatus()
 
-     console.log(canUpdate);
-     return;
-
-    if(!canUpdate)    {
-      alert("you are not allowed to fill the application ");
-    }
-
-    let requestData = {
-      first_name: this.userFirstName,
-      last_name: this.userLastName,
-      contact_number: this.phoneNumber,
-      agency_center_code: this.centerCode,
-      tiktok_username: this.tiktokName,
-      icon: this.uplodedImages || null,
-    }
-    // Assuming you want to make a POST request
-    const res = await new Promise((resolve, reject) => {
-      this.$apiService
-        .postCall(`publisher/update/${this.userId}`, requestData)
-        .then(data => resolve(data))
-        .catch(error => reject(error))
-    })
-    await this.addStatus()
-
-    if (res.error) {
-      this.loader = false
-      this.$toaster.makeToast('warning', res.message)
-    } else {
-      this.$toaster.makeToast(
-        'success',
-        'Your data has been recorded, and you will be notified shortly.'
-      )
-      this.$router.push('/app/sessions/signIn')
-      this.loader = false
-      this.userFirstName = ''
-      this.userLastName = ''
-      this.tiktokName = ''
-      this.centerCode = ''
-      this.phoneNumber = ''
-      this.uplodedImages = null
-      // this.$toaster.makeToast('success', 'Data added successfully');
-    }
-  } catch (error) {
-    this.loader = false
-    this.$toaster.makeToast('warning', 'Error: Server Error')
-    // console.error(error)
-  }
-}
-,
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', res.message)
+          } else {
+            this.$toaster.makeToast(
+              'success',
+              'Your data has been recorded, and you will be notified shortly.'
+            )
+            this.$router.push('/app/sessions/signIn')
+            this.loader = false
+            this.userFirstName = ''
+            this.userLastName = ''
+            this.tiktokName = ''
+            this.centerCode = ''
+            this.phoneNumber = ''
+            this.uplodedImages = null
+            // this.$toaster.makeToast('success', 'Data added successfully');
+          }
+        } catch (error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Error: Server Error')
+          // console.error(error)
+        }
+      } else {
+        this.$toaster.makeToast(
+          'warning',
+          'you are not allowed to fill the application '
+        )
+      }
+    },
     async addStatus () {
-   
-    
-        this.$toaster.makeToast('warning', 'All is required fields')
-        
-      
+      this.$toaster.makeToast('warning', 'All is required fields')
 
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
@@ -490,20 +510,20 @@ export default {
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
-          status: "Waiting Approval"
-          
-         
+          status: 'Waiting Approval'
         }
 
         // Assuming you want to make a POST request
         const res = await new Promise((resolve, reject) => {
           this.$apiService
-            .postCall(`publisher/update-publisher-status/${this.userId}`, requestData)
+            .postCall(
+              `publisher/update-publisher-status/${this.userId}`,
+              requestData
+            )
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
-     
-       
+
         if (res.error) {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
@@ -578,7 +598,6 @@ export default {
               user.error.response.data.email ==
               'user with this email already exists.'
             ) {
-             
               this.$toaster.makeToast('warning', 'User email already exists')
               this.isLoading = false
               return
@@ -619,7 +638,7 @@ export default {
             localStorage.removeItem('userInfo')
             this.$store.commit('setError', { message: error })
 
-             this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
           })
         // this.signUserUp({ email: this.email, password: this.password });
         // this.submitStatus = "PENDING";
