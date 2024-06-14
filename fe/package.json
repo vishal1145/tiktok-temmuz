@@ -50,6 +50,7 @@
     "vue-pdf": "^4.3.0",
     "vue-perfect-scrollbar": "^0.2.1",
     "vue-router": "^3.4.9",
+    "vue-select": "^3.20.3",
     "vue-signature-pad": "^3.0.2",
     "vue-simple-calendar": "^4.4.0",
     "vue-slider-component": "^3.2.15",
