@@ -36,19 +36,21 @@
                   </p>
                   <b-form
                     @submit.prevent="formSubmit"
-                    @keyup.enter="formSubmit"
+ 
                     id="firstForm"
                     v-if="isShowPhone"
                   >
                   <b-form-group class="text-12 pw">
   <div class="d-flex">
-    <b-form-select
+    <vSelect 
       v-model="CountryCode"
       :options="countryOptions"
+      :reduce="option => option.value"
+      label="text"
       class="pw rounded-start m-lg-0 border-end select-input"
       required
-      style="width: 23%;background-color: #f3f4f6;border: 1px solid transparent; border-right: 1px solid #8080804a;"
-    ></b-form-select>
+      style="width: 22%;background-color: #f3f4f6;"
+    ></vSelect>
     <b-form-input
       class="pw rounded-end m-0 phone-input"
       type="number"
@@ -69,7 +71,7 @@
                       <b-button
                         type="submit"
                         tag="button"
-                        class="btn-rounded btn-block mt-2"
+                        class="btn-rounded btn-block mt-3 w-100 "
                         variant="primary mt-2"
                         :disabled="loading"
                         v-if="!isLoading"
@@ -97,14 +99,14 @@
 
                   <b-form
                     @submit.prevent="formSubmitOtp"
-                   id="firstOtp"
+                    id="firstOtp"
                     v-if="isShowOtp"
                   >
-                    <b-form-group :label="$t('Otp')" class="text-12 pw">
+                    <b-form-group :label="$t('Otp')" class="text-12 pw ">
                     
 
 
-                      <div id="app">
+                      <div id="app" class="d-flex flex-row justify-content-between">
   <div class="verification-code--inputs d-flex flex-row" style="gap: 20px;">
     <input type="text" maxlength="1" v-model="phoneOtp1" @input="moveFocus($event, 'phoneOtp2')" @keydown="checkBackspace($event, 'phoneOtp1', 'phoneOtp1')" ref="phoneOtp1" />
     <input type="text" maxlength="1" v-model="phoneOtp2" @input="moveFocus($event, 'phoneOtp3')" @keydown="checkBackspace($event, 'phoneOtp2', 'phoneOtp1')" ref="phoneOtp2" />
@@ -112,9 +114,18 @@
     <input type="text" maxlength="1" v-model="phoneOtp4" @keydown="checkBackspace($event, 'phoneOtp4', 'phoneOtp3')" ref="phoneOtp4" />
   </div>
   <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
-</div>
+  <div class="d-flex flex-row d-none">
+    <Timer @repeat-clicked="handleRepeatClicked" />
+    </div>
+  
+
+
+  
+</div>   
+
 
                     </b-form-group>
+ 
                     <div>
                       <b-col md="12 ml-5" v-if="isLoading">
                         <div class="spinner spinner-primary ml-5"></div>
@@ -122,7 +133,7 @@
                       <b-button
                         type="submit"
                         tag="button"
-                        class="btn-rounded btn-block mt-2"
+                        class="btn-rounded btn-block mt-3 w-100"
                         variant="primary mt-2"
                         :disabled="loading"
                         v-if="!isLoading"
@@ -131,63 +142,7 @@
                       </b-button>
                     </div>
                   </b-form>
-                  <b-form
-                    @submit.prevent="formSubmittikTokUser"
-                    id="firstOtp"
-                    v-if="isShowName"
-                  >
-                    <b-form-group :label="$t('First Name')" class="text-12 pw">
-                      <b-form-input
-                        class="form-control-rounded pw"
-                        type="text"
-                        placeholder="First Name"
-                        max="30"
-                        v-model="userName"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      :label="$t('Last Name')"
-                      class="text-12 pw"
-                    >
-                      <b-form-input
-                        class="form-control-rounded pw"
-                        type="text"
-                        placeholder="Enter Last Name"
-                        max="30"
-                        v-model="userSurName"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                      :label="$t('TikTok Username')"
-                      class="text-12 pw"
-                  
-                    >
-                      <b-form-input
-                        placeholder="Enter TikTok Username"
-                        class="form-control-rounded pw"
-                        type="text"
-                        v-model="tikTokUserName"
-                        required
-                      ></b-form-input>
-                    </b-form-group>
-                    <div>
-                      <b-col md="12 ml-5" v-if="isLoading">
-                        <div class="spinner spinner-primary ml-5"></div>
-                      </b-col>
-                      <b-button
-                        type="submit"
-                        tag="button"
-                        class="btn-rounded btn-block mt-2"
-                        variant="primary mt-2"
-                        :disabled="loading"
-                        v-if="!isLoading"
-                      >
-                        {{ $t('Next') }}
-                      </b-button>
-                    </div>
-                  </b-form>
+             
                   <!-- <b-form
                     @submit.prevent="formSubmittikTokUser"
                     id="tikTokUser"
@@ -250,6 +205,66 @@
                         v-if="!isLoading"
                       >
                         {{ $t('GSM Verification') }}
+                      </b-button>
+                    </div>
+                  </b-form>
+
+                  <b-form
+                    @submit.prevent="formSubmittikTokUser"
+                    id="firstOtp22"
+                    v-if="isShowName"
+                    
+                  >
+                    <b-form-group :label="$t('First Name')" class="text-12 pw">
+                      <b-form-input
+                        class=" pw"
+                        type="text"
+                        placeholder="First Name"
+                        max="30"
+                        v-model="userName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      :label="$t('Last Name')"
+                      class="text-12 pw"
+                    >
+                      <b-form-input
+                        class="pw"
+                        type="text"
+                        placeholder="Last Name"
+                        max="30"
+                        v-model="userSurName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                      :label="$t('TikTok Username')"
+                      class="text-12 pw"
+                  
+                    >
+                      <b-form-input
+                        placeholder="TikTok Username"
+                        class=" pw"
+                        type="text"
+                        v-model="tikTokUserName"
+                        required
+                      ></b-form-input>
+                    </b-form-group>
+                    <div>
+                      <b-col md="12 ml-5" v-if="isLoading">
+                        <div class="spinner spinner-primary ml-5"></div>
+                      </b-col>
+                      <b-button
+                        type="submit"
+                        tag="button"
+                        class="btn-rounded btn-block mt-3 w-100"
+                        variant="primary mt-2"
+                        :disabled="loading"
+                        v-if="!isLoading"
+                     
+                      >
+                        {{ $t('Next') }}
                       </b-button>
                     </div>
                   </b-form>
@@ -517,7 +532,9 @@
 <script>
 // import TopNav from "./TopNav";
 // import DateRangePicker from 'vue2-daterange-picker'
-
+import Timer from '../sessions/timerComp.vue';
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapGetters, mapActions } from 'vuex'
@@ -530,17 +547,126 @@ export default {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: 'SignIn'
   },
+  components: { vSelect,  Timer, },
   data () {
     return {
+     timerClass: 'd-none',
+     timerClass22: 'd-flex',
+
       CountryCode: '+91',
       PhoneNumber: '',
       countryOptions: [
-        { value: '+91', text: 'IND (+91)' },
-        { value: '+90', text: 'TUR (+90)' },
-        { value: '+1', text: 'US (+1)' },
-        { value: '+44', text: 'United Kingdom (+44)' },
-        { value: '+61', text: 'Australia (+61)' },
-      ],
+  { value: '+93', text: '(+93)' }, // Afghanistan
+  { value: '+355', text: '(+355)' }, // Albania
+  { value: '+213', text: '(+213)' }, // Algeria
+  { value: '+1-684', text: '(+1-684)' }, // American Samoa
+  { value: '+376', text: '(+376)' }, // Andorra
+  { value: '+244', text: '(+244)' }, // Angola
+  { value: '+1-264', text: '(+1-264)' }, // Anguilla
+  { value: '+672', text: '(+672)' }, // Antarctica
+  { value: '+1-268', text: '(+1-268)' }, // Antigua and Barbuda
+  { value: '+54', text: '(+54)' }, // Argentina
+  { value: '+374', text: '(+374)' }, // Armenia
+  { value: '+297', text: '(+297)' }, // Aruba
+  { value: '+61', text: '(+61)' }, // Australia
+  { value: '+43', text: '(+43)' }, // Austria
+  { value: '+994', text: '(+994)' }, // Azerbaijan
+  { value: '+1-242', text: '(+1-242)' }, // Bahamas
+  { value: '+973', text: '(+973)' }, // Bahrain
+  { value: '+880', text: '(+880)' }, // Bangladesh
+  { value: '+1-246', text: '(+1-246)' }, // Barbados
+  { value: '+375', text: '(+375)' }, // Belarus
+  { value: '+32', text: '(+32)' }, // Belgium
+  { value: '+501', text: '(+501)' }, // Belize
+  { value: '+229', text: '(+229)' }, // Benin
+  { value: '+1-441', text: '(+1-441)' }, // Bermuda
+  { value: '+975', text: '(+975)' }, // Bhutan
+  { value: '+591', text: '(+591)' }, // Bolivia
+  { value: '+387', text: '(+387)' }, // Bosnia and Herzegovina
+  { value: '+267', text: '(+267)' }, // Botswana
+  { value: '+55', text: '(+55)' }, // Brazil
+  { value: '+246', text: '(+246)' }, // British Indian Ocean Territory
+  { value: '+1-284', text: '(+1-284)' }, // British Virgin Islands
+  { value: '+673', text: '(+673)' }, // Brunei
+  { value: '+359', text: '(+359)' }, // Bulgaria
+  { value: '+226', text: '(+226)' }, // Burkina Faso
+  { value: '+257', text: '(+257)' }, // Burundi
+  { value: '+855', text: '(+855)' }, // Cambodia
+  { value: '+237', text: '(+237)' }, // Cameroon
+  { value: '+1', text: '(+1)' }, // Canada
+  { value: '+238', text: '(+238)' }, // Cape Verde
+  { value: '+1-345', text: '(+1-345)' }, // Cayman Islands
+  { value: '+236', text: '(+236)' }, // Central African Republic
+  { value: '+235', text: '(+235)' }, // Chad
+  { value: '+56', text: '(+56)' }, // Chile
+  { value: '+86', text: '(+86)' }, // China
+  { value: '+61', text: '(+61)' }, // Christmas Island
+  { value: '+61', text: '(+61)' }, // Cocos Islands
+  { value: '+57', text: '(+57)' }, // Colombia
+  { value: '+269', text: '(+269)' }, // Comoros
+  { value: '+682', text: '(+682)' }, // Cook Islands
+  { value: '+506', text: '(+506)' }, // Costa Rica
+  { value: '+385', text: '(+385)' }, // Croatia
+  { value: '+53', text: '(+53)' }, // Cuba
+  { value: '+599', text: '(+599)' }, // Curacao
+  { value: '+357', text: '(+357)' }, // Cyprus
+  { value: '+420', text: '(+420)' }, // Czech Republic
+  { value: '+243', text: '(+243)' }, // Democratic Republic of the Congo
+  { value: '+45', text: '(+45)' }, // Denmark
+  { value: '+253', text: '(+253)' }, // Djibouti
+  { value: '+1-767', text: '(+1-767)' }, // Dominica
+  { value: '+1-809', text: '(+1-809)' }, // Dominican Republic
+  { value: '+1-829', text: '(+1-829)' }, // Dominican Republic
+  { value: '+1-849', text: '(+1-849)' }, // Dominican Republic
+  { value: '+670', text: '(+670)' }, // East Timor
+  { value: '+593', text: '(+593)' }, // Ecuador
+  { value: '+20', text: '(+20)' }, // Egypt
+  { value: '+503', text: '(+503)' }, // El Salvador
+  { value: '+240', text: '(+240)' }, // Equatorial Guinea
+  { value: '+291', text: '(+291)' }, // Eritrea
+  { value: '+372', text: '(+372)' }, // Estonia
+  { value: '+251', text: '(+251)' }, // Ethiopia
+  { value: '+500', text: '(+500)' }, // Falkland Islands
+  { value: '+298', text: '(+298)' }, // Faroe Islands
+  { value: '+679', text: '(+679)' }, // Fiji
+  { value: '+358', text: '(+358)' }, // Finland
+  { value: '+33', text: '(+33)' }, // France
+  { value: '+689', text: '(+689)' }, // French Polynesia
+  { value: '+241', text: '(+241)' }, // Gabon
+  { value: '+220', text: '(+220)' }, // Gambia
+  { value: '+995', text: '(+995)' }, // Georgia
+  { value: '+49', text: '(+49)' }, // Germany
+  { value: '+233', text: '(+233)' }, // Ghana
+  { value: '+350', text: '(+350)' }, // Gibraltar
+  { value: '+30', text: '(+30)' }, // Greece
+  { value: '+299', text: '(+299)' }, // Greenland
+  { value: '+1-473', text: '(+1-473)' }, // Grenada
+  { value: '+1-671', text: '(+1-671)' }, // Guam
+  { value: '+502', text: '(+502)' }, // Guatemala
+  { value: '+44', text: '(+44)' }, // Guernsey
+  { value: '+224', text: '(+224)' }, // Guinea
+  { value: '+245', text: '(+245)' }, // Guinea-Bissau
+  { value: '+592', text: '(+592)' }, // Guyana
+  { value: '+509', text: '(+509)' }, // Haiti
+  { value: '+504', text: '(+504)' }, // Honduras
+  { value: '+852', text: '(+852)' }, // Hong Kong
+  { value: '+36', text: '(+36)' }, // Hungary
+  { value: '+354', text: '(+354)' }, // Iceland
+  { value: '+91', text: '(+91)' }, // India
+  { value: '+62', text: '(+62)' }, // Indonesia
+  { value: '+98', text: '(+98)' }, // Iran
+  { value: '+964', text: '(+964)' }, // Iraq
+  { value: '+353', text: '(+353)' }, // Ireland
+  { value: '+44', text: '(+44)' }, // Isle of Man
+  { value: '+972', text: '(+972)' }, // Israel
+  { value: '+39', text: '(+39)' }, // Italy
+  { value: '+225', text: '(+225)' }, // Ivory Coast
+  { value: '+1-876', text: '(+1-876)' }, // Jamaica
+  { value: '+81', text: '(+81)' }, // Japan
+  { value: '+44', text: '(+44)' }, // Jersey
+  { value: '+962', text: '(+962)' }, // Jordan
+  { value: '+7', text: '(+7)' }, ]
+,
       isShowName: false,
       userName: '',
       userSurName: '',
@@ -656,6 +782,12 @@ export default {
 
   methods: {
     ...mapActions(['login']),
+// TimerPause() {
+    
+//     setTimeout(() => {
+//       this.timerClass = 'd-flex';
+//     }, );
+//   },
     moveFocus(event, nextField) {
         if (event.target.value.length === 1) {
           const nextInput = this.$refs[nextField];
@@ -664,7 +796,20 @@ export default {
           }
         }
       },
-      
+
+      NextMethod()
+      { 
+        this.isShowOtp = false;
+        // this.timerClass22 = 'none';
+
+        this.firstOtp = 'd-flex';
+
+
+      },
+      repeatTimer() {
+     
+      this.$refs.timer.repeatTimer();
+    },
       checkBackspace(event, currentField, previousField) {
         if (event.key === 'Backspace' && event.target.value === '') {
           const prevInput = this.$refs[previousField];
@@ -779,13 +924,17 @@ export default {
     },
 
     formSubmitName () {
+      alert("in next method")
      
-      this.isShowName = false
-      this.isShowtikTokUser = true
+      this.isShowName = false,
+      this.isShowOtp = true
     },
-    
-    formSubmittikTokUser () {
-       this.isShowOtp = true
+  formSubmittikTokUser () {
+  
+    debugger
+   
+
+      this.isShowOtp = true
       this.isShowName = false
       this.loader = true   
      
@@ -803,9 +952,16 @@ export default {
           if (user.error) {
             this.loader = false
             this.$toaster.makeToast('warning', user.message)
+    //         setTimeout(() => {
+    //   this.timerClass = 'd-flex';
+    // },1000);
           } else {
-            this.$toaster.makeToast('success', 'User create successfully')
-            this.isShowtikTokUser = false
+            this.$toaster.makeToast('success', 'User create successfully') 
+    //         setTimeout(() => {
+    //   this.timerClass = 'd-flex';
+    // }, 1000);
+            this.isShowName = false
+       
           
             this.loader = false
 
@@ -875,8 +1031,10 @@ export default {
           this.$store.commit('setError', { message: error })
         })
     },
-
+    
     formSubmit () {
+      debugger
+      // alert("kdkdkdkd")s
       this.loader = true
 
       let requestData = {
@@ -888,24 +1046,35 @@ export default {
       this.$apiService
         .postCall('auth/check-member-exists', requestData)
         .then(user => {
-          if (user.error) {
-            this.$toaster.makeToast('warning', user.message)
+          if (user.error) { 
             this.loader = false
+            this.$toaster.makeToast('warning', user.message)
+           
           } else {
             this.loader = false
-
-            this.$toaster.makeToast('success', 'Otp send successfully')
+            // this.TimerPause()
+             this.$toaster.makeToast('success', 'Otp send successfully')
+          
             const isMemberExists = user.apidata.isMemberExists
-            if (isMemberExists) {
+            if (isMemberExists) { 
               this.isShowOtp = true
+              this.isShowPhone = false    
+              this.isShowName = false
+              this.loader = false
+             
+          
+            } else {        
+              this.isShowName = true
               this.isShowPhone = false
-            } else {
-              this.$toaster.makeToast(
+              this.loader = false
+      
+    //           setTimeout(() => {
+    //   this.timerClass = 'd-none';
+    // }, 3000); 
+    this.$toaster.makeToast(
                 'warning',
                 'User is not exist, fill all details'
               )
-              this.isShowName = true
-              this.isShowPhone = false
             }
 
           
@@ -919,6 +1088,12 @@ export default {
           this.$store.commit('setError', { message: error })
         })
     },
+    handleRepeatClicked() {
+     
+      this.formSubmit();
+    },
+
+
 
     setCookie (name, value, milliseconds) {
       const date = new Date()
@@ -1420,6 +1595,12 @@ img {
   height: 96vh;
 }
 
+@media only screen and (max-width: 1000px) {
+  img {
+    height: 30vh;
+  }
+}
+
 .select-input:focus,
 .phone-input:focus {
   border-color: #007bff00; /* Bootstrap primary color, or any color you prefer */
@@ -1452,4 +1633,91 @@ img {
     box-sizing: border-box;
     border-radius: 6px;
 }
+
+#vs1__combobox
+{
+  background-color: #f3f4f6;
+  border: 1px solid transparent;
+    border-right: 1px solid #8080804a;
+}
+
+.vs__selected
+{
+  margin-top: 4px !important;
+    color: #6f6b7d;
+    font-size: 0.9375rem;
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.vs__clear
+{
+  display: none;
+}
+.vs__actions
+{
+  display: none;
+
+}
+.base-timer {
+    position: relative;
+    width: 49px;
+    height: 49px;
+  }
+  
+  .base-timer__svg {
+    transform: scaleX(-1);
+  }
+  
+  .base-timer__circle {
+    fill: none;
+    stroke: none;
+  }
+  
+  .base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+  }
+  
+  .base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+  }
+  
+  .base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+  }
+  
+  .base-timer__path-remaining.orange {
+    color: orange;
+  }
+  
+  .base-timer__path-remaining.red {
+    color: red;
+  }
+  
+  .base-timer__label {
+    position: absolute;
+    width: 0px;
+    height: 49px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    left:-15px;
+    color: #a855f7;
+   
+  }
+
+  .base-timer__svg[data-v-2fc7aa4a] {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    display: none;
+}
+
+
 </style>
