@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <breadcumb :page="'TikTok'" :folder="'Ajans'" />
+    <!-- <breadcumb :page="'TikTok'" :folder="'Ajans'" /> -->
     <b-modal id="modal-addMember" size="md" hide-footer hide-header centered>
       <b-row class="">
         <b-col md="12">    
@@ -90,59 +90,12 @@
     </b-modal>
 
     <b-row>
-      <b-col sm="12" md="12" xl="12" lg="12" class="mb-30">
-        <div class="card">
-          <div class="d-flex align-items-end row">
-            <div class="col-7">
-              <div class="card-body text-nowrap">
-                <h5 class="card-title mb-0">
-                  Congratulations {{ this.loginUserName }}! 🎉
-                </h5>
-
-                <p>
-                  Thank you for being awesome and sharing our platform with
-                  others! Below is your unique referral link:
-                </p>
-
-                <b-button variant="primary" @click="clickShowPopup()"
-                  >Add Creators</b-button
-                >
-
-                <!-- <div
-                  data-v-0307aa70=""
-                  class="bg-white text-gray d-flex w-59"
-                  style="overflow-wrap: anywhere"
-                >
-                  <a
-                    data-v-0307aa70=""
-                    href="https://temmuz.algofolks.com/app/sessions/affiliate"
-                    target="_blank"
-                    class="referral-link align-self-center"
-                  >
-                    https://temmuz.algofolks.com/app/sessions/affiliate</a
-                  >
-                  <p
-                    class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end"
-                    @click="copyUrl"
-                  >
-                    <i class="fa fa-clone" aria-hidden="true"></i>
-                  </p>
-                </div> -->
-              </div>
-            </div>
-            <div class="col-5 text-center text-sm-left d-none">
-              <div class="card-body pb-0 px-0 px-md-4">
-                <img
-                  src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/card-advance-sale.png"
-                  height="140"
-                  alt="view sales"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-col>
-      <b-col lg="6" xl="6" md="6" sm="6" class="">
+      <b-col>
+      <div class="card" style="margin-bottom: 1rem;">
+      <Referal />
+      </div>
+    </b-col>
+      <b-col style="display:none;" lg="6" xl="6" md="6" sm="6" class="">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
             <h5 class="text-muted text-10"><i class="fa fa-diamond" aria-hidden="true"></i> Diamond</h5>
@@ -163,7 +116,7 @@
           </b-card-body>
         </b-card>
       </b-col>
-      <b-col lg="6" xl="6" md="6" sm="6">
+      <b-col style="display:none;" lg="6" xl="6" md="6" sm="6">
         <b-card no-body title class="mb-30 o-hidden">
           <div class="ul-widget__chart-info">
             <h5 class="text-muted text-10">Earning</h5>
@@ -582,7 +535,7 @@ import {
   splineAreaWidgetFour,
   dashboardFive
 } from '@/data/widgetStatistics'
-
+import Referal from './referal.vue';
 export default {
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
@@ -593,6 +546,9 @@ export default {
       type: String,
       default: 'Awesome Wizard'
     }
+  },
+  components: {
+    Referal
   },
   data () {
     return {

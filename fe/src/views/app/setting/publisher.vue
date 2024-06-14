@@ -411,6 +411,11 @@
         </b-col>
       </b-row>
     </b-modal>
+    
+    <div class="card" style="margin-bottom: 1rem;" v-if="role != 'admin'">
+      <Referal />
+      </div>
+
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div class="d-flex flex-column gap-5" style="gap: 13px">
@@ -671,12 +676,13 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-
+import Referal from './referal.vue';
 export default {
   components: {
     // VueEditor,
     // VueDocumentEditor
-    multiselect: Multiselect
+    multiselect: Multiselect,
+    Referal
   },
   data () {
     return {

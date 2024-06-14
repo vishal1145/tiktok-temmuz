@@ -8,6 +8,10 @@
 
     <hr class="mt-1" /> -->
     <div class="">
+      <div class="card" style="margin-bottom: 1rem;"> 
+        <Referal />
+        </div>
+
       <b-card title="Profile" class="for-profile">
         <b-form>
           <b-row class="my-3">
@@ -405,11 +409,14 @@
 </template>
 <script>
 import message from '../../../message'
+import Referal from './../setting/referal.vue';
 export default {
   metaInfo: {
     title: 'Profile'
   },
-  components: {},
+  components: {
+    Referal
+  },
   data () {
     return {
       referralLink: '',
