@@ -115,7 +115,7 @@
   </div>
   <input type="hidden" id="verificationCode" v-model="concatenatedPhoneOtp" />
   <div class="d-flex flex-row d-none">
-    <Timer @repeat-clicked="handleRepeatClicked" />
+    <!-- <Timer @repeat-clicked="handleRepeatClicked" /> -->
     </div>
   
 
@@ -140,6 +140,10 @@
                       >
                         {{ $t('Verify Otp') }}
                       </b-button>
+
+                      <Timer @repeat-clicked="handleRepeatClicked" ref="timerComponent" />
+
+     
                     </div>
                   </b-form>
              
@@ -551,7 +555,7 @@ export default {
   data () {
     return {
      timerClass: 'd-none',
-     timerClass22: 'd-flex',
+     timerClass: 'd-flex',
 
       CountryCode: '+91',
       PhoneNumber: '',
@@ -788,6 +792,9 @@ export default {
 //       this.timerClass = 'd-flex';
 //     }, );
 //   },
+handleResendClicked() {
+      this.$refs.timerComponent.repeatTimer(); // Call repeatTimer method of Timer component
+    },
     moveFocus(event, nextField) {
         if (event.target.value.length === 1) {
           const nextInput = this.$refs[nextField];
@@ -1054,6 +1061,7 @@ export default {
             this.loader = false
             // this.TimerPause()
              this.$toaster.makeToast('success', 'Otp send successfully')
+              this.timerClass = 'd-none'
           
             const isMemberExists = user.apidata.isMemberExists
             if (isMemberExists) { 
@@ -1699,10 +1707,10 @@ img {
     color: red;
   }
   
-  .base-timer__label {
+  /* .base-timer__label {
     position: absolute;
     width: 0px;
-    height: 49px;
+    height: 0px;
     top: 0;
     display: flex;
     align-items: center;
@@ -1711,7 +1719,25 @@ img {
     left:-15px;
     color: #a855f7;
    
-  }
+  } */
+  .base-timer__label{
+    position: absolute;
+    width: 0px;
+    height: 37px;
+    top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 15px;
+    left: 29px;
+    color: #a855f7;
+}
 
   .base-timer__svg[data-v-2fc7aa4a] {
     -webkit-transform: scaleX(-1);

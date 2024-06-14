@@ -1,32 +1,22 @@
 <template>
-    <div class="base-timer">
-      <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <g class="base-timer__circle">
-          <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-          <path
-            id="base-timer-path-remaining"
-            :stroke-dasharray="circleDasharray"
-            :class="'base-timer__path-remaining ' + remainingPathColor"
-            d="
-              M 50, 50
-              m -45, 0
-              a 45,45 0 1,0 90,0
-              a 45,45 0 1,0 -90,0
-            "
-          ></path>
-        </g>
-      </svg>
-      <span id="base-timer-label" class="base-timer__label">{{ formattedTime }}</span>
-      
-      <!-- Show repeat button only when timer completes -->
-      <span v-if="timeLeft <= 0 && !isWaiting"  class="align-self-center btn " @click="repeatTimer" style="
+    <div class="d-flex flex-row justify-content-between">
+   
+      <div  class="align-self-center btn pw px-1" > 
+<span>Don't receive the OTP?&nbsp;</span>
+
+
+
+<a >
+          <span class=" px-1 pw" style="
     color: #a855f7;
-">
-        <i class="fa fa-repeat" aria-hidden="true" style="
-    margin-top: 11px;
-"></i>
-      
-      </span>
+"  v-if="timeLeft <= 0 && !isWaiting" @click="repeatTimer" >Resend</span>
+        </a>
+      <!-- <span  class=" px-1 pw"> Resend</span> -->
+      </div>
+      <div id="base-timer-label" class="pw align-self-center px-1" style="
+    color: #a855f7;
+" >{{ formattedTime }}</div>
+ 
     </div>
   </template>
   
@@ -43,7 +33,7 @@ export default {
         warning: { color: "orange", threshold: this.WARNING_THRESHOLD },
         alert: { color: "red", threshold: this.ALERT_THRESHOLD },
       },
-      TIME_LIMIT: 12,
+      TIME_LIMIT: 120,
       timePassed: 0,
       timeLeft: 12,
       timerInterval: null,
@@ -107,7 +97,7 @@ export default {
       if (this.isWaiting) {
         
         this.timePassed = 0
-       this.TIME_LIMIT = 12
+       this.TIME_LIMIT = 120
         this.startTimer();
         this.$emit("repeat-clicked");
       } else {
@@ -171,22 +161,109 @@ export default {
   .base-timer__label {
     position: absolute;
     width: 0px;
-    height: 49px;
+    height: 37px;
     top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
-    font-size: 20px;
-    left:-15px;
+    font-size: 15px;
+    left: 29px;
     color: #a855f7;
-
-  }
+}
 
   .base-timer__svg[data-v-2fc7aa4a] {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
     display: none;
 }
+
+
+
+
+
+/* Small smartphones (portrait) */
+@media only screen and (max-width: 320px) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 249px;
+    top: 2px;
+}
+}
+
+/* Smartphones (portrait) */
+@media only screen and (max-width: 480px) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 36px;
+    top: 2px;
+}
+ 
+}
+
+
+/* Smartphones (landscape) */
+@media only screen and (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 249px;
+    top: 2px;
+}
+}
+
+
+/* Tablets (portrait) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 38px;
+    top: 2px;
+}
+}
+
+/* Desktops and laptops */
+@media only screen and (min-width: 1024px) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 249px;
+    top: 2px;
+}
+ 
+}
+
+/* Large screens */
+@media only screen and (min-width: 1200px) {
+  .lapTopResend
+{
+    position: absolute;
+    right: 244px;
+    top: 3px;
+}
+
+}
+
+
+
+.pw {
+
+
+  color: #6f6b7d;
+  font-size: 0.9375rem;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
 
 
   </style>
