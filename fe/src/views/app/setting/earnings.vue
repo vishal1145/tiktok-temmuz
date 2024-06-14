@@ -267,39 +267,68 @@
     <div class="d-flex flex-column gap-5" style="gap: 13px">
       <div>
         <div class="">
-          <b-card no-body class="o-hidden">
-            <b-card-header header-bg-variant="transparent">
+          <div no-body class="o-hidden">
+            <div header-bg-variant="transparent">
               <b-row style="align-items: center">
-                <b-col >
+                <div >
                   <div class="ul-card-widget__head-label">
-                    <h5 class="card-title mb-0">Earning Summary</h5>
+                    <h5 class="card-title px-3 pb-2 mb-0">Earning Summary</h5>
                   </div>
-                </b-col>
+                </div>
                 <!-- <b-col md="6" class="text-md-right">
                   <b-button variant="outline-primary">Summary View</b-button>
                 </b-col> -->
               </b-row>
-            </b-card-header>
-            <b-card-body>
-              <b-row>
-                <b-col md="6 " class="mb-4 mb-md-0">
+            </div>
+            <div>
+              <b-row class="px-1">
+                <!-- <b-col md="6 " class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
                   <i class="fa fa-diamond" aria-hidden="true"></i>  Diamonds Revenue
                   </h3>
                   <span class="text-muted text-18 font-weight-600"
                     > <i class="fa fa-diamond" aria-hidden="true"></i> {{totalDiamondData}}</span
                   >
-                </b-col>
-                <b-col md="6" class="mb-4 mb-md-0">
+                </b-col> -->
+
+                <b-col md="4" sm="12">
+        <b-card
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-10 text-center"
+        >
+          <i class="i-Money-2"></i>
+          <div class="content">
+            <p class="text-muted mt-2 mb-0" style="
+    width: 120px;
+">Diamonds Revenue</p>
+            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >{{totalDiamondData}}</p>
+          </div>
+        </b-card>
+      </b-col>
+                <!-- <b-col md="6" class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
                     Earnings Revenue
                   </h3>
                   <span class="text-muted text-18 font-weight-600"
                     >${{ totalEarningData }}</span
                   >
-                </b-col>
+                </b-col> -->
+
+
+                <b-col md="4" sm="12">
+        <b-card
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-10 text-center"
+        >
+          <i class="i-Wallet"></i>
+          <div class="content">
+            <p class="text-muted mt-2 mb-0" style="
+    width: 120px;
+">Earnings Revenue</p>
+            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >{{totalEarningData}}</p>
+          </div>
+        </b-card>
+      </b-col>
               </b-row>
-            </b-card-body>
+            </div>
             <div id="basicArea-chart" class="mt-2">
               <apexchart
                 type="area"
@@ -308,7 +337,7 @@
                 :series="yearAreaWidget.series"
               />
             </div>
-          </b-card>
+          </div>
         </div>
       </div>
       <div class="card pb-2">

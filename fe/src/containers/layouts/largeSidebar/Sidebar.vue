@@ -248,7 +248,7 @@
         
          <!-- information- User -->
 
-        <li 
+        <li v-if="isAdmin === 'user'"
             @mouseenter="toggleSubMenu"
             :class="{ active: isActive('/app/setting/earnings') }"
             class="nav-item"
