@@ -4,8 +4,8 @@ const {
   memberDelete,
   memberUpdate,
   memberUpdateProfile,
-  memberUpdateCommission
-
+  memberUpdateCommission,
+  resendOtp
 } = require("../services/tiktokusers.service");
 const { getToken } = require('../util')
 
@@ -67,6 +67,15 @@ exports.memberUpdateCommission = async (req, res) => {
   try {
     await memberUpdateCommission(req.body);
     res.status(200).json({ success: true, msg: 'User Commission Updated' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.resendOtp = async (req, res) => {
+  try {
+    await resendOtp(req.body.contact_number);
+    res.status(200).json({ success: true, msg: 'OTP sent 😊' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

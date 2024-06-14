@@ -1,6 +1,8 @@
 const tiktokUsersModel = require("../models/tiktokusers.model");
 const commission = require('../models/commission.model');
 const otpGenerator = require("otp-generator");
+const axios = require('axios');
+
 
 exports.tiktokLogin = async (body) => {
   var user = await tiktokUsersModel.findOne({ contact_number: body.contact_number });
@@ -18,42 +20,43 @@ exports.tiktokLogin = async (body) => {
     })
   }
 
+  try {
+    sendOtp(body.contact_number);
+  } catch (error) {
+    return error.message;
+  }
+
+  return { user };
+};
+
+const sendOtp = async (num) => {
   const otp = otpGenerator.generate(4, {
     upperCaseAlphabets: false,
     specialChars: false,
     lowerCaseAlphabets: false,
   });
 
-  await tiktokUsersModel.findOneAndUpdate({ contact_number: body.contact_number }, { otp: '1234' })
+  await tiktokUsersModel.findOneAndUpdate({ contact_number: num }, { otp: otp });
 
-  try {
-    // const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
-    //   params: {
-    //     authorization: process.env.FAST2SMS_API_KEY,
-    //     route: 'dlt',
-    //     sender_id: 'TXTIND', // Ensure to use your sender ID
-    //     message: `Your OTP is ${otp}`,
-    //     variables_values: otp,
-    //     flash: 0,
-    //     numbers: body.contact_number,
-    //   },
-    // });
-
-    // await client.messages.create({
-    //   body: `Your OTP is ${otp}`,
-    //   from: config.twilioPhoneNumber,
-    //   to: body.contact_number
-    // });
-    // const user = tiktokUsersModel.findOne({ contact_number: body.contact_number });
-    return { user };
-
-
-  } catch (error) {
-    console.error('Error sending OTP:', error.message);
-    throw new Error('Failed to send OTP');
+  const payload = {
+    "number": num,
+    "type": "text",
+    "message": `Hey there, We are thrilled to see you join us at TikTok! Your OTP code is ${otp}. Please enter this code to verify your account.`,
+    "instance_id": "6579DE51A10A7",
+    "access_token": "6579dde43cf51"
   }
 
-};
+  try {
+    const response = await axios.post('https://cloud.wpotomesaj.com/api/send', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 
 exports.isMemberExists = async (body) => {
@@ -100,4 +103,9 @@ exports.memberUpdateCommission = async (body) => {
       third_commission: body.third_commission * 0.01
     },
   })
+}
+
+exports.resendOtp = async (num) => {
+  const res = await sendOtp(num);
+  return res;
 }
