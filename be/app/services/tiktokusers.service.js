@@ -95,9 +95,9 @@ exports.memberUpdateCommission = async (body) => {
   console.log("node", body)
   await tiktokUsersModel.findByIdAndUpdate(body._id, {
     $set: {
-      first_commission: body.first_commission,
-      second_commission: body.second_commission,
-      third_commission: body.third_commission
+      first_commission: body.first_commission * 0.01,
+      second_commission: body.second_commission * 0.01,
+      third_commission: body.third_commission * 0.01
     },
   })
 }

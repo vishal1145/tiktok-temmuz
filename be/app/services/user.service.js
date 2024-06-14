@@ -11,19 +11,13 @@ exports.getUserById = async (_id) => {
 
 exports.getAllMembers = async () => {
   const users = await MemberModel.find({ role: "user" });
+  users.forEach(e => {
+    e.first_commission *= 100;
+    e.second_commission *= 100;
+    e.third_commission *= 100;
+  });
   return { users };
 };
-
-
-// exports.getEventsStaffUsers = async (type) => {
-//   var query = { provider: true };
-//   if(type) {
-//    query.service_category =  { $elemMatch: { $eq: type } }
-//   };
-//   return await UserModel.find(    query,    { user_name: 1, bio: 1, image: 1, provider: 1 }    )
-//     .populate("service_category")
-//     .populate("location");
-// };
 
 exports.getEventsStaffUsers = async (type, page, pageSize) => {
   var query = { provider: true };
@@ -140,7 +134,7 @@ exports.getCreatorsEarningsGraph = async (_id) => {
     let user = await UserModel.findById(_id);
     let first_commission = user.first_commission;
     let second_commission = user.second_commission;
-    let third_commission= user.third_commission;
+    let third_commission = user.third_commission;
 
     data.forEach(item => {
       const date = item.as_of_date;
@@ -170,10 +164,10 @@ exports.getCreatorsEarningsGraph = async (_id) => {
       return false;
     });
 
-    const allDates = uniqueData.map((e)=> e.as_of_date);
-    const totalDiamonds = uniqueData.map((e)=> e.diamonds_this_month);
-    const totalEarnings = uniqueData.map((e)=> e.earnings)
-    
+    const allDates = uniqueData.map((e) => e.as_of_date);
+    const totalDiamonds = uniqueData.map((e) => e.diamonds_this_month);
+    const totalEarnings = uniqueData.map((e) => e.earnings)
+
     return { allDates, totalDiamonds, totalEarnings };
   } else {
     return "User do not have Creators";
