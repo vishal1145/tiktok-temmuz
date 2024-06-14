@@ -464,11 +464,11 @@ export default {
           // Assuming you want to make a POST request
           const res = await new Promise((resolve, reject) => {
             this.$apiService
-              .postCall(`publisher/update/${this.userId}`, requestData)
+              .postCall(`publisher/update/${resp.apidata.result._id}`, requestData)
               .then(data => resolve(data))
               .catch(error => reject(error))
           })
-          await this.addStatus()
+          await this.addStatus(resp.apidata.result._id)
 
           if (res.error) {
             this.loader = false
@@ -500,8 +500,7 @@ export default {
         )
       }
     },
-    async addStatus () {
-      this.$toaster.makeToast('warning', 'All is required fields')
+    async addStatus (recordId) {
 
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
@@ -517,7 +516,7 @@ export default {
         const res = await new Promise((resolve, reject) => {
           this.$apiService
             .postCall(
-              `publisher/update-publisher-status/${this.userId}`,
+              `publisher/update-publisher-status/${recordId}`,
               requestData
             )
             .then(data => resolve(data))

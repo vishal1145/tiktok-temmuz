@@ -80,7 +80,7 @@ exports.canUpdatePublisher = async (req, res) => {
   try {
     const result = await canUpdatePublisher(req.body)
     if (result) {
-      res.status(200).send({ success: true, canUpdate: true })
+      res.status(200).send({ success: true, canUpdate: true, result })
     } else {
       res.status(200).send({ success: true, canUpdate: false , message: "Please check publisher Id" })
     }
