@@ -12,9 +12,9 @@ exports.getUserById = async (_id) => {
 exports.getAllMembers = async () => {
   const users = await MemberModel.find({ role: "user" });
   users.forEach(e => {
-    e.first_commission *= 100;
-    e.second_commission *= 100;
-    e.third_commission *= 100;
+    e.first_commission = Math.floor(e.first_commission * 100);
+    e.second_commission = Math.floor(e.second_commission * 100);
+    e.third_commission = Math.floor(e.third_commission * 100);
   });
   return { users };
 };
