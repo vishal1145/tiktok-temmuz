@@ -1,6 +1,8 @@
-const UserModel = require('../models/user.model');
+const UserModel = require('../models/user.model'); // it is not use
 const MemberModel = require('../models/tiktokusers.model');
-const tiktokUsersModel = require("../models/tiktokusers.model");
+const CreatorModel = require('../models/creator.model');
+const PaymentModel = require('../models/payment.model');
+
 const { decrypt, compare, sendForgetPasswordMail } = require('../util')
 
 exports.register = async (user_body) => {
@@ -40,7 +42,7 @@ exports.forgetPassword = async ({ email }) => {
 
 exports.verifyOtp = async (data) => {
     try {
-        const User = await tiktokUsersModel.findOne({ contact_number: data.contact_number });
+        const User = await MemberModel.findOne({ contact_number: data.contact_number });
 
         if (User.otp == data.otp) {
             return ({ User })
@@ -80,9 +82,9 @@ exports.updatePassword = async (data) => {
     } else return false;
 };
 
-exports.dashBoardCount = async (data) => {
-    const membes = "10";
-    const creators = "10";
-    const payment_request = '20';
+exports.dashBoardCount = async () => {
+    const membes = await MemberModel.count({ role: 'user' });
+    const creators = await CreatorModel.count();
+    const payment_request = await PaymentModel.count();
     return { membes, creators, payment_request }
 };
