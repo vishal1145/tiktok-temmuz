@@ -52,7 +52,6 @@ exports.canUpdatePublisher = async (data) => {
   
   let isEXist = await PublisherModel.findOne({
       tiktok_username: data.tiktok_username,
-      user_id: data.userId
   });
 
   return isEXist;
