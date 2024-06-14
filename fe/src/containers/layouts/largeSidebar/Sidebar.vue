@@ -63,7 +63,7 @@
               <div class="triangle"></div>
             </router-link>
           </li> -->
-          <!-- <li  v-if="isAdmin !== 'User'"
+          <li    v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
             :class="{ active: selectedParentMenu == 'adminDashboard' }"
             class="nav-item"
@@ -78,7 +78,8 @@
 
               <div class="triangle"></div>
             </router-link>
-          </li> -->
+          </li>
+          
 
           <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"

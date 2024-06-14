@@ -1005,7 +1005,7 @@ handleResendClicked() {
             localStorage.setItem('user_id', user.apidata.user_id)
              if (user.apidata.role == 'admin') {
               setTimeout(() => {
-                this.$router.push('/app/mydesk/users')
+                this.$router.push('/app/dashboards/adminDashboard')
               }, 500)
             } else {
               {
