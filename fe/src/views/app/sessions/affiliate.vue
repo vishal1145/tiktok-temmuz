@@ -437,8 +437,8 @@ export default {
         !this.tiktokName
       ) {
         this.$toaster.makeToast('warning', 'All fields are required')
-      }
-      let requestData1 = {
+      } else {
+        let requestData1 = {
           tiktok_username: this.tiktokName,
           userId: this.userId
         }
@@ -499,6 +499,8 @@ export default {
           'you are not allowed to fill the application '
         )
       }
+      }
+      
     },
     async addStatus (recordId) {
 

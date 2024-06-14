@@ -44,7 +44,7 @@
             ></multiselect>
           </b-form-group>
         </b-col>
-        <b-col md="12" v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'" class="d-none">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="first_name"
@@ -55,7 +55,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'" class="d-none">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="last_name"
@@ -80,7 +80,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" v-if="role == 'admin'">
+        <b-col md="12" v-if="role == 'admin'" class="d-none">
           <b-form-group label="Contact Number" label-for="input-contact-number">
             <b-form-input
               v-model="contact_number"
@@ -107,7 +107,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6" v-if="role == 'admin'">
+        <b-col md="6" v-if="role == 'admin'" class="d-none">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="images"
@@ -134,7 +134,7 @@
         </b-col>
         <b-col>
           <div class="d-flex justify-content-end">
-            <b-button v-if="!imgLoader" class=" mr-2" @click="closeModal()">
+            <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
               Close
             </b-button>
             <b-button
@@ -411,10 +411,10 @@
         </b-col>
       </b-row>
     </b-modal>
-    
-    <div class="card" style="margin-bottom: 1rem;" v-if="role != 'admin'">
+
+    <div class="card" style="margin-bottom: 1rem" v-if="role != 'admin'">
       <Referal />
-      </div>
+    </div>
 
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
@@ -676,7 +676,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import Referal from './referal.vue';
+import Referal from './referal.vue'
 export default {
   components: {
     // VueEditor,
@@ -847,7 +847,7 @@ export default {
     this.role = localStorage.getItem('role')
 
     this.fetchPublisher()
-    this.getProfileDetails();
+    this.getProfileDetails()
   },
 
   methods: {
@@ -1135,25 +1135,19 @@ export default {
       this.rejectedId = id
     },
     async addPublisher () {
+      
       // Check if all required fields are filled
       // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
-      if (this.role === 'admin') {
-        if (
-          !this.first_name ||
-          !this.last_name ||
-          !this.tiktok_username ||
-          !this.contact_number ||
-          !this.agency_center_code ||
-          !this.images
-        ) {
-          this.$toaster.makeToast(
-            'warning',
-            'Please fill in all the required fields'
-          )
-          setTimeout(() => (this.errorMessage = ''), 2000)
-          return
-        }
-      } else if (!this.tiktok_username || !this.agency_center_code) {
+
+      // if (this.role === 'admin') {
+      //   if (!this.tiktok_username || !this.agency_center_code) {
+      //     this.$toaster.makeToast(
+      //       'warning',
+      //       'Please fill in all the required fields'
+      //     )
+      //   }
+      // }
+      if (!this.tiktok_username || !this.agency_center_code) {
         this.$toaster.makeToast(
           'warning',
           'Please fill in all the required fields'
@@ -1163,21 +1157,23 @@ export default {
         try {
           let requestData = {
             user_id:
-              this.role === 'admin'
+              this.role == 'admin'
                 ? this.selectedUserId
                 : localStorage.getItem('user_id'),
             tiktok_username: this.tiktok_username,
-            agency_center_code: this.agency_center_code,
-            status: 'Pending Registration'
+            agency_center_code: this.agency_center_code
+            // status: 'Pending Registration'
           }
 
-          if (this.role === 'admin') {
-            requestData.first_name = this.first_name
-            requestData.last_name = this.last_name
-            requestData.contact_number = this.contact_number
-            requestData.icon = this.uplodedImages
+          if (this.role == 'admin') {
+            //requestData.first_name = this.first_name
+            //requestData.last_name = this.last_name
+            //requestData.contact_number = this.contact_number
+            //requestData.icon = this.uplodedImages
             requestData.status = 'Approved'
             requestData.reason = 'Added By Admin'
+          } else {
+            requestData.status = 'Pending Registration'
           }
 
           const res = await this.$apiService.postCall(
@@ -1213,7 +1209,7 @@ export default {
             this.uplodedImages = ''
             this.contact_number = ''
             this.agency_center_code = ''
-            this.icon = null            
+            this.icon = null
             this.$bvModal.show('modal-show-referralUrl')
             this.$toaster.makeToast('success', 'Referral create successfully')
             if (this.role === 'admin') {
@@ -1232,6 +1228,8 @@ export default {
           }
         }
       }
+        
+      
 
       // if (matchData.length > 0) {
       //   this.$toaster.makeToast(
@@ -1382,29 +1380,32 @@ export default {
     closeModalEdit () {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
     },
-    getProfileDetails() {
-            this.loader = true
-            this.$apiService
-                .getCall(`auth/user/${this.userId}`)
-                .then(res => {
-                    console.log(res)
-                    // if (res.error) {
-                    //     this.loader = false
-                    //     this.$toaster.makeToast('warning', 'Fail to fetch user data')
-                    // } else {
-                    //     this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
-                        var tiktok_username = res.apidata.data.tiktok_username;
-                        this.loader = false
-                        var url =  'https://' + window.location.host + "/app/sessions/affiliate?u="+ tiktok_username
-                        this.referralUrl = url;
-                    //}
-                })
-                .catch(error => {
-                    this.loader = false
-                    this.$toaster.makeToast('warning', 'Server Error')
-                })
-        },
-    
+    getProfileDetails () {
+      this.loader = true
+      this.$apiService
+        .getCall(`auth/user/${this.user_id}`)
+        .then(res => {
+          console.log(res)
+          // if (res.error) {
+          //     this.loader = false
+          //     this.$toaster.makeToast('warning', 'Fail to fetch user data')
+          // } else {
+          //     this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
+          var tiktok_username = res.apidata.data.tiktok_username
+          this.loader = false
+          var url =
+            'https://' +
+            window.location.host +
+            '/app/sessions/affiliate?u=' +
+            tiktok_username
+          this.referralUrl = url
+          //}
+        })
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Server Error')
+        })
+    }
 
     // addCssRule () {
     //   const style = document.createElement('style')

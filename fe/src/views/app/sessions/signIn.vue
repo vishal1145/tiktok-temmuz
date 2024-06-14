@@ -959,7 +959,6 @@ export default {
       ;(this.isShowName = false), (this.isShowOtp = true)
     },
     formSubmittikTokUser () {
-      debugger
 
       this.isShowOtp = true
       this.isShowName = false
