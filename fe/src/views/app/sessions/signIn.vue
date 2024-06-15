@@ -38,7 +38,8 @@
                     v-if="isShowPhone"
                   >
                     <b-form-group class="text-12 pw">
-                      <div class="d-flex">
+                      <div class="d-flex phone-input">
+                        <!-- <input id="phone" type="tel" name="phone" /> -->
                         <vSelect
                           v-model="CountryCode"
                           :options="countryOptions"
@@ -750,7 +751,8 @@ export default {
       firstSelectedDate: null,
       secondSelectedDate: null,
       isDatePickerVisible: false,
-      activeChild: 1
+      activeChild: 1,
+      phoneInput: null
     }
   },
   validations: {
@@ -781,7 +783,13 @@ export default {
     // validationsGroup:['peopleAdd.multipleName']
   },
   created () {},
-
+  mounted() {
+    const phoneInputField = document.querySelector("#phone");
+    this.phoneInput = window.intlTelInput(phoneInputField, {
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+  },
   watch: {
     concatenatedPhoneOtp: function (newValue) {
       document.getElementById('verificationCode').value = newValue
@@ -1078,6 +1086,12 @@ export default {
         })
     },
     formSubmit () {
+
+      // const enteredNumber = this.phoneInput.getNumber();
+      // console.log(enteredNumber);
+
+      // return;
+
       debugger
       // alert("kdkdkdkd")s
       this.loader = true
@@ -1296,6 +1310,19 @@ export default {
 </script>
 
 <style>
+.phone-input {
+
+  .iti {
+    width: 100%;
+     
+    #phone {
+      width: 100%;
+    }
+  }
+
+
+}
+
 .for-nav {
   width: 100%;
   height: 80px;

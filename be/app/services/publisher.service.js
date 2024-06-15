@@ -3,13 +3,16 @@ const tiktokUsersModel = require("../models/tiktokusers.model");
 const mongoose = require("mongoose");
 
 // admin case
-exports.getAllPublisher = async () => {
-  const publishers = await PublisherModel.find().populate('user_id');
+exports.getAllPublisher = async () => {  
+  const publishers = await PublisherModel.find().populate('user_id').sort({ createdAt: -1 });
   return publishers;
 };
 
 exports.getAllMembersPublishers = async (_id) => {
-  const publishers = await PublisherModel.aggregate([{ $match: { user_id: new mongoose.Types.ObjectId(_id) } }]);
+  const publishers = await PublisherModel.aggregate([
+    { $match: { user_id: new mongoose.Types.ObjectId(_id) } },
+    { $sort : { createdAt: -1 }}
+  ]);
   return publishers;
 };
 

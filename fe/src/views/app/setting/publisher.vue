@@ -80,19 +80,22 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" v-if="role == 'admin'" class="d-none">
-          <b-form-group label="Contact Number" label-for="input-contact-number">
-            <b-form-input
-              v-model="contact_number"
-              required
-              placeholder="Contact number"
-              type="number"
-              @keydown="checkLengthPhone"
-              id="input-contact-number"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
         <b-col md="12">
+          <div class="phone-input">
+            <b-form-group label="Contact Number" label-for="input-contact-number">
+              <!-- <b-form-input
+                v-model="contact_number"
+                required
+                placeholder="Contact number"
+                type="number"
+                @keydown="checkLengthPhone"
+                id="input-contact-number"
+              ></b-form-input> -->
+              <input id="phone" type="tel" name="phone" />
+            </b-form-group>
+          </div>
+        </b-col>
+        <b-col md="12" class="d-none">
           <b-form-group
             label="Agency Center Code"
             label-for="input-agency-center-code"
@@ -133,23 +136,28 @@
           />
         </b-col>
         <b-col>
-          <div class="d-flex justify-content-end">
-            <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
-              Close
+          <div style="display:flex; justify-content: space-between" >
+            <b-button v-if="role != 'admin'" class="mr-2" @click="copyUrl()">
+              Copy Referral Link
             </b-button>
-            <b-button
-              v-if="!imgLoader"
-              class=""
-              variant="primary ripple"
-              @click="addPublisher()"
-            >
-              Add
-            </b-button>
-            <div
-              class="spinner spinner-primary imgloader"
-              v-if="imgLoader"
-            ></div>
-          </div>
+            <div class="d-flex justify-content-end">
+              <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
+                Close
+              </b-button>
+              <b-button
+                v-if="!imgLoader"
+                class=""
+                variant="primary ripple"
+                @click="addPublisher()"
+              >
+                Add
+              </b-button>
+              <div
+                class="spinner spinner-primary imgloader"
+                v-if="imgLoader"
+              ></div>
+            </div>
+        </div>
         </b-col>
       </b-row>
     </b-modal>
@@ -540,7 +548,7 @@
               style="gap: 9px"
             >
               <button
-                @click="showAddModal = true"
+                @click="addnewcreator()"
                 class="btn btn-primary mb-3"
                 style="
                   padding-top: 2px;
@@ -686,6 +694,7 @@ export default {
   },
   data () {
     return {
+      phoneInput: null,
       referralUrl: '',
       selectedName: '',
       allUsers: [],
@@ -760,14 +769,14 @@ export default {
             placeholder: 'Contact Number'
           }
         },
-        {
-          label: 'Agency code',
-          field: 'agency_center_code',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Agency Code'
-          }
-        },
+        // {
+        //   label: 'Agency code',
+        //   field: 'agency_center_code',
+        //   filterOptions: {
+        //     enabled: true,
+        //     placeholder: 'Agency Code'
+        //   }
+        // },
         {
           label: 'Status',
           field: 'show_status',
@@ -851,6 +860,28 @@ export default {
   },
 
   methods: {
+    addnewcreator() {
+      this.showAddModal  = true;
+      setTimeout(() => {
+        const phoneInputField = document.querySelector("#phone");
+        this.phoneInput = window.intlTelInput(phoneInputField, {
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });  
+      }, 200);
+      
+    },
+    copyUrl() {
+      navigator.clipboard
+                .writeText(this.referralUrl)
+                .then(() => {
+                    this.$emit('notify', 'URL copied to clipboard!')
+                    this.$toaster.makeToast('success', 'URL copied to clipboard!')
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err)
+                })
+    },
     filteredRows32 () {
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus
@@ -1147,7 +1178,8 @@ export default {
       //     )
       //   }
       // }
-      if (!this.tiktok_username || !this.agency_center_code) {
+      this.contact_number = this.phoneInput.getNumber();
+      if (!this.tiktok_username || !this.contact_number) {
         this.$toaster.makeToast(
           'warning',
           'Please fill in all the required fields'
@@ -1161,7 +1193,7 @@ export default {
                 ? this.selectedUserId
                 : localStorage.getItem('user_id'),
             tiktok_username: this.tiktok_username,
-            agency_center_code: this.agency_center_code
+            contact_number: this.contact_number
             // status: 'Pending Registration'
           }
 
@@ -1210,11 +1242,11 @@ export default {
             this.contact_number = ''
             this.agency_center_code = ''
             this.icon = null
-            this.$bvModal.show('modal-show-referralUrl')
-            this.$toaster.makeToast('success', 'Referral create successfully')
-            if (this.role === 'admin') {
+            //this.$bvModal.show('modal-show-referralUrl')
+            //this.$toaster.makeToast('success', 'Referral create successfully')
+            //if (this.role === 'admin') {
               this.$toaster.makeToast('success', 'Data added successfully')
-            }
+            //}
           }
         } catch (error) {
           this.loader = false
@@ -1289,6 +1321,11 @@ export default {
       this.getTikTok = data.tiktok_username
 
       this.showAddModalEdit = true
+      const phoneInputField = document.querySelector("#phone");
+      this.phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
     },
 
     clickRejectButton () {
@@ -1422,8 +1459,34 @@ export default {
   }
 }
 </script>
+<style>
+.phone-input {
+
+.iti {
+  width: 100%;
+   
+  #phone {
+    width: 100%;
+  }
+}
+
+
+}
+</style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
+.phone-input {
+
+.iti {
+  width: 100%;
+   
+  #phone {
+    width: 100%;
+  }
+}
+
+
+}
 /* Modal overlay */
 .modal-overlay {
   position: fixed;

@@ -9,7 +9,8 @@ const publishSchema = new mongoose.Schema({
   icon: { type: String},
   user_id: { type: mongoose.Types.ObjectId, ref: "member" },
   status: {type: String, default: ' Registration Pending '},
-  reason: {type: String, default: null}
+  reason: {type: String, default: null},
+  createdAt: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model("creator", publishSchema);
