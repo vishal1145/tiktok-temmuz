@@ -139,18 +139,7 @@
                       id="lastName"
                     />
                   </div>
-                  <div class="mb-3 pr-2">
-                    <label for="phoneNumber" class="form-label"
-                      >Phone Number</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="phoneNumber"
-                      @keydown="checkLength"
-                      v-model="phoneNumber"
-                    />
-                  </div>
+                  
                 </div>
                 <div class="w-50">
                   <div class="mb-3 pl-2">
@@ -164,7 +153,24 @@
                       id="tiktokName"
                     />
                   </div>
-                  <div class="mb-3 pl-2">
+
+                  <div class="mb-3 pr-2">
+                    <label for="phoneNumber" class="form-label"
+                      >Phone Number</label
+                    >
+                    <div class="d-flex phone-input">
+                      <input id="phone" type="tel" name="phone" />
+                    </div>
+                    <!-- <input
+                      type="number"
+                      class="form-control"
+                      id="phoneNumber"
+                      @keydown="checkLength"
+                      v-model="phoneNumber"
+                    /> -->
+                  </div>
+
+                  <div class="mb-3 pl-2 d-none" >
                     <label for="tiktokCode" class="form-label"
                       >TikTok Agency Code</label
                     >
@@ -177,7 +183,7 @@
                     />
                   </div>
 
-                  <div class="d-flex justify-content-between">
+                  <div class=" justify-content-between d-none">
                     <div class="mb-3 w-50">
                       <label for="img-btn" class="form-label"
                         >Select Image</label
@@ -279,7 +285,8 @@ export default {
       images: null,
       tikTokUser: '',
       memberTikTokUser: '',
-      canUpdateData: ''
+      canUpdateData: '',
+      phoneInput: null
     }
   },
 
@@ -321,6 +328,13 @@ export default {
     this.getMemberTikTokUser()
   },
 
+  mounted() {
+    const phoneInputField = document.querySelector("#phone");
+    this.phoneInput = window.intlTelInput(phoneInputField, {
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+  },
   methods: {
     ...mapActions(['signUserUp']),
     //   validate form
@@ -429,9 +443,9 @@ export default {
       }
     },
     async addPublisher () {
+      this.phoneNumber = this.phoneInput.getNumber();
       if (
         !this.phoneNumber ||
-        !this.centerCode ||
         !this.userFirstName ||
         !this.userLastName ||
         !this.tiktokName
@@ -674,7 +688,20 @@ export default {
   }
 }
 </script>
+<style>
+.phone-input {
+  width: 100%;
+.iti {
+  width: 100%;
+   
+  #phone {
+    width: 100%;
+  }
+}
 
+
+}
+</style>
 <style scoped>
 .container {
   max-width: 800px;
