@@ -39,8 +39,8 @@
                   >
                     <b-form-group class="text-12 pw">
                       <div class="d-flex phone-input">
-                        <input id="phonenumber" type="tel" name="phonenumber" />
-                        <!-- <vSelect
+                        <!-- <input id="phonenumber" type="tel" name="phonenumber" /> -->
+                        <vSelect
                           v-model="CountryCode"
                           :options="countryOptions"
                           :reduce="option => option.value"
@@ -56,7 +56,7 @@
                           v-model="PhoneNumber"
                           placeholder="Enter phone number"
                           required
-                        ></b-form-input> -->
+                        ></b-form-input>
                       </div>
                     </b-form-group>
 
@@ -786,11 +786,11 @@ export default {
   },
   created () {},
   mounted() {
-    const phoneInputField = document.querySelector("#phonenumber");
-    this.phoneInput = window.intlTelInput(phoneInputField, {
-      utilsScript:
-        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
+    // const phoneInputField = document.querySelector("#phonenumber");
+    // this.phoneInput = window.intlTelInput(phoneInputField, {
+    //   utilsScript:
+    //     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    // });
   },
   watch: {
     concatenatedPhoneOtp: function (newValue) {
@@ -973,9 +973,10 @@ export default {
       this.isShowOtp = true
       this.isShowName = false
       this.loader = true
-      var phoneNumberLocal = this.phoneInput.getNumber();
+      //var phoneNumberLocal = this.phoneInput.getNumber();
       let requestData = {
-        contact_number: phoneNumberLocal.replace('+', ''), // + this.PhoneNumber,
+        //contact_number: phoneNumberLocal.replace('+', ''), // + this.PhoneNumber,
+        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
         role: 'user',
         name: this.userName,
         surname: this.userSurName,
@@ -1095,18 +1096,19 @@ export default {
     },
     formSubmit () {
 
-      const enteredNumber = this.phoneInput.getNumber();
-      // console.log(enteredNumber);
-      this.enteredNumber = enteredNumber;
+      // const enteredNumber = this.phoneInput.getNumber();
+      // // console.log(enteredNumber);
+      // this.enteredNumber = enteredNumber;
       // return;
 
       // alert("kdkdkdkd")s
       this.loader = true
 
       let requestData = {
-       contact_number: enteredNumber.replace('+', '') //+ this.PhoneNumber,
+       //contact_number: enteredNumber.replace('+', '') //+ this.PhoneNumber,
         // 'role':"user"
         // password: this.password
+        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
       }
 
       this.$apiService
@@ -1123,7 +1125,7 @@ export default {
 
             const isMemberExists = user.apidata.isMemberExists
             if (isMemberExists) {
-              this.removeElementsByClass("phone-input")
+              //this.removeElementsByClass("phone-input")
               this.isShowOtp = true
               this.isShowPhone = false
               this.isShowName = false
