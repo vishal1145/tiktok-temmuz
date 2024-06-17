@@ -14,7 +14,7 @@
     </nav>
 
     <div
-      class="main-div d-flex flex-row justify-content-between overflow-hidden"
+      class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody"
     >
       <div class="row pt-2">
         <b-col
@@ -22,7 +22,7 @@
           lg="4"
           xl="4"
           mt="3"
-          style="background-color: #f3f4f6"
+       style="background-color: rgb(243, 244, 246);border-radius: 8px;"
         >
           <div class="">
             <div class="card-body">
@@ -830,4 +830,11 @@ h6,
   content: '\f095';
   color: gray;
 }
+.gifBody {
+  background: url('../../../assets/reference-link-page-background_360.gif') no-repeat center center fixed;
+  background-size: cover; /* This will ensure the gif covers the entire background */
+  width: 100vw; /* Make sure the width covers the whole viewport */
+  height: 100vh; /* Make sure the height covers the whole viewport */
+}
+
 </style>

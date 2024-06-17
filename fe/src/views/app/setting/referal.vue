@@ -16,15 +16,21 @@
                         </p>
 
 
+                        <div data-v-0307aa70="" 
+     class="bg-white text-gray d-flex w-59" 
+     style="overflow-wrap: anywhere">
+    <a :href="url"
+       target="_blank" 
+       class="referral-link align-self-center" 
+       :class="{ 'text-white': copied, 'text-blue': !copied }"
+      >
+        {{url}}
+    </a>
+    <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
+        <i   :class="{ 'text-white': copied, 'text-blue': !copied }" class="fa fa-clone" aria-hidden="true"></i>
+    </p>
+</div>
 
-                        <div data-v-0307aa70="" class="bg-white text-gray d-flex w-59" style="overflow-wrap: anywhere">
-                            <a data-v-0307aa70="" :href="url"
-                                target="_blank" class="referral-link align-self-center">
-                                {{url}}</a>
-                            <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
-                                <i class="fa fa-clone" aria-hidden="true"></i>
-                            </p>
-                        </div>
                     </div>
                 </div>
                 <div class="col-5 text-center text-sm-left d-none">
@@ -45,7 +51,8 @@ export default {
         return {
             tiktok_username: '',
             loginUserName: '',
-            url: ''
+            url: '',
+            copied: false
         }
     },
     mounted() {
@@ -79,17 +86,29 @@ export default {
                 })
         },
         copyUrl() {
-            //const url = 'https://temmuz.algofolks.com/app/sessions/affiliate'
-            navigator.clipboard
-                .writeText(this.url)
-                .then(() => {
-                    this.$emit('notify', 'URL copied to clipboard!')
-                })
-                .catch(err => {
-                    console.error('Could not copy text: ', err)
-                })
-        }
+      navigator.clipboard
+        .writeText(this.url)
+        .then(() => {
+          this.copied = true;
+          this.$emit('notify', 'URL copied to clipboard!');
+        })
+        .catch(err => {
+          console.error('Could not copy text: ', err);
+        });
+    }
     }
 }
 
+
+
 </script>
+
+<style scoped>
+.text-white {
+    color: #5f5f5f !important;
+}
+
+.text-blue {
+    color: #3b82f6 !important;
+}
+</style>

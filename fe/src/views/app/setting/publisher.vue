@@ -78,6 +78,7 @@
               placeholder="TikTok username"
               type="text"
               id="input-tiktok-username"
+              maxlength="25"
             ></b-form-input>
           </b-form-group>
         </b-col>
@@ -92,7 +93,7 @@
                 @keydown="checkLengthPhone"
                 id="input-contact-number"
               ></b-form-input> -->
-              <b-form-input class=" form-control" id="phone" type="tel" name="phone" ></b-form-input>
+              <b-form-input class=" form-control" id="phone" type="tel" name="phone" maxlength="18" ></b-form-input>
             </b-form-group>
           </div>
         </b-col>
@@ -178,7 +179,7 @@
             Update Creators
           </label>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="d-none">
           <b-form-group label="First Name" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
@@ -195,7 +196,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12">
+        <b-col md="12" class="d-none">
           <b-form-group label="Last Name" label-for="input-last-name">
             <b-form-input
               v-model="getLastName"
@@ -218,14 +219,14 @@
             <b-form-input
               v-model="getTikTok"
               required
-              placeholder="Last name"
+              placeholder="TikTok User Name"
               style="
                 height: 43px;
                 background-color: white;
                 border: 1px solid #80808038;
               "
               type="text"
-              maxlength="20"
+              maxlength="25"
               id="input-last-name"
             ></b-form-input>
           </b-form-group>
@@ -243,7 +244,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-        <b-col md="12">
+        <b-col md="12" class="d-none">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -261,6 +262,23 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
+       
+       <div class="phone-input">
+       <b-form-group label="Contact Number" label-for="input-contact-number">
+         <!-- <b-form-input
+           v-model="contact_number"
+           required
+           placeholder="Contact number"
+           type="number"
+           @keydown="checkLengthPhone"
+           id="input-contact-number"
+         ></b-form-input> -->
+         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="18"></b-form-input>
+       </b-form-group>
+     
+     </div>
+   </b-col>
+        <b-col md="12" class="d-none">
           <b-form-group label="Agency center code" label-for="input-title">
             <b-form-input
               v-model="getcenterCode"
@@ -277,7 +295,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="6">
+        <b-col md="6" class="d-none">
           <b-form-group label="Select Images" label-for="input-images">
             <b-form-file
               v-model="getImages"
@@ -290,12 +308,12 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center "
+          class="justify-content-end d-flex align-items-center d-none"
         >
           <img
             :src="this.uplodedImages"
             alt=""
-            class="img-fluid"
+            class="img-fluid d-none"
             height="50"
             width="50"
             style="width: 4vw"
@@ -318,19 +336,19 @@
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
             <b-button
               v-if="!imgLoader"
-              class="mb-2 mr-2"
+              class="mr-2"
               @click="closeModalEdit()"
               >Close</b-button
             >
             <b-button
               v-if="!imgLoader"
-              class="mb-2"
+              class=""
               variant="primary ripple"
               @click="editPublisher()"
               >Update</b-button
             >
             <div
-              class="spinner spinner-primary imgloader"
+              class="spinner spinner-primary imgloader d-none"
               v-if="imgLoader"
             ></div>
           </div>
@@ -580,9 +598,9 @@
                 <div
                   v-if="
                     role == 'user' &&
-                    props.row.status != 'Approved' &&
-                    props.row.status != 'Rejected' &&
-                    props.row.status != 'Pending Registration'
+                
+                    props.row.status != 'Waiting Approval'
+                    &&  props.row.status != 'Approved' && props.row.status != 'Rejected'
                   "
                 >
                   <span @click="clickEdit(props.row)" class="btn p-0"
@@ -1344,10 +1362,15 @@ this.filteredFaqs =paymentData;
 
       this.showAddModalEdit = true
       const phoneInputField = document.querySelector("#phone");
-      this.phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript:
-          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-      });
+      setTimeout(() => {
+        const phoneInputField = document.querySelector("#phone");
+        this.phoneInput = window.intlTelInput(phoneInputField, {
+          initialCountry: "in",
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });  
+      }, 200);
+      
     },
 
     clickRejectButton () {

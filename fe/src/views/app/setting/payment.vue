@@ -374,7 +374,7 @@
                 <div class="card-body text-nowrap">
                   <h5 class="card-title mb-0"> Congratulations {{ this.loginUserName }}! 🎉</h5>
                   <p class="">Best seller of the month</p>
-                  <h4 class="text-primary mb-1">${{totalWithDraw}}</h4>
+                  <h4 class="text-primary mb-1">$&nbsp;{{totalWithDraw}}</h4>
                   <a
                     class="btn btn-primary waves-effect waves-light"
                     style="color: white; padding-top: 3px; padding-bottom: 3px"
@@ -916,7 +916,8 @@ this.rows = paymentData;
               this.$toaster.makeToast('warning', 'Error fetching payment data')
               this.loader = false
             } else if (response.apidata.msg == 'No Record Found') {
-              this.$toaster.makeToast('warning', response.apidata.msg)
+              // this.$toaster.makeToast('warning', response.apidata.msg)
+              console.log("No Record Found")
               this.loader = false
             } else {
               const userData = response.apidata.data
