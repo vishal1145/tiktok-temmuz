@@ -8,6 +8,11 @@ exports.getExcels = async () => {
   return await ExcelModel.find();
 };
 
+function truncateToDecimals(num, decimals) {
+  const factor = Math.pow(10, decimals);
+  return Math.floor(num * factor) / factor;
+}
+
 function calculateEarning(first_commission, second_commission, third_commission, d) {
   var rate = first_commission;
   if (d.diamonds_this_month >= 300000 && d.diamonds_this_month < 500000) {
@@ -16,8 +21,9 @@ function calculateEarning(first_commission, second_commission, third_commission,
   if (d.diamonds_this_month >= 500000) {
     rate = third_commission;
   }
-  let earn =  rate * d.diamonds_this_month / 100;
-  return earn.toFixed(2);
+  let num =  rate * d.diamonds_this_month / 100;
+  let earn = truncateToDecimals(num, 2);
+  return earn;//.toFixed(2);
 }
 
 exports.getCreatorsEarnings = async (_id) => {
