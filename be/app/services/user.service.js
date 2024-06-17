@@ -122,21 +122,30 @@ exports.newEmailVerifyOtp = async (data) => {
 };
 
 exports.getCreatorsEarningsGraph = async (_id) => {
-  const creators = await PublisherModel.find({ user_id: _id });
+  let creators = await PublisherModel.find();
+  if (_id) {
+    creators = await PublisherModel.find({ user_id: _id });
+  }
+  //const creators = await PublisherModel.find({ user_id: _id });
   if (creators.length > 0) {
     const usernames = creators.map((e) => e.tiktok_username);
     const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
-
-    data.sort((a, b) => new Date(a.as_of_date) - new Date(b.as_of_date)); console.log('data', data)
+    data.sort((a, b) => new Date(a.as_of_date) - new Date(b.as_of_date));
 
     const dateMap = new Map();
 
-    let user = await UserModel.findById(_id);
-    let first_commission = user.first_commission;
-    let second_commission = user.second_commission;
-    let third_commission = user.third_commission;
-
+    let allUsers = await UserModel.find();
+   
     data.forEach(item => {
+
+      let creator = creators.find((u) => u._id == item.creator_id);
+
+      let user = allUsers.find((e)=> e._id.toString() === creator.user_id.toString());
+
+      let first_commission = user.first_commission;
+      let second_commission = user.second_commission;
+      let third_commission = user.third_commission;
+
       const date = item.as_of_date;
       const diamonds = parseInt(item.diamonds_this_month);
       const earnings = calculateEarning(first_commission, second_commission, third_commission, item);
@@ -164,9 +173,9 @@ exports.getCreatorsEarningsGraph = async (_id) => {
       return false;
     });
 
-    const allDates = uniqueData.map((e) => e.as_of_date);
-    const totalDiamonds = uniqueData.map((e) => e.diamonds_this_month);
-    const totalEarnings = uniqueData.map((e) => e.earnings)
+    const allDates = uniqueData.length === 0 ? [] : uniqueData.map((e) => e.as_of_date);
+    const totalDiamonds = uniqueData.length === 0 ? [] : uniqueData.map((e) => e.diamonds_this_month);
+    const totalEarnings = uniqueData.length === 0 ? [] : uniqueData.map((e) => e.earnings)
 
     return { allDates, totalDiamonds, totalEarnings };
   } else {
@@ -182,5 +191,6 @@ function calculateEarning(first_commission, second_commission, third_commission,
   if (d.diamonds_this_month >= 500000) {
     rate = third_commission;
   }
-  return rate * d.diamonds_this_month / 100;
+  let earn = rate * d.diamonds_this_month / 100;
+  return earn.toFixed(2);
 }

@@ -16,22 +16,31 @@ function calculateEarning(first_commission, second_commission, third_commission,
   if (d.diamonds_this_month >= 500000) {
     rate = third_commission;
   }
-  return rate * d.diamonds_this_month / 100;
+  let earn =  rate * d.diamonds_this_month / 100;
+  return earn.toFixed(2);
 }
 
 exports.getCreatorsEarnings = async (_id) => {
-  const creators = await PublisherModel.find({ user_id: _id });
+  // const creators = await PublisherModel.find({ user_id: _id });
+  let creators = await PublisherModel.find();
+  if (_id) {
+    creators = await PublisherModel.find({ user_id: _id });
+  }
   if (creators.length > 0) {
     const usernames = creators.map((e) => e.tiktok_username);
     const data = await ExcelDataModel.find({ creator_inf: { $in: usernames } });
     data.sort((a, b) => new Date(a.as_of_date) - new Date(b.as_of_date));
 
-    let user = await UserModel.findById(_id);
-    let first_commission = user.first_commission;
-    let second_commission = user.second_commission;
-    let third_commission = user.third_commission;
-
+    // let user = await UserModel.findById(_id);
+    let allUsers = await UserModel.find();
+   
     var newdata = data.map((d) => {
+      let creator = creators.find((u) => u._id == d.creator_id);
+      let user = allUsers.find((e)=> e._id.toString() === creator.user_id.toString());
+      let first_commission = user.first_commission;
+      let second_commission = user.second_commission;
+      let third_commission = user.third_commission;
+  
       const doc = d._doc;
       var earning = calculateEarning(first_commission, second_commission, third_commission, d);
       return {

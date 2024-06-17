@@ -136,8 +136,8 @@ exports.newEmailVerifyOtp = async (req, res) => {
 
 exports.getCreatorsEarningsGraph = async (req, res) => {
   try {
-    const {allDates, totalDiamonds, totalEarnings} = await getCreatorsEarningsGraph(req.user._id);
-    res.status(200).send({ dates: allDates, diamonds: totalDiamonds, earnings: totalEarnings, success: true });
+    const { allDates, totalDiamonds, totalEarnings } = await getCreatorsEarningsGraph(req.body._id);
+    res.status(200).send({ dates: allDates ? allDates : [], diamonds: totalDiamonds ? totalDiamonds : [], earnings: totalEarnings ? totalEarnings : [], success: true });
   } catch (err) {
     res.status(400).send({ Message: err.message });
   }

@@ -13,7 +13,7 @@ exports.getExcels = async (req, res) => {
 
 exports.getCreatorsEarnings = async (req, res) => {
   try {
-    const earnings = await getCreatorsEarnings(req.user._id);
+    const earnings = await getCreatorsEarnings(req.body._id);
     res.status(200).send({ data: earnings, success: true });
   } catch (err) {
     res.status(400).send({ Message: err.message });
