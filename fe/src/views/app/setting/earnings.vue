@@ -329,14 +329,16 @@
       </b-col>
               </b-row>
             </div>
-            <div id="basicArea-chart" class="mt-2">
-              <apexchart
-                type="area"
-                height="160"
-                :options="yearAreaWidget.chartOptions"
-                :series="yearAreaWidget.series"
-              />
-            </div>
+ <div  v-if="showChart" id="basicArea-chart" class="mt-2">
+      <apexchart
+        type="area"
+        height="160"
+        :options="yearAreaWidget.chartOptions"
+        :series="yearAreaWidget.series"
+      />
+    </div>
+
+
           </div>
         </div>
       </div>
@@ -962,6 +964,13 @@ export default {
   //   this.clearFilters()
   // },
   computed: {
+
+    
+//     isDataEmpty() {
+//       const { dates, diamonds, earnings } = this.yearAreaWidget;
+//       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+//     }
+// ,
     filteredRows () {
       const query = this.searchTerm.toLowerCase().trim()
       // const amount_data = this.searchAmount.trim();
@@ -981,6 +990,16 @@ export default {
         return matchesQuery && matchesStatus
       })
     },
+    showChart() {
+      return this.totalEarningData != 0.00;
+    }
+  ,
+
+//         isDataEmpty() {
+//       const { dates, diamonds, earnings } = this.yearAreaWidget;
+//       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+//     }
+// ,
     containerClasses () {
       return {
         'large-container': this.isLarge,
@@ -1038,6 +1057,7 @@ export default {
         // Calculate total earning data
         this.totalEarningData = earningData.reduce((acc, current) => acc + current, 0);
         this.totalEarningData = this.totalEarningData.toFixed(2);
+        console.log(this.totalEarningData)
 
         this.sparkData = {
           series: [
@@ -1661,15 +1681,7 @@ imgloader {
 }
 
 /* Modal content */
-.modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 60%; /* Adjust as needed */
-  max-width: 600px; /* Maximum width */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
+
 
 .close {
   position: absolute;
@@ -1677,7 +1689,7 @@ imgloader {
   right: 10px;
   cursor: pointer;
 }
-
+/* 
 #modal-add___BV_modal_content_ {
   position: relative;
   display: -webkit-box;
@@ -1695,7 +1707,7 @@ imgloader {
   border-radius: 0.3rem;
   outline: 0;
   right: 0px !important;
-}
+} */
 
 .mt-4 {
   margin-top: 26px !important;
@@ -1727,5 +1739,9 @@ imgloader {
     padding-right: 0px;
     padding-left: 0px;
   }
+}
+
+.d-none {
+  display: none;
 }
 </style>
