@@ -37,7 +37,7 @@
                     id="firstForm"
                     v-if="isShowPhone"
                   >
-                    <b-form-group class="text-12 pw">
+                    <b-form-group class="text-12 pw mb-1" >
                       <div class="phone-input">
                         <b-form-group
                           label="Contact Number"
@@ -80,8 +80,8 @@
                       <b-button
                         type="submit"
                         tag="button"
-                        class="btn-rounded btn-block mt-3 w-100"
-                        variant="primary mt-2"
+                        class="btn-rounded btn-block w-100"
+                        variant="primary"
                         :disabled="loading"
                         v-if="!isLoading"
                       >
