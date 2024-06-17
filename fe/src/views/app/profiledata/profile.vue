@@ -8,9 +8,9 @@
 
     <hr class="mt-1" /> -->
     <div class="">
-      <div class="card" style="margin-bottom: 1rem;"> 
+      <div class="card" style="margin-bottom: 1rem">
         <Referal />
-        </div>
+      </div>
 
       <b-card title="Profile" class="for-profile">
         <b-form>
@@ -115,7 +115,7 @@
                       object-fit: cover;
                       width: 8rem;
                       height: 8rem;
-                      max-width:100%
+                      max-width: 100%;
                     "
                   />
                   <!-- <img
@@ -213,15 +213,14 @@
               <b-button
                 v-if="!updateloader"
                 variant="primary ripple"
-                  @click="updateUser"
-               
+                @click="updateUser"
                 >Update</b-button
               >
             </b-col>
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Bank Account" class="for-profile" style=" display:none">
+      <b-card title="Bank Account" class="for-profile" style="display: none">
         <b-form>
           <b-row>
             <b-col md="6">
@@ -409,7 +408,7 @@
 </template>
 <script>
 import message from '../../../message'
-import Referal from './../setting/referal.vue';
+import Referal from './../setting/referal.vue'
 export default {
   metaInfo: {
     title: 'Profile'
@@ -423,11 +422,12 @@ export default {
       clickOtp: false,
       verified: null,
       userName: '',
-      surName:'',
+      surName: '',
       tictocName: '',
-      phoneNumber:'',
+      phoneNumber: '',
       isOtp: null,
       imgSrc: null,
+
       aadharFrontCheckbox: false,
       aadharBackCheckbox: false,
       drivingLincenseBackCheckbox: false,
@@ -444,7 +444,8 @@ export default {
       logoloader: false,
       docloader: false,
       loader: false,
-      selectedLogo: 'https://tiktok.algofolks.com/Screenshot%20from%202024-06-10%2017-46-41.png',
+      selectedLogo:
+        'https://tiktok.algofolks.com/Screenshot%20from%202024-06-10%2017-46-41.png',
       form: {
         fName: '',
         lName: '',
@@ -496,27 +497,32 @@ export default {
     // },
 
     getProfileDetails () {
-      this.isLoading = true
+      this.loader = true
       this.$apiService
         .getCall(`auth/user/${this.user_id}`)
         .then(res => {
           // this.form = res.apidata.data
-          
 
-          this.userName= res.apidata.data.name
-          this.surName = res.apidata.data.surname;
-          this.tictocName = res.apidata.data.tiktok_username;
-          this.phoneNumber = res.apidata.data.contact_number;
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('success', res.message)
+            return
+          } else {
+            this.userName = res.apidata.data.name
+          this.surName = res.apidata.data.surname
+          this.tictocName = res.apidata.data.tiktok_username
+          this.phoneNumber = res.apidata.data.contact_number
           if (res.apidata.data.image) {
-             this.selectedLogo=res.apidata.data.image;
+            this.selectedLogo = res.apidata.data.image
           }
-         
-         
-          this.isLoading = false
+
+          this.loader = false
+          }
+          
         })
         .catch(error => {
-          this.isLoading = false
-         
+          this.loader = false;
+           this.$toaster.makeToast('success', 'Error fetch profile data')
         })
     },
 
@@ -533,7 +539,6 @@ export default {
       this.showMail = true
       this.clearModalForm()
     },
-   
 
     clickOtpVarified () {
       this.clickOtp = true
@@ -553,7 +558,7 @@ export default {
           this.$toaster.makeToast('warning', 'Some think error')
         })
     },
-     clickEmailVarified () {
+    clickEmailVarified () {
       this.loader = true
       const reqData = {
         email: this.emailUser
@@ -581,7 +586,7 @@ export default {
     //     this.form.pin_code = this.form.pin_code.toString().substring(0, 5)
     //   }
     // },
-     checkLength (event) {
+    checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
@@ -893,15 +898,15 @@ export default {
             .then(data => resolve(data))
             .catch(error => reject(error))
         })
- 
+
         // const response = this.$apiService.postCall('util/image/', formData)
         if (response.error) {
           this.logoloader = false
           this.$toaster.makeToast('warning', response.message)
         } else {
           this.logoloader = false
-          this.selectedLogo = response.apidata.url;
-          await this.setImageAfter()      
+          this.selectedLogo = response.apidata.url
+          await this.setImageAfter()
           this.$toaster.makeToast('success', 'Profile update successfully')
         }
       } catch (error) {
@@ -911,38 +916,35 @@ export default {
       }
     },
 
+    async setImageAfter (e) {
+      this.logoloader = true
 
+      try {
+        let imageData = {
+          _id: this.user_id,
+          image: this.selectedLogo
+        }
 
-  async setImageAfter(e) {
-  this.logoloader = true;
+        const response = await new Promise((resolve, reject) => {
+          this.$apiService
+            .postCall('auth/member-update-profile', imageData)
+            .then(data => resolve(data))
+            .catch(error => reject(error))
+        })
 
-
-  try {
-    let imageData = {
-      _id: this.user_id,
-      image: this.selectedLogo
-    };
-
-    const response = await new Promise((resolve, reject) => {
-      this.$apiService
-        .postCall('auth/member-update-profile', imageData)
-        .then(data => resolve(data))
-        .catch(error => reject(error));
-    });
-
-    if (response.error) {
-      this.logoloader = false;
-      this.$toaster.makeToast('warning', response.message);
-    } else {
-      this.logoloader = false;
-      // this.selectedLogo = response.apidata.url;
-      // this.$toaster.makeToast('success', 'Profile updated successfully');
-    }
-  } catch (error) {
-    this.logoloader = false;
-    this.$toaster.makeToast('warning', 'Error: Server Error');
-  }
-},
+        if (response.error) {
+          this.logoloader = false
+          this.$toaster.makeToast('warning', response.message)
+        } else {
+          this.logoloader = false
+          // this.selectedLogo = response.apidata.url;
+          // this.$toaster.makeToast('success', 'Profile updated successfully');
+        }
+      } catch (error) {
+        this.logoloader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+      }
+    },
 
     // setImage(e) {
     //   this.logoloader = true;
@@ -1032,35 +1034,34 @@ export default {
     chooseImage () {
       document.getElementById('chooseLogo').click()
     },
-    updateUser() {
-  this.updateloader = true;
+    updateUser () {
+      this.updateloader = true
 
-  let userData = {};
+      let userData = {}
 
-  if (this.userName) userData.name = this.userName;
-  if (this.surName) userData.surname = this.surName;
-  if (this.phoneNumber) userData.contact_number = this.phoneNumber;
-  if (this.tictocName) userData.tiktok_username = this.tictocName;
-  userData._id = this.user_id;
+      if (this.userName) userData.name = this.userName
+      if (this.surName) userData.surname = this.surName
+      if (this.phoneNumber) userData.contact_number = this.phoneNumber
+      if (this.tictocName) userData.tiktok_username = this.tictocName
+      userData._id = this.user_id
 
-  if (!this.userName && !this.surName) {
-    this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE);
-    this.updateloader = false;
-    return;
-  }
+      if (!this.userName && !this.surName) {
+        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
+        this.updateloader = false
+        return
+      }
 
-  this.$apiService.postCall('auth/member-update', userData)
-    .then(res => {
-      this.updateloader = false;
-      this.$toaster.makeToast('success', 'Details updated successfully');
-      
-    })
-    .catch(error => {
-      this.updateloader = false;
-      this.$toaster.makeToast('warning', 'Details update error');
-    });
-},
-
+      this.$apiService
+        .postCall('auth/member-update', userData)
+        .then(res => {
+          this.updateloader = false
+          this.$toaster.makeToast('success', 'Details updated successfully')
+        })
+        .catch(error => {
+          this.updateloader = false
+          this.$toaster.makeToast('warning', 'Details update error')
+        })
+    },
 
     updateDocuments () {
       this.docloader = true
@@ -1134,7 +1135,7 @@ export default {
         )
       }
     },
-    
+
     // async getCarDetails() {
     //   try {
     //     this.loader = true;
@@ -1232,7 +1233,6 @@ export default {
         .catch(error => {
           this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
           this.submitloader = false
-         
         })
     }
   }
@@ -1330,34 +1330,29 @@ img {
   width: 59% !important;
 }
 
-
-
 .form-control {
-    border: initial;
-    outline: initial !important;
-    background: #F3F4F6;
-    border: 1px solid #9CA3AF;
-    color: #111827;
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af;
+  color: #111827;
 }
-
 
 .row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-     margin-right: 0px!important;
-   margin-left: 0px!important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
-
 .col-md-6 {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-     padding-right: 15px !important;
-  
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px !important;
 }
 
 /* Style for the container to improve readability and appearance */

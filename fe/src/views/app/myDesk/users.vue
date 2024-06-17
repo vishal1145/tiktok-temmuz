@@ -81,7 +81,7 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="phoneNumber"  maxlength="18"></b-form-input>
+         <b-form-input class=" form-control" id="phone" type="tel" name="phone" maxlength="18"></b-form-input>
        </b-form-group>
      
      </div>
@@ -622,6 +622,7 @@ export default {
       userSurName: '',
       tikTokUserName: '',
       updateId: null,
+      phoneNumberfield:null,
       getphoneNumber: null,
       getuserName: null,
       getuserSurName: null,
@@ -667,7 +668,7 @@ export default {
       this.showAddModal = true;
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
-        this.phoneNumber = window.intlTelInput(phoneInputField, {
+        this.phoneNumberfield = window.intlTelInput(phoneInputField, {
           initialCountry: "in",
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
@@ -700,10 +701,10 @@ export default {
 
       this.showEditModal = true
 
-      const phoneInputField = document.querySelector("#phone");
+      
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
-        this.getphoneNumber = window.intlTelInput(phoneInputField, {
+        this.phoneNumberfield = window.intlTelInput(phoneInputField, {
           initialCountry: "in",
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
@@ -839,7 +840,20 @@ export default {
       }
     },
 
-    formSubmitEditMember () {
+    formSubmitEditMember() {
+       if (!this.phoneNumberfield.isValidNumber()) {
+        this.$toaster.makeToast(
+          'warning',
+          'Invalid number'
+        )
+        return;
+      }
+      this.getphoneNumber = this.phoneNumberfield.getNumber();
+      
+    
+      if (this.getphoneNumber.startsWith('+')) {
+        this.getphoneNumber = this.getphoneNumber.slice(1)
+      }
       this.imgLoader = true
       let requestData = {
         contact_number: this.getphoneNumber,
@@ -911,15 +925,25 @@ export default {
 
 
     formSubmitAddMember () {      
-      if (!this.phoneNumber.isValidNumber()) {
+      if (!this.phoneNumberfield.isValidNumber()) {
         this.$toaster.makeToast(
           'warning',
           'Invalid number'
         )
         return;
       }
-      this.contact_number = this.phoneNumber.getNumber();
-      this.imgLoader = true
+      this.phoneNumber = this.phoneNumberfield.getNumber();
+      
+    
+      if (this.phoneNumber.startsWith('+')) {
+        this.phoneNumber = this.phoneNumber.slice(1)
+      }
+      if (!this.userName || !this.userSurName|| !this.tikTokUserName) {
+        this.$toaster.makeToast('warning', 'All Field is required')
+        return;;
+      }
+      this.imgLoader = true;
+
 
       let requestData = {
         contact_number: this.phoneNumber,

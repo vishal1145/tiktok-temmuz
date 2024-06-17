@@ -22,7 +22,7 @@
     <b-col lg="6" xl="6" mt="3" class="align-self-center h-100">
       <div>
         <div v-if="activeChild === 1">
-          <div class="o-hidden">
+          <div class="">
             <div class="row">
               <div class="col-md-12">
                 <div class="p-4 px-5 paddingLaptop">
