@@ -238,7 +238,9 @@
             <p class="text-muted mt-2 mb-0" style="
     width: 112px;
 ">Earnings Revenue</p>
-            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >$ &nbsp;{{totalEarningData}}</p>
+            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" style="
+    width: 78px;
+">$ &nbsp;{{totalEarningData}}</p>
           </div>
         </b-card>
       </b-col>
@@ -769,43 +771,47 @@ export default {
     clickShowPopup () {
       this.$bvModal.show('modal-addMember')
     },
-    getGraphData () {
-      this.loader = true
+    getGraphData() {
+  this.loader = true;
+  const user_id = localStorage.getItem('user_id')
+  const userRole = localStorage.getItem('role');
+  let requestBody = {};
 
-      this.$apiService
-        .getCall(`user/creators-earnings-graph`)
-        .then(res => {
-          if (res.isError) {
-            this.loader = false
-            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-          } else {
-            if (res.apidata.dates) {
-              var graphData = res.apidata.dates
-              graphData = graphData.map(date =>
-                moment(date).format('YYYY-MM-DDTHH:mm:ss')
-              )
+  if (userRole === 'user') {
+    requestBody = {
+      _id: user_id
+    };
+  }
 
-              // var dates = graphData;
-              var diamondData = res.apidata.diamonds
-              var earningData = res.apidata.earnings
+  this.$apiService
+    .postCall(`user/creators-earnings-graph`, requestBody)
+    .then(res => {
+      if (res.isError) {
+        this.$toaster.makeToast('warning', message.ERROR_MESSAGE);
+      } else {
+        var graphData = res.apidata.dates.map(date =>
+          moment(date).format('YYYY-MM-DDTHH:mm:ss')
+        );
 
-              diamondData.forEach(e => {
-                this.totalDiamondData += Number(e)
-              })
-              this.totalDiamondData = this.totalDiamondData.toFixed(2);
-              earningData.forEach(e => {
-                this.totalEarningData += e
-              })
-              this.totalEarningData = this.totalEarningData.toFixed(2);
-              this.diamondsDataGraph = {
-                series: [
-                  {
-                    name: 'diamonds',
-                    data: diamondData
-                  }
-                ]
-              }
-              this.earningsDataGraph = {
+        var diamondData = res.apidata.diamonds;
+        var earningData = res.apidata.earnings;
+
+        // Calculate total diamond data
+        this.totalDiamondData = diamondData.reduce((acc, current) => acc + Number(current), 0);
+        this.totalDiamondData = this.totalDiamondData.toFixed(2);
+
+        // Calculate total earning data
+        this.totalEarningData = earningData.reduce((acc, current) => acc + current, 0);
+        this.totalEarningData = this.totalEarningData.toFixed(2);
+
+        this.sparkData = {
+          series: [
+            {
+              name: 'Diamonds',
+              data: diamondData
+            }
+          ]
+        };    this.earningsDataGraph = {
                 series: [
                   {
                     name: 'earnings',
@@ -866,86 +872,79 @@ export default {
                 }
               }
 
-              this.yearAreaWidget = {
-                series: [
-                  {
-                    name: 'Diamonds',
-                    data: diamondData
-                  },
-                  {
-                    name: 'Earnings',
-                    data: earningData
-                  }
-                ],
-
-                chartOptions: {
-                  chart: {
-                    width: '100%',
-                    height: 100,
-                    toolbar: {
-                      show: false
-                    },
-                    sparkline: {
-                      enabled: true
-                    }
-                  },
-                  dataLabels: {
-                    enabled: false
-                  },
-                  stroke: {
-                    curve: 'smooth'
-                  },
-                  legend: {
-                    show: false
-                  },
-
-                  xaxis: {
-                    type: 'datetime',
-                    categories: graphData,
-                    labels: {
-                      show: false
-                    },
-                    axisTicks: {
-                      show: false
-                    },
-                    axisBorder: {
-                      show: false
-                    }
-                  },
-                  yaxis: {
-                    show: false
-                  },
-                  grid: {
-                    show: false
-                  },
-                  tooltip: {
-                    enabled: true,
-                    x: {
-                      format: 'dd/MM/yy HH:mm'
-                    }
-                  },
-                  colors: ['#A855F7', '#4caf50'],
-                  stroke: {
-                    curve: 'straight',
-                    width: 1
-                  }
-                }
+        this.yearAreaWidget = {
+          series: [
+            {
+              name: 'Diamonds',
+              data: diamondData
+            },
+            {
+              name: 'Earnings',
+              data: earningData
+            }
+          ],
+          chartOptions: {
+            chart: {
+              width: '100%',
+              height: 100,
+              toolbar: {
+                show: false
+              },
+              sparkline: {
+                enabled: true
               }
-            } else {
-              this.loader = false
-              this.$toaster.makeToast('warning', 'Empty Data')
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            legend: {
+              show: false
+            },
+            xaxis: {
+              type: 'datetime',
+              categories: graphData,
+              labels: {
+                show: false
+              },
+              axisTicks: {
+                show: false
+              },
+              axisBorder: {
+                show: false
+              }
+            },
+            yaxis: {
+              show: false
+            },
+            grid: {
+              show: false
+            },
+            tooltip: {
+              enabled: true,
+              x: {
+                format: 'dd/MM/yy HH:mm'
+              }
+            },
+            colors: ['#A855F7', '#4caf50'],
+            stroke: {
+              curve: 'straight',
+              width: 1
             }
           }
+        };
+      }
 
-        
+      this.loader = false;
+    })
+    .catch(error => {
+      this.$toaster.makeToast('warning', message.ERROR_MESSAGE);
+      this.loader = false;
+    });
+},
 
-          this.loader = false
-        })
-        .catch(error => {
-          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-          this.loader = false
-        })
-    },
     onComplete: function () {
       this.$swal({
         position: 'top-end',

@@ -1575,18 +1575,7 @@ imgloader {
   z-index: 10;
 }
 
-/* Modal content */
-.modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 60%;
-  /* Adjust as needed */
-  max-width: 600px;
-  /* Maximum width */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
+
 
 .close {
   position: absolute;
@@ -1595,7 +1584,7 @@ imgloader {
   cursor: pointer;
 }
 
-#modal-add___BV_modal_content_ {
+/* #modal-add___BV_modal_content_ {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1612,7 +1601,7 @@ imgloader {
   border-radius: 0.3rem;
   outline: 0;
   right: 0px !important;
-}
+} */
 
 .mt-4 {
   margin-top: 26px !important;
