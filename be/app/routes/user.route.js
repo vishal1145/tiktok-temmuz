@@ -28,7 +28,7 @@ router.post("/new-email-verify-otp", newEmailVerifyOtp);
 router.get("/get-all-members-publishers", getAllMembersPublishers);
 router.get('/all-payments', getPayments);
 router.post('/creators-earnings', getCreatorsEarnings);
-router.get('/creators-earnings-graph', getCreatorsEarningsGraph);
+router.post('/creators-earnings-graph', getCreatorsEarningsGraph);
 
 
 module.exports = router;
