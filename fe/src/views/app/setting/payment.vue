@@ -186,6 +186,50 @@
       </b-row>
     </b-modal>
 
+    <b-modal
+      id="modal-cancelReason"
+      size="md"
+      title="Reason for cancellation:"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <b-row class="">
+        <b-col md="12">
+          <i
+            class="fa fa-exclamation-triangle text-danger mb-3"
+            aria-hidden="true"
+          >
+            Reason for cancellation:
+          </i>
+        </b-col>
+
+        <b-col md="12">
+          <b-form-group label="" label-for="input-2">
+            <b-form-textarea
+              v-model="cancelReasonText"
+              required
+              placeholder="Reason for cancellation"
+              style="height: 100px"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
+            <b-button class=" mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button
+              class=""
+              variant="primary ripple"
+              @click="clickRejectButton()"
+              >ok</b-button
+            >
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
     <div class="d-flex flex-row justify-content-between pb-2 d-none">
       <b-col
         class="d-none"
@@ -262,7 +306,7 @@
               :style="{ display: flexDivDisplay }"
             >
               <div class="row w-100">
-                <div class="col-12 col-sm-6 col-lg-3 pr-0">
+                <div class="col-12 col-sm-6 col-lg-3 ">
                   <label for="users-list-search">User Name</label>
                   <fieldset class="form-group">
                     <input
@@ -328,7 +372,7 @@
             <div class="d-flex align-items-end row">
               <div class="col-7">
                 <div class="card-body text-nowrap">
-                  <h5 class="card-title mb-0">Congratulations John! 🎉</h5>
+                  <h5 class="card-title mb-0"> Congratulations {{ this.loginUserName }}! 🎉</h5>
                   <p class="">Best seller of the month</p>
                   <h4 class="text-primary mb-1">${{totalWithDraw}}</h4>
                   <a
@@ -407,10 +451,13 @@
             </span>
 
             <span v-else-if="props.column.field === 'amount'">
-              <div>{{ props.row.amount }}</div>
+              <div>${{ props.row.amount }}</div>
             </span>
             <span v-else-if="props.column.field === 'notes'">
               <div>{{ props.row.notes }}</div>
+            </span>
+            <span v-else-if="props.column.field === 'reason'">
+              <div>{{ props.row.reason }}</div>
             </span>
             <span v-else-if="props.column.field === 'action'">
               <div
@@ -517,6 +564,7 @@ export default {
 
   data () {
     return {
+      cancelReasonText: '',
       selectedStatus: '',
       searchAmount: '',
       searchTerm: '',
@@ -584,6 +632,14 @@ export default {
           }
         },
         {
+          label: 'Reason',
+          field: 'reason',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'reason'
+          }
+        },
+        {
           label: 'Action',
           field: 'action'
         }
@@ -612,6 +668,15 @@ export default {
           filterOptions: {
             enabled: true,
             placeholder: 'Notes'
+          }
+        },
+        
+        {
+          label: 'Reason',
+          field: 'reason',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'reason'
           }
         },
         {
@@ -652,9 +717,10 @@ export default {
       status: '',
       notes: '',
       UserID: '',
+      rejectedId:'',
 
       filteredFaqs: [],
-
+      loginUserName:"",
       paginationOptions: {
         enabled: true,
         mode: 'recordsPerPage',
@@ -696,6 +762,7 @@ export default {
     }
   },
   created () {
+    this.getProfileDetails()
     this.getAllUsers()
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
@@ -703,6 +770,16 @@ export default {
     this.originalRows = [...this.rows]
   },
   methods: {
+    clickRejectButton () {
+      if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
+        this.deletePublisher()
+      } else {
+        this.$toaster.makeToast(
+          'warning',
+          'Please enter a cancel reason with at least 10 characters'
+        )
+      }
+    },
     formatDate (dateString) {
       const options = {
         year: 'numeric',
@@ -740,14 +817,20 @@ export default {
       }
     },
     async clickReject (id) {
+      this.$bvModal.show('modal-cancelReason')
+      this.rejectedId = id
+    },
+    async deletePublisher (id) {
+   
       this.loader = true
       try {
         var req = {
-          status: 'Reject'
+          status: 'Reject',
+          reason: this.cancelReasonText
         }
 
         const res = await this.$apiService.postCall(
-          `transition/update-payment-status/${id}`,
+          `transition/update-payment-status/${ this.rejectedId}`,
           req
         )
 
@@ -756,11 +839,19 @@ export default {
           'success',
           ' Payment status Rejected successfully'
         )
+        this.$bvModal.hide('modal-cancelReason')
+        this.cancelReasonText = "";
         this.getAllUsers()
       } catch (error) {
         this.loader = false
-        this.$toaster.makeToast('warning', 'Error: Server Error')
+       this.$toaster.makeToast(error)
+       this.$bvModal.hide('modal-cancelReason')
       }
+    },
+
+    clickCancle () {
+      this.$bvModal.hide('modal-show-referralUrl')
+      this.$bvModal.hide('modal-cancelReason')
     },
 
     getAllUsers () {
@@ -1196,7 +1287,29 @@ validateInputAmount(event) {
       this.submitloader = false
       this.generateIDloader = false
       this.$bvModal.hide('modal-lg')
-    }
+    },
+    getProfileDetails() {
+      this.UserID = localStorage.getItem('user_id')
+            this.loader = true
+            this.$apiService
+                .getCall(`auth/user/${this.UserID}`)
+                .then(res => {
+                    console.log(res)
+                    if (res.error) {
+                        this.loader = false
+                        this.$toaster.makeToast('warning', 'Fail to fetch user data')
+                    } else {
+                        this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
+                        this.tiktok_username = res.apidata.data.tiktok_username;
+                        this.loader = false
+                        this.url =  'https://' + window.location.host + "/app/sessions/affiliate?u="+ this.tiktok_username
+                    }
+                })
+                .catch(error => {
+                    this.loader = false
+                    this.$toaster.makeToast('warning', 'Server Error')
+                })
+        },
     //     clearFilters() {
     //   this.selected ="Select User"
     //   this.use_id = null;
@@ -1299,13 +1412,7 @@ validateInputAmount(event) {
   padding-left: 3px;
 }
 
-.col-md-3 {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-}
+
 
 .multiselect__placeholder {
   color: #adadad;

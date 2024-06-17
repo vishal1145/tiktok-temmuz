@@ -236,9 +236,9 @@
           <i class="i-Wallet"></i>
           <div class="content">
             <p class="text-muted mt-2 mb-0" style="
-    width: 120px;
+    width: 112px;
 ">Earnings Revenue</p>
-            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >{{totalEarningData}}</p>
+            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >${{totalEarningData}}</p>
           </div>
         </b-card>
       </b-col>

@@ -17,6 +17,7 @@
           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
             Add Creators
           </label>
+          <!-- <button @click="launchConfetti">Launch Confetti</button> -->
         </b-col>
         <b-col md="12" v-if="role == 'admin'">
           <b-form-group
@@ -123,7 +124,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2"
+          class="justify-content-end d-flex align-items-center "
         >
           <img
             v-if="uplodedImages"
@@ -136,7 +137,7 @@
           />
         </b-col>
         <b-col>
-          <div style="display:flex; justify-content: space-between" >
+          <div style="display:flex;" class="justify-content-end">
             <b-button v-if="role != 'admin'" class="mr-2" @click="copyUrl()">
               Copy Referral Link
             </b-button>
@@ -289,7 +290,7 @@
         </b-col>
         <b-col
           md="6"
-          class="justify-content-end d-flex align-items-center py-2"
+          class="justify-content-end d-flex align-items-center "
         >
           <img
             :src="this.uplodedImages"
@@ -385,7 +386,7 @@
       hide-header
       centered
     >
-      <b-row class="p-3">
+      <b-row class="">
         <b-col md="12">
           <i
             class="fa fa-exclamation-triangle text-danger mb-3"
@@ -408,9 +409,9 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class=" mr-2" @click="clickCancle()">Cancel</b-button>
             <b-button
-              class="mb-2"
+              class=""
               variant="primary ripple"
               @click="clickRejectButton()"
               >ok</b-button
@@ -658,10 +659,10 @@
                 </div>
               </span>
 
-              <span v-else-if="props.column.field === 'first_name'">
+              <span v-else-if="props.column.field === 'createdAt'">
                 <div>
                   <div>
-                    {{ props.row.first_name }} {{ props.row.last_name }}
+                    {{ props.row.createdAt }}
                   </div>
                 </div>
               </span>
@@ -681,8 +682,9 @@
     <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
   </div>
 </template>
-
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 <script>
+import moment from 'moment'
 import Multiselect from 'vue-multiselect'
 import Referal from './referal.vue'
 export default {
@@ -740,14 +742,14 @@ export default {
       images: null,
       isEdit: false,
       columns: [
+        // {
+        //   label: 'Icons',
+        //   field: 'show_img',
+        //   sortable: false
+        // },
         {
-          label: 'Icons',
-          field: 'show_img',
-          sortable: false
-        },
-        {
-          label: 'Name',
-          field: 'first_name',
+          label: 'Date',
+          field: 'createdAt',
           filterOptions: {
             enabled: true,
             placeholder: 'User Name'
@@ -860,6 +862,13 @@ export default {
   },
 
   methods: {
+    launchConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    },
     addnewcreator() {
       this.showAddModal  = true;
       setTimeout(() => {
@@ -1039,10 +1048,16 @@ export default {
           if (response.apidata.msg) {
             this.faqs = []
           } else {
-            this.faqs = response.apidata.data
-            this.filteredFaqs = response.apidata.data
-            this.filteredFaqs = this.faqs
-            this.ForDropwDow = this.faqs
+            const paymentData = response.apidata.data
+            // this.filteredFaqs = response.apidata.data
+            // this.filteredFaqs = this.faqs
+            // this.ForDropwDow = this.faqs
+            paymentData.reverse();
+            paymentData.forEach((e) => {
+  e.createdAt = moment(e.createdAt).format("DD MMM YYYY h:mm A");
+});
+this.faqs = paymentData;
+this.filteredFaqs =paymentData;
           }
         }
         this.loader = false
@@ -1246,6 +1261,7 @@ export default {
             //this.$toaster.makeToast('success', 'Referral create successfully')
             //if (this.role === 'admin') {
               this.$toaster.makeToast('success', 'Data added successfully')
+              this.launchConfetti()
             //}
           }
         } catch (error) {
@@ -1272,6 +1288,7 @@ export default {
     },
 
     async editPublisher () {
+      debugger
       this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
@@ -1458,6 +1475,7 @@ export default {
     // }
   }
 }
+
 </script>
 <style>
 .phone-input {
@@ -1592,5 +1610,16 @@ imgloader {
   color: #ef4444;
   background-color: #fcfbfb !important;
   border: 1px solid #ef4444;
+}
+
+
+#phone
+{
+  background: #f3f4f6;
+    border: 1px solid #9ca3af;
+    border-radius: 3px;
+    color: #1f2937;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 </style>
