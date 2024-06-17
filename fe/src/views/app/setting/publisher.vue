@@ -1311,8 +1311,21 @@ this.filteredFaqs =paymentData;
     },
 
     async editPublisher () {
-      debugger
+      
+
+      if (!this.phoneInput.isValidNumber()) {
+        this.$toaster.makeToast(
+          'warning',
+          'Invalid number'
+        )
+        return;
+      }
+      this.getphoneNumber = this.phoneInput.getNumber();
+      if (this.getphoneNumber.startsWith('+')) {
+        this.getphoneNumber= this.getphoneNumber.slice(1)
+      }
       this.loader = true
+      
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -1413,6 +1426,7 @@ this.filteredFaqs =paymentData;
       }
     },
     async clickDelete (data) {
+      this.loader = true
       try {
         // Show confirmation dialog
         const result = await this.$swal({
@@ -1649,5 +1663,9 @@ imgloader {
     color: #1f2937;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.phone-input .iti {
+    width: 100%;
 }
 </style>

@@ -834,9 +834,14 @@ export default {
           if (user.error) {
             this.$toaster.makeToast('warning', user.message);
           } else {
-            this.$toaster.makeToast('success', 'User deleted successfully');
+           
             this.showEditModal = false;
-            this.getAllUsers();
+           
+      this.getAllUsers();
+      setTimeout(() => {
+        this.$toaster.makeToast('success', 'User deleted successfully');
+    }, 1000);
+          
           }
         })
         .catch((error) => {
