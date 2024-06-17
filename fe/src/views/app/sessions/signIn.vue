@@ -38,8 +38,21 @@
                     v-if="isShowPhone"
                   >
                     <b-form-group class="text-12 pw">
-                      <div class="d-flex phone-input">
-                        <!-- <input id="phonenumber" type="tel" name="phonenumber" /> -->
+                      <div class="phone-input">
+                        <b-form-group
+                          label="Contact Number"
+                          label-for="input-contact-number"
+                        >
+                          <b-form-input
+                            class="form-control"
+                            id="phone"
+                            type="tel"
+                            name="phone"
+                          ></b-form-input>
+                        </b-form-group>
+                      </div>
+                      <!-- <div class="d-flex phone-input">
+                        <input id="phonenumber" type="tel" name="phonenumber" />
                         <vSelect
                           v-model="CountryCode"
                           :options="countryOptions"
@@ -57,7 +70,7 @@
                           placeholder="Enter phone number"
                           required
                         ></b-form-input>
-                      </div>
+                      </div> -->
                     </b-form-group>
 
                     <div>
@@ -91,7 +104,6 @@
                     </a>
                   </p>
 
-                  
                   <b-form
                     @submit.prevent="formSubmitOtp"
                     id="firstOtp"
@@ -696,6 +708,7 @@ export default {
         { value: '+7', text: '(+7)' }
       ],
       isShowName: false,
+
       userName: '',
       userSurName: '',
       isShowtikTokUser: false,
@@ -785,7 +798,15 @@ export default {
     // validationsGroup:['peopleAdd.multipleName']
   },
   created () {},
-  mounted() {
+  mounted () {
+    setTimeout(() => {
+      const phoneInputField = document.querySelector('#phone')
+      this.phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: 'in',
+        utilsScript:
+          'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+      })
+    }, 200)
     // const phoneInputField = document.querySelector("#phonenumber");
     // this.phoneInput = window.intlTelInput(phoneInputField, {
     //   utilsScript:
@@ -969,14 +990,17 @@ export default {
       ;(this.isShowName = false), (this.isShowOtp = true)
     },
     formSubmittikTokUser () {
-
       this.isShowOtp = true
       this.isShowName = false
       this.loader = true
+      this.PhoneNumber = this.phoneInput.getNumber()
+      if (this.PhoneNumber.startsWith('+')) {
+        this.PhoneNumber = this.PhoneNumber.slice(1)
+      }
       //var phoneNumberLocal = this.phoneInput.getNumber();
       let requestData = {
         //contact_number: phoneNumberLocal.replace('+', ''), // + this.PhoneNumber,
-        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
+        contact_number: this.PhoneNumber,
         role: 'user',
         name: this.userName,
         surname: this.userSurName,
@@ -1015,8 +1039,12 @@ export default {
     },
     formSubmitOtp () {
       this.loader = true
+      this.PhoneNumber = this.phoneInput.getNumber();
+       if (this.PhoneNumber.startsWith('+')) {
+        this.PhoneNumber = this.PhoneNumber.slice(1)
+      }
       let requestData = {
-        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
+        contact_number: this.PhoneNumber,
         otp: this.concatenatedPhoneOtp
       }
 
@@ -1068,8 +1096,12 @@ export default {
     },
     resendOtp () {
       this.loader = true
+      this.PhoneNumber = this.phoneInput.getNumber();
+       if (this.PhoneNumber.startsWith('+')) {
+        this.PhoneNumber = this.PhoneNumber.slice(1)
+      }
       let requestData = {
-        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
+        contact_number: this.PhoneNumber
       }
 
       this.$apiService
@@ -1088,27 +1120,28 @@ export default {
           this.loader = false
         })
     },
-    removeElementsByClass(className){
-      const elements = document.getElementsByClassName(className);
-      while(elements.length > 0){
-          elements[0].parentNode.removeChild(elements[0]);
+    removeElementsByClass (className) {
+      const elements = document.getElementsByClassName(className)
+      while (elements.length > 0) {
+        elements[0].parentNode.removeChild(elements[0])
       }
     },
     formSubmit () {
+      if (!this.phoneInput.isValidNumber()) {
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
+      }
 
-      // const enteredNumber = this.phoneInput.getNumber();
-      // // console.log(enteredNumber);
-      // this.enteredNumber = enteredNumber;
-      // return;
-
-      // alert("kdkdkdkd")s
+      this.PhoneNumber = this.phoneInput.getNumber()
       this.loader = true
-
+ if (this.PhoneNumber.startsWith('+')) {
+        this.PhoneNumber = this.PhoneNumber.slice(1)
+      }
       let requestData = {
-       //contact_number: enteredNumber.replace('+', '') //+ this.PhoneNumber,
+        //contact_number: enteredNumber.replace('+', '') //+ this.PhoneNumber,
         // 'role':"user"
         // password: this.password
-        contact_number: this.CountryCode.replace('+', '') + this.PhoneNumber,
+        contact_number: this.PhoneNumber
       }
 
       this.$apiService
@@ -1321,16 +1354,13 @@ export default {
 
 <style>
 .phone-input {
-
   .iti {
     width: 100%;
-     
+
     #phonenumber {
       width: 100%;
     }
   }
-
-
 }
 
 .for-nav {
