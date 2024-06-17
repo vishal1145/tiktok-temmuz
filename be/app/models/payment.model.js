@@ -6,7 +6,7 @@ const PaymentSchema = new mongoose.Schema({
   status: { type: String, default: "Pending" },
   notes: { type: String, default: null },
   user_id: { type: mongoose.Types.ObjectId, ref: "member" },
-
+  reason: { type: String, default: null }
 });
 
 // Export the model

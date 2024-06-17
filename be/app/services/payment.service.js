@@ -31,9 +31,9 @@ exports.getPayments = async (_id) => {
 
 exports.getOnlyUser = async (_id) => {
   const publishers = await Payment.aggregate([{ $match: { user_id: new mongoose.Types.ObjectId(_id) } }]);
-  const approved_payment = publishers.filter((e)=> e.status == "Approved");
+  const approved_payment = publishers.filter((e) => e.status == "Approved");
   const total_withdraw = approved_payment.reduce((accumulator, item) => accumulator + item.amount, 0);
-  return {publishers, total_withdraw};
+  return { publishers, total_withdraw };
 };
 
 
@@ -43,9 +43,13 @@ exports.getPaymentById = async (id) => {
   return payment;
 };
 
-exports.updatePaymentStatus = async (id, updateData) => {
-  const { status } = updateData;
-  const payment = await Payment.findByIdAndUpdate(id, { status });
+exports.updatePaymentStatus = async (id, body) => {
+  const payment = await Payment.findByIdAndUpdate(id, {
+    $set: {
+      status: body.status,
+      reason: body.reason
+    }
+  });
   return payment;
 };
 
