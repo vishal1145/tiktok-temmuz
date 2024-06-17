@@ -835,6 +835,7 @@ h6,
   background-size: cover; /* This will ensure the gif covers the entire background */
   width: 100vw; /* Make sure the width covers the whole viewport */
   height: 100vh; /* Make sure the height covers the whole viewport */
+  padding: 16px 0;
 }
 
 </style>
