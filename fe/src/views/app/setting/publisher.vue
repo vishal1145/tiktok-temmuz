@@ -1534,7 +1534,7 @@ this.filteredFaqs =paymentData;
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style scoped>
+<style >
 .phone-input {
 
 .iti {

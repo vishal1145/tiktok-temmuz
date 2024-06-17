@@ -16,7 +16,7 @@
         Add Members
       </label>
       <b-row class="">
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="First Name" label-for="input-name">
             <b-form-input
               v-model="userName"
@@ -29,7 +29,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Last Name" label-for="input-title">
             <b-form-input
               v-model="userSurName"
@@ -42,7 +42,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="tikTokUserName"
@@ -55,7 +55,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <!-- <b-col md="12" class="px-0">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="phoneNumber"
@@ -67,9 +67,26 @@
               id="input-phoneNumber"
             ></b-form-input>
           </b-form-group>
-        </b-col>
-
-        <b-col class="px-0">
+        </b-col> -->
+        
+        <b-col md="12">
+       
+       <div class="phone-input">
+       <b-form-group label="Contact Number" label-for="input-contact-number">
+         <!-- <b-form-input
+           v-model="contact_number"
+           required
+           placeholder="Contact number"
+           type="number"
+           @keydown="checkLengthPhone"
+           id="input-contact-number"
+         ></b-form-input> -->
+         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="phoneNumber"  maxlength="18"></b-form-input>
+       </b-form-group>
+     
+     </div>
+   </b-col>
+        <b-col>
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
             <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
@@ -98,12 +115,13 @@
       hide-footer
       hide-header
       centered
+    
     >
       <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Update Members
       </label>
       <b-row class="">
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Enter name" label-for="input-title">
             <b-form-input
               v-model="getuserName"
@@ -115,7 +133,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="Enter surname" label-for="input-title">
             <b-form-input
               v-model="getuserSurName"
@@ -127,7 +145,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <b-col md="12" >
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="gettikTokUserName"
@@ -139,7 +157,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" class="px-0">
+        <!-- <b-col md="12" class="px-0">
           <b-form-group label="Contact number" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
@@ -151,19 +169,36 @@
               id="input-phoneNumber"
             ></b-form-input>
           </b-form-group>
-        </b-col>
-
+        </b-col> -->
+      
+        <b-col md="12">
+       
+       <div class="phone-input">
+       <b-form-group label="Contact Number" label-for="input-contact-number">
+         <!-- <b-form-input
+           v-model="contact_number"
+           required
+           placeholder="Contact number"
+           type="number"
+           @keydown="checkLengthPhone"
+           id="input-contact-number"
+         ></b-form-input> -->
+         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="18"></b-form-input>
+       </b-form-group>
+     
+     </div>
+   </b-col>
         <b-col>
           <div class="d-flex justify-content-end px-0">
             <b-button
               v-if="!imgLoader"
-              class="mb-2 mr-2"
+              class=" mr-2"
               @click="closeEditModal()"
               >Close</b-button
             >
             <b-button
               v-if="!imgLoader"
-              class="mb-2"
+              class=""
               variant="primary ripple"
               @click="formSubmitEditMember()"
               >Update</b-button
@@ -177,10 +212,10 @@
             <b-button class="mb-2 mr-2" @click="closeEditModal()">Close</b-button>
           </div> -->
         </b-col>
-      </b-row>
+      </b-row >
     </b-modal>
     <b-modal id="modal-add-rates" size="md" hide-footer hide-header centered>
-      <b-row class="p-3">
+      <b-row class="">
         <b-col md="12">
           <i class="fa   mb-3" aria-hidden="true"> Default Commission Rates </i>
         </b-col>
@@ -221,9 +256,9 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-            <b-button class="mb-2 mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class="mr-2" @click="clickCancle()">Cancel</b-button>
             <b-button
-              class="mb-2"
+              class=""
               variant="primary ripple"
               @click="clickAddButton()"
               >Update</b-button
@@ -368,7 +403,7 @@
           >
             <b-button
               v-if="role != 'admin'"
-              @click="showAddModal = true"
+           @click="openAddModal"
               variant="primary ripple btn-icon m-1"
               style="
                 padding-top: 2px;
@@ -628,6 +663,17 @@ export default {
 
   },
   methods: {
+    openAddModal() {
+      this.showAddModal = true;
+      setTimeout(() => {
+        const phoneInputField = document.querySelector("#phone");
+        this.phoneNumber = window.intlTelInput(phoneInputField, {
+          initialCountry: "in",
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });  
+      }, 200);
+    },
     closeModal () {
       this.isEdit = false
       this.phoneNumber = ''
@@ -653,6 +699,16 @@ export default {
       this.gettikTokUserName = data.tiktok_username
 
       this.showEditModal = true
+
+      const phoneInputField = document.querySelector("#phone");
+      setTimeout(() => {
+        const phoneInputField = document.querySelector("#phone");
+        this.getphoneNumber = window.intlTelInput(phoneInputField, {
+          initialCountry: "in",
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });  
+      }, 200);
     },
 
     checkLength (event) {
@@ -854,8 +910,17 @@ export default {
 },
 
 
-    formSubmitAddMember () {
+    formSubmitAddMember () {      
+      if (!this.phoneNumber.isValidNumber()) {
+        this.$toaster.makeToast(
+          'warning',
+          'Invalid number'
+        )
+        return;
+      }
+      this.contact_number = this.phoneNumber.getNumber();
       this.imgLoader = true
+
       let requestData = {
         contact_number: this.phoneNumber,
         role: 'user',
@@ -1269,14 +1334,17 @@ export default {
     color: #111827;
 }
 
+#phone
+{
+  background: #f3f4f6;
+    border: 1px solid #9ca3af;
+    border-radius: 3px;
+    color: #1f2937;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-.row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-     margin-right: 0px!important;
-   margin-left: 0px!important;
+.phone-input .iti {
+    width: 100%;
 }
 </style>
