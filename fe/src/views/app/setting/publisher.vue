@@ -92,7 +92,7 @@
                 @keydown="checkLengthPhone"
                 id="input-contact-number"
               ></b-form-input> -->
-              <input id="phone" type="tel" name="phone" />
+              <b-form-input class=" form-control" id="phone" type="tel" name="phone" ></b-form-input>
             </b-form-group>
           </div>
         </b-col>
@@ -874,6 +874,7 @@ export default {
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
         this.phoneInput = window.intlTelInput(phoneInputField, {
+          initialCountry: "in",
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });  
@@ -1185,15 +1186,19 @@ this.filteredFaqs =paymentData;
       // Check if all required fields are filled
       // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
 
-      // if (this.role === 'admin') {
-      //   if (!this.tiktok_username || !this.agency_center_code) {
-      //     this.$toaster.makeToast(
-      //       'warning',
-      //       'Please fill in all the required fields'
-      //     )
-      //   }
-      // }
+     if (!this.phoneInput.isValidNumber()) {
+        this.$toaster.makeToast(
+          'warning',
+          'Invalid number'
+        )
+        return;
+      }
+
       this.contact_number = this.phoneInput.getNumber();
+    
+      if (this.contact_number.startsWith('+')) {
+        this.contact_number = this.contact_number.slice(1)
+      }
       if (!this.tiktok_username || !this.contact_number) {
         this.$toaster.makeToast(
           'warning',
