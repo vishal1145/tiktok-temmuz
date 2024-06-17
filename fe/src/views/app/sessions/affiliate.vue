@@ -139,7 +139,6 @@
                       id="lastName"
                     />
                   </div>
-                  
                 </div>
                 <div class="w-50">
                   <div class="mb-3 pl-2">
@@ -152,14 +151,20 @@
                       class="form-control"
                       id="tiktokName"
                     />
+                    <p class=" text-danger">{{ showErrorText }}</p>
                   </div>
 
-                  <div class="mb-3 pr-2">
+                  <div class="mb-3 pl-2">
                     <label for="phoneNumber" class="form-label"
                       >Phone Number</label
                     >
                     <div class="d-flex phone-input">
-                      <input id="phone" type="tel" name="phone" />
+                      <input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        class="form-control"
+                      />
                     </div>
                     <!-- <input
                       type="number"
@@ -170,7 +175,7 @@
                     /> -->
                   </div>
 
-                  <div class="mb-3 pl-2 d-none" >
+                  <div class="mb-3 pl-2 d-none">
                     <label for="tiktokCode" class="form-label"
                       >TikTok Agency Code</label
                     >
@@ -183,7 +188,7 @@
                     />
                   </div>
 
-                  <div class=" justify-content-between d-none">
+                  <div class="justify-content-between d-none">
                     <div class="mb-3 w-50">
                       <label for="img-btn" class="form-label"
                         >Select Image</label
@@ -268,6 +273,7 @@ export default {
       signInImage: require('@/assets/images/photo-long-3.jpg'),
       password: '',
       phone: '',
+      showErrorText: '',
       repeatPassword: '',
       submitStatus: null,
       alertShow: false,
@@ -328,12 +334,13 @@ export default {
     this.getMemberTikTokUser()
   },
 
-  mounted() {
-    const phoneInputField = document.querySelector("#phone");
+  mounted () {
+    const phoneInputField = document.querySelector('#phone')
     this.phoneInput = window.intlTelInput(phoneInputField, {
+      initialCountry: 'in',
       utilsScript:
-        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
+        'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+    })
   },
   methods: {
     ...mapActions(['signUserUp']),
@@ -443,7 +450,17 @@ export default {
       }
     },
     async addPublisher () {
-      this.phoneNumber = this.phoneInput.getNumber();
+      if (!this.phoneInput.isValidNumber()) {
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
+      }
+
+      this.phoneNumber = this.phoneInput.getNumber()
+
+      if (this.phoneNumber.startsWith('+')) {
+        this.phoneNumber = this.phoneNumber.slice(1)
+      }
+
       if (
         !this.phoneNumber ||
         !this.userFirstName ||
@@ -452,6 +469,7 @@ export default {
       ) {
         this.$toaster.makeToast('warning', 'All fields are required')
       } else {
+           this.loader = true;
         let requestData1 = {
           tiktok_username: this.tiktokName,
           userId: this.userId
@@ -460,68 +478,74 @@ export default {
           `publisher/can-update`,
           requestData1
         )
-      var canUpdateData = resp.apidata.canUpdate;
-      if (canUpdateData==true) {
-        this.loader = true
+        var canUpdateData = resp.apidata.canUpdate
+        if (canUpdateData == true) {
+       
 
-        try {
-          //const imageUrls = await this.uploadImages();
+          try {
+            //const imageUrls = await this.uploadImages();
 
-          let requestData = {
-            first_name: this.userFirstName,
-            last_name: this.userLastName,
-            contact_number: this.phoneNumber,
-            agency_center_code: this.centerCode,
-            tiktok_username: this.tiktokName,
-            icon: this.uplodedImages || null
-          }
-          // Assuming you want to make a POST request
-          const res = await new Promise((resolve, reject) => {
-            this.$apiService
-              .postCall(`publisher/update/${resp.apidata.result._id}`, requestData)
-              .then(data => resolve(data))
-              .catch(error => reject(error))
-          })
-          await this.addStatus(resp.apidata.result._id)
+            let requestData = {
+              first_name: this.userFirstName,
+              last_name: this.userLastName,
+              contact_number: this.phoneNumber,
+              agency_center_code: this.centerCode,
+              tiktok_username: this.tiktokName,
+              icon: this.uplodedImages || null
+            }
+            // Assuming you want to make a POST request
+            const res = await new Promise((resolve, reject) => {
+              this.$apiService
+                .postCall(
+                  `publisher/update/${resp.apidata.result._id}`,
+                  requestData
+                )
+                .then(data => resolve(data))
+                .catch(error => reject(error))
+            })
+            await this.addStatus(resp.apidata.result._id)
 
-          if (res.error) {
+            if (res.error) {
+              this.loader = false
+              this.$toaster.makeToast('warning', res.message)
+            } else {
+              this.$toaster.makeToast(
+                'success',
+                'Your data has been recorded, and you will be notified shortly.'
+              )
+              this.$router.push('/app/sessions/signIn')
+              this.loader = false
+              this.userFirstName = ''
+              this.userLastName = ''
+              this.tiktokName = ''
+              this.centerCode = ''
+              this.phoneNumber = ''
+              this.uplodedImages = null
+              // this.$toaster.makeToast('success', 'Data added successfully');
+            }
+          } catch (error) {
             this.loader = false
-            this.$toaster.makeToast('warning', res.message)
-          } else {
-            this.$toaster.makeToast(
-              'success',
-              'Your data has been recorded, and you will be notified shortly.'
-            )
-            this.$router.push('/app/sessions/signIn')
-            this.loader = false
-            this.userFirstName = ''
-            this.userLastName = ''
-            this.tiktokName = ''
-            this.centerCode = ''
-            this.phoneNumber = ''
-            this.uplodedImages = null
-            // this.$toaster.makeToast('success', 'Data added successfully');
+            this.$toaster.makeToast('warning', 'Error: Server Error')
+            // console.error(error)
           }
-        } catch (error) {
-          this.loader = false
-          this.$toaster.makeToast('warning', 'Error: Server Error')
-          // console.error(error)
+        } else {
+          this.loader = false;
+
+          this.showErrorText = 'Keep the same username as TikTok.';
+          setTimeout(() => {this.showErrorText='' },10000);
+          this.$toaster.makeToast(
+            
+            'warning',
+            'you are not allowed to fill the application'
+          )
         }
-      } else {
-        this.$toaster.makeToast(
-          'warning',
-          'you are not allowed to fill the application '
-        )
       }
-      }
-      
     },
     async addStatus (recordId) {
-
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
       // } else {
-      this.loader = true
+      // this.loader = true
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -543,18 +567,18 @@ export default {
           this.loader = false
           this.$toaster.makeToast('warning', res.message)
         } else {
-          this.$toaster.makeToast(
-            'success',
-            'Your data has been recorded, and you will be notified shortly.'
-          )
-          this.$router.push('/app/sessions/signIn')
-          this.loader = false
-          this.userFirstName = ''
-          this.userLastName = ''
-          this.tiktokName = ''
-          this.centerCode = ''
-          this.phoneNumber = ''
-          this.uplodedImages = null
+          // this.$toaster.makeToast(
+          //   'success',
+          //   'Your data has been recorded, and you will be notified shortly.'
+          // )
+          // this.$router.push('/app/sessions/signIn')
+          // this.loader = false
+          // this.userFirstName = ''
+          // this.userLastName = ''
+          // this.tiktokName = ''
+          // this.centerCode = ''
+          // this.phoneNumber = ''
+          // this.uplodedImages = null
           // this.$toaster.makeToast('success', 'Data added successfully');
         }
       } catch (error) {
@@ -688,21 +712,11 @@ export default {
   }
 }
 </script>
-<style>
-.phone-input {
-  width: 100%;
-.iti {
-  width: 100%;
-   
-  #phone {
-    width: 100%;
-  }
-}
 
-
+<style >
+.phone-input .iti {
+  width: 100%;
 }
-</style>
-<style scoped>
 .container {
   max-width: 800px;
 }

@@ -1017,7 +1017,7 @@ export default {
             //   this.timerClass = 'd-flex';
             // },1000);
           } else {
-            this.$toaster.makeToast('success', 'User create successfully')
+            this.$toaster.makeToast('success', 'OTP sent successfully')
             //         setTimeout(() => {
             //   this.timerClass = 'd-flex';
             // }, 1000);
@@ -1053,10 +1053,10 @@ export default {
         .then(user => {
           if (user.error) {
             this.loader = false
-            this.$toaster.makeToast('warning', 'invalid otp try again')
+            this.$toaster.makeToast('warning', 'Invalid otp try again')
           } else {
             this.loader = false
-            this.$toaster.makeToast('success', 'Otp match successfully')
+            this.$toaster.makeToast('success', 'User created successfully')
             localStorage.setItem('accesstoken', user.apidata.access_token)
             localStorage.setItem('role', user.apidata.role)
             localStorage.setItem('user_id', user.apidata.user_id)
@@ -1067,7 +1067,7 @@ export default {
             } else {
               {
                 setTimeout(() => {
-                  this.$router.push('/app/setting/home')
+                  this.$router.push('/app/profiledata/profile')
                 }, 500)
               }
             }
@@ -1153,7 +1153,7 @@ export default {
           } else {
             this.loader = false
             // this.TimerPause()
-            this.$toaster.makeToast('success', 'Otp send successfully')
+            this.$toaster.makeToast('success', 'OTP sent successfully')
             this.timerClass = 'd-none'
 
             const isMemberExists = user.apidata.isMemberExists
@@ -1171,10 +1171,10 @@ export default {
               //           setTimeout(() => {
               //   this.timerClass = 'd-none';
               // }, 3000);
-              this.$toaster.makeToast(
-                'warning',
-                'User is not exist, fill all details'
-              )
+              // this.$toaster.makeToast(
+              //   'warning',
+              //   'User is not exist, fill all details'
+              // )
             }
           }
           this.loader = false
@@ -1353,15 +1353,10 @@ export default {
 </script>
 
 <style>
-.phone-input {
-  .iti {
-    width: 100%;
 
-    #phonenumber {
+ .phone-input  .iti {
       width: 100%;
     }
-  }
-}
 
 .for-nav {
   width: 100%;
