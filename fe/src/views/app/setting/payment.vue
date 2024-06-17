@@ -306,7 +306,7 @@
               :style="{ display: flexDivDisplay }"
             >
               <div class="row w-100">
-                <div class="col-12 col-sm-6 col-lg-3 ">
+                <div class="col-12 col-sm-6 col-lg-3 px-0">
                   <label for="users-list-search">User Name</label>
                   <fieldset class="form-group">
                     <input

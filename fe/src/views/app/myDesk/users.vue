@@ -338,9 +338,10 @@
           class="d-flex flex-row card-body flex-wrap gap-between"
           :style="{ display: flexDivDisplay }"
         >
-          <div class="row w-100">
-            <div class="col-12 col-sm-6 col-lg-3 px-0 ">
+        <div class="row w-100">
+            <div class="col-12 col-sm-6 col-lg-3 pr-0">
               <label for="users-list-search">Search</label>
+              
               <fieldset class="form-group">
                 <input
                   type="text"
@@ -481,14 +482,14 @@
                     >Block</b-button
                   > -->
                 </div>
-                <div>
+                <div class="d-flex flex-column">
                   <span @click="clickEdit(props.row)" class="btn p-0"
                     ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
                   ></span>
 
                   <span
                     @click="formSubmitDeleteMember(props.row)"
-                    class="btn pl-3"
+                    class="btn "
                     ><i class="fa fa-trash" aria-hidden="true"></i
                   ></span>
                 </div>
