@@ -132,6 +132,7 @@
                       v-model="userFirstName"
                       class="form-control"
                       id="firstName"
+                      placeholder="First Name"
                     />
                   </div>
                   <div class="mb-3 pr-2">
@@ -141,6 +142,7 @@
                       v-model="userLastName"
                       class="form-control"
                       id="lastName"
+                        placeholder="Last Name"
                     />
                   </div>
                 </div>
@@ -154,6 +156,7 @@
                       v-model="tiktokName"
                       class="form-control"
                       id="tiktokName"
+                       placeholder="Tiktok User Name"
                     />
                     <p class=" text-danger">{{ showErrorText }}</p>
                   </div>
@@ -849,5 +852,11 @@ h6,
   height: 100vh; /* Make sure the height covers the whole viewport */
   padding: 16px 0;
 }
-
+.form-control {
+    border: initial;
+    outline: initial !important;
+    background: #F3F4F6;
+    border: 1px solid #9ca3af00;
+    color: #111827;
+}
 </style>
