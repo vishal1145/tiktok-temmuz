@@ -639,7 +639,7 @@
               </div> -->
                 </div>
               </span>
-              <span v-else-if="props.column.field === 'show_status'">
+              <span v-else-if="props.column.field === 'status'">
                 <div v-if="props.row.status === 'Approved'">
                   <span class="badge badge-success">{{
                     props.row.status
@@ -799,10 +799,10 @@ export default {
         // },
         {
           label: 'Status',
-          field: 'show_status',
+          field: 'status',
           filterOptions: {
             enabled: true,
-            placeholder: 'Reason'
+            placeholder: 'Status'
           }
         },
         {

@@ -850,6 +850,7 @@ export default {
     },
 
     clickCancle () {
+      this.cancelReasonText ='';
       this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
     },
