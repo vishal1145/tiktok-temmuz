@@ -36,7 +36,7 @@ const sendOtp = async (num) => {
     lowerCaseAlphabets: false,
   });
 
-  await tiktokUsersModel.findOneAndUpdate({ contact_number: num }, { otp: '1234' });
+  await tiktokUsersModel.findOneAndUpdate({ contact_number: num }, { otp: otp });
 
   const payload = {
     "number": num,
