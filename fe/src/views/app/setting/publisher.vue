@@ -1279,6 +1279,7 @@ this.filteredFaqs =paymentData;
             this.uplodedImages = ''
             this.contact_number = ''
             this.agency_center_code = ''
+            this.selectedName=''
             this.icon = null
             //this.$bvModal.show('modal-show-referralUrl')
             //this.$toaster.makeToast('success', 'Referral create successfully')
@@ -1467,6 +1468,8 @@ this.filteredFaqs =paymentData;
     },
     closeModal () {
       this.isEdit = false
+      this.tiktok_username=''
+      this.selectedName=''
       this.phoneNumber = ''
       this.centerCode = ''
       this.publisherName = ''
