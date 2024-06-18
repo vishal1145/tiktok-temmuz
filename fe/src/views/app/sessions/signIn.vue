@@ -1056,7 +1056,7 @@ export default {
             this.$toaster.makeToast('warning', 'Invalid otp try again')
           } else {
             this.loader = false
-            this.$toaster.makeToast('success', 'User created successfully')
+            this.$toaster.makeToast('success', 'Login successfully')
             localStorage.setItem('accesstoken', user.apidata.access_token)
             localStorage.setItem('role', user.apidata.role)
             localStorage.setItem('user_id', user.apidata.user_id)

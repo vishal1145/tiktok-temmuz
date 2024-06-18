@@ -445,7 +445,7 @@
             </span>
             <span v-else-if="props.column.field === 'name'">
               <div class="d-flex">
-                {{ props.row.name }} &nbsp;{{ props.row.surname }}
+                {{ props.row.name }} {{ props.row.surname }}
               </div>
             </span>
             <span v-else-if="props.column.field === 'tiktok_username'">
