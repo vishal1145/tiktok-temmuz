@@ -11,7 +11,31 @@
     "Email not found":"Email bulunamadı",
     "Sign Up":"Üye olmak",
     "Phone":"Telefon",
-    "Email":"E-posta"
+    "Email":"E-posta",
+    "By continue you are agree to Temmuz":"Devam ederek Temmuz'u kabul etmiş oluyorsunuz",
+    "Term of Use":"Kullanım koşulu",
+    "and":"Ve",
+    "Privacy Policy":"Gizlilik Politikası",
+    "Sign Up or Login to get started":"Başlamak için Kaydolun veya Giriş Yapın",
+    "Welcome to Temmuz!":"Temmuz'a hoş geldiniz!",
+    "Contact Number":"İletişim numarası",
+    "Otp":"Otp",
+    "Don't receive the OTP?":"OTP'yi alamıyor musunuz?",
+    "Verify Otp":"Otp'yi doğrulayın"    ,
+    "Send Otp":"Otp'yi gönder",
+    "Resend":"Yeniden gönder",
+    "Otp send successfully":"Otp başarıyla gönderildi",
+    "Login successfully":"giriş başarılı",
+    "Invalid otp try again":" Geçersiz otp tekrar deneyin",
+    "Invalid number":"Geçersiz numara",
+    "First Name":"İlk adı",
+    "Last Name":"Soy isim",
+    "TikTok Username":"TikTok Kullanıcı Adı",
+    "Next":"Sonraki",
+    "OTP sent successfully":"OTP başarıyla gönderildi"
+
+
+
     
 }
   
