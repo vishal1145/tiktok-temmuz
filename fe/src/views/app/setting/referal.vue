@@ -21,13 +21,13 @@
      style="overflow-wrap: anywhere">
     <a :href="url"
        target="_blank" 
-       class="referral-link align-self-center" 
-       :class="{ 'text-white': copied, 'text-blue': !copied }"
+       class="referral-link align-self-center text-blue" 
+       
       >
         {{url}}
     </a>
     <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
-        <i   :class="{ 'text-white': copied, 'text-blue': !copied }" class="fa fa-clone" aria-hidden="true"></i>
+        <i   class="fa fa-clone text-blue" aria-hidden="true"></i>
     </p>
 </div>
 
@@ -91,6 +91,7 @@ export default {
         .then(() => {
           this.copied = true;
           this.$emit('notify', 'URL copied to clipboard!');
+          this.$toaster.makeToast('success', 'URL copied to clipboard!')
         })
         .catch(err => {
           console.error('Could not copy text: ', err);
@@ -104,9 +105,7 @@ export default {
 </script>
 
 <style scoped>
-.text-white {
-    color: #5f5f5f !important;
-}
+
 
 .text-blue {
     color: #3b82f6 !important;
