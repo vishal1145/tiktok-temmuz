@@ -8,6 +8,10 @@
           width="104"
           height="35"
           class="d-inline-block align-text-top"
+          style="
+    width: 95px!important;
+    height: 32px!important;
+"
         />
         <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
       </div>
@@ -253,6 +257,7 @@
   };
   
   </script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 
 <script>
 import { required, sameAs, minLength } from 'vuelidate/lib/validators'
@@ -343,6 +348,13 @@ export default {
     })
   },
   methods: {
+    launchConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    },
     ...mapActions(['signUserUp']),
     //   validate form
     async handleImageSelection () {
@@ -505,42 +517,46 @@ export default {
             })
             await this.addStatus(resp.apidata.result._id)
 
-            if (res.error) {
-              this.loader = false
-              this.$toaster.makeToast('warning', res.message)
-            } else {
-              this.$toaster.makeToast(
-                'success',
-                'Your data has been recorded, and you will be notified shortly.'
-              )
-              this.$router.push('/app/sessions/signIn')
-              this.loader = false
-              this.userFirstName = ''
-              this.userLastName = ''
-              this.tiktokName = ''
-              this.centerCode = ''
-              this.phoneNumber = ''
-              this.uplodedImages = null
-              // this.$toaster.makeToast('success', 'Data added successfully');
-            }
-          } catch (error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', 'Error: Server Error')
-            // console.error(error)
-          }
+        if (res.error) {
+          this.loader = false
+          this.$toaster.makeToast('warning', res.message)
         } else {
-          this.loader = false;
-
-          this.showErrorText = 'Keep the same username as TikTok.';
-          setTimeout(() => {this.showErrorText='' },10000);
-          this.$toaster.makeToast(
-            
-            'warning',
-            'you are not allowed to fill the application'
+         
+          this.launchConfetti()
+          this.loader = false
+          setTimeout(() => {
+            this.$router.push('/app/sessions/signIn')
+           
+            this.userFirstName = ''
+            this.userLastName = ''
+            this.tiktokName = ''
+            this.centerCode = ''
+            this.phoneNumber = ''
+            this.uplodedImages = null
+            this.$toaster.makeToast(
+            'success',
+            'Your data has been recorded, and you will be notified shortly.'
           )
+          }, 3000); 
+         
         }
+      } catch (error) {
+        this.loader = false
+        this.$toaster.makeToast('warning', 'Error: Server Error')
+        // console.error(error)
       }
-    },
+    } else {
+      this.loader = false
+      this.showErrorText = 'Keep the same username as TikTok.'
+      setTimeout(() => { this.showErrorText = '' }, 10000)
+      this.$toaster.makeToast(
+        'warning',
+        'you are not allowed to fill the application'
+      )
+    }
+  }
+}
+,
     async addStatus (recordId) {
       // if (this.searchUser.length > 0) {
       //   this.$toaster.makeToast('warning', 'Publisher Name already exist')
