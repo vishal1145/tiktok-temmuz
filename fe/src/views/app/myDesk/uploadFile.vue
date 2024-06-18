@@ -125,7 +125,7 @@
             <b-button
               variant="primary"
               @click="saveExcelData()"
-              style="height: 34px"
+              style="height: 33px;margin-top: 12px;"
               class="mt-2"
               >Upload</b-button
             >
