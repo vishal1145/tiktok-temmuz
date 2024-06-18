@@ -295,7 +295,7 @@
                 </ul>
               </div>
             </div>
-            <b-row class="w-100 px-3">
+            <b-row class="w-100 px-3 pt-2 mt-1">
               <b-col md="3"
                 ><label for="users-list-search">User Name</label>
                 <fieldset class="form-group">
@@ -1155,10 +1155,13 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     clearFilters () {
-      ;(this.searchTerm = ''),
-        (this.searchAmount = ''),
-        (this.selectedStatus = '')
-      this.getAllUsers()
+         (this.searchTerm = ''),
+          (this.searchAmount = ''),
+          (this.selectedStatus = ''),
+          (this.searchMaxAmount=''),
+          (this.startDate=''),
+          (this.endDate='')
+           this.getAllUsers()
     },
 
     closeModal () {
