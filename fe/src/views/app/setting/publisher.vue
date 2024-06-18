@@ -1670,4 +1670,12 @@ imgloader {
 .plzero {
     padding-left: 5px !important;
 }
+
+.form-control {
+    border: initial;
+    outline: initial !important;
+    background: #f3f4f6;
+    border: 1px solid #9ca3af00;
+    color: #111827;
+}
 </style>
