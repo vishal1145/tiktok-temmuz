@@ -1639,6 +1639,11 @@ imgloader {
   background-color: #ffffff !important;
   border: 1px solid #10b981;
 }
+.phone-input:focus {
+  border-color: #007bff00; /* Bootstrap primary color, or any color you prefer */
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Optional: add shadow for better visibility */
+}
 
 .badge-danger {
   color: #ef4444;

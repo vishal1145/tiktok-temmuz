@@ -1309,13 +1309,7 @@ export default {
   padding-left: 3px;
 }
 
-.col-md-3 {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-}
+
 
 .multiselect__placeholder {
   color: #adadad;
@@ -1351,13 +1345,7 @@ export default {
 }
 
 
-.form-control {
-    border: initial;
-    outline: initial !important;
-    background: #F3F4F6;
-    border: 1px solid #9CA3AF;
-    color: #111827;
-}
+
 
 #phone
 {

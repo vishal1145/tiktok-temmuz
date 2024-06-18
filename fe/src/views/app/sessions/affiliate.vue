@@ -749,13 +749,7 @@ form {
   border-radius: 5px;
 }
 
-.form-control {
-  border: initial;
-  outline: initial !important;
-  background: #f3f4f6;
-  /* border: 1px solid #9CA3AF; */
-  color: #111827;
-}
+
 
 .container[data-v-8a9f1160] {
   max-width: 1294px;

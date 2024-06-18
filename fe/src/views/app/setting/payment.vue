@@ -1369,11 +1369,7 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-.form-control {
-  color: #535151;
-  padding-bottom: 7px;
-  background-color: #ffe4c400 !important;
-}
+
 .circular-image {
   height: 40px;
   width: 40px;
@@ -1517,11 +1513,5 @@ export default {
   height: 100%;
 }
 
-.form-control {
-  border: initial;
-  outline: initial !important;
-  background: #f3f4f6;
-  border: 1px solid #9ca3af;
-  color: #111827;
-}
+
 </style>

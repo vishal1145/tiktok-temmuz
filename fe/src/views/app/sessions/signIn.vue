@@ -1530,9 +1530,7 @@ export default {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.form-control {
-  border: 2px solid rgba(255, 0, 0, 0);
-}
+
 .carousel-control-next {
   right: 25px;
   width: 6%;
