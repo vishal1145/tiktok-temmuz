@@ -400,7 +400,8 @@ export default {
             this.loader = false
           } else {
             this.loader = false
-            this.$toaster.makeToast('warning', 'Empty Data')
+            // this.$toaster.makeToast('warning', 'Empty Data')
+            console.log('warning', 'Empty Data')
           }
           //this.centerCode = response.apidata.data[0].agency_center_code;
           //this.tiktokName = response.apidata.data[0].tiktok_username;
