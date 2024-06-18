@@ -402,12 +402,12 @@
                   background-color: rgb(135 131 131 / 0%);
                 "
                 v-model="searchTerm"
-                @input="onSearchTermChange"
+                
               />
             </fieldset>
           </div>
 
-          <div
+          <div  v-if="showChart"
             class="col-12 col-sm-6 col-lg-3 paddingzero"
               style="padding-right: 0px; "
             
@@ -415,13 +415,13 @@
             <label for="users-list-verified">Select User</label>
             <fieldset class="form-group">
               <multiselect
-              @input="handleChange"
+        
               v-model="selectedName"
               placeholder="Select User"
               :options="[...allUsers]"
               :multiple="false"
               :limit="1"
-              label="fullName"
+              label="creator_inf"
             ></multiselect>
             </fieldset>
           </div>
@@ -460,7 +460,7 @@
             :line-numbers="false"
             :pagination-options="paginationOptions"
             styleClass="tableOne vgt-table"
-            :rows="filteredRows"
+            :rows="doubledNumber"
           >
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field === 'actions'">
@@ -546,6 +546,7 @@
   </div>
 </template>
 
+
 <script>
 import Multiselect from 'vue-multiselect'
 import moment from 'moment'
@@ -578,6 +579,7 @@ export default {
   },
   data () {
     return {
+      selectedName: '',
       allUsers: [],
       startDate: '',
       endDate: '',
@@ -965,31 +967,44 @@ export default {
   // },
   computed: {
 
-    
 //     isDataEmpty() {
 //       const { dates, diamonds, earnings } = this.yearAreaWidget;
 //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
 //     }
 // ,
-    filteredRows () {
-      const query = this.searchTerm.toLowerCase().trim()
-      // const amount_data = this.searchAmount.trim();
-      const select_status = this.selectedStatus
+// filteredRows() {
+//   const query = this.searchTerm.toLowerCase().trim();
+//   const selectStatus = this.selectedStatus;
+//   const selectName = this.selectedName;
 
-      return this.rows.filter(row => {
-        const matchesQuery = query
-          ? row.creator_inf.toLowerCase().includes(query)
-          : true
-        const matchesStatus = select_status
-          ? row.status === select_status
-          : true
-        // const matchesAmount = amount_data
-        //   ? row.amount.toString().includes(amount_data)
-        //   : true
+//   return this.rows.filter(row => {
+//     const matchesQuery = query
+//       ? row.creator_inf.toLowerCase().includes(query)
+//       : true;
 
-        return matchesQuery && matchesStatus
-      })
-    },
+//     const matchesQueryDate = query
+//       ? row.as_of_date.toLowerCase().includes(query)
+//       : true;
+
+//     const matchesQueryMonth = query
+//       ? row.diamonds_this_month.toLowerCase().includes(query)
+//       : true;
+
+//     const matchesQueryDiamonds = query
+//       ? row.valid_days_this_month.toLowerCase().includes(query)
+//       : true;
+
+//     const matchName = selectName
+//       ? row.creator_inf === selectName.creator_inf
+//       : true;
+
+//     return matchesQuery && matchName && matchesQueryDate && matchesQueryMonth && matchesQueryDiamonds;
+//   });
+// },
+
+
+
+
     showChart() {
       return this.totalEarningData != 0.00;
     }
@@ -1005,7 +1020,11 @@ export default {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
-    }
+    },
+    doubledNumber () {
+      return this.filteredRows()
+    },
+    
   },
   created () {
     this.user_id = localStorage.getItem('user_id')
@@ -1014,11 +1033,39 @@ export default {
     this.getGraphData()
   },
   methods: {
-    handleChange (user) {
-      this.selectedUserId = user._id
+    // handleChange (user) {
+    //   this.selectedUserId = user._id
 
   
-    },
+    // },
+
+
+    filteredRows() {
+  const query = this.searchTerm.toLowerCase().trim();
+  const selectName = this.selectedName;
+  console.log("data", this.rows);
+  console.log("query", query);
+
+  return this.rows.filter(row => {
+    // Check if each field matches the query
+    const matchesQuery = query ? (
+      (row.creator_inf && row.creator_inf.toLowerCase().includes(query)) ||
+      (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
+      (row.diamonds_this_month && row.diamonds_this_month.toLowerCase().includes(query)) ||
+      (row.valid_days_this_month && row.valid_days_this_month.toLowerCase().includes(query)) ||
+      (row.earning && row.earning.toString().toLowerCase().includes(query)) ||
+      (row.percentage_achieved && row.percentage_achieved.toLowerCase().includes(query))
+    ) : true;
+
+    // Check if the selected name matches the creator_inf
+    const matchName = selectName ? row.creator_inf === selectName.creator_inf : true;
+
+    // Return true if both conditions are met
+    return matchesQuery && matchName;
+  });
+}
+
+,
     toggleFlexDiv () {
       this.flexDivDisplay =
         this.flexDivDisplay === 'flex!important'
@@ -1050,11 +1097,10 @@ export default {
         var diamondData = res.apidata.diamonds;
         var earningData = res.apidata.earnings;
 
-        // Calculate total diamond data
+ 
         this.totalDiamondData = diamondData.reduce((acc, current) => acc + Number(current), 0);
         this.totalDiamondData = this.totalDiamondData.toFixed(2);
 
-        // Calculate total earning data
         this.totalEarningData = earningData.reduce((acc, current) => acc + current, 0);
         this.totalEarningData = this.totalEarningData.toFixed(2);
         console.log(this.totalEarningData)
@@ -1152,7 +1198,7 @@ export default {
 
    
 //     const response = await this.$apiService.postCall(
-//       `user/creators-earnings-graph`,req
+//       `getcreators-earnings-graph`,req
 //     );
 //     console.log(req)
     
@@ -1269,7 +1315,8 @@ export default {
     clearFilters () {
       this.searchTerm = ''
       this.filterStatus = ''
-      this.filterData()
+      this.selectedName=''
+      this.getEarningData();
     },
     onSearchTermChange (event) {
       this.searchTerm = event.target.value
@@ -1351,6 +1398,9 @@ export default {
               e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY')
             })
             this.rows = userData
+            console.log(userData)
+            this.allUsers = userData
+           
           }
         })
         .catch(error => {
