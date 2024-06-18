@@ -37,7 +37,6 @@
               placeholder="Amount"
               style="height: 34px"
               type="number"
-       
               id="input-amount"
             ></b-form-input>
           </b-form-group>
@@ -218,7 +217,7 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-            <b-button class=" mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class="mr-2" @click="clickCancle()">Cancel</b-button>
             <b-button
               class=""
               variant="primary ripple"
@@ -234,11 +233,7 @@
       <b-col
         class="d-none"
         md="3"
-        style="
-      padding-right: 0px !important;
-      padding-left: 0px !important;
-      clas
-  "
+        style="padding-right: 0px !important; padding-left: 0px !important"
       >
         <multiselect
           @input="handleChange"
@@ -364,6 +359,36 @@
                   </fieldset>
                 </div>
               </div>
+              <b-row class=" w-100">
+                <b-col md="3" class="col-sm-6 col-lg-3 pr-0">
+                  <v2-datepicker
+                    class="for-date-picker"
+                    lang="en"
+                    ref="startDate"
+                    v-model="startDate"
+                    :picker-options="{
+                      disabledDate: time =>
+                        time.getTime() > new Date().getTime()
+                    }"
+                    @change="changeStartDate"
+                    placeholder="Select Start date"
+                  ></v2-datepicker>
+                </b-col>
+                <b-col md="3" class="pr-0">
+                  <v2-datepicker
+                    class="for-date-picker"
+                    lang="en"
+                    ref="endDate"
+                    v-model="endDate"
+                    :picker-options="{
+                      disabledDate: time =>
+                        time.getTime() > new Date().getTime()
+                    }"
+                    @change="changeEndDate"
+                    placeholder="Select End date"
+                  ></v2-datepicker>
+                </b-col>
+              </b-row>
             </div>
           </div>
         </div>
@@ -372,9 +397,11 @@
             <div class="d-flex align-items-end row">
               <div class="col-7">
                 <div class="card-body text-nowrap">
-                  <h5 class="card-title mb-0"> Congratulations {{ this.loginUserName }}! 🎉</h5>
+                  <h5 class="card-title mb-0">
+                    Congratulations {{ this.loginUserName }}! 🎉
+                  </h5>
                   <p class="">Best seller of the month</p>
-                  <h4 class="text-primary mb-1">$&nbsp;{{totalWithDraw}}</h4>
+                  <h4 class="text-primary mb-1">$&nbsp;{{ totalWithDraw }}</h4>
                   <a
                     class="btn btn-primary waves-effect waves-light"
                     style="color: white; padding-top: 3px; padding-bottom: 3px"
@@ -447,7 +474,7 @@
               <div>{{ props.row.full_name ? props.row.full_name : '' }}</div>
             </span>
             <span v-else-if="props.column.field === 'request_date'">
-              <div>{{ (props.row.request_date) }}</div>
+              <div>{{ props.row.request_date }}</div>
             </span>
 
             <span v-else-if="props.column.field === 'amount'">
@@ -564,11 +591,13 @@ export default {
 
   data () {
     return {
+      startDate: '',
+      endDate: '',
       cancelReasonText: '',
       selectedStatus: '',
       searchAmount: '',
       searchTerm: '',
-      totalWithDraw:0,
+      totalWithDraw: 0,
       isSubmitting: false,
       pageReloaded: false,
       modalVisible: false,
@@ -585,6 +614,7 @@ export default {
       passportBack: null,
       passport: null,
       isView: false,
+      imgLoader:false,
       // userBalance: "",
       // referralBalance: "",
       // totalBalance: "",
@@ -670,7 +700,7 @@ export default {
             placeholder: 'Notes'
           }
         },
-        
+
         {
           label: 'Reason',
           field: 'reason',
@@ -686,7 +716,7 @@ export default {
             enabled: true,
             placeholder: 'Status'
           }
-        },
+        }
         // {
         //   label: "Action",
         //   field: "action"
@@ -717,10 +747,10 @@ export default {
       status: '',
       notes: '',
       UserID: '',
-      rejectedId:'',
+      rejectedId: '',
 
       filteredFaqs: [],
-      loginUserName:"",
+      loginUserName: '',
       paginationOptions: {
         enabled: true,
         mode: 'recordsPerPage',
@@ -747,12 +777,16 @@ export default {
         const matchesAmount = amount_data
           ? row.amount.toString().includes(amount_data)
           : true
+        const itemDate = row.request_date
+        const matchesDate =
+          (this.startDate ? itemDate >= this.startDate: true) &&
+          (this.endDate ? itemDate <= this.endDate+1: true)
 
-        return matchesQuery && matchesStatus && matchesAmount
+        return matchesQuery && matchesStatus && matchesAmount && matchesDate
       })
     },
 
-       isAdmin () {
+    isAdmin () {
       const userRole = localStorage.getItem('role')
       this.UserID = localStorage.getItem('user_id')
       return userRole === 'admin'
@@ -779,6 +813,15 @@ export default {
           'Please enter a cancel reason with at least 10 characters'
         )
       }
+    },
+    changeStartDate (date) {
+      this.startDate = moment(date).format('DD MMM YYYY')
+      // console.log(dates);
+      //  console.log(this.startDate);
+    },
+    changeEndDate (date) {
+      this.endDate = moment(date).format('DD MMM YYYY')
+      console.log(this.endDate);
     },
     formatDate (dateString) {
       const options = {
@@ -821,7 +864,6 @@ export default {
       this.rejectedId = id
     },
     async deletePublisher (id) {
-   
       this.loader = true
       try {
         var req = {
@@ -830,7 +872,7 @@ export default {
         }
 
         const res = await this.$apiService.postCall(
-          `transition/update-payment-status/${ this.rejectedId}`,
+          `transition/update-payment-status/${this.rejectedId}`,
           req
         )
 
@@ -840,17 +882,17 @@ export default {
           ' Payment status Rejected successfully'
         )
         this.$bvModal.hide('modal-cancelReason')
-        this.cancelReasonText = "";
+        this.cancelReasonText = ''
         this.getAllUsers()
       } catch (error) {
         this.loader = false
-       this.$toaster.makeToast(error)
-       this.$bvModal.hide('modal-cancelReason')
+        this.$toaster.makeToast(error)
+        this.$bvModal.hide('modal-cancelReason')
       }
     },
 
     clickCancle () {
-      this.cancelReasonText ='';
+      this.cancelReasonText = ''
       this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
     },
@@ -876,20 +918,20 @@ export default {
                 ? value.user_id.name + ' ' + value.user_id.surname
                 : ''
             })
-            this.rows = paymentData;
+            this.rows = paymentData
 
-paymentData.forEach((e) => {
-  // Format the request_date
-  e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
+            paymentData.forEach(e => {
+              // Format the request_date
+              e.request_date = moment(e.request_date).format(
+                'DD MMM YYYY h:mm A'
+              )
 
-  if (e.status === "Approved") {
-    e.status = "Paid";
-  }
-});
-console.log("paymentData",paymentData)
-this.rows = paymentData;
-
-
+              if (e.status === 'Approved') {
+                e.status = 'Paid'
+              }
+            })
+           
+            this.rows = paymentData
           }
         })
         this.rows = paymentData
@@ -901,7 +943,6 @@ this.rows = paymentData;
             this.loader = false // Set loader to false regardless of success or failure
           })
       } else {
-
         this.loader = true
 
         url = 'transition/payment_user'
@@ -918,28 +959,26 @@ this.rows = paymentData;
               this.loader = false
             } else if (response.apidata.msg == 'No Record Found') {
               // this.$toaster.makeToast('warning', response.apidata.msg)
-              console.log("No Record Found")
+              console.log('No Record Found')
               this.loader = false
             } else {
               const userData = response.apidata.data
               this.rows = userData
-              this.totalWithDraw = response.apidata.total_withdraw;
+              this.totalWithDraw = response.apidata.total_withdraw
               this.rows = userData
 
+              userData.forEach(e => {
+                // Format the request_date
+                e.request_date = moment(e.request_date).format(
+                  'DD MMM YYYY h:mm A'
+                )
 
-userData.forEach((e) => {
-// Format the request_date
-e.request_date = moment(e.request_date).format("DD MMM YYYY h:mm A");
-
-if (e.status === "Approved") {
-e.status = "Paid";
-}
-});
-console.log("paymentData",userData)
-this.rows = userData;
-
-
-
+                if (e.status === 'Approved') {
+                  e.status = 'Paid'
+                }
+              })
+              console.log('paymentData', userData)
+              this.rows = userData
 
               this.loader = false
             }
@@ -955,9 +994,9 @@ this.rows = userData;
           })
       }
     },
-validateInputAmount(event) {
-      const key = event.key;
-      const value = this.amount;
+    validateInputAmount (event) {
+      const key = event.key
+      const value = this.amount
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -965,17 +1004,17 @@ validateInputAmount(event) {
         key === 'Tab' ||
         key === 'Delete'
       ) {
-        return;
+        return
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault();
-        return;
+        event.preventDefault()
+        return
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10);
+      const newValue = parseInt(value + key, 10)
       if (newValue > this.totalWithDraw) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
     createUser () {
@@ -1105,22 +1144,18 @@ validateInputAmount(event) {
           : 'flex!important' // Toggle the display property
     },
     clearFilters () {
+      ;(this.searchTerm = ''),
+        (this.searchAmount = ''),
+        (this.selectedStatus = '')
+      this.getAllUsers()
+    },
 
-     this.searchTerm = '',
-     this.searchAmount ='',
-     this.selectedStatus=''
-     this.getAllUsers()
+    closeModal () {
+      this.notes = ''
+      this.amount = ''
 
-
-   },
-
-   closeModal () {
-
- this.notes = ''
- this.amount = ''
-
- this.modalVisible = false
-},
+      this.modalVisible = false
+    },
     openModal12 () {
       // Set the flag to true to show the modal
       this.modalVisible = true
@@ -1142,13 +1177,10 @@ validateInputAmount(event) {
     vueDocuments (rowData) {
       this.popUpWindow = true
     },
-      handleChange (user) {
-
+    handleChange (user) {
       const matchedRows = this.rows.filter(row => row.name === user)
       this.rows = matchedRows
-
     },
-
 
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
@@ -1173,7 +1205,7 @@ validateInputAmount(event) {
           this.$toaster.makeToast('warning', 'Have Server error')
         })
     },
-     generateID () {
+    generateID () {
       this.clearform()
       this.generateIDloader = true
       let randomString = ''
@@ -1290,28 +1322,33 @@ validateInputAmount(event) {
       this.generateIDloader = false
       this.$bvModal.hide('modal-lg')
     },
-    getProfileDetails() {
+    getProfileDetails () {
       this.UserID = localStorage.getItem('user_id')
-            this.loader = true
-            this.$apiService
-                .getCall(`auth/user/${this.UserID}`)
-                .then(res => {
-                    console.log(res)
-                    if (res.error) {
-                        this.loader = false
-                        this.$toaster.makeToast('warning', 'Fail to fetch user data')
-                    } else {
-                        this.loginUserName = res.apidata.data.name + ' ' + res.apidata.data.surname
-                        this.tiktok_username = res.apidata.data.tiktok_username;
-                        this.loader = false
-                        this.url =  'https://' + window.location.host + "/app/sessions/affiliate?u="+ this.tiktok_username
-                    }
-                })
-                .catch(error => {
-                    this.loader = false
-                    this.$toaster.makeToast('warning', 'Server Error')
-                })
-        },
+      this.loader = true
+      this.$apiService
+        .getCall(`auth/user/${this.UserID}`)
+        .then(res => {
+          console.log(res)
+          if (res.error) {
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Fail to fetch user data')
+          } else {
+            this.loginUserName =
+              res.apidata.data.name + ' ' + res.apidata.data.surname
+            this.tiktok_username = res.apidata.data.tiktok_username
+            this.loader = false
+            this.url =
+              'https://' +
+              window.location.host +
+              '/app/sessions/affiliate?u=' +
+              this.tiktok_username
+          }
+        })
+        .catch(error => {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Server Error')
+        })
+    }
     //     clearFilters() {
     //   this.selected ="Select User"
     //   this.use_id = null;
@@ -1413,8 +1450,10 @@ validateInputAmount(event) {
   color: #ffffff;
   padding-left: 3px;
 }
-
-
+.for-date-picker {
+  width: 100%;
+  height: 100%;
+}
 
 .multiselect__placeholder {
   color: #adadad;
@@ -1462,8 +1501,6 @@ validateInputAmount(event) {
   border: 1px solid #f59e0b;
 }
 
-
-
 .sizeImage {
   width: 25%;
   height: 100%;
@@ -1476,6 +1513,4 @@ validateInputAmount(event) {
   border: 1px solid #9ca3af;
   color: #111827;
 }
-
-
 </style>
