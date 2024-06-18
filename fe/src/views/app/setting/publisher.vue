@@ -93,7 +93,7 @@
                 @keydown="checkLengthPhone"
                 id="input-contact-number"
               ></b-form-input> -->
-              <b-form-input class=" form-control" id="phone" type="tel" name="phone" maxlength="18" ></b-form-input>
+              <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" maxlength="11" ></b-form-input>
             </b-form-group>
           </div>
         </b-col>
@@ -273,7 +273,7 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="18"></b-form-input>
+         <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="15"></b-form-input>
        </b-form-group>
      
      </div>
@@ -1285,7 +1285,7 @@ this.filteredFaqs =paymentData;
             //this.$toaster.makeToast('success', 'Referral create successfully')
             //if (this.role === 'admin') {
               this.$toaster.makeToast('success', 'Data added successfully')
-              this.launchConfetti()
+              // this.launchConfetti()
             //}
           }
         } catch (error) {

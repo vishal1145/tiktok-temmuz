@@ -167,7 +167,8 @@
                         id="phone"
                         type="tel"
                         name="phone"
-                        class="form-control"
+                        maxlength="11"
+                        class="form-control border-0"
                       />
                     </div>
                     <!-- <input

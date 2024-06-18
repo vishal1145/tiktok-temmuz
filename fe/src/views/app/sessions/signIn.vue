@@ -47,7 +47,9 @@
                             class="form-control"
                             id="phone"
                             type="tel"
+                            
                             name="phone"
+                             maxlength="11"
                           ></b-form-input>
                         </b-form-group>
                       </div>
@@ -801,6 +803,7 @@ export default {
   mounted () {
     setTimeout(() => {
       const phoneInputField = document.querySelector('#phone')
+      
       this.phoneInput = window.intlTelInput(phoneInputField, {
         initialCountry: 'in',
         utilsScript:
@@ -975,6 +978,8 @@ export default {
     },
 
     checkLengthPhone (event) {
+      // this.PhoneNumber = this.phoneInput.getNumber();
+     
       if (this.PhoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }

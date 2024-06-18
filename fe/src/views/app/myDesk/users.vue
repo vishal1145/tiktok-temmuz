@@ -81,7 +81,7 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control" id="phone" type="tel" name="phone" maxlength="18"></b-form-input>
+         <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" maxlength="11"></b-form-input>
        </b-form-group>
      
      </div>
@@ -183,7 +183,7 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="18"></b-form-input>
+         <b-form-input class=" form-control border-0" id="phone" type="tel"  name="phone" v-model="getphoneNumber"  maxlength="15"></b-form-input>
        </b-form-group>
      
      </div>

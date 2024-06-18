@@ -295,101 +295,108 @@
                 </ul>
               </div>
             </div>
+            <b-row class="w-100 px-3">
+              <b-col md="3"
+                ><label for="users-list-search">User Name</label>
+                <fieldset class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="users-list-search"
+                    placeholder="Search user name"
+                    style="
+                      color: grey;
 
-            <div
-              class="d-flex flex-row card-body flex-wrap gap-between"
-              :style="{ display: flexDivDisplay }"
-            >
-              <div class="row w-100">
-                <div class="col-12 col-sm-6 col-lg-3 pr-0">
-                  <label for="users-list-search">User Name</label>
-                  <fieldset class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="users-list-search"
-                      placeholder="Search..."
-                      style="
-                        color: grey;
-                        padding-bottom: 7px;
-                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                        background-color: rgb(135 131 131 / 0%);
-                      "
-                      v-model="searchTerm"
-                    />
-                  </fieldset>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 pr-0">
-                  <label for="users-list-status">Status</label>
-                  <fieldset class="form-group">
-                    <select
-                      v-model="selectedStatus"
-                      class="form-control"
-                      id="users-list-status"
-                      style="
-                        color: grey;
-                        padding-bottom: 7px;
-                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                        background-color: rgb(135 131 131 / 0%);
-                      "
-                    >
-                      <option value>All</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Reject">Reject</option>
-                      <option value="Pending">Pending</option>
-                    </select>
-                  </fieldset>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 ml-3 px-0">
-                  <label for="users-list-verified">Amount</label>
-                  <fieldset class="form-group">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="users-list-amount"
-                      placeholder="Search amount"
-                      style="
-                        color: grey;
-                        padding-bottom: 7px;
-                        border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                        background-color: rgb(135 131 131 / 0%);
-                      "
-                      v-model="searchAmount"
-                    />
-                  </fieldset>
-                </div>
-              </div>
-              <b-row class=" w-100">
-                <b-col md="3" class="col-sm-6 col-lg-3 pr-0">
-                  <v2-datepicker
-                    class="for-date-picker"
-                    lang="en"
-                    ref="startDate"
-                    v-model="startDate"
-                    :picker-options="{
-                      disabledDate: time =>
-                        time.getTime() > new Date().getTime()
-                    }"
-                    @change="changeStartDate"
-                    placeholder="Select Start date"
-                  ></v2-datepicker>
-                </b-col>
-                <b-col md="3" class="pr-0">
-                  <v2-datepicker
-                    class="for-date-picker"
-                    lang="en"
-                    ref="endDate"
-                    v-model="endDate"
-                    :picker-options="{
-                      disabledDate: time =>
-                        time.getTime() > new Date().getTime()
-                    }"
-                    @change="changeEndDate"
-                    placeholder="Select End date"
-                  ></v2-datepicker>
-                </b-col>
-              </b-row>
-            </div>
+                      border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                      background-color: rgb(135 131 131 / 0%);
+                    "
+                    v-model="searchTerm"
+                  /></fieldset
+              ></b-col>
+              <b-col md="3"
+                ><label for="users-list-status">Status</label>
+                <fieldset class="form-group">
+                  <select
+                    v-model="selectedStatus"
+                    class="form-control"
+                    id="users-list-status"
+                    style="
+                      color: grey;
+
+                      border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                      background-color: rgb(135 131 131 / 0%);
+                    "
+                  >
+                    <option value>All</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Reject">Reject</option>
+                    <option value="Pending">Pending</option>
+                  </select>
+                </fieldset></b-col
+              >
+              <b-col md="3">
+                <label for="users-list-verified">Min Amount</label>
+                <fieldset class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="users-list-amount"
+                    placeholder="Enter min amount"
+                    style="
+                      color: grey;
+
+                      border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                      background-color: rgb(135 131 131 / 0%);
+                    "
+                    v-model="searchAmount"
+                  /></fieldset
+              ></b-col>
+              <b-col md="3">
+                <label for="users-list-verified">Max Amount</label>
+                <fieldset class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="users-list-amount-max"
+                    placeholder="Enter max amount"
+                    style="
+                      color: grey;
+
+                      border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                      background-color: rgb(135 131 131 / 0%);
+                    "
+                    v-model="searchMaxAmount"
+                  /></fieldset
+              ></b-col>
+            </b-row>
+            <b-row class="w-100 px-3 pb-3">
+              <b-col md="3" class="col-sm-6 col-lg-3">
+                <v2-datepicker
+                  class="for-date-picker"
+                  lang="en"
+                  ref="startDate"
+                  v-model="startDate"
+                  :picker-options="{
+                    disabledDate: time => time.getTime() > new Date().getTime()
+                  }"
+                  @change="changeStartDate"
+                  placeholder="Select Start date"
+                ></v2-datepicker>
+              </b-col>
+              <b-col md="3" class="">
+                <v2-datepicker
+                  class="for-date-picker"
+                  lang="en"
+                  ref="endDate"
+                  v-model="endDate"
+                  :picker-options="{
+                    disabledDate: time => time.getTime() > new Date().getTime()
+                  }"
+                  @change="changeEndDate"
+                  placeholder="Select End date"
+                ></v2-datepicker>
+              </b-col>
+            </b-row>
           </div>
         </div>
         <div v-else>
@@ -596,6 +603,7 @@ export default {
       cancelReasonText: '',
       selectedStatus: '',
       searchAmount: '',
+      searchMaxAmount: '',
       searchTerm: '',
       totalWithDraw: 0,
       isSubmitting: false,
@@ -614,7 +622,7 @@ export default {
       passportBack: null,
       passport: null,
       isView: false,
-      imgLoader:false,
+      imgLoader: false,
       // userBalance: "",
       // referralBalance: "",
       // totalBalance: "",
@@ -765,6 +773,8 @@ export default {
     filteredRows () {
       const query = this.searchTerm.toLowerCase().trim()
       const amount_data = this.searchAmount.trim()
+      const amount_data_max = this.searchMaxAmount.trim()
+
       const select_status = this.selectedStatus
 
       return this.rows.filter(row => {
@@ -774,13 +784,14 @@ export default {
         const matchesStatus = select_status
           ? row.status === select_status
           : true
-        const matchesAmount = amount_data
-          ? row.amount.toString().includes(amount_data)
-          : true
+        const itemAmount = row.amount
+        const matchesAmount =
+          (amount_data ? itemAmount >= amount_data : true) &&
+          (amount_data_max ? itemAmount <= amount_data_max : true)
         const itemDate = row.request_date
         const matchesDate =
-          (this.startDate ? itemDate >= this.startDate: true) &&
-          (this.endDate ? itemDate <= this.endDate+1: true)
+          (this.startDate ? itemDate >= this.startDate : true) &&
+          (this.endDate ? itemDate <= this.endDate + 1 : true)
 
         return matchesQuery && matchesStatus && matchesAmount && matchesDate
       })
@@ -821,7 +832,7 @@ export default {
     },
     changeEndDate (date) {
       this.endDate = moment(date).format('DD MMM YYYY')
-      console.log(this.endDate);
+      console.log(this.endDate)
     },
     formatDate (dateString) {
       const options = {
@@ -930,7 +941,7 @@ export default {
                 e.status = 'Paid'
               }
             })
-           
+
             this.rows = paymentData
           }
         })
