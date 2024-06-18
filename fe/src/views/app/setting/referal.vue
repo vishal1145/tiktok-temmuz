@@ -5,7 +5,7 @@
         <div >
             <div class="d-flex align-items-end row">
                 <div class="col-7">
-                    <div class="card-body text-nowrap">
+                    <div class="card-body text-nowrap px-0">
                         <h5 class="card-title mb-0">
                             Congratulations {{ this.loginUserName }}! 🎉
                         </h5>
