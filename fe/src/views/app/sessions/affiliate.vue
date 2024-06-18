@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar for-nav container-fluid" @click="openPopup">
+    <nav class="navbar for-nav container-fluid d-none" @click="openPopup">
       <div class="container-fluid d-flex justify-content-between">
         <img
           :src="logo"
@@ -20,21 +20,46 @@
     <div
       class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody"
     >
-      <div class="row pt-2">
-        <b-col
-          class="col-md-4 pw px-0"
-          lg="4"
-          xl="4"
-          mt="3"
-       style="background-color: rgb(243, 244, 246);border-radius: 8px;"
+      <div class="row pt-2 justify-content-center ">
+    
+
+
+
+
+
+
+        <b-row class="justify-content-center">
+              <b-row
+         class="col-md-4 pw" lg="4" xl="4" mt="3"
+       style=" 
+    background-color: rgba(255,255,255,255);
+border-radius: 8px;"
         >
+      
+      
+        <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
+    
           <div class="">
-            <div class="card-body">
-              <div class="pb-3">
+            <div class="card-body d-flex flex-column pb-2">
+              <div class="align-self-center">          <img
+          :src="logo"
+          alt=""
+          width="104"
+          height="35"
+          class="d-inline-block align-text-top m-auto"
+          style="
+    width: 95px!important;
+    height: 32px!important;
+"
+        /> </div>
+
+     
+              <div class="pb-1">
                 <h2 class="my-0">Chat with us</h2>
-                <p class="mb-2">
+                <p class="mb-0">
                   Would you like to get live support from our team?
                 </p>
+                <div class="d-flex flex-row align-items-baseline justify-content-between">
                 <p class="my-1">
                   <span style="color: gray !important"
                     ><i class="fa fa-envelope-o pr-1" aria-hidden="true"></i
@@ -54,9 +79,10 @@
                     style="color: gray !important"
                     ><strong>Send a WhatsApp message</strong></a
                   >
-                </p>
+                </p> </div>
+
               </div>
-              <div class="pb-3">
+              <div class="pb-1">
                 <h2 class="my-0">Call us</h2>
                 <p class="my-1">
                   You can call us every weekday between 10:00-17:00
@@ -70,9 +96,9 @@
                   >
                 </p>
               </div>
-              <div class="pb-3">
+              <div class="pb-1">
                 <h2 class="my-0">Visit us</h2>
-                <p class="">
+                <p class="mb-1">
                   Come and meet us face-to-face every weekday between
                   10:00-17:00
                 </p>
@@ -91,7 +117,7 @@
                         <p class="m-0">
                           <strong> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
                         </p>
-                        <p>Yenimahalle Ankara</p>
+                        <p class="mb-1">Yenimahalle Ankara</p>
                       </div>
                     </div>
                     <div class="d-flex flex-row" style="gap: 8px">
@@ -112,10 +138,10 @@
               </div>
             </div>
           </div>
-        </b-col>
-        <b-col class="col-md-8 pw" lg="8" xl="8" mt="3">
+        </b-row>
+        <b-row class="col-md-4 pw" lg="4" xl="4" mt="3">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body" >
               <h2>Let's get started!</h2>
               <p>
                 If you are a TikTok broadcaster or want to become one, you can
@@ -124,7 +150,7 @@
               </p>
 
               <div class="d-flex flex-row">
-                <div class="w-50">
+                <div class="w-100">
                   <div class="mb-3 pr-2">
                     <label for="firstName" class="form-label">First Name</label>
                     <input
@@ -145,8 +171,93 @@
                         placeholder="Last Name"
                     />
                   </div>
+
+
+                  <div class="mb-3 ">
+                    <label for="tiktokName" class="form-label"
+                      >Tiktok User Name</label
+                    >
+                    <input
+                      type="text"
+                      v-model="tiktokName"
+                      class="form-control"
+                      id="tiktokName"
+                       placeholder="Tiktok User Name"
+                    />
+                    <p class=" text-danger">{{ showErrorText }}</p>
+                  </div>
+
+                  <div class="mb-3 ">
+                    <label for="phoneNumber" class="form-label"
+                      >Phone Number</label
+                    >
+                    <div class="d-flex phone-input">
+                      <input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        maxlength="11"
+                        class="form-control border-0"
+                      />
+                    </div>
+                    <!-- <input
+                      type="number"
+                      class="form-control"
+                      id="phoneNumber"
+                      @keydown="checkLength"
+                      v-model="phoneNumber"
+                    /> -->
+                  </div>
+
+                  <div class="mb-3 d-none">
+                    <label for="tiktokCode" class="form-label"
+                      >TikTok Agency Code</label
+                    >
+                    <input
+                      type="number"
+                      v-model="centerCode"
+                      @keydown="checkLengthCode"
+                      class="form-control"
+                      id="tiktokCode"
+                    />
+                  </div>
+
+                  <div class="justify-content-between d-none">
+                    <div class="mb-3 w-50">
+                      <label for="img-btn" class="form-label"
+                        >Select Image</label
+                      >
+                      <b-form-group label-for="input-images">
+                        <b-form-file
+                          v-model="images"
+                          @input="handleImageSelection"
+                          placeholder="Choose image"
+                          drop-placeholder="Drop files here..."
+                          accept=".png,.jpg,.jpeg"
+                        ></b-form-file>
+                      </b-form-group>
+                    </div>
+
+                    <div
+                      class="spinner spinner-primary imgloader"
+                      v-if="imgLoader"
+                    ></div>
+                    <b-col
+                      md="6"
+                      class="justify-content-end d-flex align-items-center pb-2"
+                    >
+                      <img
+                        v-if="uplodedImages"
+                        :src="this.uplodedImages"
+                        alt=""
+                        class="img-fluid"
+                        height="50"
+                        width="50"
+                      />
+                    </b-col>
+                  </div>
                 </div>
-                <div class="w-50">
+                <div class="w-50 d-none">
                   <div class="mb-3 pl-2">
                     <label for="tiktokName" class="form-label"
                       >Tiktok User Name</label
@@ -246,7 +357,10 @@
               </button>
             </div>
           </div>
-        </b-col>
+        </b-row>
+
+
+        </b-row>
       </div>
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
@@ -810,15 +924,7 @@ form {
   }
 }
 
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: 20px;
-  margin-left: 21px;
-}
+
 
 h1,
 h2,
@@ -829,6 +935,7 @@ h6,
 .card-title,
 .text-title {
   color: #05070bc2;
+  font-size: 18px;
 }
 
 .fa-envelope-o:before {
