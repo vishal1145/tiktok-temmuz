@@ -267,7 +267,7 @@
     <div class="d-flex flex-column gap-5" style="gap: 13px">
       <div>
         <div class="">
-          <div no-body class="o-hidden">
+          <div no-body class="">
             <div header-bg-variant="transparent">
               <b-row style="align-items: center">
                 <div >
@@ -293,7 +293,7 @@
 
                 <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-10 text-center"
+          class="card-icon-bg card-icon-bg-primary mb-10 text-center"
         >
           <i class="i-Money-2"></i>
           <div class="content">
@@ -316,10 +316,10 @@
 
                 <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-10 text-center"
+          class="card-icon-bg card-icon-bg-primary  mb-10 text-center"
         >
           <i class="i-Wallet"></i>
-          <div class="content">
+          <div class="content"> 
             <p class="text-muted mt-2 mb-0" style="
     width: 112px;
 ">Earnings Revenue</p>

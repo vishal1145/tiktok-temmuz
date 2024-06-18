@@ -65,7 +65,9 @@
           </li> -->
           <li    v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
-            :class="{ active: selectedParentMenu == 'adminDashboard' }"
+         
+
+               :class="{ active: isActive('/app/dashboards/adminDashboard') }"
             class="nav-item"
             data-item="adminDashboard"
             :data-submenu="false"
