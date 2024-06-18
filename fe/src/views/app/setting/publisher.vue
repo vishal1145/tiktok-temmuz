@@ -1033,6 +1033,7 @@ export default {
       }
     },
     clickCancle () {
+      this.cancelReasonText = '';
       this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
     },
@@ -1418,6 +1419,7 @@ this.filteredFaqs =paymentData;
           this.$toaster.makeToast('success', 'Status Rejected successfully')
           this.$bvModal.hide('modal-cancelReason')
           this.fetchPublisher()
+          this.cancelReasonText = '';
         }
       } catch (error) {
         this.$bvModal.hide('modal-cancelReason')
