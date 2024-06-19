@@ -165,6 +165,15 @@
               </router-link></li
           ></a> -->
           <div>
+
+            <a
+        v-if="isAdmin === 'admin'"
+        @click.prevent="dashboard"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+   
+    >
+    <i class="nav-icon i-Bar-Chart"></i> Dashboard
+    </a>
             <a
         v-if="isAdmin === 'admin'"
         @click.prevent="members"
@@ -208,6 +217,14 @@
     </a>
     <a
         v-if="isAdmin === 'admin'"
+        @click.prevent="upload"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+    
+    >
+    <i class="nav-icon i-Add-File"></i>Upload
+    </a>
+    <a
+        v-if="isAdmin === 'admin'"
         @click.prevent="Setting"
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
    
@@ -216,7 +233,7 @@
     </a>
  
     <a
-        v-if="isAdmin === 'user'"
+        v-if="isAdmin === 'user' || isAdmin === 'admin'"
         @click.prevent="earning"
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
 
@@ -835,6 +852,13 @@ export default {
       this.$router.push("/app/setting/publisher");
       this.$refs.dropdown.hide();
     },
+    upload()
+    {
+      this.$router.push("/app/mydesk/uploadFile");
+      this.$refs.dropdown.hide();
+    },
+
+  
     members()
     {
       this.$router.push("/app/mydesk/users");
@@ -847,6 +871,12 @@ export default {
     earning()
     {
       this.$router.push("/app/setting/earnings");
+      this.$refs.dropdown.hide();
+    },
+
+    dashboard()
+    {
+      this.$router.push("/app/dashboards/adminDashboard");
       this.$refs.dropdown.hide();
     },
     statistics()

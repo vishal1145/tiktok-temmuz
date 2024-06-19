@@ -462,9 +462,9 @@
             </span>
             <span v-else-if="props.column.field === 'show_commission'">
               <div class="d-flex" v-if="props.row.first_commission">
-                0-3.000.000 diamonds: {{ props.row.first_commission }}
-                <br />3.000.0000 - 5.000.000 = diamonds: {{ props.row.second_commission }}
-                <br />5.000.000+ diamonds: {{ props.row.third_commission }}
+                0-3M = %{{ props.row.first_commission }}
+                <br />3M-5M = %{{ props.row.second_commission }}
+                <br />5M+ %{{ props.row.third_commission }}
               </div>
             </span>
             <span v-else-if="props.column.field === 'button'">
@@ -568,14 +568,7 @@ export default {
       isModalOpen: false,
 
       columns: [
-        {
-          label: 'Contact Number',
-          field: 'contact_number',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Search Number'
-          }
-        },
+
         {
           label: 'TikTok Name',
           field: 'tiktok_username',
@@ -593,12 +586,20 @@ export default {
           }
         },
         {
+          label: 'Contact Number',
+          field: 'contact_number',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Search Number'
+          }
+        },
+        {
   label: 'Commission rate\'s',
   field: 'show_commission',
   filterOptions: {
     enabled: false
   },
-  width: '280px' 
+  
 },
 
 

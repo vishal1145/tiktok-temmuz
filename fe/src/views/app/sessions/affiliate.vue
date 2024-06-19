@@ -18,9 +18,11 @@
     </nav>
 
     <div
-      class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody"
+      class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody pb-48 align-items-center "
     >
-      <div class="row pt-2 justify-content-center ">
+      <div class="row pt-2 justify-content-center paddingMObile" style="
+    height: 79vh;
+">
     
 
 
@@ -32,15 +34,15 @@
               <b-row
          class="col-md-4 pw" lg="4" xl="4" mt="3"
        style=" 
-    background-color: rgba(255,255,255,255);
-border-radius: 8px;"
+    background-color: rgba(239,242,247,255);
+"
         >
       
       
         <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
     
           <div class="">
-            <div class="card-body d-flex flex-column pb-2">
+            <div class="card-body d-flex flex-column pb-2 px-1">
               <div class="align-self-center">          <img
           :src="logo"
           alt=""
@@ -48,8 +50,8 @@ border-radius: 8px;"
           height="35"
           class="d-inline-block align-text-top m-auto"
           style="
-    width: 95px!important;
-    height: 32px!important;
+       width: 240px !important;
+    height: 99px !important;
 "
         /> </div>
 
@@ -59,7 +61,9 @@ border-radius: 8px;"
                 <p class="mb-0">
                   Would you like to get live support from our team?
                 </p>
-                <div class="d-flex flex-row align-items-baseline justify-content-between">
+                <div class="d-flex flex-row align-items-baseline" style="
+    gap: 12px;
+">
                 <p class="my-1">
                   <span style="color: gray !important"
                     ><i class="fa fa-envelope-o pr-1" aria-hidden="true"></i
@@ -105,32 +109,37 @@ border-radius: 8px;"
                 <address>
                   <div>
                     <div
-                      class="d-flex flex-row align-items-baseline"
+                      class="d-flex flex-row "
                       style="gap: 8px"
                     >
-                      <div>
+                    
+                      <div>  
+                       
+             
+                        <p class="m-0">
                         <span
                           ><i class="fa fa-map-marker" aria-hidden="true"></i
-                        ></span>
-                      </div>
-                      <div>
-                        <p class="m-0">
-                          <strong> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
+                        ></span>   <strong class="pl-1"> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
                         </p>
-                        <p class="mb-1">Yenimahalle Ankara</p>
+                        <p class="mb-1" style="
+    padding-left: 15px;
+">Yenimahalle Ankara</p>
                       </div>
                     </div>
                     <div class="d-flex flex-row" style="gap: 8px">
-                      <div>
-                        <span
-                          ><i class="fa fa-map-marker" aria-hidden="true"></i
-                        ></span>
-                      </div>
+                      
+                    
+                      
                       <div>
                         <p class="m-0">
-                          <strong> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
+                          <span
+                          ><i class="fa fa-map-marker" aria-hidden="true"></i
+                        ></span>
+                          <strong class="pl-1"> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
                         </p>
-                        <p>Yenimahalle Ankara</p>
+                        <p style="
+    padding-left: 15px;
+">Yenimahalle Ankara</p>
                       </div>
                     </div>
                   </div>
@@ -139,8 +148,10 @@ border-radius: 8px;"
             </div>
           </div>
         </b-row>
-        <b-row class="col-md-4 pw" lg="4" xl="4" mt="3">
-          <div class="card">
+        <b-row class="col-md-4 pw px-0" lg="4" xl="4" mt="3" > 
+          <div class="card" style="
+    border-radius: 0px;
+">
             <div class="card-body" >
               <h2>Let's get started!</h2>
               <p>
@@ -151,7 +162,7 @@ border-radius: 8px;"
 
               <div class="d-flex flex-row">
                 <div class="w-100">
-                  <div class="mb-3 pr-2">
+                  <div class="mb-2">
                     <label for="firstName" class="form-label">First Name</label>
                     <input
                       type="text"
@@ -161,7 +172,7 @@ border-radius: 8px;"
                       placeholder="First Name"
                     />
                   </div>
-                  <div class="mb-3 pr-2">
+                  <div class="mb-2">
                     <label for="lastName" class="form-label">Last Name</label>
                     <input
                       type="text"
@@ -173,7 +184,7 @@ border-radius: 8px;"
                   </div>
 
 
-                  <div class="mb-3 ">
+                  <div class="mb-2 ">
                     <label for="tiktokName" class="form-label"
                       >Tiktok User Name</label
                     >
@@ -187,7 +198,7 @@ border-radius: 8px;"
                     <p class=" text-danger">{{ showErrorText }}</p>
                   </div>
 
-                  <div class="mb-3 ">
+                  <div class="mb-2 ">
                     <label for="phoneNumber" class="form-label"
                       >Phone Number</label
                     >
@@ -209,7 +220,7 @@ border-radius: 8px;"
                     /> -->
                   </div>
 
-                  <div class="mb-3 d-none">
+                  <div class="mb-2 d-none">
                     <label for="tiktokCode" class="form-label"
                       >TikTok Agency Code</label
                     >
@@ -269,7 +280,9 @@ border-radius: 8px;"
                       id="tiktokName"
                        placeholder="Tiktok User Name"
                     />
-                    <p class=" text-danger">{{ showErrorText }}</p>
+                    <p v-if="showErrorText != 'Keep the same username as TikTok.'" class="text-danger">{{ showErrorText }}</p>
+
+
                   </div>
 
                   <div class="mb-3 pl-2">
@@ -352,7 +365,7 @@ border-radius: 8px;"
                 </label>
               </div>
 
-              <button class="btn btn-primary" @click="addPublisher()">
+              <button class="btn btn-primary1" @click="addPublisher()">
                 Complete Application
               </button>
             </div>
@@ -910,7 +923,7 @@ form {
   margin-top: 4px !important;
 
   color: #6f6b7d;
-  font-size: 0.9375rem;
+  font-size: 0.82rem;
   font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -924,7 +937,11 @@ form {
   }
 }
 
-
+/* p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 13px;
+} */
 
 h1,
 h2,
@@ -934,7 +951,7 @@ h5,
 h6,
 .card-title,
 .text-title {
-  color: #05070bc2;
+  color:#103277db;
   font-size: 18px;
 }
 
@@ -953,7 +970,7 @@ h6,
   color: gray;
 }
 .gifBody {
-  background: url('../../../assets/reference-link-page-background_360.gif') no-repeat center center fixed;
+  background: url('https://temsilci.temmuzajans.com/app-assets/images/background.gif') no-repeat center center fixed;
   background-size: cover; /* This will ensure the gif covers the entire background */
   width: 100vw; /* Make sure the width covers the whole viewport */
   height: 100vh; /* Make sure the height covers the whole viewport */
@@ -966,4 +983,38 @@ h6,
     border: 1px solid #9ca3af00;
     color: #111827;
 }
+
+
+.btn-primary1 {
+    color: #fff;
+    background-color: #103277db;
+     border-color:  #10327756;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.26rem;
+    font-size: 13px;
+
+}
+
+b, strong {
+    font-weight: 500;
+}
+
+
+.card {
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 20px 1px rgb(0 0 0 / 0%), 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px 1px rgb(0 0 0 / 0%), 0 1px 4px rgb(0 0 0 / 0%);
+    border: 0;
+}
+
+@media (max-width: 900px) {
+  .paddingMObile {
+    padding-left: 48px !important;
+    padding-right: 48px !important;
+  }
+}
+
 </style>

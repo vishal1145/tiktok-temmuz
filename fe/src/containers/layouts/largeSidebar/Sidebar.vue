@@ -150,7 +150,7 @@
                            :class="{ active: isActive('/app/profiledata/profile') }"
            
             class="nav-item"
-            data-item="profile"
+            data-item="profile"arning
             :data-submenu="false"
         >
           <router-link tag="a" class to="/app/profiledata/profile">
@@ -200,7 +200,7 @@
         <li v-if="isAdmin === 'admin'"
             @mouseenter="toggleSubMenu"
                :class="{ active: isActive('/app/mydesk/uploadFile') }"
-            class="nav-item"
+            class="nav-item d-none"
             data-item="uploadFile"
             :data-submenu="false"
         >
