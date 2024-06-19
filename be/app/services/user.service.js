@@ -3,6 +3,7 @@ const MemberModel = require("../models/tiktokusers.model");
 const PublisherModel = require("../models/creator.model");
 const newEmailUpdateModel = require("../models/new_email_update.model");
 const ExcelDataModel = require("../models/excel_data.model");
+const mongoose = require("mongoose");
 const { decrypt, compare, sendForgetPasswordMail } = require("../util");
 
 exports.getUserById = async (_id) => {
@@ -11,6 +12,33 @@ exports.getUserById = async (_id) => {
 
 exports.getAllMembers = async () => {
   const users = await MemberModel.find({ role: "user" });
+  const excel_data = await ExcelDataModel.find();
+  
+  for (let i = 0; i < users.length; i++) {
+    let id = users[i]._id.toString();
+    const user_creators = await PublisherModel.aggregate([
+      { $match: { user_id: new mongoose.Types.ObjectId(id) } },
+    ]);
+
+    let first_commission = users[i].first_commission;
+    let second_commission = users[i].second_commission;
+    let third_commission = users[i].third_commission;
+
+    let excel_records = excel_data.filter(ex =>
+      user_creators.some(cre => cre._id == ex.creator_id && cre.tiktok_username == ex.creator_inf));
+
+    let totalEarnings = 0;
+    let totalDiamonds = 0;
+
+    excel_records.forEach(d => {
+        totalEarnings += calculateEarning(first_commission, second_commission, third_commission, d);
+        totalDiamonds += parseInt(d.diamonds_this_month);
+    });
+
+    users[i] = users[i].toObject();
+    users[i].earnings = totalEarnings;
+    users[i].diamonds = totalDiamonds;
+  }
   users.forEach(e => {
     e.first_commission = Math.floor(e.first_commission * 100);
     e.second_commission = Math.floor(e.second_commission * 100);
@@ -135,12 +163,12 @@ exports.getCreatorsEarningsGraph = async (_id) => {
     const dateMap = new Map();
 
     let allUsers = await UserModel.find();
-   
+
     data.forEach(item => {
 
       let creator = creators.find((u) => u._id == item.creator_id);
 
-      let user = allUsers.find((e)=> e._id.toString() === creator.user_id.toString());
+      let user = allUsers.find((e) => e._id.toString() === creator.user_id.toString());
 
       let first_commission = user.first_commission;
       let second_commission = user.second_commission;
@@ -196,7 +224,7 @@ function calculateEarning(first_commission, second_commission, third_commission,
   if (d.diamonds_this_month >= 500000) {
     rate = third_commission;
   }
-  let num =  rate * d.diamonds_this_month / 100;
+  let num = rate * d.diamonds_this_month / 100;
   let earn = truncateToDecimals(num, 2);
   return earn;
 }
