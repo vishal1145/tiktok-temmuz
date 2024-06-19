@@ -29,7 +29,7 @@ exports.getMember = async (req, res) => {
 exports.getAllMembersPublishers = async (req, res) => {
 
   try {
-    const publishers = await getAllMembersPublishers(req.user._id)
+    const publishers = await getAllMembersPublishers(req.params.id)
     if (publishers.length > 0) {
       res.status(200).send({ data: publishers, success: true })
     } else {

@@ -25,7 +25,7 @@ router.post("/update-password", updatePassword)
 router.post("/update-email-preferences", updateEmailPreferences);
 router.post("/new-email-update", newEmailUpdate);
 router.post("/new-email-verify-otp", newEmailVerifyOtp);
-router.get("/get-all-members-publishers", getAllMembersPublishers);
+router.get("/get-all-members-publishers/:id", getAllMembersPublishers);
 router.get('/all-payments', getPayments);
 router.post('/creators-earnings', getCreatorsEarnings);
 router.post('/creators-earnings-graph', getCreatorsEarningsGraph);
