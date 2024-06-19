@@ -474,6 +474,19 @@
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
             </span>
+            <span v-else-if="props.column.field === 'diamonds'">
+              <div class="d-flex flex-row">
+                {{ props.row.diamonds }}
+
+                <!-- <div>{{ props.row.contact_number }}</div> -->
+              </div>
+            </span>  <span v-else-if="props.column.field === 'earnings'">
+              <div class="d-flex flex-row">
+                {{ props.row.earnings }}
+
+                <!-- <div>{{ props.row.contact_number }}</div> -->
+              </div>
+            </span>
             <span v-else-if="props.column.field === 'show_userName'">
               <div
                 class="text-primary ul-cursor--pointer"
@@ -553,6 +566,9 @@ export default {
           row.name.toLowerCase().includes(searchTermLower) ||
           row.surname.toLowerCase().includes(searchTermLower) ||
           row.contact_number.toLowerCase().includes(searchTermLower) ||
+          row.diamonds.toLowerCase().includes(searchTermLower) ||
+          row.earnings.toLowerCase().includes(searchTermLower) ||
+
           row.otp.toLowerCase().includes(searchTermLower) ||
           row.role.toLowerCase().includes(searchTermLower) ||
           row.tiktok_username.toLowerCase().includes(searchTermLower)
@@ -612,6 +628,21 @@ export default {
           filterOptions: {
             enabled: true,
             placeholder: 'Search Number'
+          }
+        },
+        {
+          label: 'Diamonds This Month',
+          field: 'diamonds',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Diamonds This Month'
+          }
+        },  {
+          label: 'Earnings This Month ($)',
+          field: 'earnings',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Earnings This Month ($)'
           }
         },
         {
