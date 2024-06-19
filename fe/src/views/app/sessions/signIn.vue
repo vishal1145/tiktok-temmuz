@@ -1,32 +1,25 @@
 <template>
-  <div class="main-div d-flex flex-row justify-content-between overflow-hidden">
-    <b-col lg="6" xl="6" mt="3" class="DisplayNone">
-      <div class="auth-content px-5 backgroundNorepeat backgr">
-        <div
-          class="d-flex flex-column justify-content-center backgroundNorepeat align-content-center text-center for-img align-items-center"
-        >
-          <img
-            :src="'https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/illustrations/auth-login-illustration-light.png'"
-            alt=""
-            width="50vw"
-            height="100vh"
-            class="d-inline-block align-text-top"
-          />
-          <b-row>
-            <b-col> </b-col>
-          </b-row>
-        </div>
-      </div>
-    </b-col>
 
-    <b-col lg="6" xl="6" mt="3" class="align-self-center h-100">
-      <div>
+
+  <section class="row justify-content-center gifBody">
+        <div class="col-xl-8 col-11 d-flex justify-content-center">
+            <div class="card mb-0 m-auto">
+                <div class="row m-0"        style=" 
+    background-color: rgba(239,242,247,255);
+">
+                    <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
+                        <img src="https://temsilci.temmuzajans.com/app-assets/images/logo.png" width="400px;" alt="branding logo">
+                    </div>
+                    <div class="col-lg-6 col-12 p-0"  style=" 
+    background-color: rgba(255,255,255,255);
+">
+                      <div>
         <div v-if="activeChild === 1">
           <div class="">
             <div class="row">
               <div class="col-md-12">
-                <div class="p-4 px-5 paddingLaptop">
-                  <div class="auth-logo text-left mb-30">
+                <div class="p-4 px-5 ">
+                  <div class="auth-logo text-left mb-30 d-none">
                     <img :src="logo" />
                   </div>
 
@@ -566,10 +559,17 @@
           </div>
         </div>
       </div>
-    </b-col>
 
-    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-  </div>
+                    </div>
+                    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+  
 </template>
 <script>
 // import TopNav from "./TopNav";
@@ -1597,6 +1597,7 @@ export default {
   .paddingLaptop {
     padding-left: 74px !important;
     padding-right: 74px !important;
+    background-color: white;
   }
 }
 
@@ -1689,9 +1690,10 @@ export default {
   background-repeat: no-repeat;
 }
 
-img {
-  width: 42vw;
-  height: 96vh;
+.gifBody {
+  background: url('https://temsilci.temmuzajans.com/app-assets/images/background.gif') no-repeat center center fixed;
+  background-size: cover; /* This will ensure the gif covers the entire background */
+
 }
 
 @media only screen and (max-width: 1000px) {
@@ -1836,5 +1838,16 @@ img {
     background: #f3f4f6;
     border: 1px solid #9ca3af00;
     color: #111827;
+}
+.mt-80 {
+    margin-top: 66px !important;
+}
+
+.gifBody {
+  background: url('https://temsilci.temmuzajans.com/app-assets/images/background.gif') no-repeat center center fixed;
+  background-size: cover; /* This will ensure the gif covers the entire background */
+  width: 100vw; /* Make sure the width covers the whole viewport */
+  height: 100vh; /* Make sure the height covers the whole viewport */
+  padding: 16px 0;
 }
 </style>
