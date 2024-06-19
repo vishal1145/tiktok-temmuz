@@ -86,5 +86,6 @@ exports.dashBoardCount = async () => {
     const membes = await MemberModel.count({ role: 'user' });
     const creators = await CreatorModel.count();
     const payment_request = await PaymentModel.count();
-    return { membes, creators, payment_request }
+    const pending_creators = await CreatorModel.find({status: "Pending Registration"}).count();
+    return { membes, creators, payment_request, pending_creators }
 };

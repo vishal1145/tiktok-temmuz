@@ -59,7 +59,7 @@ exports.verifyOtp = async (req, res) => {
 
         const { User } = await verifyOtp(requestData);
 
-        res.status(200).json({ Message: "OTP Matched", success: true, user_id: User._id, role: User.role, access_token: getToken(User),  })
+        res.status(200).json({ Message: "OTP Matched", success: true, user_id: User._id, role: User.role, access_token: getToken(User), })
 
     } catch (err) {
         res.status(401).json({ Message: "Otp Invalid", success: false })
@@ -85,7 +85,7 @@ exports.updatePassword = async (req, res) => {
 
         const response = await updatePassword(requestData);
         if (response) res.status(200).json({ Message: "Password  Updated", success: true });
-        else res.status(404).json({ Message: "User not found", success: false    });
+        else res.status(404).json({ Message: "User not found", success: false });
     } catch (error) {
         res.status(400).send({ Messege: error.message });
     }
@@ -93,8 +93,8 @@ exports.updatePassword = async (req, res) => {
 
 exports.dashBoardCount = async (req, res) => {
     try {
-        const { membes, creators, payment_request } = await dashBoardCount();
-        res.status(200).json({ success: true, membes: membes, creators: creators, payment_request: payment_request });
+        const { membes, creators, payment_request, pending_creators } = await dashBoardCount();
+        res.status(200).json({ success: true, membes: membes, creators: creators, payment_request: payment_request, pending_creators: pending_creators });
     } catch (error) {
         res.status(400).send({ Messege: error.message });
     }

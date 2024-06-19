@@ -83,7 +83,13 @@ exports.memberUpdate = async (body) => {
       contact_number: body.contact_number,
       name: body.name,
       surname: body.surname,
-      tiktok_username: body.tiktok_username
+      tiktok_username: body.tiktok_username,
+      bank: {
+        full_name: body.bank.full_name,
+        identity_citizenship_no: body.bank.identity_citizenship_no,
+        bank_name: body.bank.bank_name,
+        iban: body.bank.iban
+      }
     },
   })
 }
