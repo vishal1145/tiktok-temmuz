@@ -84,7 +84,10 @@
         </b-col>
         <b-col md="12">
           <div class="phone-input">
-            <b-form-group label="Contact Number" label-for="input-contact-number">
+            <b-form-group
+              label="Contact Number"
+              label-for="input-contact-number"
+            >
               <!-- <b-form-input
                 v-model="contact_number"
                 required
@@ -93,7 +96,13 @@
                 @keydown="checkLengthPhone"
                 id="input-contact-number"
               ></b-form-input> -->
-              <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" maxlength="11" ></b-form-input>
+              <b-form-input
+                class="form-control border-0"
+                id="phone"
+                type="tel"
+                name="phone"
+                maxlength="11"
+              ></b-form-input>
             </b-form-group>
           </div>
         </b-col>
@@ -123,10 +132,7 @@
             ></b-form-file>
           </b-form-group>
         </b-col>
-        <b-col
-          md="6"
-          class="justify-content-end d-flex align-items-center "
-        >
+        <b-col md="6" class="justify-content-end d-flex align-items-center">
           <img
             v-if="uplodedImages"
             :src="uplodedImages"
@@ -138,7 +144,7 @@
           />
         </b-col>
         <b-col>
-          <div style="display:flex;" class="justify-content-end">
+          <div style="display: flex" class="justify-content-end">
             <b-button v-if="role != 'admin'" class="mr-2" @click="copyUrl()">
               Copy Referral Link
             </b-button>
@@ -159,7 +165,7 @@
                 v-if="imgLoader"
               ></div>
             </div>
-        </div>
+          </div>
         </b-col>
       </b-row>
     </b-modal>
@@ -262,10 +268,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-       
-       <div class="phone-input">
-       <b-form-group label="Contact Number" label-for="input-contact-number">
-         <!-- <b-form-input
+          <div class="phone-input">
+            <b-form-group
+              label="Contact Number"
+              label-for="input-contact-number"
+            >
+              <!-- <b-form-input
            v-model="contact_number"
            required
            placeholder="Contact number"
@@ -273,11 +281,17 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" v-model="getphoneNumber"  maxlength="15"></b-form-input>
-       </b-form-group>
-     
-     </div>
-   </b-col>
+              <b-form-input
+                class="form-control border-0"
+                id="phone"
+                type="tel"
+                name="phone"
+                v-model="getphoneNumber"
+                maxlength="15"
+              ></b-form-input>
+            </b-form-group>
+          </div>
+        </b-col>
         <b-col md="12" class="d-none">
           <b-form-group label="Agency center code" label-for="input-title">
             <b-form-input
@@ -334,10 +348,7 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <b-button
-              v-if="!imgLoader"
-              class="mr-2"
-              @click="closeModalEdit()"
+            <b-button v-if="!imgLoader" class="mr-2" @click="closeModalEdit()"
               >Close</b-button
             >
             <b-button
@@ -427,7 +438,7 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-            <b-button class=" mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class="mr-2" @click="clickCancle()">Cancel</b-button>
             <b-button
               class=""
               variant="primary ripple"
@@ -598,9 +609,9 @@
                 <div
                   v-if="
                     role == 'user' &&
-                
-                    props.row.status != 'Waiting Approval'
-                    &&  props.row.status != 'Approved' && props.row.status != 'Rejected'
+                    props.row.status != 'Waiting Approval' &&
+                    props.row.status != 'Approved' &&
+                    props.row.status != 'Rejected'
                   "
                 >
                   <span @click="clickEdit(props.row)" class="btn p-0"
@@ -659,6 +670,20 @@
                   }}</span>
                 </div>
               </span>
+              <span v-else-if="props.column.field === 'tiktok_username_show'">
+                <div
+                  v-if="role == 'admin'"
+                  class="ul-cursor--pointer text-primary"
+                  style="text-decoration: underline"
+                  @click="clickUserName(props.row.user_id._id)"
+                >
+                  {{ props.row.tiktok_username }}
+                </div>
+                <div v-else>
+                  {{ props.row.tiktok_username }}
+                </div>
+              </span>
+
               <span v-else-if="props.column.field === 'reason'">
                 <div>{{ props.row.reason }}</div>
               </span>
@@ -712,7 +737,7 @@ export default {
     multiselect: Multiselect,
     Referal
   },
-  data () {
+  data() {
     return {
       phoneInput: null,
       referralUrl: '',
@@ -775,7 +800,7 @@ export default {
         },
         {
           label: 'TikTok Name',
-          field: 'tiktok_username',
+          field: 'tiktok_username_show',
           filterOptions: {
             enabled: true,
             placeholder: 'User Name'
@@ -797,6 +822,18 @@ export default {
         //     placeholder: 'Agency Code'
         //   }
         // },
+        {
+          label: 'Diamonds This Month',
+          field: 'fdf',
+          filterOptions: { enabled: true, placeholder: 'search..' }
+        },
+
+        {
+          label: 'Partner',
+          field: 'dfsd',
+          filterOptions: { enabled: true, placeholder: 'search..' }
+        },
+
         {
           label: 'Status',
           field: 'status',
@@ -848,7 +885,7 @@ export default {
       searchTerm: ''
     }
   },
-  mounted () {
+  mounted() {
     this.clearFilters()
     // this.filterData()
     // this.addCssRule()
@@ -857,18 +894,18 @@ export default {
     // document.addEventListener("click", this.closeMegaMenu);
   },
   computed: {
-    containerClasses () {
+    containerClasses() {
       return {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
     },
 
-    doubledNumber () {
+    doubledNumber() {
       return this.filteredRows32()
     }
   },
-  created () {
+  created() {
     this.filteredRows32()
     this.getAllUsers()
     this.clearFilters()
@@ -884,33 +921,32 @@ export default {
       confetti({
         particleCount: 100,
         spread: 70,
-        origin: { y: 0.6 },
-      });
+        origin: { y: 0.6 }
+      })
     },
     addnewcreator() {
-      this.showAddModal  = true;
+      this.showAddModal = true
       setTimeout(() => {
-        const phoneInputField = document.querySelector("#phone");
+        const phoneInputField = document.querySelector('#phone')
         this.phoneInput = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: 'in',
           utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });  
-      }, 200);
-      
+            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+        })
+      }, 200)
     },
     copyUrl() {
       navigator.clipboard
-                .writeText(this.referralUrl)
-                .then(() => {
-                    this.$emit('notify', 'URL copied to clipboard!')
-                    this.$toaster.makeToast('success', 'URL copied to clipboard!')
-                })
-                .catch(err => {
-                    console.error('Could not copy text: ', err)
-                })
+        .writeText(this.referralUrl)
+        .then(() => {
+          this.$emit('notify', 'URL copied to clipboard!')
+          this.$toaster.makeToast('success', 'URL copied to clipboard!')
+        })
+        .catch(err => {
+          console.error('Could not copy text: ', err)
+        })
     },
-    filteredRows32 () {
+    filteredRows32() {
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus
 
@@ -932,7 +968,7 @@ export default {
         return matchesQuery && matchesStatus
       })
     },
-    handleChange (user) {
+    handleChange(user) {
       this.selectedUserId = user._id
 
       // // Filter the rows based on the user_name
@@ -943,12 +979,12 @@ export default {
 
       // Log the matched rows to the console
     },
-    checkLengthPhone (event) {
+    checkLengthPhone(event) {
       if (this.contact_number.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    checkLengthPhone2 (event) {
+    checkLengthPhone2(event) {
       if (
         this.agency_center_code.toString().length > 13 &&
         event.keyCode !== 8
@@ -957,7 +993,7 @@ export default {
       }
     },
 
-    checkCenterCode (event) {
+    checkCenterCode(event) {
       if (
         this.agency_center_code.toString().length > 13 &&
         event.keyCode !== 8
@@ -966,12 +1002,12 @@ export default {
       }
     },
 
-    checkLengthPhoneEdt (event) {
+    checkLengthPhoneEdt(event) {
       if (this.getphoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    checkLengthPhoneEdit2 (event) {
+    checkLengthPhoneEdit2(event) {
       if (this.getcenterCode.toString().length >= 13 && event.keyCode !== 8) {
         event.preventDefault()
       }
@@ -984,7 +1020,7 @@ export default {
     //     text: row.name
     //   }))
     // },
-    async getAllUsers () {
+    async getAllUsers() {
       this.loader = true
       try {
         const response = await this.$apiService.getCall('user/get-all-members')
@@ -1016,33 +1052,33 @@ export default {
       }
     },
 
-    toggleFlexDiv () {
+    toggleFlexDiv() {
       this.flexDivDisplay =
         this.flexDivDisplay === 'flex!important'
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-    clearFilters () {
+    clearFilters() {
       this.searchTerm = ''
       this.selectedStatus = ''
     },
 
-    checkLength (event) {
+    checkLength(event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    clickCancle () {
-      this.cancelReasonText = '';
+    clickCancle() {
+      this.cancelReasonText = ''
       this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
     },
-    checkLengthCode (event) {
+    checkLengthCode(event) {
       if (this.centerCode.toString().length >= 10 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
-    async fetchPublisher () {
+    async fetchPublisher() {
       this.loader = true
       try {
         var url = ''
@@ -1050,7 +1086,7 @@ export default {
         if (this.role == 'admin') {
           url = 'publisher/get-all'
         } else {
-          url = 'user/get-all-members-publishers'
+          url = 'user/get-all-members-publishers/' + this.user_id
         }
 
         // url = 'publisher/get-all'
@@ -1072,12 +1108,12 @@ export default {
             // this.filteredFaqs = response.apidata.data
             // this.filteredFaqs = this.faqs
             // this.ForDropwDow = this.faqs
-            paymentData.reverse();
-            paymentData.forEach((e) => {
-  e.createdAt = moment(e.createdAt).format("DD MMM YYYY h:mm A");
-});
-this.faqs = paymentData;
-this.filteredFaqs =paymentData;
+            paymentData.reverse()
+            paymentData.forEach(e => {
+              e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
+            })
+            this.faqs = paymentData
+            this.filteredFaqs = paymentData
           }
         }
         this.loader = false
@@ -1087,12 +1123,12 @@ this.filteredFaqs =paymentData;
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    handelUserField () {
+    handelUserField() {
       this.searchUser = this.faqs.filter(user =>
         user.user_name.toLowerCase().includes(this.publisherName.toLowerCase())
       )
     },
-    async fetchUser () {
+    async fetchUser() {
       this.loader = true
 
       try {
@@ -1127,8 +1163,8 @@ this.filteredFaqs =paymentData;
         )
       }
     },
-    gethandleImageSelection () {},
-    async handleImageSelection () {
+    gethandleImageSelection() {},
+    async handleImageSelection() {
       this.imgLoader = true
 
       try {
@@ -1162,7 +1198,7 @@ this.filteredFaqs =paymentData;
       }
     },
 
-    truncateDescription (description) {
+    truncateDescription(description) {
       const words = description.split(' ')
       if (words.length > 13) {
         return words.slice(0, 13).join(' ') + '...'
@@ -1171,7 +1207,7 @@ this.filteredFaqs =paymentData;
       }
     },
 
-    async clickAccept (id) {
+    async clickAccept(id) {
       try {
         var req = {
           status: 'Approved'
@@ -1196,25 +1232,24 @@ this.filteredFaqs =paymentData;
         // console.error(error)
       }
     },
-    async clickReject (id) {
+    async clickReject(id) {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
-    async addPublisher () {
-      
+    clickUserName(id) {
+      this.$router.push('/app/mydesk/creatorPage?id=' + id)
+    },
+    async addPublisher() {
       // Check if all required fields are filled
       // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
 
-     if (!this.phoneInput.isValidNumber()) {
-        this.$toaster.makeToast(
-          'warning',
-          'Invalid number'
-        )
-        return;
+      if (!this.phoneInput.isValidNumber()) {
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
       }
 
-      this.contact_number = this.phoneInput.getNumber();
-    
+      this.contact_number = this.phoneInput.getNumber()
+
       if (this.contact_number.startsWith('+')) {
         this.contact_number = this.contact_number.slice(1)
       }
@@ -1280,13 +1315,13 @@ this.filteredFaqs =paymentData;
             this.uplodedImages = ''
             this.contact_number = ''
             this.agency_center_code = ''
-            this.selectedName=''
+            this.selectedName = ''
             this.icon = null
             //this.$bvModal.show('modal-show-referralUrl')
             //this.$toaster.makeToast('success', 'Referral create successfully')
             //if (this.role === 'admin') {
-              this.$toaster.makeToast('success', 'Data added successfully')
-              // this.launchConfetti()
+            this.$toaster.makeToast('success', 'Data added successfully')
+            // this.launchConfetti()
             //}
           }
         } catch (error) {
@@ -1301,8 +1336,6 @@ this.filteredFaqs =paymentData;
           }
         }
       }
-        
-      
 
       // if (matchData.length > 0) {
       //   this.$toaster.makeToast(
@@ -1312,22 +1345,17 @@ this.filteredFaqs =paymentData;
       // } else {
     },
 
-    async editPublisher () {
-      
-
+    async editPublisher() {
       if (!this.phoneInput.isValidNumber()) {
-        this.$toaster.makeToast(
-          'warning',
-          'Invalid number'
-        )
-        return;
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
       }
-      this.getphoneNumber = this.phoneInput.getNumber();
+      this.getphoneNumber = this.phoneInput.getNumber()
       if (this.getphoneNumber.startsWith('+')) {
-        this.getphoneNumber= this.getphoneNumber.slice(1)
+        this.getphoneNumber = this.getphoneNumber.slice(1)
       }
       this.loader = true
-      
+
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -1364,7 +1392,7 @@ this.filteredFaqs =paymentData;
         this.$toaster.makeToast('warning', 'Error: Server Error')
       }
     },
-    clickEdit (data) {
+    clickEdit(data) {
       this.updateId = data._id
       this.getcenterCode = data.agency_center_code
       this.getphoneNumber = data.contact_number
@@ -1376,19 +1404,18 @@ this.filteredFaqs =paymentData;
       this.getTikTok = data.tiktok_username
 
       this.showAddModalEdit = true
-      const phoneInputField = document.querySelector("#phone");
+      const phoneInputField = document.querySelector('#phone')
       setTimeout(() => {
-        const phoneInputField = document.querySelector("#phone");
+        const phoneInputField = document.querySelector('#phone')
         this.phoneInput = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: 'in',
           utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });  
-      }, 200);
-      
+            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+        })
+      }, 200)
     },
 
-    clickRejectButton () {
+    clickRejectButton() {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
         this.deletePublisher()
       } else {
@@ -1398,7 +1425,7 @@ this.filteredFaqs =paymentData;
         )
       }
     },
-    async deletePublisher () {
+    async deletePublisher() {
       this.loader = true
       try {
         var req = {
@@ -1419,7 +1446,7 @@ this.filteredFaqs =paymentData;
           this.$toaster.makeToast('success', 'Status Rejected successfully')
           this.$bvModal.hide('modal-cancelReason')
           this.fetchPublisher()
-          this.cancelReasonText = '';
+          this.cancelReasonText = ''
         }
       } catch (error) {
         this.$bvModal.hide('modal-cancelReason')
@@ -1428,7 +1455,7 @@ this.filteredFaqs =paymentData;
         // console.error(error)
       }
     },
-    async clickDelete (data) {
+    async clickDelete(data) {
       this.loader = true
       try {
         // Show confirmation dialog
@@ -1468,20 +1495,20 @@ this.filteredFaqs =paymentData;
         console.error('Error deleting FAQ:', error)
       }
     },
-    closeModal () {
+    closeModal() {
       this.isEdit = false
-      this.tiktok_username=''
-      this.selectedName=''
+      this.tiktok_username = ''
+      this.selectedName = ''
       this.phoneNumber = ''
       this.centerCode = ''
       this.publisherName = ''
       this.uplodedImages = null
       this.showAddModal = false // Set showAddModal to false to hide the modal
     },
-    closeModalEdit () {
+    closeModalEdit() {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
     },
-    getProfileDetails () {
+    getProfileDetails() {
       this.loader = true
       this.$apiService
         .getCall(`auth/user/${this.user_id}`)
@@ -1522,35 +1549,28 @@ this.filteredFaqs =paymentData;
     // }
   }
 }
-
 </script>
 <style>
 .phone-input {
-
-.iti {
-  width: 100%;
-   
-  #phone {
+  .iti {
     width: 100%;
+
+    #phone {
+      width: 100%;
+    }
   }
-}
-
-
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style >
+<style>
 .phone-input {
-
-.iti {
-  width: 100%;
-   
-  #phone {
+  .iti {
     width: 100%;
+
+    #phone {
+      width: 100%;
+    }
   }
-}
-
-
 }
 /* Modal overlay */
 .modal-overlay {
@@ -1579,8 +1599,6 @@ imgloader {
   position: fixed;
   z-index: 10;
 }
-
-
 
 .close {
   position: absolute;
@@ -1653,31 +1671,28 @@ imgloader {
   border: 1px solid #ef4444;
 }
 
-
-#phone
-{
+#phone {
   background: #f3f4f6;
-    border: 1px solid #9ca3af;
-    border-radius: 3px;
-    color: #1f2937;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  border: 1px solid #9ca3af;
+  border-radius: 3px;
+  color: #1f2937;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .phone-input .iti {
-    width: 100%;
+  width: 100%;
 }
 
-
 .plzero {
-    padding-left: 5px !important;
+  padding-left: 5px !important;
 }
 
 .form-control {
-    border: initial;
-    outline: initial !important;
-    background: #f3f4f6;
-    border: 1px solid #9ca3af00;
-    color: #111827;
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af00;
+  color: #111827;
 }
 </style>

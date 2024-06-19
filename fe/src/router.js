@@ -94,6 +94,16 @@ const routes = [
           },
 
           {
+            path: "creatorPage",
+            name: "creatorPage",
+            component: () => import("./views/app/myDesk/creatorPage"),
+          }, 
+           {
+            path: "memberPage",
+            name: "memberPage",
+            component: () => import("./views/app/myDesk/memberPage"),
+          }, 
+           {
             path: "usersProfile",
             name: "usersProfile",
             component: () => import("./views/app/myDesk/usersProfile"),

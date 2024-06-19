@@ -118,23 +118,23 @@
         <div class="card mb-30">
           <div class="card-body">
             <div class="card-title">Top 5 Diamonds Members this Month</div>
-            <div
-              class="d-flex flex-column flex-sm-row align-items-center mb-3"
-              v-for="(value, index) in popular_cars"
-              :key="index"
-            >
-              <div class="flex-grow-1 text-center text-sm-left">
-                <h5 class="">
-                  <a href="">{{ value.carId__brand }}- {{ value.no }}</a>
-                </h5>
-                <!-- <p class="m-0 text-small text-muted">
-                  Lorem ipsum dolor sit amet consectetur.
-                </p> -->
-                <!-- <p class="text-small text-danger m-0">
-                  $ 450 <del class="text-muted">$ 500</del>
-                </p> -->
-              </div>
-            </div>
+            <vue-good-table
+              :columns="diamondColumns"
+              :line-numbers="true"
+              :pagination-options="{
+                enabled: false,
+                mode: 'records'
+              }"
+              styleClass="tableOne vgt-table"
+              :selectOptions="{
+                enabled: false,
+                selectionInfoClass: 'table-alert__box'
+              }"
+              :sort-options="{
+                enabled: false
+              }"
+              :rows="diamondsData"
+            ></vue-good-table>
           </div>
         </div>
       </b-col>
@@ -142,23 +142,29 @@
         <div class="card mb-30">
           <div class="card-body">
             <div class="card-title">Top 5 Earnings Members This Month ($)</div>
-            <div
-              class="d-flex flex-column flex-sm-row align-items-center mb-3"
-              v-for="(value, index) in popular_cars"
-              :key="index"
+            <vue-good-table
+              :columns="earningsColumns"
+              :line-numbers="true"
+              :pagination-options="{
+                enabled: false,
+                mode: 'records'
+              }"
+              styleClass="tableOne vgt-table"
+              :selectOptions="{
+                enabled: false,
+                selectionInfoClass: 'table-alert__box'
+              }"
+              :sort-options="{
+                enabled: false
+              }"
+              :rows="earningsData"
             >
-              <div class="flex-grow-1 text-center text-sm-left">
-                <h5 class="">
-                  <a href="">{{ value.carId__brand }} - {{ value.no }}$</a>
-                </h5>
-                <!-- <p class="m-0 text-small text-muted">
-                  Lorem ipsum dolor sit amet consectetur.
-                </p> -->
-                <!-- <p class="text-small text-danger m-0">
-                  $ 450 <del class="text-muted">$ 500</del>
-                </p> -->
-              </div>
-            </div>
+              <template slot="table-row" slot-scope="props">
+                <span v-if="props.column.field === 'earnings_show'">
+                  {{ props.row.earnings }}$
+                </span>
+              </template></vue-good-table
+            >
           </div>
         </div>
       </b-col>
@@ -169,23 +175,23 @@
             <div class="card-title">
               Top 5 Creators Most Diamonds This Month
             </div>
-            <div
-              class="d-flex flex-column flex-sm-row align-items-center mb-3"
-              v-for="(value, index) in popular_cars"
-              :key="index"
-            >
-              <div class="flex-grow-1 text-center text-sm-left">
-                <h5 class="">
-                  <a href="">{{ value.carId__brand }} - {{ value.no }}</a>
-                </h5>
-                <!-- <p class="m-0 text-small text-muted">
-                  Lorem ipsum dolor sit amet consectetur.
-                </p> -->
-                <!-- <p class="text-small text-danger m-0">
-                  $ 450 <del class="text-muted">$ 500</del>
-                </p> -->
-              </div>
-            </div>
+            <vue-good-table
+              :columns="creatorColumns"
+              :line-numbers="true"
+              :pagination-options="{
+                enabled: false,
+                mode: 'records'
+              }"
+              styleClass="tableOne vgt-table"
+              :selectOptions="{
+                enabled: false,
+                selectionInfoClass: 'table-alert__box'
+              }"
+              :sort-options="{
+                enabled: false
+              }"
+              :rows="creatorsData"
+            ></vue-good-table>
           </div>
         </div>
       </b-col>
@@ -194,23 +200,23 @@
         <div class="card mb-30">
           <div class="card-body">
             <div class="card-title">Top 5 Member with Most Creators</div>
-            <div
-              class="d-flex flex-column flex-sm-row align-items-center mb-3"
-              v-for="(value, index) in popular_cars"
-              :key="index"
-            >
-              <div class="flex-grow-1 text-center text-sm-left">
-                <h5 class="">
-                  <a href="">{{ value.carId__brand }} - {{ value.no }}</a>
-                </h5>
-                <!-- <p class="m-0 text-small text-muted">
-                  Lorem ipsum dolor sit amet consectetur.
-                </p> -->
-                <!-- <p class="text-small text-danger m-0">
-                  $ 450 <del class="text-muted">$ 500</del>
-                </p> -->
-              </div>
-            </div>
+            <vue-good-table
+              :columns="mostCreatorDataColumns"
+              :line-numbers="true"
+              :pagination-options="{
+                enabled: false,
+                mode: 'records'
+              }"
+              styleClass="tableOne vgt-table"
+              :selectOptions="{
+                enabled: false,
+                selectionInfoClass: 'table-alert__box'
+              }"
+              :sort-options="{
+                enabled: false
+              }"
+              :rows="mostCreatorData"
+            ></vue-good-table>
           </div>
         </div>
       </b-col>
@@ -248,12 +254,36 @@ export default {
 
         { carId__brand: 'WEIR', no: 9 },
         { carId__brand: '435345', no: 7 }
+      ],
+      diamondsData: [],
+      earningsData: [],
+      creatorsData: [],
+      mostCreatorData: [],
+      diamondColumns: [
+        { label: 'Name', field: 'username' },
+        { label: 'Diamonds', field: 'diamonds' }
+      ],
+      earningsColumns: [
+        { label: 'Name', field: 'username' },
+        { label: 'Earnings', field: 'earnings_show' }
+      ],
+      creatorColumns: [
+        { label: 'Name', field: 'username' },
+        { label: 'Diamonds', field: 'diamonds' }
+      ],
+      mostCreatorDataColumns: [
+        { label: 'Name', field: 'username' },
+        { label: 'creators', field: 'creators' }
       ]
     }
   },
   mounted () {},
   created () {
     this.getDashboardData()
+    this.getDiamonds()
+    this.getEarning()
+    this.getCreators()
+    this.getMostCreators()
   },
   methods: {
     async getDashboardData () {
@@ -261,7 +291,6 @@ export default {
 
       try {
         const response = await this.$apiService.getCall('auth/dashboard-count/')
-        console.log(response)
         if (response.error || !response.apidata) {
           this.loader = false
           this.$toaster.makeToast('warning', 'Error while getting data')
@@ -270,6 +299,90 @@ export default {
           this.pending_creators = response.apidata.pending_creators
           this.total_creators = response.apidata.creators
           this.total_payment_request = response.apidata.payment_request
+
+          this.loader = false
+        }
+      } catch (error) {
+        this.loader = false
+        console.error('Server error:', error)
+      }
+    },
+    async getDiamonds () {
+      this.loader = true
+
+      try {
+        const response = await this.$apiService.getCall(
+          '/auth/top-five-diamonds-members-month'
+        )
+        console.log(response)
+        if (response.error || !response.apidata) {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Error while getting data')
+        } else {
+          this.diamondsData = response.apidata.data
+
+          this.loader = false
+        }
+      } catch (error) {
+        this.loader = false
+        console.error('Server error:', error)
+      }
+    },
+    async getEarning () {
+      this.loader = true
+
+      try {
+        const response = await this.$apiService.getCall(
+          '/auth/top-five-earnings-members-month'
+        )
+        console.log(response)
+        if (response.error || !response.apidata) {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Error while getting data')
+        } else {
+          this.earningsData = response.apidata.data
+
+          this.loader = false
+        }
+      } catch (error) {
+        this.loader = false
+        console.error('Server error:', error)
+      }
+    },
+    async getCreators () {
+      this.loader = true
+
+      try {
+        const response = await this.$apiService.getCall(
+          '/auth/top-five-creators-most-diamonds-month'
+        )
+        console.log(response)
+        if (response.error || !response.apidata) {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Error while getting data')
+        } else {
+          this.creatorsData = response.apidata.data
+
+          this.loader = false
+        }
+      } catch (error) {
+        this.loader = false
+        console.error('Server error:', error)
+      }
+    },
+    async getMostCreators () {
+      this.loader = true
+
+      try {
+        const response = await this.$apiService.getCall(
+          '/auth/top-five-members-most-creators'
+        )
+        console.log(response)
+        if (response.error || !response.apidata) {
+          this.loader = false
+          this.$toaster.makeToast('warning', 'Error while getting data')
+        } else {
+          this.mostCreatorData = response.apidata.data
 
           this.loader = false
         }

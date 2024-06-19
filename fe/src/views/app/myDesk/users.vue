@@ -16,7 +16,7 @@
         Add Members
       </label>
       <b-row class="">
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="First Name" label-for="input-name">
             <b-form-input
               v-model="userName"
@@ -29,7 +29,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Last Name" label-for="input-title">
             <b-form-input
               v-model="userSurName"
@@ -42,7 +42,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="tikTokUserName"
@@ -68,12 +68,14 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-        
+
         <b-col md="12">
-       
-       <div class="phone-input">
-       <b-form-group label="Contact Number" label-for="input-contact-number">
-         <!-- <b-form-input
+          <div class="phone-input">
+            <b-form-group
+              label="Contact Number"
+              label-for="input-contact-number"
+            >
+              <!-- <b-form-input
            v-model="contact_number"
            required
            placeholder="Contact number"
@@ -81,11 +83,16 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control border-0" id="phone" type="tel" name="phone" maxlength="11"></b-form-input>
-       </b-form-group>
-     
-     </div>
-   </b-col>
+              <b-form-input
+                class="form-control border-0"
+                id="phone"
+                type="tel"
+                name="phone"
+                maxlength="11"
+              ></b-form-input>
+            </b-form-group>
+          </div>
+        </b-col>
         <b-col>
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
@@ -115,13 +122,12 @@
       hide-footer
       hide-header
       centered
-    
     >
       <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
         Update Members
       </label>
       <b-row class="">
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Enter name" label-for="input-title">
             <b-form-input
               v-model="getuserName"
@@ -133,7 +139,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="Enter surname" label-for="input-title">
             <b-form-input
               v-model="getuserSurName"
@@ -145,7 +151,7 @@
             ></b-form-input>
           </b-form-group>
         </b-col>
-        <b-col md="12" >
+        <b-col md="12">
           <b-form-group label="TikTok Name" label-for="input-title">
             <b-form-input
               v-model="gettikTokUserName"
@@ -170,12 +176,14 @@
             ></b-form-input>
           </b-form-group>
         </b-col> -->
-      
+
         <b-col md="12">
-       
-       <div class="phone-input">
-       <b-form-group label="Contact Number" label-for="input-contact-number">
-         <!-- <b-form-input
+          <div class="phone-input">
+            <b-form-group
+              label="Contact Number"
+              label-for="input-contact-number"
+            >
+              <!-- <b-form-input
            v-model="contact_number"
            required
            placeholder="Contact number"
@@ -183,17 +191,20 @@
            @keydown="checkLengthPhone"
            id="input-contact-number"
          ></b-form-input> -->
-         <b-form-input class=" form-control border-0" id="phone" type="tel"  name="phone" v-model="getphoneNumber"  maxlength="15"></b-form-input>
-       </b-form-group>
-     
-     </div>
-   </b-col>
+              <b-form-input
+                class="form-control border-0"
+                id="phone"
+                type="tel"
+                name="phone"
+                v-model="getphoneNumber"
+                maxlength="15"
+              ></b-form-input>
+            </b-form-group>
+          </div>
+        </b-col>
         <b-col>
           <div class="d-flex justify-content-end px-0">
-            <b-button
-              v-if="!imgLoader"
-              class=" mr-2"
-              @click="closeEditModal()"
+            <b-button v-if="!imgLoader" class="mr-2" @click="closeEditModal()"
               >Close</b-button
             >
             <b-button
@@ -212,12 +223,12 @@
             <b-button class="mb-2 mr-2" @click="closeEditModal()">Close</b-button>
           </div> -->
         </b-col>
-      </b-row >
+      </b-row>
     </b-modal>
     <b-modal id="modal-add-rates" size="md" hide-footer hide-header centered>
       <b-row class="">
         <b-col md="12">
-          <i class="fa   mb-3" aria-hidden="true"> Default Commission Rates </i>
+          <i class="fa mb-3" aria-hidden="true"> Default Commission Rates </i>
         </b-col>
 
         <b-col md="12">
@@ -232,7 +243,10 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="3.000.000 - 5.000.000 diamonds %" class="text-12">
+          <b-form-group
+            label="3.000.000 - 5.000.000 diamonds %"
+            class="text-12"
+          >
             <b-form-input
               class="form-control"
               type="text"
@@ -338,10 +352,10 @@
           class="d-flex flex-row card-body flex-wrap gap-between"
           :style="{ display: flexDivDisplay }"
         >
-        <div class="row w-100">
+          <div class="row w-100">
             <div class="col-12 col-sm-6 col-lg-3 pr-0">
               <label for="users-list-search">Search</label>
-              
+
               <fieldset class="form-group">
                 <input
                   type="text"
@@ -349,28 +363,28 @@
                   id="users-list-search"
                   placeholder="Search..."
                   style="
-                          color: grey!important;
-                          padding-bottom: 7px!important;
-                          border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                          background-color: rgb(135 131 131 / 0%)!important;
-                        "
+                    color: grey !important;
+                    padding-bottom: 7px !important;
+                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                    background-color: rgb(135 131 131 / 0%) !important;
+                  "
                   v-model="searchTerm"
                   @input="filteredRows = getfilterdata"
                 />
               </fieldset>
             </div>
-            <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero ">
+            <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero">
               <label for="users-list-verified">Action</label>
               <fieldset class="form-group">
                 <select
                   class="form-control"
                   id="users-list-verified"
                   style="
-                          color: grey!important;
-                          padding-bottom: 7px!important;
-                          border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                          background-color: rgb(135 131 131 / 0%)!important;
-                        "
+                    color: grey !important;
+                    padding-bottom: 7px !important;
+                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                    background-color: rgb(135 131 131 / 0%) !important;
+                  "
                   v-model="filterStatus"
                 >
                   <option value="">All</option>
@@ -404,7 +418,7 @@
           >
             <b-button
               v-if="role != 'admin'"
-           @click="openAddModal"
+              @click="openAddModal"
               variant="primary ripple btn-icon m-1"
               style="
                 padding-top: 2px;
@@ -460,10 +474,20 @@
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
             </span>
+            <span v-else-if="props.column.field === 'show_userName'">
+              <div
+                class="text-primary ul-cursor--pointer"
+                @click="clickUserName(props.row._id)"
+              >
+                {{ props.row.tiktok_username }}
+              </div>
+            </span>
+
             <span v-else-if="props.column.field === 'show_commission'">
               <div class="d-flex" v-if="props.row.first_commission">
-                0-3M = %{{ props.row.first_commission }}
-                <br />3M-5M = %{{ props.row.second_commission }}
+                0-3M = %{{ props.row.first_commission }} <br />3M-5M = %{{
+                  props.row.second_commission
+                }}
                 <br />5M+ %{{ props.row.third_commission }}
               </div>
             </span>
@@ -487,9 +511,7 @@
                     ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
                   ></span>
 
-                  <span
-                    @click="formSubmitDeleteMember(props.row)"
-                    class="btn "
+                  <span @click="formSubmitDeleteMember(props.row)" class="btn"
                     ><i class="fa fa-trash" aria-hidden="true"></i
                   ></span>
                 </div>
@@ -568,10 +590,9 @@ export default {
       isModalOpen: false,
 
       columns: [
-
         {
           label: 'TikTok Name',
-          field: 'tiktok_username',
+          field: 'show_userName',
           filterOptions: {
             enabled: true,
             placeholder: 'Search TikTok'
@@ -594,14 +615,12 @@ export default {
           }
         },
         {
-  label: 'Commission rate\'s',
-  field: 'show_commission',
-  filterOptions: {
-    enabled: false
-  },
-  
-},
-
+          label: "Commission rate's",
+          field: 'show_commission',
+          filterOptions: {
+            enabled: false
+          }
+        },
 
         {
           label: 'Action',
@@ -609,8 +628,7 @@ export default {
           filterOptions: {
             enabled: false
           }
-        },
-
+        }
       ],
       rows: [],
       originalRows: [],
@@ -624,7 +642,7 @@ export default {
       userSurName: '',
       tikTokUserName: '',
       updateId: null,
-      phoneNumberfield:null,
+      phoneNumberfield: null,
       getphoneNumber: null,
       getuserName: null,
       getuserSurName: null,
@@ -641,21 +659,16 @@ export default {
       name: '',
       contact_number: '',
       email: '',
-      updateloader:false,
-          secondValue:'',
-          firstValue:'',
-          thirdValue:'',
+      updateloader: false,
+      secondValue: '',
+      firstValue: '',
+      thirdValue: '',
       getUid: '',
       getfirstValue: '',
-      getsecondValue:'',
-
- 
-
-
+      getsecondValue: ''
     }
   },
-  created() {
-
+  created () {
     this.getAllUsers()
     this.getAllTransaction()
 
@@ -663,19 +676,18 @@ export default {
     this.originalRows = [...this.rows]
 
     // this.reloadPageOnce();
-
   },
   methods: {
-    openAddModal() {
-      this.showAddModal = true;
+    openAddModal () {
+      this.showAddModal = true
       setTimeout(() => {
-        const phoneInputField = document.querySelector("#phone");
+        const phoneInputField = document.querySelector('#phone')
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: 'in',
           utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });  
-      }, 200);
+            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+        })
+      }, 200)
     },
     closeModal () {
       this.isEdit = false
@@ -703,15 +715,14 @@ export default {
 
       this.showEditModal = true
 
-      
       setTimeout(() => {
-        const phoneInputField = document.querySelector("#phone");
+        const phoneInputField = document.querySelector('#phone')
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: 'in',
           utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });  
-      }, 200);
+            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+        })
+      }, 200)
     },
 
     checkLength (event) {
@@ -725,36 +736,38 @@ export default {
       }
     },
 
-    clickAddRates(data) {
-      this.getUid = data._id;
-      this.firstValue = data.first_commission;
-      this.secondValue = data.second_commission;
-      this.thirdValue = data.third_commission;
-      this.$bvModal.show('modal-add-rates');
+    clickAddRates (data) {
+      this.getUid = data._id
+      this.firstValue = data.first_commission
+      this.secondValue = data.second_commission
+      this.thirdValue = data.third_commission
+      this.$bvModal.show('modal-add-rates')
     },
-    clickCancle() {
-        this.$bvModal.hide('modal-add-rates');
+    clickCancle () {
+      this.$bvModal.hide('modal-add-rates')
     },
-    clickAddButton() {
-
+    clickAddButton () {
       if (this.firstValue && this.secondValue && this.thirdValue) {
         this.updateloader = true
         let reqData = {
-          'first_commission': this.firstValue,
-          'second_commission': this.secondValue,
-          'third_commission':this.thirdValue,
-          '_id': this.getUid
+          first_commission: this.firstValue,
+          second_commission: this.secondValue,
+          third_commission: this.thirdValue,
+          _id: this.getUid
         }
         this.$apiService
           .postCall('auth/member-update-commission/', reqData)
           .then(res => {
             if (!res.error) {
-              this.$toaster.makeToast('success', 'Commission update successfully');
-              this.$bvModal.hide('modal-add-rates');
-              this.firstValue = '';
-              this.secondValue='';
-              this.thirdValue='';
-              this.getAllUsers();
+              this.$toaster.makeToast(
+                'success',
+                'Commission update successfully'
+              )
+              this.$bvModal.hide('modal-add-rates')
+              this.firstValue = ''
+              this.secondValue = ''
+              this.thirdValue = ''
+              this.getAllUsers()
               this.updateloader = false
             } else {
               this.updateloader = false
@@ -769,11 +782,10 @@ export default {
       } else {
         this.$toaster.makeToast('warning', 'All filed is required')
       }
-
     },
-     validateInputSec(event) {
-      const key = event.key;
-      const value = this.secondValue;
+    validateInputSec (event) {
+      const key = event.key
+      const value = this.secondValue
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -781,22 +793,22 @@ export default {
         key === 'Tab' ||
         key === 'Delete'
       ) {
-        return;
+        return
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault();
-        return;
+        event.preventDefault()
+        return
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10);
+      const newValue = parseInt(value + key, 10)
       if (newValue > 100) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
-    validateInput(event) {
-      const key = event.key;
-      const value = this.firstValue;
+    validateInput (event) {
+      const key = event.key
+      const value = this.firstValue
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -804,23 +816,23 @@ export default {
         key === 'Tab' ||
         key === 'Delete'
       ) {
-        return;
+        return
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault();
-        return;
+        event.preventDefault()
+        return
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10);
+      const newValue = parseInt(value + key, 10)
       if (newValue > this.secondValue) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
 
-    validateInputThird(event) {
-      const key = event.key;
-      const value = this.thirdValue;
+    validateInputThird (event) {
+      const key = event.key
+      const value = this.thirdValue
       if (
         key === 'Backspace' ||
         key === 'ArrowLeft' ||
@@ -828,31 +840,27 @@ export default {
         key === 'Tab' ||
         key === 'Delete'
       ) {
-        return;
+        return
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault();
-        return;
+        event.preventDefault()
+        return
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10);
+      const newValue = parseInt(value + key, 10)
       if (newValue > 100) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
 
-    formSubmitEditMember() {
-       if (!this.phoneNumberfield.isValidNumber()) {
-        this.$toaster.makeToast(
-          'warning',
-          'Invalid number'
-        )
-        return;
+    formSubmitEditMember () {
+      if (!this.phoneNumberfield.isValidNumber()) {
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
       }
-      this.getphoneNumber = this.phoneNumberfield.getNumber();
-      
-    
+      this.getphoneNumber = this.phoneNumberfield.getNumber()
+
       if (this.getphoneNumber.startsWith('+')) {
         this.getphoneNumber = this.getphoneNumber.slice(1)
       }
@@ -886,66 +894,61 @@ export default {
           this.$store.commit('setError', { message: error })
         })
     },
-    formSubmitDeleteMember(data) {
+    formSubmitDeleteMember (data) {
       this.$swal({
         title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-    if (result.isConfirmed) {
-      this.loader = true;
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.loader = true
 
-      this.$apiService
-        .getCall(`auth/member-delete/${data._id}`)
-        .then(user => {
-          this.loader = false;
-          if (user.error) {
-            this.$toaster.makeToast('warning', user.message);
-          } else {
-           
-            this.showEditModal = false;
-           
-      this.getAllUsers();
-      setTimeout(() => {
-        this.$toaster.makeToast('success', 'User deleted successfully');
-    }, 1000);
-          
-          }
-        })
-        .catch((error) => {
-          this.$toaster.makeToast('warning', 'Error: server error');
-          this.loader = false;
-          this.$store.commit('setError', { message: error });
-        });
-    }
-  });
-},
+          this.$apiService
+            .getCall(`auth/member-delete/${data._id}`)
+            .then(user => {
+              this.loader = false
+              if (user.error) {
+                this.$toaster.makeToast('warning', user.message)
+              } else {
+                this.showEditModal = false
 
+                this.getAllUsers()
+                setTimeout(() => {
+                  this.$toaster.makeToast(
+                    'success',
+                    'User deleted successfully'
+                  )
+                }, 1000)
+              }
+            })
+            .catch(error => {
+              this.$toaster.makeToast('warning', 'Error: server error')
+              this.loader = false
+              this.$store.commit('setError', { message: error })
+            })
+        }
+      })
+    },
 
-    formSubmitAddMember () {      
+    formSubmitAddMember () {
       if (!this.phoneNumberfield.isValidNumber()) {
-        this.$toaster.makeToast(
-          'warning',
-          'Invalid number'
-        )
-        return;
+        this.$toaster.makeToast('warning', 'Invalid number')
+        return
       }
-      this.phoneNumber = this.phoneNumberfield.getNumber();
-      
-    
+      this.phoneNumber = this.phoneNumberfield.getNumber()
+
       if (this.phoneNumber.startsWith('+')) {
         this.phoneNumber = this.phoneNumber.slice(1)
       }
-      if (!this.userName || !this.userSurName|| !this.tikTokUserName) {
+      if (!this.userName || !this.userSurName || !this.tikTokUserName) {
         this.$toaster.makeToast('warning', 'All Field is required')
-        return;;
+        return
       }
-      this.imgLoader = true;
-
+      this.imgLoader = true
 
       let requestData = {
         contact_number: this.phoneNumber,
@@ -996,6 +999,10 @@ export default {
       // Set the flag to true to show the modal
       this.showEditModal = true
     },
+    clickUserName (id) {
+      this.$router.push('/app/mydesk/memberPage?id=' + id)
+    },
+
     closeEditModal () {
       // Set the flag to false to hide the modal
       this.showEditModal = false
@@ -1310,8 +1317,6 @@ export default {
   padding-left: 3px;
 }
 
-
-
 .multiselect__placeholder {
   color: #adadad;
   display: inline-block;
@@ -1346,25 +1351,23 @@ export default {
 }
 
 .form-control {
-    border: initial;
-    outline: initial !important;
-    background: #f3f4f6;
-    border: 1px solid #9ca3af00;
-    color: #111827;
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af00;
+  color: #111827;
 }
 
-
-#phone
-{
+#phone {
   background: #f3f4f6;
-    border: 1px solid #9ca3af;
-    border-radius: 3px;
-    color: #1f2937;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  border: 1px solid #9ca3af;
+  border-radius: 3px;
+  color: #1f2937;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .phone-input .iti {
-    width: 100%;
+  width: 100%;
 }
 </style>
