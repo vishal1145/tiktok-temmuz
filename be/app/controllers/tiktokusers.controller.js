@@ -8,6 +8,8 @@ const {
   resendOtp,
   topFiveDiamondsMembersMonth,
   topFiveEarningsMembersMonth,
+  topFiveCreatorsDiamondsMonth,
+  topFiveMembersMostCreators
 } = require("../services/tiktokusers.service");
 const { getToken } = require('../util')
 
@@ -96,6 +98,24 @@ exports.topFiveEarningsMembersMonth = async (req, res) => {
   try {
     const {top_five_users} = await topFiveEarningsMembersMonth();
     res.status(200).json({ success: true, data: top_five_users });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.topFiveCreatorsDiamondsMonth = async (req, res) => {
+  try {
+    const {top_five_creators} = await topFiveCreatorsDiamondsMonth();
+    res.status(200).json({ success: true, data: top_five_creators });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+exports.topFiveMembersMostCreators = async (req, res) => {
+  try {
+    const {top_five_creators} = await topFiveMembersMostCreators();
+    res.status(200).json({ success: true, data: top_five_creators });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -5,7 +5,7 @@ const router = express.Router()
 
 const { register, login, forgetPassword, verifyOtp, checkUserName, getUserById, updatePassword, dashBoardCount } = require('../controllers/auth.controller');
 const { validateUserOnRegistration, validateUserOnLogin } = require('../validators/user')
-const { tiktokLogin, isMemberExists, memberDelete, memberUpdate, memberUpdateProfile, memberUpdateCommission, resendOtp, topFiveDiamondsMembersMonth, topFiveEarningsMembersMonth } = require('../controllers/tiktokusers.controller');
+const { tiktokLogin, isMemberExists, memberDelete, memberUpdate, memberUpdateProfile, memberUpdateCommission, resendOtp, topFiveDiamondsMembersMonth, topFiveEarningsMembersMonth, topFiveCreatorsDiamondsMonth, topFiveMembersMostCreators } = require('../controllers/tiktokusers.controller');
 const { verifyRegister, checkEmailExists } = require('../middleware/auth')
 
 // validateUserOnRegistration
@@ -28,5 +28,7 @@ router.get("/dashboard-count", dashBoardCount);
 router.post("/resend-otp", resendOtp);
 router.get("/top-five-diamonds-members-month", topFiveDiamondsMembersMonth);
 router.get("/top-five-earnings-members-month", topFiveEarningsMembersMonth);
+router.get("/top-five-creators-most-diamonds-month", topFiveCreatorsDiamondsMonth);
+router.get("/top-five-members-most-creators", topFiveMembersMostCreators);
 
 module.exports = router
