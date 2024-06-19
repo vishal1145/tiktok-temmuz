@@ -203,6 +203,135 @@
               </b-form-group>
             </b-col>
           </b-row>
+          <b-row class="">
+            <b-col>
+              <label style="font-size: 20px"> Bank account details </label>
+            </b-col>
+            <b-col md="12" class="">
+              <b-form-group
+                label="Full Name:
+"
+                label-for="input-user-name"
+              >
+                <b-form-input
+                  v-model="userFullName"
+                  required
+                  placeholder="Must be the same as the name of the bank account holder."
+                  type="text"
+                  maxlength="17"
+                  id="input-user-name"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col md="12">
+              <b-form-group
+                label="Identity Citizenship No"
+                label-for="input-citizenship"
+              >
+                <b-form-input
+                  v-model="citizenshipNo"
+                  required
+                  placeholder="Enter Citizenship No"
+                  type="number"
+                  @keydown="checkLengthCitizen"
+                  id="input-citizenship"
+                ></b-form-input>
+              </b-form-group>
+              <!-- @keydown="validateInputAmount" -->
+            </b-col>
+            <b-col md="12" class="">
+              <b-form-group label="Bank Name" label-for="input-bankName">
+                <b-form-input
+                  v-model="bankName"
+                  required
+                  placeholder="Enter Bank Name"
+                  type="text"
+                  maxlength="17"
+                  id="input-bankName"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+
+            <b-col md="12">
+              <b-form-group label="IBAN No" label-for="input-idbn">
+                <b-form-input
+                  v-model="idbnNo"
+                  required
+                  placeholder="Enter IDBN No"
+                  type="text"
+                  id="input-idbn"
+                  maxlength="20"
+                  @input="formatInput"
+                ></b-form-input>
+              </b-form-group>
+              <!-- @keydown="validateInputAmount" -->
+            </b-col>
+            <!-- <b-col md="6" >
+              <b-form-group label="Re-Confirm IBAN No" label-for="input-idbn">
+                <b-form-input
+                  v-model="holderAccConfirm"
+                  required
+                  placeholder="Re-Confirm IDBN No"
+                  type="number"
+                  @keydown="checkLengthIdbn"
+                  id="input-idbn"
+                ></b-form-input>
+                <b-alert
+                  show
+                  variant="danger"
+                  class="error col mt-1"
+                  v-if="!$v.holderAccConfirm.sameAsIdbnNo"
+                  >IDBN number must be identical.</b-alert
+                >
+              </b-form-group>
+           
+            </b-col>
+
+            <b-col md="12" class="">
+              <b-form-group label="Province" label-for="input-province">
+                <b-form-input
+                  v-model="province"
+                  required
+                  placeholder="Enter Province"
+                  type="text"
+                  maxlength="15"
+                  id="input-province"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col md="12" class="">
+              <b-form-group
+                label="District
+"
+                label-for="input-district
+"
+              >
+                <b-form-input
+                  v-model="district"
+                  required
+                  placeholder="Enter District
+"
+                  type="text"
+                  maxlength="15"
+                  id="input-district
+"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+
+            <b-col md="12" class="">
+              <b-form-group label="Country" label-for="input-country">
+                <b-form-input
+                  v-model="country"
+                  required
+                  placeholder="Enter Country"
+                  type="text"
+                  maxlength="15"
+                  id="input-country"
+                ></b-form-input>
+              </b-form-group>
+            </b-col> -->
+          </b-row>
 
           <b-row>
             <b-col md="12" class="">
@@ -221,7 +350,7 @@
         </b-form>
       </b-card>
       <b-card title="Bank Account" class="for-profile" style="display: none">
-        <b-form>
+        <!-- <b-form>
           <b-row>
             <b-col md="6">
               <b-form-group label="Bank Account No" label-for="bank-account-no">
@@ -285,7 +414,7 @@
               </b-button>
             </b-col>
           </b-row>
-        </b-form>
+        </b-form> -->
       </b-card>
     </div>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
@@ -407,6 +536,8 @@
   </div>
 </template>
 <script>
+import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+
 import message from '../../../message'
 import Referal from './../setting/referal.vue'
 export default {
@@ -427,7 +558,14 @@ export default {
       phoneNumber: '',
       isOtp: null,
       imgSrc: null,
-
+      userFullName: '',
+      citizenshipNo: '',
+      bankName: '',
+      idbnNo: '',
+      holderAccConfirm: '',
+      province: '',
+      district: '',
+      country: '',
       aadharFrontCheckbox: false,
       aadharBackCheckbox: false,
       drivingLincenseBackCheckbox: false,
@@ -488,6 +626,11 @@ export default {
     }
     // this.getCompanyData();
   },
+  validations: {
+    // holderAcc: { // required, // minLength: minLength(5), // },
+    holderAccConfirm: { sameAsIdbnNo: sameAs('idbnNo') }
+  },
+
   methods: {
     // isLetter (e) {
     //   let char = String.fromCharCode(e.keyCode) // Get the character
@@ -509,20 +652,26 @@ export default {
             return
           } else {
             this.userName = res.apidata.data.name
-          this.surName = res.apidata.data.surname
-          this.tictocName = res.apidata.data.tiktok_username
-          this.phoneNumber = res.apidata.data.contact_number
-          if (res.apidata.data.image) {
-            this.selectedLogo = res.apidata.data.image
-          }
+            this.surName = res.apidata.data.surname
+            this.tictocName = res.apidata.data.tiktok_username
+            this.phoneNumber = res.apidata.data.contact_number
+            this.userFullName = res.apidata.data.bank.full_name
+            this.citizenshipNo = res.apidata.data.bank.identity_citizenship_no
 
-          this.loader = false
+            this.bankName = res.apidata.data.bank.bank_name
+
+            this.idbnNo = res.apidata.data.bank.iban
+
+            if (res.apidata.data.image) {
+              this.selectedLogo = res.apidata.data.image
+            }
+
+            this.loader = false
           }
-          
         })
         .catch(error => {
-          this.loader = false;
-           this.$toaster.makeToast('success', 'Error fetch profile data')
+          this.loader = false
+          this.$toaster.makeToast('success', 'Error fetch profile data')
         })
     },
 
@@ -588,6 +737,19 @@ export default {
     // },
     checkLength (event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
+        event.preventDefault()
+      }
+    },
+    checkLengthIdbn (event) {
+      if (
+        this.holderAccConfirm.toString().length >= 17 &&
+        event.keyCode !== 8
+      ) {
+        event.preventDefault()
+      }
+    },
+    checkLengthCitizen (event) {
+      if (this.citizenshipNo.toString().length >= 15 && event.keyCode !== 8) {
         event.preventDefault()
       }
     },
@@ -1044,6 +1206,22 @@ export default {
       if (this.phoneNumber) userData.contact_number = this.phoneNumber
       if (this.tictocName) userData.tiktok_username = this.tictocName
       userData._id = this.user_id
+      if (
+        !this.userFullName ||
+        !this.citizenshipNo ||
+        !this.bankName ||
+        !this.idbnNo
+      ) {
+        this.$toaster.makeToast('warning', 'Please fill all bank details')
+        this.updateloader = false
+        return
+      }
+      userData.bank = {
+        full_name: this.userFullName,
+        identity_citizenship_no: this.citizenshipNo,
+        bank_name: this.bankName,
+        iban: this.idbnNo
+      }
 
       if (!this.userName && !this.surName) {
         this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
@@ -1061,6 +1239,12 @@ export default {
           this.updateloader = false
           this.$toaster.makeToast('warning', 'Details update error')
         })
+    },
+    formatInput (event) {
+      const value = event
+      const formattedValue = value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+      this.idbnNo = formattedValue
+      console.log(this.idbnNo)
     },
 
     updateDocuments () {
@@ -1329,8 +1513,6 @@ img {
 .w-59 {
   width: 59% !important;
 }
-
-
 
 .row {
   display: -webkit-box;

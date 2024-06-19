@@ -184,6 +184,34 @@
         </b-col>
       </b-row>
     </b-modal>
+    <b-modal
+      id="modal-bankDetails"
+      size="md"
+      style="height: 100px"
+      hide-footer
+      hide-header
+      centered
+    >
+      <b-row class="">
+        <b-col>
+          <label style="font-size: 20px"> Information </label>
+        </b-col>
+        <b-col md="12">
+          Please update my bank account information after it send payment
+          request
+        </b-col>
+        <b-col md="12" class="text-right">
+          <div class="mt-2">
+            <button @click="updateBankDetails()" class="btn btn-primary mr-2">
+              Update Bank Account
+            </button>
+            <b-button v-if="!imgLoader" class="" @click="clickCancle()">
+              Close
+            </b-button>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
 
     <b-modal
       id="modal-cancelReason"
@@ -600,6 +628,11 @@ export default {
     return {
       startDate: '',
       endDate: '',
+      updateloader: false,
+      userFullName: '',
+      citizenshipNo: '',
+      bankName: '',
+      idbnNo: '',
       cancelReasonText: '',
       selectedStatus: '',
       searchAmount: '',
@@ -906,6 +939,7 @@ export default {
       this.cancelReasonText = ''
       this.$bvModal.hide('modal-show-referralUrl')
       this.$bvModal.hide('modal-cancelReason')
+      this.$bvModal.hide('modal-bankDetails')
     },
 
     getAllUsers () {
@@ -917,35 +951,37 @@ export default {
       if (this.role == 'admin') {
         this.loader = true
         url = 'user/all-payments'
-        this.$apiService.getCall(url).then(response => {
-          if (response.error) {
-            this.loader = false
-            this.$toaster.makeToast('warning', 'Error fetching payment data')
-          } else {
-            this.loader = false
-            const paymentData = response.apidata
-            paymentData.forEach(value => {
-              value.full_name = value.user_id
-                ? value.user_id.name + ' ' + value.user_id.surname
-                : ''
-            })
-            this.rows = paymentData
+        this.$apiService
+          .getCall(url)
+          .then(response => {
+            if (response.error) {
+              this.loader = false
+              this.$toaster.makeToast('warning', 'Error fetching payment data')
+            } else {
+              this.loader = false
+              const paymentData = response.apidata
+              paymentData.forEach(value => {
+                value.full_name = value.user_id
+                  ? value.user_id.name + ' ' + value.user_id.surname
+                  : ''
+              })
+              // this.rows = paymentData
 
-            paymentData.forEach(e => {
-              // Format the request_date
-              e.request_date = moment(e.request_date).format(
-                'DD MMM YYYY h:mm A'
-              )
+              paymentData.forEach(e => {
+                // Format the request_date
+                e.request_date = moment(e.request_date).format(
+                  'DD MMM YYYY h:mm A'
+                )
 
-              if (e.status === 'Approved') {
-                e.status = 'Paid'
-              }
-            })
+                if (e.status === 'Approved') {
+                  e.status = 'Paid'
+                }
+              })
 
-            this.rows = paymentData
-          }
-        })
-        this.rows = paymentData
+              this.rows = paymentData
+            }
+          })
+
           .catch(error => {
             console.error('Error fetching user data:', error)
             this.$toaster.makeToast('error', 'Error fetching payment data')
@@ -1139,7 +1175,16 @@ export default {
         })
     },
     openWithdrawModal () {
-      this.$refs.withdrawModal.show()
+      if (
+        this.userFullName &&
+        this.idbnNo &&
+        this.citizenshipNo &&
+        this.bankName
+      ) {
+        this.$refs.withdrawModal.show()
+      } else {
+        this.$bvModal.show('modal-bankDetails')
+      }
     },
     reloadPageOnce () {
       if (!this.pageReloaded) {
@@ -1155,13 +1200,13 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     clearFilters () {
-         (this.searchTerm = ''),
-          (this.searchAmount = ''),
-          (this.selectedStatus = ''),
-          (this.searchMaxAmount=''),
-          (this.startDate=''),
-          (this.endDate='')
-           this.getAllUsers()
+      ;(this.searchTerm = ''),
+        (this.searchAmount = ''),
+        (this.selectedStatus = ''),
+        (this.searchMaxAmount = ''),
+        (this.startDate = ''),
+        (this.endDate = '')
+      this.getAllUsers()
     },
 
     closeModal () {
@@ -1172,7 +1217,9 @@ export default {
     },
     openModal12 () {
       // Set the flag to true to show the modal
-      this.modalVisible = true
+      this.$bvModal.show('modal-bankDetails')
+
+      // this.modalVisible = true
     },
     closeModal12 () {
       // Set the flag to false to hide the modal
@@ -1198,6 +1245,9 @@ export default {
 
     clickViewUsers (id) {
       this.$router.push('/app/myDesk/usersProfile?id=' + id)
+    },
+    updateBankDetails () {
+      this.$router.push('/app/profiledata/profile')
     },
 
     clickUnBlock (userId) {
@@ -1350,6 +1400,15 @@ export default {
             this.loginUserName =
               res.apidata.data.name + ' ' + res.apidata.data.surname
             this.tiktok_username = res.apidata.data.tiktok_username
+            if (res.apidata.data.bank) {
+              this.userFullName = res.apidata.data.bank.full_name
+              this.citizenshipNo = res.apidata.data.bank.identity_citizenship_no
+
+              this.bankName = res.apidata.data.bank.bank_name
+
+              this.idbnNo = res.apidata.data.bank.iban
+            }
+
             this.loader = false
             this.url =
               'https://' +
@@ -1372,7 +1431,6 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-
 .circular-image {
   height: 40px;
   width: 40px;
@@ -1516,13 +1574,11 @@ export default {
   height: 100%;
 }
 
-
 .form-control {
-    border: initial;
-    outline: initial !important;
-    background: #f3f4f6;
-    border: 1px solid #9ca3af00;
-    color: #111827;
+  border: initial;
+  outline: initial !important;
+  background: #f3f4f6;
+  border: 1px solid #9ca3af00;
+  color: #111827;
 }
-
 </style>

@@ -270,7 +270,7 @@
           <div no-body class="">
             <div header-bg-variant="transparent">
               <b-row style="align-items: center">
-                <div >
+                <div>
                   <div class="ul-card-widget__head-label">
                     <h5 class="card-title px-3 pb-2 mb-0">Earning Summary</h5>
                   </div>
@@ -292,18 +292,22 @@
                 </b-col> -->
 
                 <b-col md="4" sm="12">
-        <b-card
-          class="card-icon-bg card-icon-bg-primary mb-10 text-center"
-        >
-          <i class="i-Money-2"></i>
-          <div class="content">
-            <p class="text-muted mt-2 mb-0" style="
-    width: 120px;
-">Diamonds Revenue</p>
-            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >{{totalDiamondData}}</p>
-          </div>
-        </b-card>
-      </b-col>
+                  <b-card
+                    class="card-icon-bg card-icon-bg-primary mb-10 text-center"
+                  >
+                    <i class="i-Money-2"></i>
+                    <div class="content">
+                      <p class="text-muted mt-2 mb-0" style="width: 120px">
+                        Diamonds Revenue
+                      </p>
+                      <p
+                        class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
+                      >
+                        {{ totalDiamondData }}
+                      </p>
+                    </div>
+                  </b-card>
+                </b-col>
                 <!-- <b-col md="6" class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
                     Earnings Revenue
@@ -313,32 +317,33 @@
                   >
                 </b-col> -->
 
-
                 <b-col md="4" sm="12">
-        <b-card
-          class="card-icon-bg card-icon-bg-primary  mb-10 text-center"
-        >
-          <i class="i-Wallet"></i>
-          <div class="content"> 
-            <p class="text-muted mt-2 mb-0" style="
-    width: 112px;
-">Earnings Revenue</p>
-            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >$&nbsp;{{totalEarningData}}</p>
-          </div>
-        </b-card>
-      </b-col>
+                  <b-card
+                    class="card-icon-bg card-icon-bg-primary mb-10 text-center"
+                  >
+                    <i class="i-Wallet"></i>
+                    <div class="content">
+                      <p class="text-muted mt-2 mb-0" style="width: 112px">
+                        Earnings Revenue
+                      </p>
+                      <p
+                        class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
+                      >
+                        $&nbsp;{{ totalEarningData }}
+                      </p>
+                    </div>
+                  </b-card>
+                </b-col>
               </b-row>
             </div>
- <div  v-if="showChart" id="basicArea-chart" class="mt-2">
-      <apexchart
-        type="area"
-        height="160"
-        :options="yearAreaWidget.chartOptions"
-        :series="yearAreaWidget.series"
-      />
-    </div>
-
-
+            <div v-if="showChart" id="basicArea-chart" class="mt-2">
+              <apexchart
+                type="area"
+                height="160"
+                :options="yearAreaWidget.chartOptions"
+                :series="yearAreaWidget.series"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -402,27 +407,25 @@
                   background-color: rgb(135 131 131 / 0%);
                 "
                 v-model="searchTerm"
-                
               />
             </fieldset>
           </div>
 
-          <div  v-if="showChart"
+          <div
+            v-if="showChart"
             class="col-12 col-sm-6 col-lg-3 paddingzero"
-              style="padding-right: 0px; "
-            
+            style="padding-right: 0px"
           >
             <label for="users-list-verified">Select User</label>
             <fieldset class="form-group">
               <multiselect
-        
-              v-model="selectedName"
-              placeholder="Select User"
-              :options="[...allUsers]"
-              :multiple="false"
-              :limit="1"
-              label="creator_inf"
-            ></multiselect>
+                v-model="selectedName"
+                placeholder="Select User"
+                :options="[...allUsers]"
+                :multiple="false"
+                :limit="1"
+                label="creator_inf"
+              ></multiselect>
             </fieldset>
           </div>
           <div
@@ -546,7 +549,6 @@
   </div>
 </template>
 
-
 <script>
 import Multiselect from 'vue-multiselect'
 import moment from 'moment'
@@ -560,12 +562,10 @@ import {
 } from '@/data/widgetStatistics'
 
 export default {
-
   components: {
     // VueEditor,
     // VueDocumentEditor
-    multiselect: Multiselect,
-
+    multiselect: Multiselect
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
@@ -597,7 +597,7 @@ export default {
       spark3,
       yearAreaWidget: {},
       totalDiamondData: 0,
-      totalEarningData:0,
+      totalEarningData: 0,
       sparkData: {
         // series: [
         //   {
@@ -656,208 +656,6 @@ export default {
 
       rows: [],
       flexDivDisplay: 'flex!important',
-      filteredFaqs: [
-        {
-          show_img: '...',
-          user_name: 'John Doe',
-          contact_number: '1234567890',
-          agency_center_code: 'ABC123',
-          reason_show: 'Some reason',
-          earning: 5000, // Example value for earning
-          period: 'Jan-Mar', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Jane Smith',
-          contact_number: '0987654321',
-          agency_center_code: 'XYZ456',
-          reason_show: 'Another reason',
-          earning: 6000, // Example value for earning
-          period: 'Apr-Jun', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Alice Johnson',
-          contact_number: '9876543210',
-          agency_center_code: 'DEF789',
-          reason_show: 'Yet another reason',
-          earning: 7000, // Example value for earning
-          period: 'Jul-Sep', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Bob Brown',
-          contact_number: '4567890123',
-          agency_center_code: 'GHI234',
-          reason_show: 'Reason XYZ',
-          earning: 8000, // Example value for earning
-          period: 'Oct-Dec', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Sarah Wilson',
-          contact_number: '2345678901',
-          agency_center_code: 'JKL567',
-          reason_show: 'Reason ABC',
-          earning: 9000, // Example value for earning
-          period: 'Jan-Mar', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Michael Brown',
-          contact_number: '8901234567',
-          agency_center_code: 'MNO890',
-          reason_show: 'Another reason XYZ',
-          earning: 10000, // Example value for earning
-          period: 'Apr-Jun', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Emily Taylor',
-          contact_number: '5678901234',
-          agency_center_code: 'PQR123',
-          reason_show: 'Reason 123',
-          earning: 11000, // Example value for earning
-          period: 'Jul-Sep', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'David Clark',
-          contact_number: '6789012345',
-          agency_center_code: 'STU456',
-          reason_show: 'Reason 456',
-          earning: 12000, // Example value for earning
-          period: 'Oct-Dec', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Sophia Martinez',
-          contact_number: '3456789012',
-          agency_center_code: 'VWX789',
-          reason_show: 'Another reason ABC',
-          earning: 13000, // Example value for earning
-          period: 'Jan-Mar', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'James Johnson',
-          contact_number: '4567890123',
-          agency_center_code: 'YZA234',
-          reason_show: 'Reason DEF',
-          earning: 14000, // Example value for earning
-          period: 'Apr-Jun', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Olivia Smith',
-          contact_number: '6789012345',
-          agency_center_code: 'BCD567',
-          reason_show: 'Reason GHI',
-          earning: 15000, // Example value for earning
-          period: 'Jul-Sep', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'William Brown',
-          contact_number: '7890123456',
-          agency_center_code: 'EFG890',
-          reason_show: 'Another reason DEF',
-          earning: 16000, // Example value for earning
-          period: 'Oct-Dec', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Ava Davis',
-          contact_number: '8901234567',
-          agency_center_code: 'HIJ123',
-          reason_show: 'Reason JKL',
-          earning: 17000, // Example value for earning
-          period: 'Jan-Mar', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Alexander Wilson',
-          contact_number: '9012345678',
-          agency_center_code: 'MNO456',
-          reason_show: 'Reason PQR',
-          earning: 18000, // Example value for earning
-          period: 'Apr-Jun', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Emma Lee',
-          contact_number: '1234567890',
-          agency_center_code: 'STU789',
-          reason_show: 'Another reason GHI',
-          earning: 19000, // Example value for earning
-          period: 'Jul-Sep', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Benjamin Taylor',
-          contact_number: '2345678901',
-          agency_center_code: 'VWX234',
-          reason_show: 'Reason MNO',
-          earning: 20000, // Example value for earning
-          period: 'Oct-Dec', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Charlotte Clark',
-          contact_number: '3456789012',
-          agency_center_code: 'YZA567',
-          reason_show: 'Reason STU',
-          earning: 21000, // Example value for earning
-          period: 'Jan-Mar', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Mia Martinez',
-          contact_number: '4567890123',
-          agency_center_code: 'BCD890',
-          reason_show: 'Another reason PQR',
-          earning: 22000, // Example value for earning
-          period: 'Apr-Jun', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Ethan Johnson',
-          contact_number: '5678901234',
-          agency_center_code: 'EFG123',
-          reason_show: 'Reason VWX',
-          earning: 23000, // Example value for earning
-          period: 'Jul-Sep', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        },
-        {
-          show_img: '...',
-          user_name: 'Isabella Brown',
-          contact_number: '6789012345',
-          agency_center_code: 'HIJ456',
-          reason_show: 'Another reason STU',
-          earning: 24000, // Example value for earning
-          period: 'Oct-Dec', // Example value for period
-          actions: '...' // This should be your HTML for edit/delete buttons
-        }
-      ],
 
       searchTerm: '',
       filterStatus: '',
@@ -897,6 +695,12 @@ export default {
 
         // },
         {
+          label: 'Date',
+          field: 'as_of_date',
+          filterOptions: { enabled: true, placeholder: 'Search...' }
+        },
+
+        {
           label: 'TikTok username',
           field: 'creator_inf',
           filterOptions: {
@@ -913,6 +717,12 @@ export default {
           }
         },
         {
+          label: 'Live duration this month',
+          field: 'live_duration_this_month',
+          filterOptions: { enabled: true, placeholder: 'Search...' }
+        },
+
+        {
           label: 'Diamonds this month',
           field: 'diamonds_this_month',
           filterOptions: {
@@ -928,25 +738,10 @@ export default {
             placeholder: 'Search...'
           }
         },
+
         {
-          label: 'Live duration this month',
-          field: 'live_duration_this_month',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Search...'
-          }
-        },
-        {
-          label: 'Achieved %',
+          label: 'Achieved (%)',
           field: 'percentage_achieved',
-          filterOptions: {
-            enabled: true,
-            placeholder: 'Search...'
-          }
-        },
-        {
-          label: 'Date',
-          field: 'as_of_date',
           filterOptions: {
             enabled: true,
             placeholder: 'Search...'
@@ -966,55 +761,49 @@ export default {
   //   this.clearFilters()
   // },
   computed: {
+    //     isDataEmpty() {
+    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
+    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+    //     }
+    // ,
+    // filteredRows() {
+    //   const query = this.searchTerm.toLowerCase().trim();
+    //   const selectStatus = this.selectedStatus;
+    //   const selectName = this.selectedName;
 
-//     isDataEmpty() {
-//       const { dates, diamonds, earnings } = this.yearAreaWidget;
-//       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
-//     }
-// ,
-// filteredRows() {
-//   const query = this.searchTerm.toLowerCase().trim();
-//   const selectStatus = this.selectedStatus;
-//   const selectName = this.selectedName;
+    //   return this.rows.filter(row => {
+    //     const matchesQuery = query
+    //       ? row.creator_inf.toLowerCase().includes(query)
+    //       : true;
 
-//   return this.rows.filter(row => {
-//     const matchesQuery = query
-//       ? row.creator_inf.toLowerCase().includes(query)
-//       : true;
+    //     const matchesQueryDate = query
+    //       ? row.as_of_date.toLowerCase().includes(query)
+    //       : true;
 
-//     const matchesQueryDate = query
-//       ? row.as_of_date.toLowerCase().includes(query)
-//       : true;
+    //     const matchesQueryMonth = query
+    //       ? row.diamonds_this_month.toLowerCase().includes(query)
+    //       : true;
 
-//     const matchesQueryMonth = query
-//       ? row.diamonds_this_month.toLowerCase().includes(query)
-//       : true;
+    //     const matchesQueryDiamonds = query
+    //       ? row.valid_days_this_month.toLowerCase().includes(query)
+    //       : true;
 
-//     const matchesQueryDiamonds = query
-//       ? row.valid_days_this_month.toLowerCase().includes(query)
-//       : true;
+    //     const matchName = selectName
+    //       ? row.creator_inf === selectName.creator_inf
+    //       : true;
 
-//     const matchName = selectName
-//       ? row.creator_inf === selectName.creator_inf
-//       : true;
+    //     return matchesQuery && matchName && matchesQueryDate && matchesQueryMonth && matchesQueryDiamonds;
+    //   });
+    // },
 
-//     return matchesQuery && matchName && matchesQueryDate && matchesQueryMonth && matchesQueryDiamonds;
-//   });
-// },
-
-
-
-
-    showChart() {
-      return this.totalEarningData != 0.00;
-    }
-  ,
-
-//         isDataEmpty() {
-//       const { dates, diamonds, earnings } = this.yearAreaWidget;
-//       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
-//     }
-// ,
+    showChart () {
+      return this.totalEarningData != 0.0
+    },
+    //         isDataEmpty() {
+    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
+    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+    //     }
+    // ,
     containerClasses () {
       return {
         'large-container': this.isLarge,
@@ -1023,8 +812,7 @@ export default {
     },
     doubledNumber () {
       return this.filteredRows()
-    },
-    
+    }
   },
   created () {
     this.user_id = localStorage.getItem('user_id')
@@ -1036,273 +824,280 @@ export default {
     // handleChange (user) {
     //   this.selectedUserId = user._id
 
-  
     // },
 
+    filteredRows () {
+      const query = this.searchTerm.toLowerCase().trim()
+      const selectName = this.selectedName
+      console.log('data', this.rows)
+      console.log('query', query)
 
-    filteredRows() {
-  const query = this.searchTerm.toLowerCase().trim();
-  const selectName = this.selectedName;
-  console.log("data", this.rows);
-  console.log("query", query);
+      return this.rows.filter(row => {
+        // Check if each field matches the query
+        const matchesQuery = query
+          ? (row.creator_inf &&
+              row.creator_inf.toLowerCase().includes(query)) ||
+            (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
+            (row.diamonds_this_month &&
+              row.diamonds_this_month.toLowerCase().includes(query)) ||
+            (row.valid_days_this_month &&
+              row.valid_days_this_month.toLowerCase().includes(query)) ||
+            (row.earning &&
+              row.earning.toString().toLowerCase().includes(query)) ||
+            (row.percentage_achieved &&
+              row.percentage_achieved.toLowerCase().includes(query))
+          : true
 
-  return this.rows.filter(row => {
-    // Check if each field matches the query
-    const matchesQuery = query ? (
-      (row.creator_inf && row.creator_inf.toLowerCase().includes(query)) ||
-      (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
-      (row.diamonds_this_month && row.diamonds_this_month.toLowerCase().includes(query)) ||
-      (row.valid_days_this_month && row.valid_days_this_month.toLowerCase().includes(query)) ||
-      (row.earning && row.earning.toString().toLowerCase().includes(query)) ||
-      (row.percentage_achieved && row.percentage_achieved.toLowerCase().includes(query))
-    ) : true;
+        // Check if the selected name matches the creator_inf
+        const matchName = selectName
+          ? row.creator_inf === selectName.creator_inf
+          : true
 
-    // Check if the selected name matches the creator_inf
-    const matchName = selectName ? row.creator_inf === selectName.creator_inf : true;
+        // Return true if both conditions are met
+        return matchesQuery && matchName
+      })
+    },
 
-    // Return true if both conditions are met
-    return matchesQuery && matchName;
-  });
-}
-
-,
     toggleFlexDiv () {
       this.flexDivDisplay =
         this.flexDivDisplay === 'flex!important'
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-    getGraphData() {
-  this.loader = true;
-  const user_id = localStorage.getItem('user_id')
-  const userRole = localStorage.getItem('role');
-  let requestBody = {};
+    getGraphData () {
+      this.loader = true
+      const user_id = localStorage.getItem('user_id')
+      const userRole = localStorage.getItem('role')
+      let requestBody = {}
 
-  if (userRole === 'user') {
-    requestBody = {
-      _id: user_id
-    };
-  }
-
-  this.$apiService
-    .postCall(`user/creators-earnings-graph`, requestBody)
-    .then(res => {
-      if (res.isError) {
-        this.$toaster.makeToast('warning', message.ERROR_MESSAGE);
-      } else {
-        var graphData = res.apidata.dates.map(date =>
-          moment(date).format('YYYY-MM-DDTHH:mm:ss')
-        );
-
-        var diamondData = res.apidata.diamonds;
-        var earningData = res.apidata.earnings;
-
- 
-        this.totalDiamondData = diamondData.reduce((acc, current) => acc + Number(current), 0);
-        this.totalDiamondData = this.totalDiamondData.toFixed(2);
-
-        this.totalEarningData = earningData.reduce((acc, current) => acc + current, 0);
-        this.totalEarningData = this.totalEarningData.toFixed(2);
-        console.log(this.totalEarningData)
-
-        this.sparkData = {
-          series: [
-            {
-              name: 'Diamonds',
-              data: diamondData
-            }
-          ]
-        };
-
-        this.yearAreaWidget = {
-          series: [
-            {
-              name: 'Diamonds',
-              data: diamondData
-            },
-            {
-              name: 'Earnings',
-              data: earningData
-            }
-          ],
-          chartOptions: {
-            chart: {
-              width: '100%',
-              height: 100,
-              toolbar: {
-                show: false
-              },
-              sparkline: {
-                enabled: true
-              }
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'smooth'
-            },
-            legend: {
-              show: false
-            },
-            xaxis: {
-              type: 'datetime',
-              categories: graphData,
-              labels: {
-                show: false
-              },
-              axisTicks: {
-                show: false
-              },
-              axisBorder: {
-                show: false
-              }
-            },
-            yaxis: {
-              show: false
-            },
-            grid: {
-              show: false
-            },
-            tooltip: {
-              enabled: true,
-              x: {
-                format: 'dd/MM/yy HH:mm'
-              }
-            },
-            colors: ['#A855F7', '#4caf50'],
-            stroke: {
-              curve: 'straight',
-              width: 1
-            }
-          }
-        };
+      if (userRole === 'user') {
+        requestBody = {
+          _id: user_id
+        }
       }
 
-      this.loader = false;
-    })
-    .catch(error => {
-      this.$toaster.makeToast('warning', message.ERROR_MESSAGE);
-      this.loader = false;
-    });
-},
+      this.$apiService
+        .postCall(`user/creators-earnings-graph`, requestBody)
+        .then(res => {
+          if (res.isError) {
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          } else {
+            var graphData = res.apidata.dates.map(date =>
+              moment(date).format('YYYY-MM-DDTHH:mm:ss')
+            )
 
-//     async getGraphData() {
-//       debugger
-//   try {
-//     const user_id = localStorage.getItem('user_id')
-//     this.role = localStorage.getItem('role')
-//     var req = {
-//           _id: user_id
-//         }
+            var diamondData = res.apidata.diamonds
+            var earningData = res.apidata.earnings
 
-   
-//     const response = await this.$apiService.postCall(
-//       `getcreators-earnings-graph`,req
-//     );
-//     console.log(req)
-    
+            this.totalDiamondData = diamondData.reduce(
+              (acc, current) => acc + Number(current),
+              0
+            )
+            this.totalDiamondData = this.totalDiamondData.toFixed(2)
 
-//     if (response.isError) {
-    
-//         this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-//     }  else {
-//             var graphData = res.apidata.dates
-//             graphData = graphData.map(date =>
-//               moment(date).format('YYYY-MM-DDTHH:mm:ss')
-//             )
-//             var diamondData = res.apidata.diamonds;
-//             var earningData = res.apidata.earnings;
-//              diamondData.forEach((e) => {
-//               this.totalDiamondData += Number(e);
-//              });
-//              this.totalDiamondData = this.totalDiamondData.toFixed(2);
-//             earningData.forEach((e) => {
-//               this.totalEarningData += e;
-//             });
-//              this.totalEarningData = this.totalEarningData.toFixed(2);
-//             this.sparkData = {
-//               series: [
-//                 {
-//                   name: 'Diamonds',
-//                   data: diamondData
-//                 }
-//               ]
-//             };
-//             this.yearAreaWidget = {
-//               series: [
-//                 {
-//                   name: 'Diamonds',
-//                   data: diamondData
-//                 },
-//                 {
-//                   name: 'Earnings',
-//                   data: earningData
-//                 }
-//               ],
+            this.totalEarningData = earningData.reduce(
+              (acc, current) => acc + current,
+              0
+            )
+            this.totalEarningData = this.totalEarningData.toFixed(2)
+            console.log(this.totalEarningData)
 
-//               chartOptions: {
-//                 chart: {
-//                   width: '100%',
-//                   height: 100,
-//                   toolbar: {
-//                     show: false
-//                   },
-//                   sparkline: {
-//                     enabled: true
-//                   }
-//                 },
-//                 dataLabels: {
-//                   enabled: false
-//                 },
-//                 stroke: {
-//                   curve: 'smooth'
-//                 },
-//                 legend: {
-//                   show: false
-//                 },
+            this.sparkData = {
+              series: [
+                {
+                  name: 'Diamonds',
+                  data: diamondData
+                }
+              ]
+            }
 
-//                 xaxis: {
-//                   type: 'datetime',
-//                   categories: graphData,
-//                   labels: {
-//                     show: false
-//                   },
-//                   axisTicks: {
-//                     show: false
-//                   },
-//                   axisBorder: {
-//                     show: false
-//                   }
-//                 },
-//                 yaxis: {
-//                   show: false
-//                 },
-//                 grid: {
-//                   show: false
-//                 },
-//                 tooltip: {
-//                   enabled: true,
-//                   x: {
-//                     format: 'dd/MM/yy HH:mm'
-//                   }
-//                 },
-//                 colors: ['#A855F7', '#4caf50'],
-//                 stroke: {
-//                   curve: 'straight',
-//                   width: 1
-//                 }
-//               }
-//             }
-//           }
-//   } catch (error) {
-//     console.log(error)
-//     this.$toaster.makeToast('warning', 'Error: Server Error');
-//     console.error('Error deleting FAQ:', error);
-//   } finally {
-//     this.loader = false; 
-//   }
-// },
+            this.yearAreaWidget = {
+              series: [
+                {
+                  name: 'Diamonds',
+                  data: diamondData
+                },
+                {
+                  name: 'Earnings',
+                  data: earningData
+                }
+              ],
+              chartOptions: {
+                chart: {
+                  width: '100%',
+                  height: 100,
+                  toolbar: {
+                    show: false
+                  },
+                  sparkline: {
+                    enabled: true
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  curve: 'smooth'
+                },
+                legend: {
+                  show: false
+                },
+                xaxis: {
+                  type: 'datetime',
+                  categories: graphData,
+                  labels: {
+                    show: false
+                  },
+                  axisTicks: {
+                    show: false
+                  },
+                  axisBorder: {
+                    show: false
+                  }
+                },
+                yaxis: {
+                  show: false
+                },
+                grid: {
+                  show: false
+                },
+                tooltip: {
+                  enabled: true,
+                  x: {
+                    format: 'dd/MM/yy HH:mm'
+                  }
+                },
+                colors: ['#A855F7', '#4caf50'],
+                stroke: {
+                  curve: 'straight',
+                  width: 1
+                }
+              }
+            }
+          }
+
+          this.loader = false
+        })
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
+    },
+
+    //     async getGraphData() {
+    //       debugger
+    //   try {
+    //     const user_id = localStorage.getItem('user_id')
+    //     this.role = localStorage.getItem('role')
+    //     var req = {
+    //           _id: user_id
+    //         }
+
+    //     const response = await this.$apiService.postCall(
+    //       `getcreators-earnings-graph`,req
+    //     );
+    //     console.log(req)
+
+    //     if (response.isError) {
+
+    //         this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+    //     }  else {
+    //             var graphData = res.apidata.dates
+    //             graphData = graphData.map(date =>
+    //               moment(date).format('YYYY-MM-DDTHH:mm:ss')
+    //             )
+    //             var diamondData = res.apidata.diamonds;
+    //             var earningData = res.apidata.earnings;
+    //              diamondData.forEach((e) => {
+    //               this.totalDiamondData += Number(e);
+    //              });
+    //              this.totalDiamondData = this.totalDiamondData.toFixed(2);
+    //             earningData.forEach((e) => {
+    //               this.totalEarningData += e;
+    //             });
+    //              this.totalEarningData = this.totalEarningData.toFixed(2);
+    //             this.sparkData = {
+    //               series: [
+    //                 {
+    //                   name: 'Diamonds',
+    //                   data: diamondData
+    //                 }
+    //               ]
+    //             };
+    //             this.yearAreaWidget = {
+    //               series: [
+    //                 {
+    //                   name: 'Diamonds',
+    //                   data: diamondData
+    //                 },
+    //                 {
+    //                   name: 'Earnings',
+    //                   data: earningData
+    //                 }
+    //               ],
+
+    //               chartOptions: {
+    //                 chart: {
+    //                   width: '100%',
+    //                   height: 100,
+    //                   toolbar: {
+    //                     show: false
+    //                   },
+    //                   sparkline: {
+    //                     enabled: true
+    //                   }
+    //                 },
+    //                 dataLabels: {
+    //                   enabled: false
+    //                 },
+    //                 stroke: {
+    //                   curve: 'smooth'
+    //                 },
+    //                 legend: {
+    //                   show: false
+    //                 },
+
+    //                 xaxis: {
+    //                   type: 'datetime',
+    //                   categories: graphData,
+    //                   labels: {
+    //                     show: false
+    //                   },
+    //                   axisTicks: {
+    //                     show: false
+    //                   },
+    //                   axisBorder: {
+    //                     show: false
+    //                   }
+    //                 },
+    //                 yaxis: {
+    //                   show: false
+    //                 },
+    //                 grid: {
+    //                   show: false
+    //                 },
+    //                 tooltip: {
+    //                   enabled: true,
+    //                   x: {
+    //                     format: 'dd/MM/yy HH:mm'
+    //                   }
+    //                 },
+    //                 colors: ['#A855F7', '#4caf50'],
+    //                 stroke: {
+    //                   curve: 'straight',
+    //                   width: 1
+    //                 }
+    //               }
+    //             }
+    //           }
+    //   } catch (error) {
+    //     console.log(error)
+    //     this.$toaster.makeToast('warning', 'Error: Server Error');
+    //     console.error('Error deleting FAQ:', error);
+    //   } finally {
+    //     this.loader = false;
+    //   }
+    // },
 
     onSearchTermChange (event) {
       this.searchTerm = event.target.value
@@ -1315,8 +1110,8 @@ export default {
     clearFilters () {
       this.searchTerm = ''
       this.filterStatus = ''
-      this.selectedName=''
-      this.getEarningData();
+      this.selectedName = ''
+      this.getEarningData()
     },
     onSearchTermChange (event) {
       this.searchTerm = event.target.value
@@ -1371,23 +1166,23 @@ export default {
       }
     },
     getEarningData () {
-  const user_id = localStorage.getItem('user_id')
-  const userRole = localStorage.getItem('role');
-  let requestBody = {};
+      const user_id = localStorage.getItem('user_id')
+      const userRole = localStorage.getItem('role')
+      let requestBody = {}
 
-  if (userRole === 'user') {
-    requestBody = {
-      _id: user_id
-    };
-  }
+      if (userRole === 'user') {
+        requestBody = {
+          _id: user_id
+        }
+      }
       this.loader = true
       this.$apiService
-      .postCall(`user/creators-earnings`, requestBody)
+        .postCall(`user/creators-earnings`, requestBody)
         .then(response => {
           this.loader = false
           if (response.isError) {
             // this.$toaster.makeToast('warning', 'Error fetching earning data')
-            console.log("Error fetching earning data")
+            console.log('Error fetching earning data')
           }
           // else if (response.apidata.data === 'User do not have Creators') {
           //   this.$toaster.makeToast('warning', response.apidata.data)
@@ -1400,7 +1195,6 @@ export default {
             this.rows = userData
             console.log(userData)
             this.allUsers = userData
-           
           }
         })
         .catch(error => {
@@ -1690,20 +1484,15 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
-
-
-
 .multiselect__tags {
-    min-height: 34px!important;
-    display: block!important;
-    padding: 5px 3px 0px 8px!important;
-    border-radius: 5px!important;
-    border: 1px solid #d8d8d8!important;
-    background: #fff;
-    font-size: 14px!important;
-   
+  min-height: 34px !important;
+  display: block !important;
+  padding: 5px 3px 0px 8px !important;
+  border-radius: 5px !important;
+  border: 1px solid #d8d8d8 !important;
+  background: #fff;
+  font-size: 14px !important;
 }
-
 
 /* Modal overlay */
 .modal-overlay {
@@ -1731,7 +1520,6 @@ imgloader {
 }
 
 /* Modal content */
-
 
 .close {
   position: absolute;
@@ -1780,9 +1568,6 @@ imgloader {
   color: #808080cf;
   width: 20px;
 }
-
-
-
 
 @media only screen and (max-width: 600px) {
   .paddingzero {
