@@ -7,10 +7,10 @@
                 <div class="row m-0"        style=" 
     background-color: rgba(239,242,247,255);
 ">
-                    <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                        <img src="https://temsilci.temmuzajans.com/app-assets/images/logo.png" width="400px;" alt="branding logo">
+                    <div class="col-lg-6 text-center align-self-center px-1 py-0">
+                        <img   :src="logo" width="400px;" alt="branding logo">
                     </div>
-                    <div class="col-lg-6 col-12 p-0"  style=" 
+                    <div class="col-lg-6 col-12 p-0 marginformobile"  style=" 
     background-color: rgba(255,255,255,255);
 ">
                       <div>
@@ -745,6 +745,7 @@ export default {
       userId: '',
       bgImage: require('@/assets/images/car_sec.png'),
       logo: require('@/assets/images/zoombacar.png'),
+      logo1: require('@/assets/images/log.png'),
       signInImage: require('@/assets/images/photo-long-3.jpg'),
       isLoading: false,
       role: '',
@@ -1593,13 +1594,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .paddingLaptop {
-    padding-left: 74px !important;
-    padding-right: 74px !important;
-    background-color: white;
-  }
-}
+
 
 .colX {
   flex-basis: 0;
@@ -1844,9 +1839,9 @@ export default {
 }
 
 .gifBody {
-  background: url('https://temsilci.temmuzajans.com/app-assets/images/background.gif') no-repeat center center fixed;
+  background: url('../../../assets/reference-link-page-background_360.gif') no-repeat center center fixed;
   background-size: cover; /* This will ensure the gif covers the entire background */
-  width: 100vw; /* Make sure the width covers the whole viewport */
+  /* Make sure the width covers the whole viewport */
   height: 100vh; /* Make sure the height covers the whole viewport */
   padding: 16px 0;
 }
