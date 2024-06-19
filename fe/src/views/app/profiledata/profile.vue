@@ -655,12 +655,14 @@ export default {
             this.surName = res.apidata.data.surname
             this.tictocName = res.apidata.data.tiktok_username
             this.phoneNumber = res.apidata.data.contact_number
-            this.userFullName = res.apidata.data.bank.full_name
-            this.citizenshipNo = res.apidata.data.bank.identity_citizenship_no
+            if (res.apidata.data.bank) {
+              this.userFullName = res.apidata.data.bank.full_name
+              this.citizenshipNo = res.apidata.data.bank.identity_citizenship_no
 
-            this.bankName = res.apidata.data.bank.bank_name
+              this.bankName = res.apidata.data.bank.bank_name
 
-            this.idbnNo = res.apidata.data.bank.iban
+              this.idbnNo = res.apidata.data.bank.iban
+            }
 
             if (res.apidata.data.image) {
               this.selectedLogo = res.apidata.data.image
@@ -671,7 +673,7 @@ export default {
         })
         .catch(error => {
           this.loader = false
-          this.$toaster.makeToast('success', 'Error fetch profile data')
+          this.$toaster.makeToast('warning', 'Error fetch profile data')
         })
     },
 
