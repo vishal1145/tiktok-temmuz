@@ -286,6 +286,7 @@
             <div
               class="card-header d-flex flex-row justify-content-between flex-wrap"
               style="background-color: white"
+              
             >
               <h4
                 class="card-title"
@@ -323,7 +324,7 @@
                 </ul>
               </div>
             </div>
-            <b-row class="w-100 px-3 pt-2 mt-1">
+            <b-row class="w-100 px-3 pt-2 mt-1" :style="{ display: flexDivDisplay }"> 
               <b-col md="3"
                 ><label for="users-list-search">User Name</label>
                 <fieldset class="form-group">
@@ -397,7 +398,7 @@
                   /></fieldset
               ></b-col>
             </b-row>
-            <b-row class="w-100 px-3 pb-3">
+            <b-row class="w-100 px-3 pb-3" :style="{ display: flexDivDisplay }">
               <b-col md="3" class="col-sm-6 col-lg-3">
                 <v2-datepicker
                   class="for-date-picker"
@@ -466,6 +467,7 @@
       <div
         class="card-header d-flex flex-row justify-content-between"
         style="background-color: white"
+        
       >
         <h4
           class="card-title"

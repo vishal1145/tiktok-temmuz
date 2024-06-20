@@ -495,7 +495,7 @@
             </ul>
           </div>
         </div>
-        <b-row class="px-3 pb-3">
+        <b-row class="px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
           <b-col md="3" class="">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
@@ -571,7 +571,7 @@
           </b-col>
         </b-row>
       </div>
-      <div class="d-flex flex-column gap-5 card" style="gap: 13px">
+      <div class="d-flex flex-column gap-5 card" >
         <div
           class="card-header d-flex flex-row justify-content-between"
           style="background-color: white"

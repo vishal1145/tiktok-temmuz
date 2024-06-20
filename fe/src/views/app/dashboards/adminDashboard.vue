@@ -385,7 +385,7 @@ export default {
         const response = await this.$apiService.getCall(
           '/auth/top-five-members-most-creators'
         )
-        console.log(response)
+        // console.log(response)
         if (response.error || !response.apidata) {
           this.loader = false
           this.$toaster.makeToast('warning', 'Error while getting data')

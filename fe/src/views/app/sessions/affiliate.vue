@@ -1016,6 +1016,26 @@ b, strong {
     padding-left: 48px !important;
     padding-right: 48px !important;
   }
+
+  .col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 70.33333%;
+    max-width: 95.33333%;
 }
+}
+@media (max-width: 500px) {
+  
+
+  .col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 100.33333%;
+
+}
+}
+
+
+
 
 </style>

@@ -264,7 +264,7 @@
     </b-modal>
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
-    <div class="d-flex flex-column gap-5" style="gap: 13px">
+    <div class="d-flex flex-column gap-5 pb-3" style="gap: 13px">
       <div>
         <div class="">
           <div no-body class="">
@@ -347,7 +347,7 @@
           </div>
         </div>
       </div>
-      <div class="card pb-2">
+      <div class="card pb-2" >
         <div
           class="card-header d-flex flex-row justify-content-between"
           style="background-color: white"
@@ -385,7 +385,7 @@
             </ul>
           </div>
         </div>
-        <b-row class="w-100 px-3 pb-3">
+        <b-row class="w-100 px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
           <b-col md="3">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
@@ -475,7 +475,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column gap-5 card mt3" style="gap: 13px">
+    <div class="d-flex flex-column gap-5 card mt3 " style="gap: 13px">
       <div class="card-body">
         <vue-good-table
           :columns="columns"

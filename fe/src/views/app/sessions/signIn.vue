@@ -1841,4 +1841,19 @@ export default {
   height: 100vh; /* Make sure the height covers the whole viewport */
   padding: 16px 0;
 }
+
+
+@media (max-width: 480px) {
+  img {
+    max-width: 80%;
+}
+}
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+
+
+img {
+    max-width: 80%;
+}
+}
 </style>

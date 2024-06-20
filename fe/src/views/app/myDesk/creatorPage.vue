@@ -1,14 +1,165 @@
 <template>
-  <div class="main-content">
-    <!-- <breadcumb :page="'User Profile'" :folder="'Pages'" /> -->
-    <div
+  <div class="main-content d-flex flex-column" style="gap: 12px;">
+
+    <div class="card">
+        <div
+          class="card-header d-flex flex-row justify-content-between"
+          style="background-color: white"
+        >
+          <h4
+            class="card-title"
+            style="margin: 0px; background-color: white; color: #000000c4"
+          >
+            Filters
+          </h4>
+          <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+          <div class="heading-elements">
+            <ul
+              class="list-inline mb-0 d-flex flex-row justify-content-around"
+              style="gap: 9px"
+            >
+              <li>
+                <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                  ><i
+                    class="fa fa-chevron-circle-down"
+                    aria-hidden="true"
+                    style="cursor: pointer"
+                  ></i
+                ></a>
+              </li>
+              <li>
+                <a data-action=" pe-auto" @click="clearFilters"
+                  ><i
+                    class="fa fa-refresh"
+                    aria-hidden="true"
+                    style="cursor: pointer"
+                  ></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
+          <b-col md="3" class="">
+            <label for="users-list-search">Search</label>
+            <fieldset class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="users-list-search"
+                placeholder="Search..."
+                style="
+                  color: grey;
+                  padding-bottom: 7px;
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchTerm"
+              />
+            </fieldset>
+          </b-col>
+          <!-- <b-col md="3" class="">
+            <label for="users-list-verified">Action</label>
+            <fieldset class="form-group">
+              <select
+                class="form-control"
+                id="users-list-verified"
+                style="
+                  color: grey;
+                  padding-bottom: 7px;
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="selectedStatus"
+              >
+                <option value="">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Waiting Approval">Waiting Approval</option>
+                <option value="Pending Registration">
+                  Pending Registration
+                </option>
+              </select>
+            </fieldset>
+          </b-col> -->
+
+          <b-col md="3" class="d-flex flex-column">
+            <label for="users-list-search">Select Start Date</label>
+
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="startDate"
+              v-model="startDate"
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeStartDate"
+              placeholder="Select Start date"
+            ></v2-datepicker>
+          </b-col>
+          <b-col md="3" class="d-flex flex-column">
+            <label for="users-list-search">Select End Date</label>
+
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="endDate"
+              v-model="endDate"
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeEndDate"
+              placeholder="Select End date"
+            ></v2-datepicker>
+          </b-col> 
+        </b-row>
+      </div>
+
+      <div class="card"> 
+         <div
       class="font-weight-bold fa-2x text-light d-flex justify-content-between"
     >
-      Creators
+    <div
+          class="card-header d-flex flex-row justify-content-between"
+          style="background-color: white"
+        >
+          <h4
+            class="card-title"
+            style="margin: 0px; background-color: white; color: #000000c4"
+          >
+            Creators
+          </h4>
+          <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+          <div class="heading-elements">
+            <ul
+              class="list-inline mb-0 d-flex flex-row justify-content-around"
+              style="gap: 9px"
+            >
+              <button
+                 @click="addnewcreator()"
+                class="btn btn-primary mb-3 d-none"
+                style="
+                  padding-top: 2px;
+                  padding-bottom: 2px;
+                  background: white;
+                  color: #000000a8;
+                  border: 1px solid gray;
+                "
+              >
+                Add New
+              </button>
+              <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
+    cursor: pointer;
+"></i></a></li> -->
+            </ul>
+          </div>
+        </div>
+     
     </div>
-    <hr class="mt-1" />
+  
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-    <div>
+    <div class="card-body">
       <vue-good-table
         :columns="columns"
         :line-numbers="false"
@@ -24,7 +175,7 @@
         :sort-options="{
           enabled: false
         }"
-        :rows="rows"
+        :rows="filteredRows"
       >
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field === 'earning_show'">
@@ -68,6 +219,10 @@
         </template>
       </vue-good-table>
     </div>
+
+      </div>
+    <!-- <breadcumb :page="'User Profile'" :folder="'Pages'" /> -->
+  
   </div>
 </template>
 
@@ -87,10 +242,14 @@ export default {
   },
   data () {
     return {
+      startDate:'',
+      endDate:'',
+      searchTerm:'',
       creatorId: '',
       userId: '',
       userimage: '',
       loader: false,
+      flexDivDisplay: 'flex!important',
 
       rows: [],
       columns: [
@@ -114,19 +273,50 @@ export default {
   },
 
   computed: {
-    headerStyle () {
-      return {
-        backgroundImage: `url(${this.backgroundImage})`
-      }
-    }
+    // headerStyle () {
+    //   return {
+    //     backgroundImage: `url(${this.backgroundImage})`
+    //   }
+    // },
+    filteredRows() {
+  const query = this.searchTerm.toLowerCase().trim();
+  console.log("query", query);
+  console.log("rowandar", this.rows);
+
+  return this.rows.filter(row => {
+    const matchesQuery = query ? (
+      (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
+      (row.creator_inf && row.creator_inf.toLowerCase().includes(query)) ||
+      (row.diamonds_this_month && String(row.diamonds_this_month).toLowerCase().includes(query)) ||
+      (row.earning && String(row.earning).toLowerCase().includes(query)) ||
+      (row.affiliated_with && row.affiliated_with.toLowerCase().includes(query))
+    ) : true;
+
+    const itemDate = row.as_of_date
+    const matchesDate =
+          (this.startDate ? itemDate >= this.startDate : true) &&
+          (this.endDate ? itemDate <= this.endDate + 1 : true)
+
+    return matchesQuery && matchesDate;
+  });
+}
+,
   },
   created () {
     this.userId = this.$route.query.uid
     this.creatorId = this.$route.query.cid
 
     this.getCreatorsData()
+    this.clearFilters()
   },
   methods: {
+
+    clearFilters() {
+      this.searchTerm = '',
+      this.startDate='',
+      this.endDate=''
+     
+    },
     formatPrice (value) {
       let val = (value / 1).toFixed(0).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -175,7 +365,21 @@ export default {
           this.loader = false
         })
     },
+    changeStartDate(date) {
+      this.startDate = moment(date).format('DD MMM YYYY') //
+    },
+    changeEndDate(date) {
+      this.endDate = moment(date).format('DD MMM YYYY')
+    },
+    toggleFlexDiv() {
+      this.flexDivDisplay =
+      this.flexDivDisplay === 'flex!important'
+          ? 'none!important'
+          : 'flex!important' // Toggle the display property
+    },
     getCreatorsData () {
+
+    
       this.loader = true
       var reqData = {
         creator_id: this.creatorId,
@@ -196,6 +400,7 @@ export default {
             })
           }
           this.rows = rowData
+        
 
           this.loader = false
         })
@@ -228,5 +433,23 @@ export default {
 .marginForCArd {
   margin-left: 2.57rem !important;
   text-align: start;
+}
+
+.fa-chevron-circle-down {
+  content: '\f13a';
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-refresh {
+  content: '\f13a';
+  color: #808080cf;
+  width: 20px;
+}
+
+.fa-times {
+  content: '\f13a';
+  color: #808080cf;
+  width: 20px;
 }
 </style>
