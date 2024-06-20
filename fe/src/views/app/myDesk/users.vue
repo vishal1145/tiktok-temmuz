@@ -437,11 +437,11 @@
                 {{ props.row.name }} {{ props.row.surname }}
               </div>
             </span>
-            <span v-else-if="props.column.field === 'tiktok_username'">
+            <!-- <span v-else-if="props.column.field === 'tiktok_username'">
               <div class="d-flex">
                 {{ props.row.tiktok_username }}
               </div>
-            </span>
+            </span> -->
             <span v-else-if="props.column.field === 'contact_number'">
               <div class="d-flex flex-row">
                 {{ props.row.contact_number }}
@@ -462,7 +462,7 @@
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
             </span>
-            <span v-else-if="props.column.field === 'show_userName'">
+            <span v-else-if="props.column.field === 'tiktok_username'">
               <div
                 class="text-primary ul-cursor--pointer"
                 @click="clickUserName(props.row._id)"
@@ -589,7 +589,7 @@ export default {
       columns: [
         {
           label: 'TikTok Name',
-          field: 'show_userName',
+          field: 'tiktok_username',
           filterOptions: {
             enabled: true,
             placeholder: 'Search TikTok'
@@ -883,7 +883,13 @@ export default {
         name: this.getuserName,
         surname: this.getuserSurName,
         tiktok_username: this.gettikTokUserName,
-        _id: this.updateId
+        _id: this.updateId,
+        bank: {
+        full_name: "",
+        identity_citizenship_no: "",
+        bank_name: "",
+        iban: ""
+    }
       }
 
       this.$apiService
