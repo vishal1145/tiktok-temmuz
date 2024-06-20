@@ -262,7 +262,7 @@ exports.topFiveMembersMostCreators = async () => {
     return { username: user.tiktok_username, creators: creatorsCount };
   }));
 
-  const sort_array = data.sort((a, b) => b.creators - a.creators);
+  const sort_array = data.filter(e=>e.creators > 0).sort((a, b) => b.creators - a.creators);
 
   const top_five_creators = sort_array.slice(0, 5);
 
