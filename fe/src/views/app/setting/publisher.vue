@@ -686,7 +686,7 @@
                   v-if="role == 'admin'"
                   class="ul-cursor--pointer text-primary"
                   style="text-decoration: underline"
-                  @click="clickUserName(props.row.user_id._id)"
+                  @click="clickUserName(props.row.user_id._id, props.row._id)"
                 >
                   <i class="fa fa-user mr-1" aria-hidden="true"></i>
                   {{ props.row.tiktok_username }}
@@ -1259,8 +1259,8 @@ export default {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
-    clickUserName(id) {
-      this.$router.push('/app/mydesk/creatorPage?id=' + id)
+    clickUserName(id, cid) {
+      this.$router.push(`/app/mydesk/creatorPage?uid=${id}&cid=${cid}`)
     },
     async addPublisher() {
       // Check if all required fields are filled

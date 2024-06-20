@@ -62,7 +62,10 @@
               <div>₹ {{ formatPrice(securityBalance) }}</div>
             </div>
             <div class="dropdown-item d-flex justify-content-between px-3">
-              <div>Bonus & <br> Rewards</div>
+              <div>
+                Bonus & <br />
+                Rewards
+              </div>
               <div>₹ {{ formatPrice(referral_balance) }}</div>
             </div>
           </b-dropdown>
@@ -179,7 +182,7 @@
           ref="startDate"
           v-model="startDate"
           :picker-options="{
-            disabledDate: (time) => time.getTime() > new Date().getTime(),
+            disabledDate: time => time.getTime() > new Date().getTime()
           }"
           @change="onDateSelected()"
           placeholder="Select Start date"
@@ -192,7 +195,7 @@
           ref="endDate"
           v-model="endDate"
           :picker-options="{
-            disabledDate: (time) => time.getTime() > new Date().getTime(),
+            disabledDate: time => time.getTime() > new Date().getTime()
           }"
           @change="onEndDateSelected()"
           placeholder="Select End date"
@@ -279,15 +282,15 @@
       :search-options="getSearchOptions()"
       :pagination-options="{
         enabled: true,
-        mode: 'records',
+        mode: 'records'
       }"
       styleClass="tableOne vgt-table"
       :selectOptions="{
         enabled: false,
-        selectionInfoClass: 'table-alert__box',
+        selectionInfoClass: 'table-alert__box'
       }"
       :sort-options="{
-        enabled: false,
+        enabled: false
       }"
       :rows="filteredRows"
     >
@@ -375,98 +378,98 @@
 </template>
 
 <script>
-import moment from "moment";
-import message from "../../../message";
-import Multiselect from "vue-multiselect";
-import _ from "lodash";
+import moment from 'moment'
+import message from '../../../message'
+import Multiselect from 'vue-multiselect'
+import _ from 'lodash'
 export default {
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: "Transaction",
+    title: 'Transaction'
   },
   components: {
-    multiselect: Multiselect,
+    multiselect: Multiselect
   },
-  data() {
+  data () {
     return {
-      showAmount: ["2000", "4000", "5000", "6000", "8000", "10000"],
+      showAmount: ['2000', '4000', '5000', '6000', '8000', '10000'],
       maxDate: new Date(),
-      selected: "",
+      selected: '',
       fromDate: null,
       allUsers: [],
       usersInfo: [],
-      startDate: "",
+      startDate: '',
       endDate: null,
-      userBalance: "",
-      totalBalance: "",
-      securityBalance: "",
-      referral_balance: "",
+      userBalance: '',
+      totalBalance: '',
+      securityBalance: '',
+      referral_balance: '',
       updateloader: false,
-      amount: "",
-      transactionId: "",
-      types: "",
-      userId: "",
-      role: "",
-      matchUser: "",
+      amount: '',
+      transactionId: '',
+      types: '',
+      userId: '',
+      role: '',
+      matchUser: '',
       rows: [],
       form: {
-        templateId: "",
-        name: "",
-        content: "",
+        templateId: '',
+        name: '',
+        content: ''
       },
-      searchData: "",
+      searchData: '',
       generateIDloader: false,
       submitloader: false,
       isEdit: false,
       loader: false,
-      isHide: false,
-    };
+      isHide: false
+    }
   },
-  mounted() {
+  mounted () {
     // Open the dropdown after the component is mounted
     this.$nextTick(() => {
-      this.$refs.myDropdown.querySelector(".dropdown-toggle").click();
-    });
+      this.$refs.myDropdown.querySelector('.dropdown-toggle').click()
+    })
   },
-  created() {
-    var storedUser = localStorage.getItem("userInfo");
-    var parsedUser = JSON.parse(storedUser);
-    this.role = parsedUser.data.role;
-    this.userId = parsedUser.data.id;
+  created () {
+    var storedUser = localStorage.getItem('userInfo')
+    var parsedUser = JSON.parse(storedUser)
+    this.role = parsedUser.data.role
+    this.userId = parsedUser.data.id
 
-    this.getAllTransaction();
-    this.getAllUsers();
-    this.getTotalBalance();
+    this.getAllTransaction()
+    this.getAllUsers()
+    this.getTotalBalance()
   },
   computed: {
-    filteredRows() {
+    filteredRows () {
       // Implement your custom search logic here
-      const searchTerm = this.searchData.toLowerCase();
-      return this.rows.filter((row) => {
+      const searchTerm = this.searchData.toLowerCase()
+      return this.rows.filter(row => {
         // Check each dynamic column for a match
-        return Object.keys(row).some((key) => {
-          const value = row[key];
+        return Object.keys(row).some(key => {
+          const value = row[key]
           return (
             value !== null &&
             value !== undefined &&
             value.toString().toLowerCase().includes(searchTerm)
-          );
-        });
-      });
-    },
+          )
+        })
+      })
+    }
   },
   methods: {
-    async pro(order_id, amount, order) {
-      const self = this;
-      const url = self.$apiService.getAppendedUrl(`payments/payment/verify/`);
+    async pro (order_id, amount, order) {
+      const self = this
+      const url = self.$apiService.getAppendedUrl(`payments/payment/verify/`)
       var options = {
         key: order.razorpayKey, // Enter the Key ID generated from the Dashboard
         amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        currency: "INR",
+        currency: 'INR',
         name: 'Inter City Tours Travels and Car rentals',
-        description: "Test Transaction",
-        
-        image: "https://example.com/your_logo",
+        description: 'Test Transaction',
+
+        image: 'https://example.com/your_logo',
         order_id: order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (response) {
           // alert(response.razorpay_payment_id);
@@ -476,41 +479,41 @@ export default {
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_signature: response.razorpay_signature,
-            order_data: order,
-          };
+            order_data: order
+          }
 
           const response1 = await fetch(url, {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data),
-          });
-          const data1 = await response1.json();
+            body: JSON.stringify(data)
+          })
+          const data1 = await response1.json()
           if (data1.message === true) {
-            self.$toaster.makeToast("success", "Payment add successfully");
+            self.$toaster.makeToast('success', 'Payment add successfully')
 
             setTimeout(() => {
-              window.location.reload();
-            }, 100);
+              window.location.reload()
+            }, 100)
           } else {
-            self.$toaster.makeToast("warning", "Payment failed");
+            self.$toaster.makeToast('warning', 'Payment failed')
           }
         },
         prefill: {
           name: order.name,
           email: order.email,
-          contact: order.mobile,
+          contact: order.mobile
         },
         notes: {
-          address: "Razorpay Corporate Office",
+          address: 'Razorpay Corporate Office'
         },
         theme: {
-          color: "#3399CC",
-        },
-      };
-      var rzp1 = new Razorpay(options);
-      rzp1.on("payment.failed", async function (response) {
+          color: '#3399CC'
+        }
+      }
+      var rzp1 = new Razorpay(options)
+      rzp1.on('payment.failed', async function (response) {
         // alert(response.error.code);
         // alert(response.error.description);
         // alert(response.error.source);
@@ -522,24 +525,24 @@ export default {
           razorpay_order_id: response.error.metadata.order_id,
           razorpay_payment_id: response.error.metadata.payment_id,
           razorpay_error_code: response.error.code,
-          razorpay_error_description: response.error.description,
-        };
+          razorpay_error_description: response.error.description
+        }
         const response1 = await fetch(url, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(data),
-        });
+          body: JSON.stringify(data)
+        })
 
-        const data1 = await response1.json();
-      });
+        const data1 = await response1.json()
+      })
       // document.getElementById('rzp-button1').onclick = function (e) {
-      rzp1.open();
+      rzp1.open()
       //   e.preventDefault();
       // }
     },
-    async initiatePayment() {
+    async initiatePayment () {
       // const razorpayKey = this.$apiService.getRazorpayKey();
       // const rzp = new Razorpay({
       //   key: razorpayKey,
@@ -547,84 +550,83 @@ export default {
       //document.getElementById("input_value").value;
 
       // Construct the URL with query parameters
-      const url = this.$apiService.getAppendedUrl(`payments/generate-order/`);
-      const queryParams = new URLSearchParams();
-      queryParams.append("userId", this.userId);
-      queryParams.append("amount", this.amount);
+      const url = this.$apiService.getAppendedUrl(`payments/generate-order/`)
+      const queryParams = new URLSearchParams()
+      queryParams.append('userId', this.userId)
+      queryParams.append('amount', this.amount)
       // const url = new URL('https://zoombacarapi.algofolks.com/payments/generate-order/');
       // url.searchParams.append('userId', this.userId);
       // url.searchParams.append('amount', amount);
       // Make a GET request with the constructed URL
       const response = await fetch(`${url}?${queryParams.toString()}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const order = await response.json();
-      this.pro(order.id, order.amount, order);
-      this.$bvModal.hide("modal-attachment-deposit");
-      this.loader = false;
+          'Content-Type': 'application/json'
+        }
+      })
+      const order = await response.json()
+      this.pro(order.id, order.amount, order)
+      this.$bvModal.hide('modal-attachment-deposit')
+      this.loader = false
     },
-    openModal(rowData) {
-      this.$bvModal.show("modal-attachment");
+    openModal (rowData) {
+      this.$bvModal.show('modal-attachment')
     },
-    formatPrice(value) {
-      let val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    formatPrice (value) {
+      let val = (value / 1).toFixed(0).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    getCompanyData(date) {},
-    handleStartDate() {},
-    onDateSelected(date) {},
-    onEndDateSelected(date) {
-      this.startDate = moment(this.startDate).format("YYYY-MM-DD");
-      this.endDate = moment(this.endDate).format("YYYY-MM-DD");
+    getCompanyData (date) {},
+    handleStartDate () {},
+    onDateSelected (date) {},
+    onEndDateSelected (date) {
+      this.startDate = moment(this.startDate).format('YYYY-MM-DD')
+      this.endDate = moment(this.endDate).format('YYYY-MM-DD')
 
-      this.getAllTransaction(this.startDate, this.endDate);
+      this.getAllTransaction(this.startDate, this.endDate)
     },
-    getSearchOptions() {
-      if (this.role === "Admin" || this.role === "User") {
+    getSearchOptions () {
+      if (this.role === 'Admin' || this.role === 'User') {
         return {
           enabled: false,
-          placeholder: "Search transaction id",
-        };
+          placeholder: 'Search transaction id'
+        }
       } else {
         return {
-          enabled: false, // Disabling search for non-admins
-        };
+          enabled: false // Disabling search for non-admins
+        }
       }
     },
-    handleChangeAmount() {
-      if (this.amount === "2500") {
+    handleChangeAmount () {
+      if (this.amount === '2500') {
         // this.ascendingOrderCartPage();
       } else {
         // this.descendingOrderCartPage();
       }
     },
-    clickViewProfile(rowUserId){
-      this.$router.push("/app/myDesk/usersProfile?id=" + rowUserId);
-      
+    clickViewProfile (rowUserId) {
+      this.$router.push('/app/myDesk/usersProfile?id=' + rowUserId)
     },
 
     handleTextInput: _.debounce(function () {
       // this.getAllTransaction(this.startDate, this.endDate);
     }, 700),
-    clickCancle() {
-      this.$bvModal.hide("modal-attachment-deposit");
+    clickCancle () {
+      this.$bvModal.hide('modal-attachment-deposit')
     },
-    getDynamicColumns() {
+    getDynamicColumns () {
       const commonColumns = [
         {
-          label: "Date/Time",
-          field: "updated_at",
+          label: 'Date/Time',
+          field: 'updated_at'
         },
         {
-          label: "Transaction id",
-          field: "order_key",
+          label: 'Transaction id',
+          field: 'order_key'
         },
         {
-          label: "Amount",
-          field: "transaction_type",
+          label: 'Amount',
+          field: 'transaction_type'
         },
 
         // {
@@ -632,34 +634,34 @@ export default {
         //   field: "transcation_id",
         // },
         {
-          label: "Details",
-          field: "details",
-        },
-      ];
+          label: 'Details',
+          field: 'details'
+        }
+      ]
 
-      if (this.role === "User") {
+      if (this.role === 'User') {
         // Exclude the 'User name' column for 'User' role
-        return commonColumns;
+        return commonColumns
       } else {
         // Include the 'User name' column for other roles
         return [
-          { label: "User name", field: "user_name_show" },
-          ...commonColumns,
-        ];
+          { label: 'User name', field: 'user_name_show' },
+          ...commonColumns
+        ]
       }
     },
-    async clickPay() {
+    async clickPay () {
       // window.location.href = this.$apiService.getAppendedUrl(
       //   `payments/generate-order/?userId=${this.userId}&amount=${this.amount}`
       // );
       // );
-      this.loader = true;
+      this.loader = true
       if (this.amount) {
-        this.initiatePayment();
-        this.$bvModal.hide("modal-attachment-deposit");
+        this.initiatePayment()
+        this.$bvModal.hide('modal-attachment-deposit')
       } else {
-        this.$toaster.makeToast("warning", "Please select amount");
-        this.loader = false;
+        this.$toaster.makeToast('warning', 'Please select amount')
+        this.loader = false
       }
 
       // this.$bvModal.hide("modal-attachment-deposit");
@@ -674,52 +676,52 @@ export default {
     //   link.click();
     //   document.body.removeChild(link);
     // },
-    clickDeposit() {
-      this.$bvModal.show("modal-attachment-deposit");
+    clickDeposit () {
+      this.$bvModal.show('modal-attachment-deposit')
     },
-    getTotalBalance() {
-      this.loader = true;
+    getTotalBalance () {
+      this.loader = true
       this.$apiService
         .getCall(`totalBalance/?userId=${this.userId}`)
-        .then((res) => {
+        .then(res => {
           if (!res.apidata.isError) {
             if (res.apidata.total_balance >= 0) {
-              this.totalBalance = res.apidata.total_balance;
+              this.totalBalance = res.apidata.total_balance
             } else {
-              this.totalBalance = 0.0;
+              this.totalBalance = 0.0
             }
             if (res.apidata.security_balance >= 0) {
-              this.securityBalance = res.apidata.security_balance;
+              this.securityBalance = res.apidata.security_balance
             } else {
-              this.securityBalance = 0.0;
+              this.securityBalance = 0.0
             }
             if (res.apidata.wallet_balance >= 0) {
-              this.userBalance = res.apidata.wallet_balance;
+              this.userBalance = res.apidata.wallet_balance
             } else {
-              this.userBalance = 0.0;
+              this.userBalance = 0.0
             }
             if (res.apidata.referral_balance >= 0) {
-              this.referral_balance = res.apidata.referral_balance;
+              this.referral_balance = res.apidata.referral_balance
             } else {
-              this.referral_balance = 0.0;
+              this.referral_balance = 0.0
             }
           } else {
-            this.userBalance = 0.0;
-            this.securityBalance = 0.0;
-            this.totalBalance = 0.0;
-            this.referral_balance = 0.0;
+            this.userBalance = 0.0
+            this.securityBalance = 0.0
+            this.totalBalance = 0.0
+            this.referral_balance = 0.0
           }
 
-          this.loader = false;
+          this.loader = false
         })
-        .catch((error) => {
-          this.userBalance = 0.0;
-          this.securityBalance = 0.0;
-          this.totalBalance = 0.0;
-          this.referral_balance = 0.0;
+        .catch(error => {
+          this.userBalance = 0.0
+          this.securityBalance = 0.0
+          this.totalBalance = 0.0
+          this.referral_balance = 0.0
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
+          this.loader = false
+        })
     },
     // getAllUsers() {
     //   this.loader = true;
@@ -763,56 +765,56 @@ export default {
     //       this.loader = false;
     //     });
     // },
-    handleChange(user) {
-      this.matchUser = this.usersInfo.find((e) => e.fullName == user);
+    handleChange (user) {
+      this.matchUser = this.usersInfo.find(e => e.fullName == user)
 
       if (this.matchUser !== null) {
-        this.getAllTransaction(this.startDate, this.endDate, this.matchUser.id);
+        this.getAllTransaction(this.startDate, this.endDate, this.matchUser.id)
         // this.getAllTransaction();
       }
     },
-    getAllTransaction(startDate, endDate, uId) {
-      this.loader = true;
-      let query = ``;
+    getAllTransaction (startDate, endDate, uId) {
+      this.loader = true
+      let query = ``
       if (startDate) {
-        query = query + `startDate=${startDate}`;
+        query = query + `startDate=${startDate}`
       }
       if (endDate) {
-        query = query + `&endDate=${endDate}`;
+        query = query + `&endDate=${endDate}`
       }
       if (uId) {
-        query = query + `&userId=${uId}`;
+        query = query + `&userId=${uId}`
       }
       this.$apiService
         .getCall(`transcation/?${query}`)
-        .then((res) => {
-          let rowData = [];
+        .then(res => {
+          let rowData = []
 
           if (res.apidata.length > 0) {
             // rowData = res.apidata;
 
             // rowData = res.apidata.filter((value) => !value.is_superuser);
-            if (this.role === "User") {
+            if (this.role === 'User') {
               // this.allDate = res.apidata.map((e) => e.time);
 
-              rowData = res.apidata.filter((value) => {
+              rowData = res.apidata.filter(value => {
                 if (value.userId == this.userId) {
-                  return value.userId;
+                  return value.userId
                 }
-              });
+              })
             } else {
-              rowData = res.apidata;
+              rowData = res.apidata
               // this.allDate = rowData.map(e => e.time);
             }
 
-            rowData.forEach((element) => {
+            rowData.forEach(element => {
               // element.amount = element.amount
               //   ? "₹" + "  " + element.amount + "/-"
               //   : "";
               element.updated_at = element.updated_at
-                ? moment(element.updated_at).format("DD MMM YYYY h:mm A")
-                : "";
-            });
+                ? moment(element.updated_at).format('DD MMM YYYY h:mm A')
+                : ''
+            })
             // rowData.forEach((value) => {
             //   value.full_name =
             //     value.first_name || value.last_name
@@ -820,14 +822,14 @@ export default {
             //       : "";
             // });
           }
-          this.rows = rowData;
+          this.rows = rowData
           // console.log(this.rows);
-          this.loader = false;
+          this.loader = false
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
     },
 
     // submit() {
@@ -853,8 +855,8 @@ export default {
     //       this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
     //     });
     // },
-    cancel() {
-      this.clearform();
+    cancel () {
+      this.clearform()
     },
     // update() {
     //   this.submitloader = true;
@@ -891,15 +893,15 @@ export default {
     //   this.isEdit = true;
     // },
 
-    clearform() {
-      this.form = {};
-      this.isEdit = false;
-      this.submitloader = false;
-      this.generateIDloader = false;
-      this.$bvModal.hide("modal-lg");
-    },
-  },
-};
+    clearform () {
+      this.form = {}
+      this.isEdit = false
+      this.submitloader = false
+      this.generateIDloader = false
+      this.$bvModal.hide('modal-lg')
+    }
+  }
+}
 </script>
 <!-- <script src="../../../../public/checkout.js"></script> -->
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
@@ -939,7 +941,6 @@ export default {
 }
 .for-date-picker {
   width: 100%;
-  height: 3em;
 }
 .popup-Container {
   top: 0;

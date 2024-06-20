@@ -138,7 +138,9 @@
                 <td colspan="3" class="text-right">Discount :</td>
 
                 <td>
-                  <div class="d-flex flex-row justify-content-center align-items-center">
+                  <div
+                    class="d-flex flex-row justify-content-center align-items-center"
+                  >
                     <div class="pt-2">
                       <input
                         v-if="discountType === 'Absolute'"
@@ -169,7 +171,9 @@
                       ></b-form-select>
                     </div>
 
-                    <div  class="pt-2" v-if="discountType!='Absolute'"> ₹ {{percentageAmount}}</div>
+                    <div class="pt-2" v-if="discountType != 'Absolute'">
+                      ₹ {{ percentageAmount }}
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -188,10 +192,7 @@
               <tr>
                 <td colspan="4" class="text-right">
                   <b-row>
-                    <b-col>
-                      GST :
-                     
-                    </b-col>
+                    <b-col> GST : </b-col>
                   </b-row>
                 </td>
                 <td>
@@ -259,15 +260,12 @@
                 :disabled="isNameWarning || selectedOption === ''"
                 >Update order & send notification</b-button
               >
-           
             </b-col>
           </b-row>
 
           <!-- <b-button class="mb-2 mr-2 btnSmall" @click="addRow" :disabled="isNameWarning">Add Item</b-button> -->
         </div>
       </div>
-
-    
     </b-modal>
 
     <b-modal
@@ -283,15 +281,15 @@
             :line-numbers="false"
             :pagination-options="{
               enabled: true,
-              mode: 'records',
+              mode: 'records'
             }"
             styleClass="tableOne vgt-table"
             :selectOptions="{
               enabled: false,
-              selectionInfoClass: 'table-alert__box',
+              selectionInfoClass: 'table-alert__box'
             }"
             :sort-options="{
-              enabled: false,
+              enabled: false
             }"
             :rows="getitemRows"
           >
@@ -312,7 +310,12 @@
 
         <b-col md="12" class="mt-3">
           <div class="d-flex justify-content-between px-2">
-            <b-form-group class="" label="Assigned Driver" label-for="input-1" v-if="selectedOption">
+            <b-form-group
+              class=""
+              label="Assigned Driver"
+              label-for="input-1"
+              v-if="selectedOption"
+            >
               <b-form-select disabled v-model="selectedOption" required>
                 <b-form-select-option disabled :value="selectedOption">{{
                   selectedOption
@@ -399,8 +402,6 @@
               style="height: 100px"
             ></b-form-textarea>
           </b-form-group>
-
-        
         </b-col>
         <b-col>
           <div class="d-flex justify-content-end px-2">
@@ -501,7 +502,7 @@
           ref="startDate"
           v-model="startDate"
           :picker-options="{
-            disabledDate: (time) => time.getTime() > new Date().getTime(),
+            disabledDate: time => time.getTime() > new Date().getTime()
           }"
           @change="onDateSelected()"
           placeholder="Select Start date"
@@ -514,7 +515,7 @@
           ref="endDate"
           v-model="endDate"
           :picker-options="{
-            disabledDate: (time) => time.getTime() > new Date().getTime(),
+            disabledDate: time => time.getTime() > new Date().getTime()
           }"
           @change="onEndDateSelected()"
           placeholder="Select End date"
@@ -533,15 +534,15 @@
       :line-numbers="false"
       :pagination-options="{
         enabled: true,
-        mode: 'records',
+        mode: 'records'
       }"
       styleClass="tableOne vgt-table"
       :selectOptions="{
         enabled: false,
-        selectionInfoClass: 'table-alert__box',
+        selectionInfoClass: 'table-alert__box'
       }"
       :sort-options="{
-        enabled: false,
+        enabled: false
       }"
       :rows="payment_status.toLowerCase() === 'all' ? rows : filteredRows"
     >
@@ -561,7 +562,8 @@
               class="m-0 ul-cursor--pointer text-primary"
               style="text-decoration: underline"
             >
-              {{ props.row.user_info.first_name }} {{ props.row.user_info.last_name }}
+              {{ props.row.user_info.first_name }}
+              {{ props.row.user_info.last_name }}
             </p>
           </div>
         </span>
@@ -804,77 +806,77 @@
 </template>
 
 <script>
-import moment from "moment";
-import message from "../../../message";
-import Multiselect from "vue-multiselect";
-import _ from "lodash";
+import moment from 'moment'
+import message from '../../../message'
+import Multiselect from 'vue-multiselect'
+import _ from 'lodash'
 export default {
   metaInfo: {
-    title: "Car-Booking",
+    title: 'Car-Booking'
   },
   components: {
-    multiselect: Multiselect,
+    multiselect: Multiselect
   },
-  props: ["row"],
-  data() {
+  props: ['row'],
+  data () {
     return {
       getitemColumns: [
         {
-          label: "Item Name",
-          field: "item",
+          label: 'Item Name',
+          field: 'item'
         },
 
         {
-          label: "Item Price",
-          field: "item_price",
+          label: 'Item Price',
+          field: 'item_price'
         },
         {
-          label: "Quantity",
-          field: "quantity",
+          label: 'Quantity',
+          field: 'quantity'
         },
         {
-          label: "Price",
-          field: "price",
-        },
+          label: 'Price',
+          field: 'price'
+        }
       ],
       getitemRows: [],
-      getTotalPrice: "",
-      getDiscount: "",
-      getdiscountType: "",
-      getGsttax: "",
-      getDeliveryCharge: "",
+      getTotalPrice: '',
+      getDiscount: '',
+      getdiscountType: '',
+      getGsttax: '',
+      getDeliveryCharge: '',
       maxDate: new Date(),
       selected: null,
       allUsers: [],
       formData: {
-        fName: "",
-        lName: "",
-        aadharImage: "",
-        drivingLicenseImage: "",
+        fName: '',
+        lName: '',
+        aadharImage: '',
+        drivingLicenseImage: ''
       },
       allCars: [],
       selectCar: null,
-      startDate: "",
-      endDate: "",
-      book_id: "",
+      startDate: '',
+      endDate: '',
+      book_id: '',
       updateloader: false,
-      amount: "",
-      transactionId: "",
-      types: "",
-      userId: "",
-      role: "",
-      cancelReasonText: "",
-      cancelReason: ["first resion", "second resion", "third resion"],
+      amount: '',
+      transactionId: '',
+      types: '',
+      userId: '',
+      role: '',
+      cancelReasonText: '',
+      cancelReason: ['first resion', 'second resion', 'third resion'],
       usersInfo: [],
       carsInfo: [],
-      matchUser: "",
+      matchUser: '',
       rows: [],
       form: {
-        templateId: "",
-        name: "",
-        content: "",
+        templateId: '',
+        name: '',
+        content: ''
       },
-      selectedOption: "",
+      selectedOption: '',
       generateIDloader: false,
       submitloader: false,
       isEdit: false,
@@ -885,17 +887,17 @@ export default {
       audio: null,
       isPlaying: false,
       amount: null,
-      payment_status: "All",
+      payment_status: 'All',
       filteredRows: [],
       filteredData: [],
       item: [
         {
           BookingId: this.order_id,
-          item: "",
+          item: '',
           quantity: 0,
           item_price: 0,
-          price: 0,
-        },
+          price: 0
+        }
       ],
       previousData: [],
       updateloader: false,
@@ -906,207 +908,210 @@ export default {
       food_delivery_charge: 0,
       getOrderId: 0,
       allDriverName: [],
-      discountType: "Absolute",
-      percentageAmount:0,
-    };
+      discountType: 'Absolute',
+      percentageAmount: 0
+    }
   },
 
   computed: {
-    totalPrice() {
-      return this.item.quantity * this.item_price;
+    totalPrice () {
+      return this.item.quantity * this.item_price
     },
-    totalAmount() {
+    totalAmount () {
       // if(absoluteDiscount>0){
 
       // }
       let total = this.item.reduce(
         (total, currentItem) => total + currentItem.price,
         0
-      );
+      )
       if (this.discount > 0) {
-        const discount2 = total * (this.discount / 100);
-        this.percentageAmount = parseFloat(discount2.toFixed(2));
-        this.percentageAmount=this.subtotal<=this.percentageAmount?this.subtotal:this.percentageAmount;
-        total -= this.percentageAmount;
-        total += this.gstAmount > 0 ? this.gstAmount : 0;
-        return total + parseInt(this.food_delivery_charge);
+        const discount2 = total * (this.discount / 100)
+        this.percentageAmount = parseFloat(discount2.toFixed(2))
+        this.percentageAmount =
+          this.subtotal <= this.percentageAmount
+            ? this.subtotal
+            : this.percentageAmount
+        total -= this.percentageAmount
+        total += this.gstAmount > 0 ? this.gstAmount : 0
+        return total + parseInt(this.food_delivery_charge)
       } else {
-        this.percentageAmount =0;
-        total -= this.absoluteDiscount;
-        total += this.gstAmount > 0 ? this.gstAmount : 0;
-        return total + parseInt(this.food_delivery_charge);
+        this.percentageAmount = 0
+        total -= this.absoluteDiscount
+        total += this.gstAmount > 0 ? this.gstAmount : 0
+        return total + parseInt(this.food_delivery_charge)
       }
       // return total;
     },
 
-    subtotal() {
+    subtotal () {
       let total = this.item.reduce(
         (total, currentItem) => total + currentItem.price,
         0
-      );
-      return total;
+      )
+      return total
     },
 
-    isNameWarning() {
-      return this.item.some((item) => !item.item);
-    },
+    isNameWarning () {
+      return this.item.some(item => !item.item)
+    }
   },
 
-  mounted() {
-    this.addCssRule();
+  mounted () {
+    this.addCssRule()
     // this.$bvModal.show("modal-congratulations");
     // document.addEventListener("click", this.closeMegaMenu);
   },
 
   watch: {
     item: {
-      handler(newRows) {
+      handler (newRows) {
         // console.log("Updated Rows:", newRows);
       },
-      deep: true,
+      deep: true
     },
 
-    discountType(newValue) {
-      if (newValue === "Absolute") {
-        this.discount = 0;
-      } else if (newValue === "%") {
-        this.absoluteDiscount = 0;
+    discountType (newValue) {
+      if (newValue === 'Absolute') {
+        this.discount = 0
+      } else if (newValue === '%') {
+        this.absoluteDiscount = 0
       }
-    },
+    }
   },
-  created() {
-    var storedUser = localStorage.getItem("userInfo");
-    var parsedUser = JSON.parse(storedUser);
-    this.role = parsedUser.data.role;
+  created () {
+    var storedUser = localStorage.getItem('userInfo')
+    var parsedUser = JSON.parse(storedUser)
+    this.role = parsedUser.data.role
     // this.userId = parsedUser.data.id;
-    this.getProfileDetails();
-    this.getAllTransaction();
-    this.getGstAmount();
-    this.getAllUsers();
-    addCssRule();
+    this.getProfileDetails()
+    this.getAllTransaction()
+    this.getGstAmount()
+    this.getAllUsers()
+    addCssRule()
     // this.getAllCarData();
-    this.filteredRows = this.rows;
+    this.filteredRows = this.rows
   },
   methods: {
-    calculateTotal(index) {
-      const item = this.item[index];
-      item.price = item.quantity * item.item_price;
+    calculateTotal (index) {
+      const item = this.item[index]
+      item.price = item.quantity * item.item_price
     },
 
-    clickAsignDriver(data) {
-      this.getOrderId = data.id;
-      this.$bvModal.show("modal-asign-driver");
-      this.getAllUsers(data);
+    clickAsignDriver (data) {
+      this.getOrderId = data.id
+      this.$bvModal.show('modal-asign-driver')
+      this.getAllUsers(data)
     },
-    handleSelectionChangeDriver(e) {
-      console.log(e);
+    handleSelectionChangeDriver (e) {
+      console.log(e)
     },
-    clickUpdateAsignDriver() {
-      this.loader = true;
+    clickUpdateAsignDriver () {
+      this.loader = true
       let reqData = {
         driver_id: this.selectedOption,
-        order_id: this.getOrderId,
-      };
+        order_id: this.getOrderId
+      }
       this.$apiService
-        .postCall("driverAssign/", reqData)
-        .then((res) => {
+        .postCall('driverAssign/', reqData)
+        .then(res => {
           if (!res.error) {
             this.$toaster.makeToast(
-              "success",
-              "Update driver asign successfully"
-            );
-            this.$bvModal.hide("modal-asign-driver");
-            this.getAllTransaction();
-            this.loader = false;
+              'success',
+              'Update driver asign successfully'
+            )
+            this.$bvModal.hide('modal-asign-driver')
+            this.getAllTransaction()
+            this.loader = false
           } else {
-            this.loader = false;
-            this.$toaster.makeToast("warning", "Update driver asign failed");
+            this.loader = false
+            this.$toaster.makeToast('warning', 'Update driver asign failed')
           }
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
 
-          this.loader = false;
-        });
+          this.loader = false
+        })
     },
-    addRow() {
-      this.previousData.push(this.item.slice());
+    addRow () {
+      this.previousData.push(this.item.slice())
       this.item.push({
         BookingId: this.order_id,
-        item: "",
+        item: '',
         quantity: 0,
         item_price: 0,
-        price: 0,
-      });
+        price: 0
+      })
     },
-    deleteRow(index) {
-      this.item.splice(index, 1);
-      this.recalculateTotal();
+    deleteRow (index) {
+      this.item.splice(index, 1)
+      this.recalculateTotal()
     },
-    recalculateTotal() {
+    recalculateTotal () {
       this.totalAmount = this.item.reduce(
         (total, currentItem) => total + currentItem.price,
         0
-      );
-      this.applyDiscount();
+      )
+      this.applyDiscount()
     },
-    applyDiscount() {
-      const discount = this.totalAmount * (this.discountPercentage / 100);
-      this.totalAmount -= discount;
+    applyDiscount () {
+      const discount = this.totalAmount * (this.discountPercentage / 100)
+      this.totalAmount -= discount
     },
     // applyAbsoluteDiscount(){
     //  console.log(this.totalAmount)
     //   this.totalAmount =this.totalAmount -this.absoluteDiscount;
     // },
-    clearFilters() {
-      debugger;
-      this.startDate = null;
-      this.endDate = null;
-      this.matchUser = "Select Users";
-      this.selectCar = null;
-      this.payment_status = "All";
+    clearFilters () {
+      debugger
+      this.startDate = null
+      this.endDate = null
+      this.matchUser = 'Select Users'
+      this.selectCar = null
+      this.payment_status = 'All'
       // this.getAllTransaction();
-      window.location.reload();
+      window.location.reload()
     },
-    openModal(rowData) {
-      this.$bvModal.show("modal-attachment");
+    openModal (rowData) {
+      this.$bvModal.show('modal-attachment')
     },
-    formatPrice(value) {
-      let val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    formatPrice (value) {
+      let val = (value / 1).toFixed(0).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    cancelReasonChange(text) {
-      this.cancelReasonText = text;
+    cancelReasonChange (text) {
+      this.cancelReasonText = text
       // this.$bvModal.hide("modal-cancelReason");
       // this.cancelReasonCall();
       // this.cancleYourBooking()
     },
-    clickCancle() {
-      this.$bvModal.hide("modal-cancelReason");
-      this.$bvModal.hide("modal-asign-driver");
-      this.$bvModal.hide("modal-attachment");
+    clickCancle () {
+      this.$bvModal.hide('modal-cancelReason')
+      this.$bvModal.hide('modal-asign-driver')
+      this.$bvModal.hide('modal-attachment')
     },
-    clickCancelAmount2() {
-      this.item = [];
-      this.item_price = 0;
-      this.quantity = 0;
-      this.discount = 0;
-      this.absoluteDiscount = 0;
-      this.$bvModal.hide("modal-add");
-      this.$bvModal.hide("modal-attachment");
+    clickCancelAmount2 () {
+      this.item = []
+      this.item_price = 0
+      this.quantity = 0
+      this.discount = 0
+      this.absoluteDiscount = 0
+      this.$bvModal.hide('modal-add')
+      this.$bvModal.hide('modal-attachment')
     },
 
-    clickCancleButton() {
+    clickCancleButton () {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
-        this.cancleYourBooking();
+        this.cancleYourBooking()
       } else {
         this.$toaster.makeToast(
-          "warning",
-          "Please enter a cancel reason with at least 10 characters"
-        );
+          'warning',
+          'Please enter a cancel reason with at least 10 characters'
+        )
       }
     },
-    clickCancleButtonAmount() {
+    clickCancleButtonAmount () {
       // if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
       //   this.cancleYourBooking();
       // } else {
@@ -1116,27 +1121,24 @@ export default {
       //   );
       // }
     },
-    clickUpdateAmount() {
-      this.loader = true;
+    clickUpdateAmount () {
+      this.loader = true
 
-      const orderId = this.order_id;
+      const orderId = this.order_id
 
       if (
         !this.totalAmount ||
         isNaN(this.totalAmount) ||
         this.totalAmount < 0 ||
-        this.item.some((item) => !item.price || isNaN(item.price))
+        this.item.some(item => !item.price || isNaN(item.price))
       ) {
-        this.$toaster.makeToast(
-          "warning",
-          "Please enter valid discount amount"
-        );
-        this.loader = false;
-        return;
+        this.$toaster.makeToast('warning', 'Please enter valid discount amount')
+        this.loader = false
+        return
       }
 
-      let gst_amount = this.gstAmount > 0 ? this.gstAmount : 0;
-      const type = this.absoluteDiscount > 0 ? "True" : "False";
+      let gst_amount = this.gstAmount > 0 ? this.gstAmount : 0
+      const type = this.absoluteDiscount > 0 ? 'True' : 'False'
       const requestBody = {
         orderId: orderId,
         final_amount: this.totalAmount,
@@ -1148,56 +1150,56 @@ export default {
             ? this.absoluteDiscount
             : 0,
         gst_tax: gst_amount,
-        sub_total:this.subtotal,
+        sub_total: this.subtotal,
         discount_type: type,
         orders: this.item.map((order, index) => ({
           ...order,
-          BookingId: orderId,
-        })),
-      };
+          BookingId: orderId
+        }))
+      }
 
       this.$apiService
 
-        .postCall("updateOrder/", requestBody)
-        .then((response) => {
-          this.getAllTransaction();
-          this.amount = "";
-          this.clickCancelAmount2();
-          this.clickSendNotification();
-          this.clickUpdateAsignDriver();
-          this.$toaster.makeToast("success", "Order Is Updated");
+        .postCall('updateOrder/', requestBody)
+        .then(response => {
+          this.getAllTransaction()
+          this.amount = ''
+          this.clickCancelAmount2()
+          this.clickSendNotification()
+          this.clickUpdateAsignDriver()
+          this.$toaster.makeToast('success', 'Order Is Updated')
         })
-        .catch((error) => {
-          console.error(error);
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
+        .catch(error => {
+          console.error(error)
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
 
-          this.loader = false;
-        });
+          this.loader = false
+        })
     },
 
-    clickViewProfile(rowUserId) {
-      this.$router.push("/app/myDesk/usersProfile?id=" + rowUserId);
+    clickViewProfile (rowUserId) {
+      this.$router.push('/app/myDesk/usersProfile?id=' + rowUserId)
     },
-    getGstAmount() {
-      this.loader = true;
+    getGstAmount () {
+      this.loader = true
       this.$apiService
         .getCall(`appSetting/?key=gst_tax`)
-        .then((res) => {
+        .then(res => {
           if (!res.error) {
-            let resData = res.apidata;
-            this.gstAmount = resData.value;
-            this.loader = false;
+            let resData = res.apidata
+            this.gstAmount = resData.value
+            this.loader = false
           } else {
-            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-            this.loader = false;
+            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+            this.loader = false
           }
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
 
-          this.loader = false;
-        });
+          this.loader = false
+        })
     },
     // getProfileDetails() {
     //   this.loader = true;
@@ -1223,116 +1225,110 @@ export default {
     //       this.loader = false;
     //     });
     // },
-    clickCancleBooking(book_id) {
-      this.book_id = book_id;
-      this.$bvModal.show("modal-cancelReason");
+    clickCancleBooking (book_id) {
+      this.book_id = book_id
+      this.$bvModal.show('modal-cancelReason')
     },
 
-    clickCancleBookingAmount(order_id) {
-
-      this.userId = order_id.userId;
-      this.order_id = order_id.id;
-      this.$bvModal.show("modal-add");
-      this.getOrderId = order_id.id;
-      this.getAllUsers(order_id);
+    clickCancleBookingAmount (order_id) {
+      this.userId = order_id.userId
+      this.order_id = order_id.id
+      this.$bvModal.show('modal-add')
+      this.getOrderId = order_id.id
+      this.getAllUsers(order_id)
     },
 
-    cancleBooking(
+    cancleBooking (
       book_id,
       door_pickup_amount,
       fast_tag_amount,
       total_trip_amount
     ) {
       this.$swal({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't to cancel this booking!",
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Cancel it!",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Cancel it!'
       })
-        .then((result) => {
-          this.loader = true;
+        .then(result => {
+          this.loader = true
           if (result.value) {
             this.$swal(
-              "Cancel Booking!",
-              "Your car Booking has been Cancel.",
-              "success"
-            );
+              'Cancel Booking!',
+              'Your car Booking has been Cancel.',
+              'success'
+            )
             const reqData = {
-              accessStatus: "True",
-            };
-            this.$apiService
-              .getCall("cancel/?book_id=" + book_id)
-              .then((res) => {
-                // if (!res.error) {
-                if (!res.apidata.isError) {
-                  this.$toaster.makeToast(
-                    "success",
-                    "This car booking cancel successfully"
-                  );
-                  setTimeout(function () {
-                    window.location.reload();
-                  }, 700);
-                  this.loader = false;
-                }
-              });
+              accessStatus: 'True'
+            }
+            this.$apiService.getCall('cancel/?book_id=' + book_id).then(res => {
+              // if (!res.error) {
+              if (!res.apidata.isError) {
+                this.$toaster.makeToast(
+                  'success',
+                  'This car booking cancel successfully'
+                )
+                setTimeout(function () {
+                  window.location.reload()
+                }, 700)
+                this.loader = false
+              }
+            })
           }
         })
-        .catch((error) => {
-          this.$toaster.makeToast(
-            "warning",
-            "User can't Cancel! Srever failed"
-          );
-          this.loader = false;
-        });
+        .catch(error => {
+          this.$toaster.makeToast('warning', "User can't Cancel! Srever failed")
+          this.loader = false
+        })
     },
-    downloadPDF(pdfUrl) {
+    downloadPDF (pdfUrl) {
       // const pdfUrl = 'https://www.clickdimensions.com/links/TestPDFfile.pdf'; // Replace with your PDF URL
-      const fileName = "payment_summary.pdf"; // Replace with your desired filename
-      const link = document.createElement("a");
-      link.href = pdfUrl;
-      link.download = fileName;
-      link.target = "_blank"; // Optional: Open the PDF in a new tab
-      link.click();
+      const fileName = 'payment_summary.pdf' // Replace with your desired filename
+      const link = document.createElement('a')
+      link.href = pdfUrl
+      link.download = fileName
+      link.target = '_blank' // Optional: Open the PDF in a new tab
+      link.click()
     },
-    clickBookCar() {
+    clickBookCar () {
       // this.$router.push(
       //   "/app/sessions/searchCar?startDate=" +
       //     new Date() +
       //     "&endDate=" +
       //     new Date()
       // );
-      this.$router.push("/app/sessions/searchCar");
+      this.$router.push('/app/sessions/searchCar')
     },
 
-    getSearchOptions() {
-      if (this.role === "Admin") {
+    getSearchOptions () {
+      if (this.role === 'Admin') {
         return {
           enabled: true,
-          placeholder: "Search",
-        };
+          placeholder: 'Search'
+        }
       } else {
         return {
-          enabled: false,
-        };
+          enabled: false
+        }
       }
     },
-    handleStartDate() {},
-    onDateSelected(date) {},
-    onEndDateSelected(date) {
-      this.startDate = moment(this.startDate).format("YYYY-MM-DD");
-      this.endDate = moment(this.endDate).format("YYYY-MM-DD");
+    handleStartDate () {},
+    onDateSelected (date) {},
+    onEndDateSelected (date) {
+      this.startDate = moment(this.startDate).format('YYYY-MM-DD')
+      this.endDate = moment(this.endDate).format('YYYY-MM-DD')
       this.getAllTransaction(
         this.startDate,
         this.endDate,
         this.matchUser.id,
         this.selectCar
-      );
+      )
     },
-    handleChange(user) {
-      this.matchUser = this.usersInfo.find((e) => e.fullName == user);
+    handleChange (user) {
+      this.matchUser = this.usersInfo.find(e => e.fullName == user)
 
       if (this.matchUser !== null) {
         this.getAllTransaction(
@@ -1340,26 +1336,26 @@ export default {
           this.endDate,
           this.matchUser.id,
           this.selectCar
-        );
+        )
         // this.getAllTransaction();
       }
     },
-    handleChangeCar(paymentStatus) {
+    handleChangeCar (paymentStatus) {
       // If paymentStatus is not provided, default to 'all'
       if (!paymentStatus) {
-        paymentStatus = "all";
+        paymentStatus = 'all'
       }
 
       // Filter the rows based on the selected payment status
-      if (paymentStatus.toLowerCase() === "all") {
+      if (paymentStatus.toLowerCase() === 'all') {
         // Show all rows
-        this.filteredRows = this.rows;
+        this.filteredRows = this.rows
       } else {
         // Filter rows based on payment status
         this.filteredRows = this.rows.filter(
-          (row) =>
+          row =>
             row.payment_status.toLowerCase() === paymentStatus.toLowerCase()
-        );
+        )
       }
     },
 
@@ -1391,25 +1387,25 @@ export default {
     //     });
     // },
     handleTextInput: _.debounce(function () {
-      this.getAllTransaction(this.startDate);
+      this.getAllTransaction(this.startDate)
     }, 700),
     // clickCancle() {
     //   this.$bvModal.hide("modal-attachment");
     // },
-    getDynamicColumns() {
+    getDynamicColumns () {
       const commonColumns = [
         {
-          label: "Ordered date",
-          field: "created_at",
+          label: 'Ordered date',
+          field: 'created_at'
         },
         {
-          label: "Ordered ID",
-          field: "id",
+          label: 'Ordered ID',
+          field: 'id'
         },
 
         {
-          label: "Audio File",
-          field: "show_more_days",
+          label: 'Audio File',
+          field: 'show_more_days'
         },
 
         // {
@@ -1418,17 +1414,17 @@ export default {
         // },
 
         {
-          label: "Amount",
-          field: "price_show",
+          label: 'Amount',
+          field: 'price_show'
         },
         {
-          label: "Status",
-          field: "show_action",
+          label: 'Status',
+          field: 'show_action'
         },
         {
-          label: "Payment Status",
-          field: "payment_status",
-        },
+          label: 'Payment Status',
+          field: 'payment_status'
+        }
         // {
         //   label: "Asign Driver",
         //   field: "for_driver_show",
@@ -1454,47 +1450,47 @@ export default {
         //   label: "Term and condition",
         //   field: "terms_and_condition",
         // },
-      ];
+      ]
 
-      if (this.role === "User") {
+      if (this.role === 'User') {
         // Exclude the 'User name' column for 'User' role
         return [
           {
-            label: "Model(brand)",
-            field: "show_more_data",
+            label: 'Model(brand)',
+            field: 'show_more_data'
           },
           ...commonColumns,
 
           {
-            label: "Status",
-            field: "show_Status",
-          },
-        ];
+            label: 'Status',
+            field: 'show_Status'
+          }
+        ]
       } else {
         // Include the 'User name' column for other roles
         return [
           {
-            label: "User name",
-            field: "user_name_show",
+            label: 'User name',
+            field: 'user_name_show'
           },
           // {
           //   label: "Registration number(brand)",
           //   field: "show_more_data_admin",
           // },
-          ...commonColumns,
+          ...commonColumns
 
           // {
           //   label: "Status",
           //   field: "show_Status",
           // },
-        ];
+        ]
         // { label: "User name", field: "user_name" },
       }
     },
-    clickPay() {
+    clickPay () {
       window.location.href = this.$apiService.getAppendedUrl(
         `depositApiView/?userId=${this.userId}&amount=${this.amount}`
-      );
+      )
     },
     // clickDownload() {
     //   const url='https://c8.alamy.com/comp/EE0F4R/crying-baby-with-dummy-EE0F4R.jpg';
@@ -1505,90 +1501,88 @@ export default {
     //   link.click();
     //   document.body.removeChild(link);
     // },
-    clickDeposit() {
-      this.$bvModal.show("modal-attachment");
+    clickDeposit () {
+      this.$bvModal.show('modal-attachment')
     },
-    getAllUsers(forDriver) {
-      this.loader = true;
+    getAllUsers (forDriver) {
+      this.loader = true
       this.$apiService
-        .getCall("account/")
-        .then((res) => {
-          let rowData = [];
+        .getCall('account/')
+        .then(res => {
+          let rowData = []
 
           if (res.apidata.length > 0) {
-            rowData = res.apidata;
-            rowData = res.apidata.filter((value) => !value.is_superuser);
+            rowData = res.apidata
+            rowData = res.apidata.filter(value => !value.is_superuser)
             rowData = res.apidata.filter(
-              (value) => value.first_name !== null && value.last_name !== null
-            );
+              value => value.first_name !== null && value.last_name !== null
+            )
 
-            rowData.forEach((value) => {
+            rowData.forEach(value => {
               // value.date_joined=value.date_joined?moment(value.date_joined).format("DD/MM/YYYY"):"";
               value.full_name =
                 value.first_name || value.last_name
-                  ? value.first_name + " " + value.last_name
-                  : "";
-            });
+                  ? value.first_name + ' ' + value.last_name
+                  : ''
+            })
           }
           if (forDriver) {
-            let forDriver = res.apidata.filter(
-              (value) => value.role === "Driver"
-            );
+            let forDriver = res.apidata.filter(value => value.role === 'Driver')
             forDriver = forDriver.filter(
-              (value) => value.first_name !== null && value.last_name !== null
-            );
+              value => value.first_name !== null && value.last_name !== null
+            )
 
-            this.allDriverName = forDriver.map((user) => ({
+            this.allDriverName = forDriver.map(user => ({
               id: user.id,
-              fullName: user.full_name,
-            }));
+              fullName: user.full_name
+            }))
           }
-          this.allUsers = rowData.map((e) => e.full_name);
-          this.usersInfo = rowData.map((user) => ({
+          this.allUsers = rowData.map(e => e.full_name)
+          this.usersInfo = rowData.map(user => ({
             id: user.id,
-            fullName: user.full_name,
-          }));
+            fullName: user.full_name
+          }))
 
-          this.loader = false;
+          this.loader = false
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
     },
-    getAllTransaction(startDate, endDate, uId, carId) {
-      this.loader = true;
-      let query = ``;
+    getAllTransaction (startDate, endDate, uId, carId) {
+      this.loader = true
+      let query = ``
       if (startDate) {
-        query = query + `startDate=${startDate}`;
+        query = query + `startDate=${startDate}`
       }
       if (endDate) {
-        query = query + `&endDate=${endDate}`;
+        query = query + `&endDate=${endDate}`
       }
       if (uId) {
-        query = query + `&userId=${uId}`;
+        query = query + `&userId=${uId}`
       }
       if (carId) {
-        query = query + `&reg_number=${carId}`;
+        query = query + `&reg_number=${carId}`
       }
       this.$apiService
         .getCall(`bookingHistory/?${query}`)
-        .then((res) => {
-          let rowData = [];
+        .then(res => {
+          let rowData = []
 
           if (res.apidata.length > 0) {
             // rowData = res.apidata;
 
-            if (this.role === "User") {
-              this.allDate = res.apidata.map((e) => e.time);
+            if (this.role === 'User') {
+              this.allDate = res.apidata.map(e => e.time)
 
-              rowData = res.apidata.filter((value) => {
+              rowData = res.apidata.filter(value => {
                 if (value.userId == this.userId) {
-                  return value.userId;
+                  return value.userId
                 }
-              });
+              })
             } else {
-              rowData = res.apidata;
+              rowData = res.apidata
               // this.allCars = rowData.map((e) => e.registration_number);
               // this.carsInfo = rowData.map((car) => ({
               //   id: car.carId,
@@ -1596,40 +1590,38 @@ export default {
               // }));
             }
 
-            rowData.forEach((element) => {
+            rowData.forEach(element => {
               // element.price = element.price
               //   ? "₹" + "  " + element.price + "/-"
               //   : "";
               element.created_at = element.created_at
-                ? moment(element.created_at).format("DD MMM YYYY h:mm A")
-                : "";
+                ? moment(element.created_at).format('DD MMM YYYY h:mm A')
+                : ''
               // element.booking_date = element.booking_date
               //   ? moment(element.booking_date).format("DD MMM YYYY h:mm A")
               //   : "";
               // element.end_date = element.end_date
               //   ? moment(element.end_date).format("DD MMM YYYY h:mm A")
               //   : "";
-            });
+            })
           }
-          this.rows = rowData;
-          this.loader = false;
+          this.rows = rowData
+          this.loader = false
         })
-        .catch((error) => {
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
+        .catch(error => {
+          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          this.loader = false
+        })
     },
-    clickItemInfo(itemData) {
-      this.$bvModal.show("modal-item-view");
-      this.getitemRows = itemData.orderItem;
-      this.getTotalPrice = itemData.price;
-      this.getDiscount = itemData.discount;
-      this.getGsttax = itemData.gst_tax;
-      this.getDeliveryCharge = itemData.door_pickup_amount;
-      this.getdiscountType = itemData.discount_type;
-      this.selectedOption = `${itemData.driver.first_name} ${itemData.driver.last_name}`;
-
-
+    clickItemInfo (itemData) {
+      this.$bvModal.show('modal-item-view')
+      this.getitemRows = itemData.orderItem
+      this.getTotalPrice = itemData.price
+      this.getDiscount = itemData.discount
+      this.getGsttax = itemData.gst_tax
+      this.getDeliveryCharge = itemData.door_pickup_amount
+      this.getdiscountType = itemData.discount_type
+      this.selectedOption = `${itemData.driver.first_name} ${itemData.driver.last_name}`
     },
 
     // submit() {
@@ -1691,24 +1683,24 @@ export default {
     //   this.isEdit = true;
     // },
 
-    clearform() {
-      this.form = {};
-      this.isEdit = false;
-      this.submitloader = false;
-      this.generateIDloader = false;
-      this.$bvModal.hide("modal-lg");
+    clearform () {
+      this.form = {}
+      this.isEdit = false
+      this.submitloader = false
+      this.generateIDloader = false
+      this.$bvModal.hide('modal-lg')
     },
-    togglePlay(audio_url) {
+    togglePlay (audio_url) {
       if (this.audio && this.audio.src === audio_url) {
         if (this.audio.paused) {
-          this.audio.play();
+          this.audio.play()
         } else {
-          this.audio.pause();
+          this.audio.pause()
         }
       } else {
-        this.audio_url = audio_url;
-        this.audio = new Audio(audio_url);
-        this.audio.play();
+        this.audio_url = audio_url
+        this.audio = new Audio(audio_url)
+        this.audio.play()
       }
     },
 
@@ -1723,89 +1715,86 @@ export default {
     //     iconElement.style.opacity = ".5";
     //   }
     // }
-    toggleAudio(index, rowId) {
-      const audioElements = document.querySelectorAll(`audio`);
-      const iconElements = document.querySelectorAll(`[id^="playPauseIcon_"]`);
+    toggleAudio (index, rowId) {
+      const audioElements = document.querySelectorAll(`audio`)
+      const iconElements = document.querySelectorAll(`[id^="playPauseIcon_"]`)
 
       // Pause all audio elements except the one being toggled
-      audioElements.forEach((audioElement) => {
+      audioElements.forEach(audioElement => {
         if (
           audioElement.id !== `audio_${rowId}_${index}` &&
           !audioElement.paused
         ) {
-          audioElement.pause();
+          audioElement.pause()
           const associatedIcon = document.querySelector(
-            `#playPauseIcon_${audioElement.id.split("_")[1]}_${
-              audioElement.id.split("_")[2]
+            `#playPauseIcon_${audioElement.id.split('_')[1]}_${
+              audioElement.id.split('_')[2]
             }`
-          );
+          )
           if (associatedIcon) {
-            associatedIcon.style.opacity = ".5";
+            associatedIcon.style.opacity = '.5'
           }
         }
-      });
+      })
 
-      const audioElement = document.getElementById(`audio_${rowId}_${index}`);
+      const audioElement = document.getElementById(`audio_${rowId}_${index}`)
       const iconElement = document.querySelector(
         `#playPauseIcon_${rowId}_${index}`
-      );
+      )
 
       if (audioElement.paused) {
-        audioElement.play();
-        iconElement.style.opacity = "1";
+        audioElement.play()
+        iconElement.style.opacity = '1'
       } else {
-        audioElement.pause();
-        iconElement.style.opacity = ".5";
+        audioElement.pause()
+        iconElement.style.opacity = '.5'
       }
     },
 
-    addCssRule() {
-      const style = document.createElement("style");
-      style.type = "text/css";
+    addCssRule () {
+      const style = document.createElement('style')
+      style.type = 'text/css'
       const cssRule =
-        "#modal-add___BV_modal_content_{" + "  right: 330px !important;" + "}";
-      style.appendChild(document.createTextNode(cssRule));
-      document.head.appendChild(style);
+        '#modal-add___BV_modal_content_{' + '  right: 330px !important;' + '}'
+      style.appendChild(document.createTextNode(cssRule))
+      document.head.appendChild(style)
     },
-    clickSendNotification() {
+    clickSendNotification () {
       if (
         !this.totalAmount ||
         isNaN(this.totalAmount) ||
         this.totalAmount < 0 ||
-        this.item.some((item) => !item.price || isNaN(item.price))
+        this.item.some(item => !item.price || isNaN(item.price))
       ) {
-        this.$toaster.makeToast(
-          "warning",
-          "Please enter valid discount amount"
-        );
-        this.loader = false;
-        return;
+        this.$toaster.makeToast('warning', 'Please enter valid discount amount')
+        this.loader = false
+        return
       }
-      this.loader = true;
+      this.loader = true
       this.$apiService
         .getCall(`sendNotification/?user_id=${this.userId}`)
-        .then((res) => {
-          this.loader = true;
+        .then(res => {
+          this.loader = true
           if (res.data && res.data.success === 1) {
             this.$toaster.makeToast(
-              "success",
-              "Notification is send successfully"
-            );
+              'success',
+              'Notification is send successfully'
+            )
           } else {
             this.$toaster.makeToast(
-              "success",
-              "Notification is send successfully"
-            );
+              'success',
+              'Notification is send successfully'
+            )
           }
-          this.loader = false;
+          this.loader = false
         })
-        .catch((error) => {
-          this.$toaster.makeToast("error", "Failed to send notification");
-          this.loader = false;
-        });
-    },
-  },
-};
+        .catch(error => {
+          this.$toaster.makeToast('error', 'Failed to send notification')
+          this.loader = false
+        })
+    }
+  }
+}
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
@@ -1881,7 +1870,6 @@ font-size: 0.9rem;
 
 .for-date-picker {
   width: 100%;
-  height: 100%;
 }
 
 .closePopup {
@@ -1989,10 +1977,10 @@ p {
 }
 
 .play-icon::before {
-  content: "\25B6";
+  content: '\25B6';
 }
 .pause-icon::before {
-  content: "\II";
+  content: '\II';
 }
 
 .playing .play-icon::before {
@@ -2005,8 +1993,6 @@ p {
 .hidden {
   display: none;
 }
-
-
 
 .inputtttNone {
   border-radius: 6px;

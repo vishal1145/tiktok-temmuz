@@ -8,73 +8,65 @@
     </div>
     <hr class="mt-1" />
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
+    <div>
+      <vue-good-table
+        :columns="columns"
+        :line-numbers="false"
+        :pagination-options="{
+          enabled: true,
+          mode: 'records'
+        }"
+        styleClass="tableOne vgt-table"
+        :selectOptions="{
+          enabled: false,
+          selectionInfoClass: 'table-alert__box'
+        }"
+        :sort-options="{
+          enabled: false
+        }"
+        :rows="rows"
+      >
+        <template slot="table-row" slot-scope="props">
+          <span v-if="props.column.field === 'earning_show'">
+            <div>{{ props.row.earning }}$</div>
+          </span>
+          <span v-else-if="props.column.field === 'diamond_show'">
+            <div>
+              <i class="fa fa-diamond mr-1" aria-hidden="true"></i>
+              {{ props.row.diamonds_this_month }}
+            </div>
+          </span>
+          <span v-else-if="props.column.field === 'status_show'">
+            <div v-if="props.row.status === 'Approved'">
+              <span class="badge badge-success">{{ props.row.status }}</span>
+            </div>
+            <div v-else-if="props.row.status === 'Rejected'">
+              <span class="badge badge-danger">{{ props.row.status }}</span>
+            </div>
+            <div v-else-if="props.row.status === 'Waiting Approval'">
+              <span class="badge border border-warning text-warning p-1">{{
+                props.row.status
+              }}</span>
+            </div>
+            <div v-else-if="props.row.status === 'Pending Registration'">
+              <span class="badge border-warning text-warning border p-1">{{
+                props.row.status
+              }}</span>
+            </div>
+          </span>
 
-    <div class="card user-profile o-hidden mb-30">
-      <div class="header-cover bg-gray-300"></div>
-      <div class="user-info">
-        <img
-          class="profile-picture avatar-lg mb-2"
-          :src="this.userimage"
-          alt=""
-        />
-        <p class="m-0 text-24">{{ userName }}hfgh</p>
-        <div class="d-flex px-4 flex-wrap">
-          <p class="text-muted m-0">
-            <i class="fa fa-user-circle" aria-hidden="true"></i> : tfgfg |
-            <i class="fa fa-phone" aria-hidden="true"></i> : {{ phone }}46456456
-          </p>
-          <!-- <p
-            v-if="is_verified !== false"
-            class="ml-2 p-0"
-            style="color: #ffffff; font-size: 12px"
-          >
-            <span class="badge badge-primary blueVerfiy"
-              >verified<i
-                class="fa fa-check-circle blueVerfiy2"
-                aria-hidden="true"
-              ></i
-            ></span>
-          </p> -->
-        </div>
-      </div>
-      <div class="card-body">
-        <b-row>
-          <b-col md="4" sm="12">
-            <b-card
-              class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
-            >
-              <i class="i-Coins"></i>
-              <div class="content marginForCArd" >
-                <p class="text-muted mt-2 mb-0" style="
-    width: 116px;
-">Monthly diamonds</p>
-                <p
-                  class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
-                >
-                  {{ total_member }}56
-                </p>
-              </div>
-            </b-card>
-          </b-col>
-          <b-col md="4" sm="12">
-            <b-card
-              class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
-            >
-              <i class="i-Money-2"></i>
-              <div class="content marginForCArd">
-                <p class="text-muted mt-2 mb-0" style="
-    width: 122px;
-">monthly $ earnings</p>
-                <p
-                  class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
-                >
-                  {{ total_member }}5$
-                </p>
-              </div>
-            </b-card>
-          </b-col>
-        </b-row>
-      </div>
+          <span v-else-if="props.column.field === 'payment_status'">
+            <template>
+              <b-badge
+                v-if="props.row.payment_status === 'Paid'"
+                variant="success"
+                >Paid</b-badge
+              >
+              <b-badge v-else variant="danger">Unpaid</b-badge>
+            </template>
+          </span>
+        </template>
+      </vue-good-table>
     </div>
   </div>
 </template>
@@ -95,38 +87,27 @@ export default {
   },
   data () {
     return {
+      creatorId: '',
+      userId: '',
       userimage: '',
       loader: false,
 
       rows: [],
-      commonColumns: [
+      columns: [
         {
-          label: 'User name',
-          field: 'user_name_show'
+          label: 'Affiliated With',
+          field: 'affiliated_with'
         },
         {
-          label: 'Orderd date',
-          field: 'created_at'
-        },
-        {
-          label: 'Orderd ID',
-          field: 'id'
+          label: 'Diamonds This Month',
+          field: 'diamond_show'
         },
 
         {
-          label: 'Audio File',
-          field: 'audio_url'
+          label: 'Earnings This Month',
+          field: 'earning_show'
         },
-
-        {
-          label: 'Amount',
-          field: 'price'
-        },
-
-        {
-          label: 'Status',
-          field: 'payment_status'
-        }
+        { label: 'Date', field: 'as_of_date' }
       ],
       backgroundImage: require('@/assets/images/food.png')
     }
@@ -140,8 +121,10 @@ export default {
     }
   },
   created () {
-    this.userId = this.$route.query.id
-    this.getAllUsers()
+    this.userId = this.$route.query.uid
+    this.creatorId = this.$route.query.cid
+
+    this.getCreatorsData()
   },
   methods: {
     formatPrice (value) {
@@ -192,39 +175,27 @@ export default {
           this.loader = false
         })
     },
-    getAllUsers () {
+    getCreatorsData () {
       this.loader = true
+      var reqData = {
+        creator_id: this.creatorId,
+        user_id: this.userId
+      }
       this.$apiService
-        .getCall(`account/?id=${this.userId}`)
+        .postCall(`publisher/get-creator-details`, reqData)
         .then(res => {
           console.log(res)
           let rowData = []
 
           if (res.apidata.length > 0) {
             rowData = res.apidata
-            // rowData = res.apidata.filter((value) => !value.is_superuser);
-
             rowData.forEach(value => {
-              //   value.date_joined = value.date_joined
-              //     ? moment(value.date_joined).format("DD/MM/YYYY")
-              //     : "";
-              value.full_name =
-                value.first_name || value.last_name
-                  ? value.first_name + ' ' + value.last_name
-                  : ''
+              value.as_of_date = value.as_of_date
+                ? moment(value.as_of_date).format('DD MMM YYYY')
+                : ''
             })
           }
-          this.userName = res.apidata.first_name + ' ' + res.apidata.last_name
-          this.emailPhone = res.apidata.email
-          this.is_verified = res.apidata.is_verified
-          this.phone = res.apidata.phone
-          this.userimage = res.apidata.image
-          this.aadharFront = res.apidata.aadhar_card
-          this.aadharBack = res.apidata.back_aadhar_card
-          this.divinglicense = res.apidata.driving_lincense
-          this.divinglicenseBack = res.apidata.back_driving_lincense
-          this.passportBack = res.apidata.back_passport
-          this.passport = res.apidata.passport
+          this.rows = rowData
 
           this.loader = false
         })
@@ -254,8 +225,7 @@ export default {
   padding-left: 3px;
 }
 
-.marginForCArd
-{
+.marginForCArd {
   margin-left: 2.57rem !important;
   text-align: start;
 }
