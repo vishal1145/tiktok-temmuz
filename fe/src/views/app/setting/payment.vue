@@ -359,7 +359,7 @@
                     "
                   >
                     <option value>All</option>
-                    <option value="Approved">Paid</option>
+                    <option value="Paid">Paid</option>
                     <option value="Reject">Reject</option>
                     <option value="Pending">Pending</option>
                   </select>
