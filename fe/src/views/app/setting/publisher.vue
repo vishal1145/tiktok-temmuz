@@ -563,8 +563,10 @@
               ref="endDate"
               v-model="endDate"
               :picker-options="{
-                disabledDate: time => time.getTime() > new Date().getTime()
+                disabledDate: time =>
+                  time.getTime() < new Date(this.startDate).getTime()
               }"
+              :disabled="this.startDate ? false : true"
               @change="changeEndDate"
               placeholder="Select End date"
             ></v2-datepicker>
@@ -686,7 +688,7 @@
                   v-if="role == 'admin'"
                   class="ul-cursor--pointer text-primary"
                   style="text-decoration: underline"
-                  @click="clickUserName(props.row.user_id._id, props.row._id)"
+                  @click="clickUserName(props.row.tiktok_username)"
                 >
                   <i class="fa fa-user mr-1" aria-hidden="true"></i>
                   {{ props.row.tiktok_username }}
@@ -927,7 +929,7 @@ export default {
         const matchesStatus = select_status
           ? row.status === select_status
           : true
-        const itemDate = new Date(row.createdAt)
+        const itemDate = new Date(moment(row.createdAt).format('DD MMM YYYY'))
         const matchesDate =
           (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
           (this.endDate ? itemDate <= new Date(this.endDate) : true)
@@ -1275,8 +1277,8 @@ export default {
       this.$bvModal.show('modal-cancelReason')
       this.rejectedId = id
     },
-    clickUserName(id, cid) {
-      this.$router.push(`/app/mydesk/creatorPage?uid=${id}&cid=${cid}`)
+    clickUserName(userName) {
+      this.$router.push(`/app/mydesk/creatorPage?userName=${userName}`)
     },
     async addPublisher() {
       // Check if all required fields are filled

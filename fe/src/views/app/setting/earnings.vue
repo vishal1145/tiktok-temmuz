@@ -431,8 +431,10 @@
               ref="endDate"
               v-model="endDate"
               :picker-options="{
-                disabledDate: time => time.getTime() > new Date().getTime()
+                disabledDate: time =>
+                  time.getTime() < new Date(this.startDate).getTime()
               }"
+              :disabled="this.startDate ? false : true"
               @change="changeEndDate"
               placeholder="Select End date"
             ></v2-datepicker>

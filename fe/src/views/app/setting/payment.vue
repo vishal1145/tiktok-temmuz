@@ -421,8 +421,10 @@
                   ref="endDate"
                   v-model="endDate"
                   :picker-options="{
-                    disabledDate: time => time.getTime() > new Date().getTime()
+                    disabledDate: time =>
+                      time.getTime() < new Date(this.startDate).getTime()
                   }"
+                  :disabled="this.startDate ? false : true"
                   @change="changeEndDate"
                   placeholder="Select End date"
                 ></v2-datepicker>
@@ -824,7 +826,9 @@ export default {
         const matchesAmount =
           (amount_data ? itemAmount >= amount_data : true) &&
           (amount_data_max ? itemAmount <= amount_data_max : true)
-        const itemDate = new Date(row.request_date)
+        const itemDate = new Date(
+          moment(row.request_date).format('DD MMM YYYY')
+        )
         const matchesDate =
           (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
           (this.endDate ? itemDate <= new Date(this.endDate) : true)

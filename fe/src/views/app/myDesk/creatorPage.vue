@@ -106,8 +106,10 @@
             ref="endDate"
             v-model="endDate"
             :picker-options="{
-              disabledDate: time => time.getTime() > new Date().getTime()
+              disabledDate: time =>
+                time.getTime() < new Date(this.startDate).getTime()
             }"
+            :disabled="this.startDate ? false : true"
             @change="changeEndDate"
             placeholder="Select End date"
           ></v2-datepicker>
@@ -242,6 +244,7 @@ export default {
       endDate: '',
       searchTerm: '',
       creatorId: '',
+      getUserName: '',
       userId: '',
       userimage: '',
       loader: false,
@@ -300,8 +303,9 @@ export default {
     }
   },
   created () {
-    this.userId = this.$route.query.uid
-    this.creatorId = this.$route.query.cid
+    // this.userId = this.$route.query.uid
+    // this.creatorId = this.$route.query.cid
+    this.getUserName = this.$route.query.userName
 
     this.getCreatorsData()
     this.clearFilters()
@@ -372,12 +376,12 @@ export default {
     },
     getCreatorsData () {
       this.loader = true
-      var reqData = {
-        creator_id: this.creatorId,
-        user_id: this.userId
-      }
+      // var reqData = {
+      //   creator_id: this.creatorId,
+      //   user_id: this.userId
+      // }
       this.$apiService
-        .postCall(`publisher/get-creator-details`, reqData)
+        .postCall(`publisher/get-creator-details?username=${this.getUserName}`)
         .then(res => {
           console.log(res)
           let rowData = []
