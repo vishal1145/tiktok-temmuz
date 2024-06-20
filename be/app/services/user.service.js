@@ -11,7 +11,7 @@ exports.getUserById = async (_id) => {
 };
 
 exports.getAllMembers = async () => {
-  const users = await MemberModel.find({ role: "user" });
+  const users = await MemberModel.find({ role: "user" }).select('-otp');
   const excel_data = await ExcelDataModel.find();
   
   for (let i = 0; i < users.length; i++) {
