@@ -495,7 +495,7 @@
             </ul>
           </div>
         </div>
-        <b-row class="px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
+        <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
           <b-col md="3" class="">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
@@ -571,7 +571,7 @@
           </b-col>
         </b-row>
       </div>
-      <div class="d-flex flex-column gap-5 card" >
+      <div class="d-flex flex-column gap-5 card">
         <div
           class="card-header d-flex flex-row justify-content-between"
           style="background-color: white"
@@ -927,10 +927,10 @@ export default {
         const matchesStatus = select_status
           ? row.status === select_status
           : true
-        const itemDate = row.createdAt
+        const itemDate = new Date(row.createdAt)
         const matchesDate =
-          (this.startDate ? itemDate >= this.startDate : true) &&
-          (this.endDate ? itemDate <= this.endDate + 1 : true)
+          (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
+          (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
         return matchesQuery && matchesStatus && matchesDate
       })
@@ -956,12 +956,12 @@ export default {
   watch: {
     startDate(newDate) {
       if (newDate) {
-        this.fetchPublisher();
+        this.fetchPublisher()
       }
     },
     endDate(newDate) {
       if (newDate) {
-        this.fetchPublisher();
+        this.fetchPublisher()
       }
     }
   },
@@ -1095,12 +1095,11 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     clearFilters() {
-      this.searchTerm = '';
-      this.startDate = ''; // Reset start date
-      this.endDate = ''; // Reset end date
-      this.selectedStatus = ''; // Reset status filter
+      this.searchTerm = ''
+      this.startDate = '' // Reset start date
+      this.endDate = '' // Reset end date
+      this.selectedStatus = '' // Reset status filter
       this.fetchPublisher()
-      
     },
 
     checkLength(event) {

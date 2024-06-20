@@ -1,64 +1,63 @@
 <template>
-  <div class="main-content d-flex flex-column" style="gap: 12px;">
-
+  <div class="main-content d-flex flex-column" style="gap: 12px">
     <div class="card">
-        <div
-          class="card-header d-flex flex-row justify-content-between"
-          style="background-color: white"
+      <div
+        class="card-header d-flex flex-row justify-content-between"
+        style="background-color: white"
+      >
+        <h4
+          class="card-title"
+          style="margin: 0px; background-color: white; color: #000000c4"
         >
-          <h4
-            class="card-title"
-            style="margin: 0px; background-color: white; color: #000000c4"
+          Filters
+        </h4>
+        <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
+        <div class="heading-elements">
+          <ul
+            class="list-inline mb-0 d-flex flex-row justify-content-around"
+            style="gap: 9px"
           >
-            Filters
-          </h4>
-          <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
-          <div class="heading-elements">
-            <ul
-              class="list-inline mb-0 d-flex flex-row justify-content-around"
-              style="gap: 9px"
-            >
-              <li>
-                <a data-action="collapse pe-auto" @click="toggleFlexDiv"
-                  ><i
-                    class="fa fa-chevron-circle-down"
-                    aria-hidden="true"
-                    style="cursor: pointer"
-                  ></i
-                ></a>
-              </li>
-              <li>
-                <a data-action=" pe-auto" @click="clearFilters"
-                  ><i
-                    class="fa fa-refresh"
-                    aria-hidden="true"
-                    style="cursor: pointer"
-                  ></i
-                ></a>
-              </li>
-            </ul>
-          </div>
+            <li>
+              <a data-action="collapse pe-auto" @click="toggleFlexDiv"
+                ><i
+                  class="fa fa-chevron-circle-down"
+                  aria-hidden="true"
+                  style="cursor: pointer"
+                ></i
+              ></a>
+            </li>
+            <li>
+              <a data-action=" pe-auto" @click="clearFilters"
+                ><i
+                  class="fa fa-refresh"
+                  aria-hidden="true"
+                  style="cursor: pointer"
+                ></i
+              ></a>
+            </li>
+          </ul>
         </div>
-        <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
-          <b-col md="3" class="">
-            <label for="users-list-search">Search</label>
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                id="users-list-search"
-                placeholder="Search..."
-                style="
-                  color: grey;
-                  padding-bottom: 7px;
-                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                  background-color: rgb(135 131 131 / 0%);
-                "
-                v-model="searchTerm"
-              />
-            </fieldset>
-          </b-col>
-          <!-- <b-col md="3" class="">
+      </div>
+      <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
+        <b-col md="3" class="">
+          <label for="users-list-search">Search</label>
+          <fieldset class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="users-list-search"
+              placeholder="Search..."
+              style="
+                color: grey;
+                padding-bottom: 7px;
+                border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                background-color: rgb(135 131 131 / 0%);
+              "
+              v-model="searchTerm"
+            />
+          </fieldset>
+        </b-col>
+        <!-- <b-col md="3" class="">
             <label for="users-list-verified">Action</label>
             <fieldset class="form-group">
               <select
@@ -83,44 +82,44 @@
             </fieldset>
           </b-col> -->
 
-          <b-col md="3" class="d-flex flex-column">
-            <label for="users-list-search">Select Start Date</label>
+        <b-col md="3" class="d-flex flex-column">
+          <label for="users-list-search">Select Start Date</label>
 
-            <v2-datepicker
-              class="for-date-picker"
-              lang="en"
-              ref="startDate"
-              v-model="startDate"
-              :picker-options="{
-                disabledDate: time => time.getTime() > new Date().getTime()
-              }"
-              @change="changeStartDate"
-              placeholder="Select Start date"
-            ></v2-datepicker>
-          </b-col>
-          <b-col md="3" class="d-flex flex-column">
-            <label for="users-list-search">Select End Date</label>
+          <v2-datepicker
+            class="for-date-picker"
+            lang="en"
+            ref="startDate"
+            v-model="startDate"
+            :picker-options="{
+              disabledDate: time => time.getTime() > new Date().getTime()
+            }"
+            @change="changeStartDate"
+            placeholder="Select Start date"
+          ></v2-datepicker>
+        </b-col>
+        <b-col md="3" class="d-flex flex-column">
+          <label for="users-list-search">Select End Date</label>
 
-            <v2-datepicker
-              class="for-date-picker"
-              lang="en"
-              ref="endDate"
-              v-model="endDate"
-              :picker-options="{
-                disabledDate: time => time.getTime() > new Date().getTime()
-              }"
-              @change="changeEndDate"
-              placeholder="Select End date"
-            ></v2-datepicker>
-          </b-col> 
-        </b-row>
-      </div>
+          <v2-datepicker
+            class="for-date-picker"
+            lang="en"
+            ref="endDate"
+            v-model="endDate"
+            :picker-options="{
+              disabledDate: time => time.getTime() > new Date().getTime()
+            }"
+            @change="changeEndDate"
+            placeholder="Select End date"
+          ></v2-datepicker>
+        </b-col>
+      </b-row>
+    </div>
 
-      <div class="card"> 
-         <div
-      class="font-weight-bold fa-2x text-light d-flex justify-content-between"
-    >
-    <div
+    <div class="card">
+      <div
+        class="font-weight-bold fa-2x text-light d-flex justify-content-between"
+      >
+        <div
           class="card-header d-flex flex-row justify-content-between"
           style="background-color: white"
         >
@@ -137,7 +136,7 @@
               style="gap: 9px"
             >
               <button
-                 @click="addnewcreator()"
+                @click="addnewcreator()"
                 class="btn btn-primary mb-3 d-none"
                 style="
                   padding-top: 2px;
@@ -155,74 +154,71 @@
             </ul>
           </div>
         </div>
-     
-    </div>
-  
-    <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
-    <div class="card-body">
-      <vue-good-table
-        :columns="columns"
-        :line-numbers="false"
-        :pagination-options="{
-          enabled: true,
-          mode: 'records'
-        }"
-        styleClass="tableOne vgt-table"
-        :selectOptions="{
-          enabled: false,
-          selectionInfoClass: 'table-alert__box'
-        }"
-        :sort-options="{
-          enabled: false
-        }"
-        :rows="filteredRows"
-      >
-        <template slot="table-row" slot-scope="props">
-          <span v-if="props.column.field === 'earning_show'">
-            <div>{{ props.row.earning }}$</div>
-          </span>
-          <span v-else-if="props.column.field === 'diamond_show'">
-            <div>
-              <i class="fa fa-diamond mr-1" aria-hidden="true"></i>
-              {{ props.row.diamonds_this_month }}
-            </div>
-          </span>
-          <span v-else-if="props.column.field === 'status_show'">
-            <div v-if="props.row.status === 'Approved'">
-              <span class="badge badge-success">{{ props.row.status }}</span>
-            </div>
-            <div v-else-if="props.row.status === 'Rejected'">
-              <span class="badge badge-danger">{{ props.row.status }}</span>
-            </div>
-            <div v-else-if="props.row.status === 'Waiting Approval'">
-              <span class="badge border border-warning text-warning p-1">{{
-                props.row.status
-              }}</span>
-            </div>
-            <div v-else-if="props.row.status === 'Pending Registration'">
-              <span class="badge border-warning text-warning border p-1">{{
-                props.row.status
-              }}</span>
-            </div>
-          </span>
-
-          <span v-else-if="props.column.field === 'payment_status'">
-            <template>
-              <b-badge
-                v-if="props.row.payment_status === 'Paid'"
-                variant="success"
-                >Paid</b-badge
-              >
-              <b-badge v-else variant="danger">Unpaid</b-badge>
-            </template>
-          </span>
-        </template>
-      </vue-good-table>
-    </div>
-
       </div>
+
+      <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
+      <div class="card-body">
+        <vue-good-table
+          :columns="columns"
+          :line-numbers="false"
+          :pagination-options="{
+            enabled: true,
+            mode: 'records'
+          }"
+          styleClass="tableOne vgt-table"
+          :selectOptions="{
+            enabled: false,
+            selectionInfoClass: 'table-alert__box'
+          }"
+          :sort-options="{
+            enabled: false
+          }"
+          :rows="filteredRows"
+        >
+          <template slot="table-row" slot-scope="props">
+            <span v-if="props.column.field === 'earning_show'">
+              <div>{{ props.row.earning }}$</div>
+            </span>
+            <span v-else-if="props.column.field === 'diamond_show'">
+              <div>
+                <i class="fa fa-diamond mr-1" aria-hidden="true"></i>
+                {{ props.row.diamonds_this_month }}
+              </div>
+            </span>
+            <span v-else-if="props.column.field === 'status_show'">
+              <div v-if="props.row.status === 'Approved'">
+                <span class="badge badge-success">{{ props.row.status }}</span>
+              </div>
+              <div v-else-if="props.row.status === 'Rejected'">
+                <span class="badge badge-danger">{{ props.row.status }}</span>
+              </div>
+              <div v-else-if="props.row.status === 'Waiting Approval'">
+                <span class="badge border border-warning text-warning p-1">{{
+                  props.row.status
+                }}</span>
+              </div>
+              <div v-else-if="props.row.status === 'Pending Registration'">
+                <span class="badge border-warning text-warning border p-1">{{
+                  props.row.status
+                }}</span>
+              </div>
+            </span>
+
+            <span v-else-if="props.column.field === 'payment_status'">
+              <template>
+                <b-badge
+                  v-if="props.row.payment_status === 'Paid'"
+                  variant="success"
+                  >Paid</b-badge
+                >
+                <b-badge v-else variant="danger">Unpaid</b-badge>
+              </template>
+            </span>
+          </template>
+        </vue-good-table>
+      </div>
+    </div>
     <!-- <breadcumb :page="'User Profile'" :folder="'Pages'" /> -->
-  
   </div>
 </template>
 
@@ -242,9 +238,9 @@ export default {
   },
   data () {
     return {
-      startDate:'',
-      endDate:'',
-      searchTerm:'',
+      startDate: '',
+      endDate: '',
+      searchTerm: '',
       creatorId: '',
       userId: '',
       userimage: '',
@@ -278,29 +274,30 @@ export default {
     //     backgroundImage: `url(${this.backgroundImage})`
     //   }
     // },
-    filteredRows() {
-  const query = this.searchTerm.toLowerCase().trim();
-  console.log("query", query);
-  console.log("rowandar", this.rows);
+    filteredRows () {
+      const query = this.searchTerm.toLowerCase().trim()
 
-  return this.rows.filter(row => {
-    const matchesQuery = query ? (
-      (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
-      (row.creator_inf && row.creator_inf.toLowerCase().includes(query)) ||
-      (row.diamonds_this_month && String(row.diamonds_this_month).toLowerCase().includes(query)) ||
-      (row.earning && String(row.earning).toLowerCase().includes(query)) ||
-      (row.affiliated_with && row.affiliated_with.toLowerCase().includes(query))
-    ) : true;
+      return this.rows.filter(row => {
+        const matchesQuery = query
+          ? (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
+            (row.creator_inf &&
+              row.creator_inf.toLowerCase().includes(query)) ||
+            (row.diamonds_this_month &&
+              String(row.diamonds_this_month).toLowerCase().includes(query)) ||
+            (row.earning &&
+              String(row.earning).toLowerCase().includes(query)) ||
+            (row.affiliated_with &&
+              row.affiliated_with.toLowerCase().includes(query))
+          : true
 
-    const itemDate = row.as_of_date
-    const matchesDate =
-          (this.startDate ? itemDate >= this.startDate : true) &&
-          (this.endDate ? itemDate <= this.endDate + 1 : true)
+        const itemDate = new Date(row.as_of_date)
+        const matchesDate =
+          (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
+          (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
-    return matchesQuery && matchesDate;
-  });
-}
-,
+        return matchesQuery && matchesDate
+      })
+    }
   },
   created () {
     this.userId = this.$route.query.uid
@@ -310,12 +307,8 @@ export default {
     this.clearFilters()
   },
   methods: {
-
-    clearFilters() {
-      this.searchTerm = '',
-      this.startDate='',
-      this.endDate=''
-     
+    clearFilters () {
+      ;(this.searchTerm = ''), (this.startDate = ''), (this.endDate = '')
     },
     formatPrice (value) {
       let val = (value / 1).toFixed(0).replace('.', ',')
@@ -365,21 +358,19 @@ export default {
           this.loader = false
         })
     },
-    changeStartDate(date) {
+    changeStartDate (date) {
       this.startDate = moment(date).format('DD MMM YYYY') //
     },
-    changeEndDate(date) {
+    changeEndDate (date) {
       this.endDate = moment(date).format('DD MMM YYYY')
     },
-    toggleFlexDiv() {
+    toggleFlexDiv () {
       this.flexDivDisplay =
-      this.flexDivDisplay === 'flex!important'
+        this.flexDivDisplay === 'flex!important'
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
     getCreatorsData () {
-
-    
       this.loader = true
       var reqData = {
         creator_id: this.creatorId,
@@ -400,7 +391,6 @@ export default {
             })
           }
           this.rows = rowData
-        
 
           this.loader = false
         })

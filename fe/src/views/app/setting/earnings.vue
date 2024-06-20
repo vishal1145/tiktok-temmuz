@@ -347,7 +347,7 @@
           </div>
         </div>
       </div>
-      <div class="card pb-2" >
+      <div class="card pb-2">
         <div
           class="card-header d-flex flex-row justify-content-between"
           style="background-color: white"
@@ -385,7 +385,10 @@
             </ul>
           </div>
         </div>
-        <b-row class="w-100 px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
+        <b-row
+          class="w-100 px-3 pb-3 pt-2 mt-1"
+          :style="{ display: flexDivDisplay }"
+        >
           <b-col md="3">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
@@ -475,7 +478,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column gap-5 card mt3 " style="gap: 13px">
+    <div class="d-flex flex-column gap-5 card mt3" style="gap: 13px">
       <div class="card-body">
         <vue-good-table
           :columns="columns"
@@ -807,10 +810,10 @@ export default {
         const matchName = selectName
           ? row.creator_inf === selectName.creator_inf
           : true
-        const itemDate = row.createdAt
+        const itemDate = new Date(row.createdAt)
         const matchesDate =
-          (this.startDate ? itemDate >= this.startDate : true) &&
-          (this.endDate ? itemDate <= this.endDate + 1 : true)
+          (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
+          (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
         // Return true if both conditions are met
         return matchesQuery && matchName && matchesDate
@@ -1566,48 +1569,42 @@ imgloader {
   display: none;
 }
 
-.GappingForMobile
-{
-    
-    gap: 0px;
-
+.GappingForMobile {
+  gap: 0px;
 }
 
-.mt3, .my3 {
-    margin-top: 0rem !important;
+.mt3,
+.my3 {
+  margin-top: 0rem !important;
 }
 /* For mobile devices (up to 480px) */
 @media (max-width: 480px) {
-    .paddingleftMobile {
-        padding-left: 0px !important;
-    }
+  .paddingleftMobile {
+    padding-left: 0px !important;
+  }
 
-    .GappingForMobile
-{
-    
+  .GappingForMobile {
     gap: 12px;
+  }
 
-}
-
-.mt3, .my3 {
+  .mt3,
+  .my3 {
     margin-top: 1rem !important;
-}
+  }
 }
 
 /* For tablets (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-    .paddingleftMobile {
-        padding-left: 0px !important;
-    }
-    .GappingForMobile
-{
-    
+  .paddingleftMobile {
+    padding-left: 0px !important;
+  }
+  .GappingForMobile {
     gap: 12px;
+  }
 
-}
-
-.mt3, .my3 {
+  .mt3,
+  .my3 {
     margin-top: 1rem !important;
-}
+  }
 }
 </style>

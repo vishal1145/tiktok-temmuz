@@ -286,7 +286,6 @@
             <div
               class="card-header d-flex flex-row justify-content-between flex-wrap"
               style="background-color: white"
-              
             >
               <h4
                 class="card-title"
@@ -324,7 +323,10 @@
                 </ul>
               </div>
             </div>
-            <b-row class="w-100 px-3 pt-2 mt-1" :style="{ display: flexDivDisplay }"> 
+            <b-row
+              class="w-100 px-3 pt-2 mt-1"
+              :style="{ display: flexDivDisplay }"
+            >
               <b-col md="3"
                 ><label for="users-list-search">User Name</label>
                 <fieldset class="form-group">
@@ -467,7 +469,6 @@
       <div
         class="card-header d-flex flex-row justify-content-between"
         style="background-color: white"
-        
       >
         <h4
           class="card-title"
@@ -823,10 +824,10 @@ export default {
         const matchesAmount =
           (amount_data ? itemAmount >= amount_data : true) &&
           (amount_data_max ? itemAmount <= amount_data_max : true)
-        const itemDate = row.request_date
+        const itemDate = new Date(row.request_date)
         const matchesDate =
-          (this.startDate ? itemDate >= this.startDate : true) &&
-          (this.endDate ? itemDate <= this.endDate + 1 : true)
+          (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
+          (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
         return matchesQuery && matchesStatus && matchesAmount && matchesDate
       })
