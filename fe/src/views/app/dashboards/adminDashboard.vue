@@ -10,10 +10,10 @@
 
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
           <i class="i-Add-User"></i>
-          <div class="content">
+          <div class=" marginForCArd">
             <p class="text-muted mt-2 mb-0">Member</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -26,10 +26,10 @@
       </b-col>
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
           <i class="i-Add-User"></i>
-          <div class="content">
+          <div class=" marginForCArd">
             <p class="text-muted mt-2 mb-0">Creators</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -42,10 +42,10 @@
       </b-col>
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
           <i class="i-Money-2"></i>
-          <div class="content">
+          <div class=" marginForCArd">
             <!-- <div class="d-flex justify-content-between">
               <p class="text-muted mb-0">Today Trip Amount</p>
               <p class="mb-0 text-primary pl-1">₹ {{ today_trip_amount }}</p>
@@ -66,11 +66,11 @@
       </b-col>
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
           <i class="i-Add-User"></i>
-          <div class="content">
-            <p class="text-muted mt-2 mb-0">Pending Member Requests</p>
+          <div class=" marginForCArd">
+            <p class="text-muted mt-2 mb-0" >Pending Member Requests</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickMember()"
@@ -82,10 +82,10 @@
       </b-col>
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
           <i class="i-Add-User"></i>
-          <div class="content">
+          <div class=" marginForCArd">
             <p class="text-muted mt-2 mb-0">Pending Creators</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -98,10 +98,10 @@
       </b-col>
       <b-col md="4" sm="12">
         <b-card
-          class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
+          class="card-icon-bg card-icon-bg-primary o-hidden mb-24 text-center"
         >
-          <i class="i-Add-User"></i>
-          <div class="content">
+          <i class="i-Coins"></i>
+          <div class=" marginForCArd">
             <p class="text-muted mt-2 mb-0">Total Diamonds This Month</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -115,7 +115,9 @@
     </b-row>
     <b-row>
       <b-col md="6">
-        <div class="card mb-30">
+        <div class="card mb-24" style="
+    height: 225px;
+">
           <div class="card-body">
             <div class="card-title">Top 5 Diamonds Members this Month</div>
             <vue-good-table
@@ -139,7 +141,9 @@
         </div>
       </b-col>
       <b-col md="6">
-        <div class="card mb-30">
+        <div class="card mb-24" style="
+    height: 225px;
+">
           <div class="card-body">
             <div class="card-title">Top 5 Earnings Members This Month ($)</div>
             <vue-good-table
@@ -170,7 +174,9 @@
       </b-col>
 
       <b-col md="6">
-        <div class="card mb-30">
+        <div class="card mb-24" style="
+    height: 225px;
+">
           <div class="card-body">
             <div class="card-title">
               Top 5 Creators Most Diamonds This Month
@@ -197,7 +203,9 @@
       </b-col>
 
       <b-col md="6">
-        <div class="card mb-30">
+        <div class="card mb-24" style="
+    height: 225px;
+">
           <div class="card-body">
             <div class="card-title">Top 5 Member with Most Creators</div>
             <vue-good-table
@@ -412,5 +420,11 @@ export default {
 }
 .card-icon-bg .card-body .content {
   max-width: max-content !important;
+}
+
+.marginForCArd
+{
+  margin-left: 2.57rem !important;
+  text-align: start;
 }
 </style>

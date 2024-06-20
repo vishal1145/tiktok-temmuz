@@ -196,7 +196,7 @@
             </b-row>
           </div>
           <div>
-            <b-row class="px-1">
+            <b-row class="px-1 GappingForMobile">
                 <!-- <b-col md="6 " class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
                   <i class="fa fa-diamond" aria-hidden="true"></i>  Diamonds Revenue
@@ -992,5 +992,41 @@ table.vgt-table td {
 .w-59 {
   width: 59% !important;
 }
+
+
+
+.GappingForMobile
+{
+    
+    gap: 0px;
+
+}
+/* For mobile devices (up to 480px) */
+@media (max-width: 480px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+
+    .GappingForMobile
+{
+    
+    gap: 12px;
+
+}
+}
+
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+    .GappingForMobile
+{
+    
+    gap: 12px;
+
+}
+}
+
 
 </style>

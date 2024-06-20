@@ -10,23 +10,29 @@
                             Congratulations {{ this.loginUserName }}! 🎉
                         </h5>
 
-                        <p>
-                            Thank you for being awesome and sharing our platform with
-                            others! Below is your unique referral link:
+                        <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile" >
+                     <span style="
+    font-size: 11px;
+">  Thank you for being awesome and sharing our </span>     <span style="
+    font-size: 11px;
+"> platform with others! Below is your unique referral link: </span>     
                         </p>
 
 
                         <div data-v-0307aa70="" 
-     class="bg-white text-gray d-flex w-59" 
+     class="bg-white text-gray d-flex w-59 flex-wrap " 
      style="overflow-wrap: anywhere">
     <a :href="url"
        target="_blank" 
        class="referral-link align-self-center text-blue" 
+       style="
+    font-size: 11px;
+"
        
       >
         {{url}}
     </a>
-    <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end" @click="copyUrl">
+    <p class="px-3 py-1 ml-2 mb-0 ul-cursor--pointer align-self-end paddingleftMobile"  @click="copyUrl">
         <i   class="fa fa-clone text-blue" aria-hidden="true"></i>
     </p>
 </div>
@@ -110,4 +116,40 @@ export default {
 .text-blue {
     color: #3b82f6 !important;
 }
+
+
+
+.GappingForMobile
+{
+    
+    gap: 3px;
+
+}
+/* For mobile devices (up to 480px) */
+@media (max-width: 480px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+
+    .GappingForMobile
+{
+    
+    gap: 0px;
+
+}
+}
+
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+    .GappingForMobile
+{
+    
+    gap: 0px;
+
+}
+}
+
 </style>

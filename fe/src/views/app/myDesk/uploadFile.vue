@@ -111,7 +111,7 @@
           <b-form-group
             label="Select File"
             label-for="input-images"
-            class="mx-4"
+            class="GappingForMobile"
           >
             <b-form-file
               class="ul-cursor--pointer"
@@ -709,5 +709,52 @@ imgloader {
   color: #ef4444;
   background-color: #fcfbfb !important;
   border: 1px solid #ef4444;
+}
+
+
+
+
+.GappingForMobile
+{
+  
+    margin-right: 1.5rem !important;
+    margin-left: 1.5rem !important;
+
+}
+/* For mobile devices (up to 480px) */
+@media (max-width: 480px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+
+    .GappingForMobile
+{
+    
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+
+}
+
+.mt3, .my3 {
+    margin-top: 1rem !important;
+}
+}
+
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+    .GappingForMobile
+{
+    
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+
+}
+
+.mt3, .my3 {
+    margin-top: 1rem !important;
+}
 }
 </style>

@@ -43,9 +43,11 @@
             <b-card
               class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
             >
-              <i class="i-Add-User"></i>
-              <div class="content">
-                <p class="text-muted mt-2 mb-0">Monthly diamonds</p>
+              <i class="i-Coins"></i>
+              <div class="content marginForCArd" >
+                <p class="text-muted mt-2 mb-0" style="
+    width: 116px;
+">Monthly diamonds</p>
                 <p
                   class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
                 >
@@ -58,9 +60,11 @@
             <b-card
               class="card-icon-bg card-icon-bg-primary o-hidden mb-30 text-center"
             >
-              <i class="i-Add-User"></i>
-              <div class="content">
-                <p class="text-muted mt-2 mb-0">monthly $ earnings</p>
+              <i class="i-Money-2"></i>
+              <div class="content marginForCArd">
+                <p class="text-muted mt-2 mb-0" style="
+    width: 122px;
+">monthly $ earnings</p>
                 <p
                   class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
                 >
@@ -248,5 +252,11 @@ export default {
   background-color: #3b82f6;
   color: #ffffff;
   padding-left: 3px;
+}
+
+.marginForCArd
+{
+  margin-left: 2.57rem !important;
+  text-align: start;
 }
 </style>

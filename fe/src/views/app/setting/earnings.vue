@@ -281,7 +281,7 @@
               </b-row>
             </div>
             <div>
-              <b-row class="px-1">
+              <b-row class="px-1 GappingForMobile">
                 <!-- <b-col md="6 " class="mb-4 mb-md-0">
                   <h3 class="text-muted text-14 font-weight-500">
                   <i class="fa fa-diamond" aria-hidden="true"></i>  Diamonds Revenue
@@ -475,7 +475,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column gap-5 card" style="gap: 13px">
+    <div class="d-flex flex-column gap-5 card mt3" style="gap: 13px">
       <div class="card-body">
         <vue-good-table
           :columns="columns"
@@ -1564,5 +1564,50 @@ imgloader {
 
 .d-none {
   display: none;
+}
+
+.GappingForMobile
+{
+    
+    gap: 0px;
+
+}
+
+.mt3, .my3 {
+    margin-top: 0rem !important;
+}
+/* For mobile devices (up to 480px) */
+@media (max-width: 480px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+
+    .GappingForMobile
+{
+    
+    gap: 12px;
+
+}
+
+.mt3, .my3 {
+    margin-top: 1rem !important;
+}
+}
+
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .paddingleftMobile {
+        padding-left: 0px !important;
+    }
+    .GappingForMobile
+{
+    
+    gap: 12px;
+
+}
+
+.mt3, .my3 {
+    margin-top: 1rem !important;
+}
 }
 </style>

@@ -322,7 +322,7 @@
           <div class="o-hidden">
             <div class="row">
               <b-col md="12">
-                <div class="p-4 px-5 paddingLaptop">
+                <div class="p-4 mx-5 paddingLaptop">
                   <div class="auth-logo text-left mb-30">
                     <img :src="logo" />
                   </div>
@@ -1691,11 +1691,7 @@ export default {
 
 }
 
-@media only screen and (max-width: 1000px) {
-  img {
-    height: 30vh;
-  }
-}
+
 
 .select-input:focus,
 .phone-input:focus {
