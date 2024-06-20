@@ -10,7 +10,7 @@
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div class="card user-profile o-hidden mb-30">
-      <div :style="headerStyle" class="header-cover"></div>
+      <div class="header-cover bg-gray-300"></div>
       <div class="user-info">
         <img
           class="profile-picture avatar-lg mb-2"
