@@ -94,9 +94,10 @@ exports.deletePublisher = async (id) => {
 
 };
 
-exports.creatorDetails = async (body) => {
-  const creators = await ExcelDataModel.find({ creator_id: body.creator_id }).select('-percentage_achieved -live_duration_this_month -_id  -__v -valid_days_this_month');
-  const user =  await UserModel.findById(body.user_id)
+exports.creatorDetails = async (username) => {
+  const creators = await ExcelDataModel.find({ creator_inf: username }).select('-percentage_achieved -live_duration_this_month -_id  -__v -valid_days_this_month');
+  const creator = await PublisherModel.findOne({ tiktok_username: username })
+  const user =  await UserModel.findById(creator.user_id)
   if (creators.length > 0) {
     creators.sort((a, b) => new Date(b.as_of_date) - new Date(a.as_of_date));
 

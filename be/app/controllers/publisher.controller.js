@@ -100,7 +100,7 @@ exports.deletePublisher = async (req, res) => {
 };
 
 exports.creatorDetails = async (req, res) => {
-  const reasult = await creatorDetails(req.body);
+  const reasult = await creatorDetails(req.query.username);
   try {
     res.json(reasult);
   } catch (err) {
