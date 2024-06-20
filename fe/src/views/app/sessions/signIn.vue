@@ -147,6 +147,7 @@
                             type="text"
                             maxlength="1"
                             v-model="phoneOtp4"
+                            @input="checkCompleteOtp"
                             @keydown="
                               checkBackspace($event, 'phoneOtp4', 'phoneOtp3')
                             "
@@ -855,8 +856,14 @@ export default {
     //       this.timerClass = 'd-flex';
     //     }, );
     //   },
+
+    checkCompleteOtp() {
+      if (this.phoneOtp1 && this.phoneOtp2 && this.phoneOtp3 && this.phoneOtp4) {
+        this.formSubmitOtp();
+      }
+    },
     handleResendClicked () {
-      this.$refs.timerComponent.repeatTimer() // Call repeatTimer method of Timer component
+      this.$refs.timerComponent.repeatTimer() 
     },
     moveFocus (event, nextField) {
       if (event.target.value.length === 1) {
