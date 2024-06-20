@@ -8,7 +8,7 @@ const { body } = require("express-validator");
 
 // admin case
 exports.getAllPublisher = async () => {
-  const publishers = await PublisherModel.find().populate('user_id').sort({ createdAt: -1 });
+  const publishers = await PublisherModel.find().populate({ path: 'user_id', select: '-otp' }).sort({ createdAt: -1 });
   return publishers;
 };
 
@@ -97,7 +97,7 @@ exports.deletePublisher = async (id) => {
 exports.creatorDetails = async (username) => {
   const creators = await ExcelDataModel.find({ creator_inf: username }).select('-percentage_achieved -live_duration_this_month -_id  -__v -valid_days_this_month');
   const creator = await PublisherModel.findOne({ tiktok_username: username })
-  const user =  await UserModel.findById(creator.user_id)
+  const user = await UserModel.findById(creator.user_id)
   if (creators.length > 0) {
     creators.sort((a, b) => new Date(b.as_of_date) - new Date(a.as_of_date));
 
