@@ -20,7 +20,7 @@
 
 
                         <div data-v-0307aa70="" 
-     class="bg-white text-gray d-flex w-59 flex-wrap " 
+     class="bg-white text-gray d-flex w-59 " 
      style="overflow-wrap: anywhere">
     <a :href="url"
        target="_blank" 
