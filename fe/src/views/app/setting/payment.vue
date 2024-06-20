@@ -357,7 +357,7 @@
                     "
                   >
                     <option value>All</option>
-                    <option value="Approved">Approved</option>
+                    <option value="Approved">Paid</option>
                     <option value="Reject">Reject</option>
                     <option value="Pending">Pending</option>
                   </select>

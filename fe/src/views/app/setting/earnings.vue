@@ -718,11 +718,11 @@ export default {
         },
 
         {
-          label: 'TikTok username',
+          label: 'Username',
           field: 'creator_inf',
           filterOptions: {
             enabled: true,
-            placeholder: 'TikTok username'
+            placeholder: 'Username'
           }
         },
         {

@@ -755,8 +755,8 @@ export default {
       referralUrl: '',
       selectedName: '',
       allUsers: [],
-      startDate: '',
-      endDate: '',
+      startDate: 'Select Start Date',
+      endDate: 'Select End Date',
       rows: [],
       updateloader: false,
       selectedUserName: null,
@@ -809,7 +809,7 @@ export default {
           field: 'createdAt',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name'
+            placeholder: 'Date'
           }
         },
         {
@@ -836,17 +836,17 @@ export default {
         //     placeholder: 'Agency Code'
         //   }
         // },
-        {
-          label: 'Diamonds This Month',
-          field: 'fdf',
-          filterOptions: { enabled: true, placeholder: 'search..' }
-        },
+        // {
+        //   label: 'Diamonds This Month',
+        //   field: 'fdf',
+        //   filterOptions: { enabled: true, placeholder: 'search..' }
+        // },
 
-        {
-          label: 'Partner',
-          field: 'dfsd',
-          filterOptions: { enabled: true, placeholder: 'search..' }
-        },
+        // {
+        //   label: 'Partner',
+        //   field: 'dfsd',
+        //   filterOptions: { enabled: true, placeholder: 'search..' }
+        // },
 
         {
           label: 'Status',
@@ -951,6 +951,19 @@ export default {
 
     this.fetchPublisher()
     this.getProfileDetails()
+  },
+
+  watch: {
+    startDate(newDate) {
+      if (newDate) {
+        this.fetchPublisher();
+      }
+    },
+    endDate(newDate) {
+      if (newDate) {
+        this.fetchPublisher();
+      }
+    }
   },
 
   methods: {
@@ -1082,8 +1095,12 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     clearFilters() {
-      this.searchTerm = ''
-      this.selectedStatus = ''
+      this.searchTerm = '';
+      this.startDate = ''; // Reset start date
+      this.endDate = ''; // Reset end date
+      this.selectedStatus = ''; // Reset status filter
+      this.fetchPublisher()
+      
     },
 
     checkLength(event) {

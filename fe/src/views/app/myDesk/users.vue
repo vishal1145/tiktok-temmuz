@@ -348,53 +348,28 @@
           </div>
         </div>
 
-        <div
-          class="d-flex flex-row card-body flex-wrap gap-between"
-          :style="{ display: flexDivDisplay }"
-        >
-          <div class="row w-100">
-            <div class="col-12 col-sm-6 col-lg-3 pr-0">
-              <label for="users-list-search">Search</label>
+        <b-row class="px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
+          <b-col md="3" class="">
+            <label for="users-list-search">Search</label>
+            <fieldset class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="users-list-search"
+                placeholder="Search..."
+                style="
+                  color: grey;
+                  padding-bottom: 7px;
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchTerm"
+              />
+            </fieldset>
+          </b-col>
+        
 
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="users-list-search"
-                  placeholder="Search..."
-                  style="
-                    color: grey !important;
-                    padding-bottom: 7px !important;
-                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                    background-color: rgb(135 131 131 / 0%) !important;
-                  "
-                  v-model="searchTerm"
-                  @input="filteredRows = getfilterdata"
-                />
-              </fieldset>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3 px-0 ml-3 paddingzero">
-              <label for="users-list-verified">Action</label>
-              <fieldset class="form-group">
-                <select
-                  class="form-control"
-                  id="users-list-verified"
-                  style="
-                    color: grey !important;
-                    padding-bottom: 7px !important;
-                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
-                    background-color: rgb(135 131 131 / 0%) !important;
-                  "
-                  v-model="filterStatus"
-                >
-                  <option value="">All</option>
-                  <option value="Approved" selected>Block</option>
-                  <option value="Rejected">UnBlock</option>
-                </select>
-              </fieldset>
-            </div>
-          </div>
-        </div>
+        </b-row>
       </div>
     </div>
 
@@ -447,7 +422,7 @@
             enabled: false,
             selectionInfoClass: 'table-alert__box'
           }"
-          :rows="getfilterdata"
+          :rows="filteredRows"
         >
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field === 'img'">
@@ -555,26 +530,32 @@ export default {
     multiselect: Multiselect
   },
   computed: {
-    getfilterdata () {
-      if (!this.searchTerm) {
-        return this.rows
-      }
 
-      const searchTermLower = this.searchTerm.toLowerCase()
-      return this.rows.filter(row => {
-        return (
-          row.name.toLowerCase().includes(searchTermLower) ||
-          row.surname.toLowerCase().includes(searchTermLower) ||
-          row.contact_number.toLowerCase().includes(searchTermLower) ||
-          row.diamonds.toLowerCase().includes(searchTermLower) ||
-          row.earnings.toLowerCase().includes(searchTermLower) ||
 
-          row.otp.toLowerCase().includes(searchTermLower) ||
-          row.role.toLowerCase().includes(searchTermLower) ||
-          row.tiktok_username.toLowerCase().includes(searchTermLower)
-        )
-      })
-    }
+    filteredRows() {
+      alert
+  const query = this.searchTerm.toLowerCase().trim();
+  console.log("query", query);
+  console.log("rowandar", this.rows);
+
+  return this.rows.filter(row => {
+    const matchesQuery = query ? (
+      (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
+      (row.name && row.surname.toLowerCase().includes(query)) ||
+      (row.contact_number && String(row.contact_number).toLowerCase().includes(query)) ||
+      (row.earnings && String(row.earnings).toLowerCase().includes(query)) ||
+      (row.diamonds && String(row.diamonds).toLowerCase().includes(query)) 
+    ) : true;
+
+
+
+    return matchesQuery ;
+  });
+}
+
+
+
+
   },
 
   data () {
@@ -582,7 +563,7 @@ export default {
       filterStatus: 'Approved',
       searchTerm: '',
       rows: [],
-      filteredRows: [],
+     
       showAddModal: false,
       pageReloaded: false,
       showEditModal: false,
@@ -1023,8 +1004,9 @@ export default {
     },
 
     clearFilters () {
-      this.getAllUsers()
-      this.searchTerm = ''
+
+      this.searchTerm = ''     
+       this.getAllUsers()
     },
     openModal12 () {
       // Set the flag to true to show the modal
@@ -1092,23 +1074,23 @@ export default {
           this.$toaster.makeToast('warning', 'Have Server error')
         })
     },
-    getfilterdata () {
-      if (!this.searchTerm) {
-        return this.rows
-      }
+    // getfilterdata () {
+    //   if (!this.searchTerm) {
+    //     return this.rows
+    //   }
 
-      const searchTermLower = this.searchTerm.toLowerCase()
-      return this.rows.filter(row => {
-        return (
-          row.name.toLowerCase().includes(searchTermLower) ||
-          row.surname.toLowerCase().includes(searchTermLower) ||
-          row.contact_number.toLowerCase().includes(searchTermLower) ||
-          row.otp.toLowerCase().includes(searchTermLower) ||
-          row.role.toLowerCase().includes(searchTermLower) ||
-          row.tiktok_username.toLowerCase().includes(searchTermLower)
-        )
-      })
-    },
+    //   const searchTermLower = this.searchTerm.toLowerCase()
+    //   return this.rows.filter(row => {
+    //     return (
+    //       row.name.toLowerCase().includes(searchTermLower) ||
+    //       row.surname.toLowerCase().includes(searchTermLower) ||
+    //       row.contact_number.toLowerCase().includes(searchTermLower) ||
+    //       row.otp.toLowerCase().includes(searchTermLower) ||
+    //       row.role.toLowerCase().includes(searchTermLower) ||
+    //       row.tiktok_username.toLowerCase().includes(searchTermLower)
+    //     )
+    //   })
+    // },
     getAllUsers () {
       this.loader = true
       this.$apiService
@@ -1122,7 +1104,7 @@ export default {
           ) {
             const userData = response.apidata.data
             this.rows = userData
-            this.filteredRows = userData
+          
           } else {
             this.$toaster.makeToast('warning', 'Failed to fetch user data')
           }
