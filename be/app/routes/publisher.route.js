@@ -9,7 +9,8 @@ const {
   updatePublisher,
   getCreator,
   getMember,
-  canUpdatePublisher
+  canUpdatePublisher,
+  creatorDetails
 } = require("../controllers/publisher.controller");
 
 router.post("/create", createPublisher);
@@ -20,6 +21,7 @@ router.post("/update/:id", updatePublisher);
 router.post("/can-update", canUpdatePublisher);
 router.get("/get-member", getMember);
 router.get("/get-creator", getCreator);
+router.post("/get-creator-details", creatorDetails);
 
 module.exports = router;
 

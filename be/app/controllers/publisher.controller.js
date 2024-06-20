@@ -7,7 +7,8 @@ const {
   updatePublisher,
   getCreator,
   getMember,
-  canUpdatePublisher
+  canUpdatePublisher,
+  creatorDetails
 } = require("../services/publisher.service");
 
 exports.getAllPublisher = async (req, res) => {
@@ -91,6 +92,15 @@ exports.canUpdatePublisher = async (req, res) => {
 
 exports.deletePublisher = async (req, res) => {
   const reasult = await deletePublisher(req.params.id);
+  try {
+    res.json(reasult);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.creatorDetails = async (req, res) => {
+  const reasult = await creatorDetails(req.body);
   try {
     res.json(reasult);
   } catch (err) {
