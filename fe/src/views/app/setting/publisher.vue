@@ -492,20 +492,11 @@
                   ></i
                 ></a>
               </li>
-              <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
-    cursor: pointer;
-"></i></a></li> -->
             </ul>
           </div>
         </div>
-        <div
-          class="d-flex flex-row card-body flex-wrap gap-between"
-          :style="{ display: flexDivDisplay }"
-        >
-          <div
-            class="col-12 col-sm-6 col-lg-3"
-            style="padding-right: 0px; padding-left: 0px"
-          >
+        <b-row class="px-3 pb-3">
+          <b-col md="3" class="">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
               <input
@@ -522,9 +513,8 @@
                 v-model="searchTerm"
               />
             </fieldset>
-          </div>
-
-          <div class="col-12 col-sm-6 col-lg-3 paddingzero">
+          </b-col>
+          <b-col md="3" class="">
             <label for="users-list-verified">Action</label>
             <fieldset class="form-group">
               <select
@@ -547,18 +537,39 @@
                 </option>
               </select>
             </fieldset>
-          </div>
+          </b-col>
 
-          <!-- <div class="col-12 col-sm-6 col-lg-3">
-    <button
-      class="btn btn-primary mt-4"
-      @click="clearFilters"
-      style="padding: 7px; border: 1px solid #80808052 !important;"
-    >
-      Clear Filters
-    </button>
-  </div> -->
-        </div>
+          <b-col md="3" class="d-flex flex-column">
+            <label for="users-list-search">Select Start Date</label>
+
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="startDate"
+              v-model="startDate"
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeStartDate"
+              placeholder="Select Start date"
+            ></v2-datepicker>
+          </b-col>
+          <b-col md="3" class="d-flex flex-column">
+            <label for="users-list-search">Select End Date</label>
+
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="endDate"
+              v-model="endDate"
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeEndDate"
+              placeholder="Select End date"
+            ></v2-datepicker>
+          </b-col>
+        </b-row>
       </div>
       <div class="d-flex flex-column gap-5 card" style="gap: 13px">
         <div
@@ -602,7 +613,7 @@
             :line-numbers="false"
             :pagination-options="paginationOptions"
             styleClass="tableOne vgt-table"
-            :rows="doubledNumber"
+            :rows="filteredRows"
           >
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field === 'actions'">
@@ -677,6 +688,7 @@
                   style="text-decoration: underline"
                   @click="clickUserName(props.row.user_id._id)"
                 >
+                  <i class="fa fa-user mr-1" aria-hidden="true"></i>
                   {{ props.row.tiktok_username }}
                 </div>
                 <div v-else>
@@ -743,6 +755,8 @@ export default {
       referralUrl: '',
       selectedName: '',
       allUsers: [],
+      startDate: '',
+      endDate: '',
       rows: [],
       updateloader: false,
       selectedUserName: null,
@@ -894,19 +908,42 @@ export default {
     // document.addEventListener("click", this.closeMegaMenu);
   },
   computed: {
+    filteredRows() {
+      const query = this.searchTerm.toLowerCase().trim()
+      const select_status = this.selectedStatus
+
+      return this.faqs.filter(row => {
+        const matchesQuery = query
+          ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
+            (row.last_name && row.last_name.toLowerCase().includes(query)) ||
+            (row.tiktok_username &&
+              row.tiktok_username.toLowerCase().includes(query)) ||
+            (row.contact_number &&
+              row.contact_number.toLowerCase().includes(query)) ||
+            (row.reason && row.reason.toLowerCase().includes(query)) ||
+            (row.agency_center_code &&
+              row.agency_center_code.toLowerCase().includes(query))
+          : true
+        const matchesStatus = select_status
+          ? row.status === select_status
+          : true
+        const itemDate = row.createdAt
+        const matchesDate =
+          (this.startDate ? itemDate >= this.startDate : true) &&
+          (this.endDate ? itemDate <= this.endDate + 1 : true)
+
+        return matchesQuery && matchesStatus && matchesDate
+      })
+    },
+
     containerClasses() {
       return {
         'large-container': this.isLarge,
         'important-container': this.isImportant
       }
-    },
-
-    doubledNumber() {
-      return this.filteredRows32()
     }
   },
   created() {
-    this.filteredRows32()
     this.getAllUsers()
     this.clearFilters()
     this.user_id = localStorage.getItem('user_id')
@@ -935,6 +972,13 @@ export default {
         })
       }, 200)
     },
+    changeStartDate(date) {
+      this.startDate = moment(date).format('DD MMM YYYY') //
+    },
+    changeEndDate(date) {
+      this.endDate = moment(date).format('DD MMM YYYY')
+    },
+
     copyUrl() {
       navigator.clipboard
         .writeText(this.referralUrl)
@@ -946,28 +990,7 @@ export default {
           console.error('Could not copy text: ', err)
         })
     },
-    filteredRows32() {
-      const query = this.searchTerm.toLowerCase().trim()
-      const select_status = this.selectedStatus
 
-      return this.faqs.filter(row => {
-        const matchesQuery = query
-          ? (row.first_name && row.first_name.toLowerCase().includes(query)) ||
-            (row.last_name && row.last_name.toLowerCase().includes(query)) ||
-            (row.tiktok_username &&
-              row.tiktok_username.toLowerCase().includes(query)) ||
-            (row.contact_number &&
-              row.contact_number.toLowerCase().includes(query)) ||
-            (row.reason && row.reason.toLowerCase().includes(query)) ||
-            (row.agency_center_code &&
-              row.agency_center_code.toLowerCase().includes(query))
-          : true
-        const matchesStatus = select_status
-          ? row.status === select_status
-          : true
-        return matchesQuery && matchesStatus
-      })
-    },
     handleChange(user) {
       this.selectedUserId = user._id
 

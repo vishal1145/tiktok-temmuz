@@ -385,14 +385,8 @@
             </ul>
           </div>
         </div>
-        <div
-          class="d-flex flex-row card-body flex-wrap"
-          :style="{ display: flexDivDisplay }"
-        >
-          <div
-            class="col-12 col-sm-6 col-lg-3"
-            style="padding-right: 0px; padding-left: 0px"
-          >
+        <b-row class="w-100 px-3 pb-3">
+          <b-col md="3">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
               <input
@@ -409,144 +403,166 @@
                 v-model="searchTerm"
               />
             </fieldset>
-          </div>
+          </b-col>
+          <b-col md="3" class="col-sm-6 col-lg-3 d-flex flex-column">
+            <label for="users-list-search">Select start date</label>
 
-          <div
-            v-if="showChart"
-            class="col-12 col-sm-6 col-lg-3 paddingzero"
-            style="padding-right: 0px"
-          >
-            <label for="users-list-verified">Select User</label>
-            <fieldset class="form-group">
-              <multiselect
-                v-model="selectedName"
-                placeholder="Select User"
-                :options="[...allUsers]"
-                :multiple="false"
-                :limit="1"
-                label="creator_inf"
-              ></multiselect>
-            </fieldset>
-          </div>
-          <div
-            class="col-12 col-sm-6 col-lg-3 paddingzero"
-            style="display: none"
-          >
-            <label for="start-date">Start Date</label>
-            <input
-              type="date"
-              id="start-date"
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="startDate"
               v-model="startDate"
-              class="form-control"
-            />
-          </div>
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeStartDate"
+              placeholder="Select Start date"
+            ></v2-datepicker>
+          </b-col>
+          <b-col md="3" class="d-flex flex-column">
+            <label for="users-list-search">Select end date</label>
 
-          <div
-            class="col-12 col-sm-6 col-lg-3 paddingzero"
-            style="display: none"
-          >
-            <label for="end-date">End Date</label>
-            <input
-              type="date"
-              id="end-date"
+            <v2-datepicker
+              class="for-date-picker"
+              lang="en"
+              ref="endDate"
               v-model="endDate"
-              class="form-control"
-            />
-          </div>
+              :picker-options="{
+                disabledDate: time => time.getTime() > new Date().getTime()
+              }"
+              @change="changeEndDate"
+              placeholder="Select End date"
+            ></v2-datepicker>
+          </b-col>
+        </b-row>
+
+        <div
+          v-if="showChart"
+          class="col-12 col-sm-6 col-lg-3 paddingzero"
+          style="padding-right: 0px"
+        >
+          <label for="users-list-verified">Select User</label>
+          <fieldset class="form-group">
+            <multiselect
+              v-model="selectedName"
+              placeholder="Select User"
+              :options="[...allUsers]"
+              :multiple="false"
+              :limit="1"
+              label="creator_inf"
+            ></multiselect>
+          </fieldset>
         </div>
-      </div>
-
-      <div class="d-flex flex-column gap-5 card" style="gap: 13px">
-        <div class="card-body">
-          <vue-good-table
-            :columns="columns"
-            :line-numbers="false"
-            :pagination-options="paginationOptions"
-            styleClass="tableOne vgt-table"
-            :rows="doubledNumber"
-          >
-            <template slot="table-row" slot-scope="props">
-              <span v-if="props.column.field === 'actions'">
-                <div
-                  v-if="
-                    role == 'user' &&
-                    props.row.status != 'Approved' &&
-                    props.row.status != 'Rejected'
-                  "
-                >
-                  <span @click="clickEdit(props.row)" class="btn p-0"
-                    ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
-                  ></span>
-
-                  <span @click="clickDelete(props.row)" class="btn pl-3"
-                    ><i class="fa fa-trash" aria-hidden="true"></i
-                  ></span>
-                </div>
-
-                <div
-                  class="d-flex"
-                  v-else-if="
-                    role == 'admin' &&
-                    props.row.status != 'Approved' &&
-                    props.row.status != 'Rejected'
-                  "
-                >
-                  <div
-                    class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
-                    @click="clickAccept(props.row._id)"
-                  >
-                    Approve
-                  </div>
-                  <div
-                    class="badge badge-danger border bg-danger text-white ul-cursor--pointer p-2"
-                    @click="clickReject(props.row._id)"
-                  >
-                    Reject
-                  </div>
-
-                  <!-- <div v-else>
-                <span class="badge badge-warning ">{{ props.row.status }}</span>
-              </div> -->
-                </div>
-                <div>
-                  <div v-if="props.row.status === 'Approved'">
-                    <span class="badge badge-success">{{
-                      props.row.status
-                    }}</span>
-                  </div>
-                  <div v-else-if="props.row.status === 'Rejected'">
-                    <span class="badge badge-danger">{{
-                      props.row.status
-                    }}</span>
-                  </div>
-                </div>
-              </span>
-              <span v-else-if="props.column.field === 'reason_show'">
-                <div v-if="props.row.reason">{{ props.row.reason }}</div>
-                <div v-else>......</div>
-              </span>
-              <span v-else-if="props.column.field === 'show_img'">
-                <div>
-                  <img
-                    :src="props.row.icon"
-                    alt=""
-                    :style="{
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '197px'
-                    }"
-                  />
-                </div>
-              </span>
-            </template>
-          </vue-good-table>
+        <div class="col-12 col-sm-6 col-lg-3 paddingzero" style="display: none">
+          <label for="start-date">Start Date</label>
+          <input
+            type="date"
+            id="start-date"
+            v-model="startDate"
+            class="form-control"
+          />
         </div>
 
-        <!-- <div v-if="loader" class="loader">No data is available</div> -->
+        <div class="col-12 col-sm-6 col-lg-3 paddingzero" style="display: none">
+          <label for="end-date">End Date</label>
+          <input
+            type="date"
+            id="end-date"
+            v-model="endDate"
+            class="form-control"
+          />
+        </div>
       </div>
     </div>
-    <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
+
+    <div class="d-flex flex-column gap-5 card" style="gap: 13px">
+      <div class="card-body">
+        <vue-good-table
+          :columns="columns"
+          :line-numbers="false"
+          :pagination-options="paginationOptions"
+          styleClass="tableOne vgt-table"
+          :rows="filteredRows"
+        >
+          <template slot="table-row" slot-scope="props">
+            <span v-if="props.column.field === 'actions'">
+              <div
+                v-if="
+                  role == 'user' &&
+                  props.row.status != 'Approved' &&
+                  props.row.status != 'Rejected'
+                "
+              >
+                <span @click="clickEdit(props.row)" class="btn p-0"
+                  ><i class="fa fa-pencil-square-o" aria-hidden="true"></i
+                ></span>
+
+                <span @click="clickDelete(props.row)" class="btn pl-3"
+                  ><i class="fa fa-trash" aria-hidden="true"></i
+                ></span>
+              </div>
+
+              <div
+                class="d-flex"
+                v-else-if="
+                  role == 'admin' &&
+                  props.row.status != 'Approved' &&
+                  props.row.status != 'Rejected'
+                "
+              >
+                <div
+                  class="badge badge-success border mr-2 bg-success text-white ul-cursor--pointer p-2"
+                  @click="clickAccept(props.row._id)"
+                >
+                  Approve
+                </div>
+                <div
+                  class="badge badge-danger border bg-danger text-white ul-cursor--pointer p-2"
+                  @click="clickReject(props.row._id)"
+                >
+                  Reject
+                </div>
+
+                <!-- <div v-else>
+                <span class="badge badge-warning ">{{ props.row.status }}</span>
+              </div> -->
+              </div>
+              <div>
+                <div v-if="props.row.status === 'Approved'">
+                  <span class="badge badge-success">{{
+                    props.row.status
+                  }}</span>
+                </div>
+                <div v-else-if="props.row.status === 'Rejected'">
+                  <span class="badge badge-danger">{{ props.row.status }}</span>
+                </div>
+              </div>
+            </span>
+            <span v-else-if="props.column.field === 'reason_show'">
+              <div v-if="props.row.reason">{{ props.row.reason }}</div>
+              <div v-else>......</div>
+            </span>
+            <span v-else-if="props.column.field === 'show_img'">
+              <div>
+                <img
+                  :src="props.row.icon"
+                  alt=""
+                  :style="{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '197px'
+                  }"
+                />
+              </div>
+            </span>
+          </template>
+        </vue-good-table>
+      </div>
+
+      <!-- <div v-if="loader" class="loader">No data is available</div> -->
+    </div>
   </div>
+  <!-- <div class="spinner spinner-primary" v-if="loader" id="loader"></div> -->
 </template>
 
 <script>
@@ -656,7 +672,8 @@ export default {
 
       rows: [],
       flexDivDisplay: 'flex!important',
-
+      startDate: '',
+      endDate: '',
       searchTerm: '',
       filterStatus: '',
       faqs: [],
@@ -766,71 +783,9 @@ export default {
     //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
     //     }
     // ,
-    // filteredRows() {
-    //   const query = this.searchTerm.toLowerCase().trim();
-    //   const selectStatus = this.selectedStatus;
-    //   const selectName = this.selectedName;
-
-    //   return this.rows.filter(row => {
-    //     const matchesQuery = query
-    //       ? row.creator_inf.toLowerCase().includes(query)
-    //       : true;
-
-    //     const matchesQueryDate = query
-    //       ? row.as_of_date.toLowerCase().includes(query)
-    //       : true;
-
-    //     const matchesQueryMonth = query
-    //       ? row.diamonds_this_month.toLowerCase().includes(query)
-    //       : true;
-
-    //     const matchesQueryDiamonds = query
-    //       ? row.valid_days_this_month.toLowerCase().includes(query)
-    //       : true;
-
-    //     const matchName = selectName
-    //       ? row.creator_inf === selectName.creator_inf
-    //       : true;
-
-    //     return matchesQuery && matchName && matchesQueryDate && matchesQueryMonth && matchesQueryDiamonds;
-    //   });
-    // },
-
-    showChart () {
-      return this.totalEarningData != 0.0
-    },
-    //         isDataEmpty() {
-    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
-    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
-    //     }
-    // ,
-    containerClasses () {
-      return {
-        'large-container': this.isLarge,
-        'important-container': this.isImportant
-      }
-    },
-    doubledNumber () {
-      return this.filteredRows()
-    }
-  },
-  created () {
-    this.user_id = localStorage.getItem('user_id')
-    this.role = localStorage.getItem('role')
-    this.getEarningData()
-    this.getGraphData()
-  },
-  methods: {
-    // handleChange (user) {
-    //   this.selectedUserId = user._id
-
-    // },
-
     filteredRows () {
       const query = this.searchTerm.toLowerCase().trim()
       const selectName = this.selectedName
-      console.log('data', this.rows)
-      console.log('query', query)
 
       return this.rows.filter(row => {
         // Check if each field matches the query
@@ -852,11 +807,42 @@ export default {
         const matchName = selectName
           ? row.creator_inf === selectName.creator_inf
           : true
+        const itemDate = row.createdAt
+        const matchesDate =
+          (this.startDate ? itemDate >= this.startDate : true) &&
+          (this.endDate ? itemDate <= this.endDate + 1 : true)
 
         // Return true if both conditions are met
-        return matchesQuery && matchName
+        return matchesQuery && matchName && matchesDate
       })
     },
+
+    showChart () {
+      return this.totalEarningData != 0.0
+    },
+    //         isDataEmpty() {
+    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
+    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+    //     }
+    // ,
+    containerClasses () {
+      return {
+        'large-container': this.isLarge,
+        'important-container': this.isImportant
+      }
+    }
+  },
+  created () {
+    this.user_id = localStorage.getItem('user_id')
+    this.role = localStorage.getItem('role')
+    this.getEarningData()
+    this.getGraphData()
+  },
+  methods: {
+    // handleChange (user) {
+    //   this.selectedUserId = user._id
+
+    // },
 
     toggleFlexDiv () {
       this.flexDivDisplay =

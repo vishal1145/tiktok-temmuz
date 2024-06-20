@@ -1520,7 +1520,6 @@ export default {
 }
 .for-date-picker {
   width: 100%;
-  height: 100%;
 }
 
 .multiselect__placeholder {
