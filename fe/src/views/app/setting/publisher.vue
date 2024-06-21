@@ -683,7 +683,7 @@
                   }}</span>
                 </div>
               </span>
-              <span v-else-if="props.column.field === 'tiktok_username_show'">
+              <span v-else-if="props.column.field === 'tiktok_username'">
                 <div
                   v-if="role == 'admin'"
                   class="ul-cursor--pointer text-primary"
@@ -816,7 +816,7 @@ export default {
         },
         {
           label: 'TikTok Name',
-          field: 'tiktok_username_show',
+          field: 'tiktok_username',
           filterOptions: {
             enabled: true,
             placeholder: 'User Name'
