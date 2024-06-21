@@ -88,6 +88,8 @@
                 id="phone"
                 type="tel"
                 name="phone"
+                placeholder="Enter Mobile Number"
+
                 maxlength="11"
               ></b-form-input>
             </b-form-group>
@@ -196,6 +198,8 @@
                 id="phone"
                 type="tel"
                 name="phone"
+                placeholder="Enter Mobile Number"
+
                 v-model="getphoneNumber"
                 maxlength="15"
               ></b-form-input>

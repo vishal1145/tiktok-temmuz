@@ -283,6 +283,7 @@
                         name="phone"
                         maxlength="11"
                         class="form-control border-0"
+                         placeholder="Enter Mobile Number"
                       />
                     </div>
                     <!-- <input
