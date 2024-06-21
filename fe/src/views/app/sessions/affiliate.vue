@@ -21,7 +21,7 @@
       class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody "
     >
       <div class="row justify-content-center paddingMObile" style="
-     height: 80vh;
+     padding-bottom: 10px;
 ">
     
 

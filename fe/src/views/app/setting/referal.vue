@@ -10,24 +10,20 @@
                             Congratulations {{ this.loginUserName }}! 🎉
                         </h5>
 
-                        <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile" >
+                        <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile fontforALL" >
                      <span style="
     font-size: 11px;
-">  Thank you for being awesome and sharing our </span>     <span style="
-    font-size: 11px;
-"> platform with others! Below is your unique referral link: </span>     
+">  Thank you for being awesome and sharing our </span>     <span class=""> platform with others! Below is your unique referral link: </span>     
                         </p>
 
 
                         <div data-v-0307aa70="" 
-     class="bg-white text-gray d-flex w-59 flex-wrap " 
+     class="bg-white text-gray d-flex w-59" 
      style="overflow-wrap: anywhere">
     <a :href="url"
        target="_blank" 
-       class="referral-link align-self-center text-blue" 
-       style="
-    font-size: 11px;
-"
+       class="referral-link align-self-center text-blue fontforALL" 
+
        
       >
         {{url}}
@@ -117,7 +113,10 @@ export default {
     color: #3b82f6 !important;
 }
 
-
+.fontforALL
+{
+    font-size: 9px;
+}
 
 .GappingForMobile
 {
@@ -138,10 +137,15 @@ export default {
     gap: 0px;
 
 }
+
+.fontforALL
+{
+    font-size:8px;
+}
 }
 
 /* For tablets (481px to 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 381px) and (max-width: 768px) {
     .paddingleftMobile {
         padding-left: 0px !important;
     }
@@ -150,6 +154,10 @@ export default {
     
     gap: 0px;
 
+}
+.fontforALL
+{
+    font-size: 9px;
 }
 }
 
