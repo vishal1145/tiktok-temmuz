@@ -9,7 +9,57 @@ const { body } = require("express-validator");
 // admin case
 exports.getAllPublisher = async () => {
   const publishers = await PublisherModel.find().populate({ path: 'user_id', select: '-otp' }).sort({ createdAt: -1 });
-  return publishers;
+  const d = new Date();
+  const present_month = d.getMonth();
+  const last_month =  present_month - 1;
+  const present_year = d.getFullYear();
+  const creators = await PublisherModel.find();
+  const excel_data = await ExcelDataModel.find();
+
+  const dataMap = new Map();
+
+  let excel_records = excel_data.filter(ex =>
+    creators.some(cre => cre._id == ex.creator_id && cre.tiktok_username == ex.creator_inf));
+
+  excel_records.forEach(d => {
+    const month = new Date(d.as_of_date).getMonth();
+    const year = new Date(d.as_of_date).getFullYear();
+    let username = d.creator_inf;
+    let diamonds = parseInt(d.diamonds_this_month);
+
+
+    if (year == present_year && last_month == month) {
+      if (dataMap.has(username)) {
+        const existing = dataMap.get(username);
+        existing.diamonds += diamonds;
+      } else {
+        dataMap.set(username, { diamonds });
+      }
+    }
+  });
+
+  const sort_array = Array.from(dataMap.entries())
+    .map(([username, { diamonds }]) => ({ username, diamonds }));
+
+  const diamondsDict = sort_array.reduce((acc, { username, diamonds }) => {
+    acc[username] = diamonds;
+    return acc;
+  }, {});
+
+  const updatedPublishers = publishers.map(publisher => {
+    const tiktokUsername = publisher.tiktok_username;
+    publisher = publisher.toObject();
+    if (diamondsDict.hasOwnProperty(tiktokUsername)) {
+      diamonds = diamondsDict[tiktokUsername];
+      publisher.earnings = calculateEarningFun(publisher.user_id.first_commission, publisher.user_id.second_commission, publisher.user_id.third_commission, diamonds)
+    } else {
+      publisher.earnings = 0
+    }
+    return publisher;
+  });
+
+
+  return updatedPublishers;
 };
 
 exports.getAllMembersPublishers = async (_id) => {
@@ -120,4 +170,22 @@ exports.creatorDetails = async (username) => {
   } else {
     return "No Records";
   }
+}
+
+function truncateToDecimals(num, decimals) {
+  const factor = Math.pow(10, decimals);
+  return Math.floor(num * factor) / factor;
+}
+
+function calculateEarningFun(first_commission, second_commission, third_commission, d) {
+  var rate = first_commission;
+  if (d >= 300000 && d < 500000) {
+      rate = second_commission;
+  }
+  if (d >= 500000) {
+      rate = third_commission;
+  }
+  let num = rate * d / 100;
+  let earn = truncateToDecimals(num, 2);
+  return earn;//.toFixed(2);
 }
