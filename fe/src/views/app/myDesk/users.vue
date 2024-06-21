@@ -595,7 +595,7 @@ export default {
       searchTerm: "",
       rows: [],
       searchMaxAmount: "",
-      searchTerm: "",
+      searchAmount: "",
       showAddModal: false,
       pageReloaded: false,
       showEditModal: false,
@@ -715,7 +715,7 @@ export default {
   },
   created() {
     this.getAllUsers();
-    this.getAllTransaction();
+    // this.getAllTransaction();
 
     this.role = parsedUser.data.role;
     this.originalRows = [...this.rows];
