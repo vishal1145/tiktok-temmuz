@@ -40,8 +40,8 @@
                             class="form-control"
                             id="phone"
                             type="tel"
-                            
-                            name="phone"
+                            placeholder="Enter Mobile Number"
+                             name="phone"
                              maxlength="11"
                           ></b-form-input>
                         </b-form-group>
@@ -807,7 +807,7 @@ export default {
       const phoneInputField = document.querySelector('#phone')
       
       this.phoneInput = window.intlTelInput(phoneInputField, {
-        initialCountry: 'in',
+        initialCountry: 'tr',
         utilsScript:
           'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
       })

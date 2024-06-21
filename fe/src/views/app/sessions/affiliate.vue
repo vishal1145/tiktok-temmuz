@@ -21,7 +21,7 @@
       class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody pb-48 align-items-center "
     >
       <div class="row pt-2 justify-content-center paddingMObile" style="
-    height: 79vh;
+     height: 80vh;
 ">
     
 
@@ -42,7 +42,7 @@
         <!-- <a @click="openPopup" style="text-decoration: underline; cursor: pointer;" class=" text-primary">Sign Up</a> -->
     
           <div class="">
-            <div class="card-body d-flex flex-column pb-2 px-1">
+            <div class="d-flex flex-column pb-2 px-1">
               <div class="align-self-center">          <img
           :src="logo"
           alt=""
@@ -58,13 +58,13 @@
      
               <div class="pb-1">
                 <h2 class="my-0">Chat with us</h2>
-                <p class="mb-0">
+                <p class="mb-0 my-1">
                   Would you like to get live support from our team?
                 </p>
                 <div class="d-flex flex-row align-items-baseline" style="
     gap: 12px;
 ">
-                <p class="my-1">
+                <p class="mt-0 my-1">
                   <span style="color: gray !important"
                     ><i class="fa fa-envelope-o pr-1" aria-hidden="true"></i
                   ></span>
@@ -88,7 +88,7 @@
               </div>
               <div class="pb-1">
                 <h2 class="my-0">Call us</h2>
-                <p class="my-1">
+                <p class="mb-0 my-1">
                   You can call us every weekday between 10:00-17:00
                 </p>
                 <p>
@@ -102,10 +102,8 @@
               </div>
               <div class="pb-1">
                 <h2 class="my-0">Visit us</h2>
-                <p class="mb-1">
-                  Come and meet us face-to-face every weekday between
-                  10:00-17:00
-                </p>
+                <p class="mb-0 my-1">
+                  Meet us weekdays from 10:00-17:00, right here at our office
                 <address>
                   <div>
                     <div
@@ -121,7 +119,7 @@
                           ><i class="fa fa-map-marker" aria-hidden="true"></i
                         ></span>   <strong class="pl-1"> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
                         </p>
-                        <p class="mb-1" style="
+                        <p class="mb-1 mb-0" style="
     padding-left: 15px;
 ">Yenimahalle Ankara</p>
                       </div>
@@ -137,14 +135,64 @@
                         ></span>
                           <strong class="pl-1"> Gazi Mh. Fatih Sultan Mehmet Blvd.</strong>
                         </p>
-                        <p style="
-    padding-left: 15px;
-">Yenimahalle Ankara</p>
+                        <p style="padding-left: 15px;margin-bottom: 0px;">Yenimahalle Ankara</p>
                       </div>
                     </div>
                   </div>
                 </address>
               </div>
+
+              <div class="pb-1">
+    <h2 class="my-0">Faq</h2>
+ 
+
+
+    <b-col lg="12" md="12" class="px-0">
+                <div  class="">
+                    <div role="tablist">
+                        <div no-body class="ul-card__border-radius">
+                        <div header-tag="header" class="py-1"  role="tab">
+                            <b-button class=" pw mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-1 variant="transparent">What industries do you specialize in?</b-button>
+                        </div>
+                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                            <div>
+                            <b-card-text class="px-2" style="overflow-anchor: none;font-size: 11px;">While we serve clients across different industries, our expertise extends particularly well to consumer brands, entertainment, fashion, and lifestyle sectors.</b-card-text>
+                        
+                            </div>
+                        </b-collapse>
+                        </div>
+                        <div no-body class="ul-card__border-radius">
+                        <div header-tag="header" class="py-0"  role="tab">
+                            <b-button class=" pw mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-2 variant="transparent" style="    margin-top: 0px !important;
+">What are your office hours for visits?</b-button>
+                        </div>
+                        <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+                            <div>
+                            <b-card-text class="px-2" style="overflow-anchor: none;font-size: 11px;">You can visit us on weekdays from 10:00 to 17:00 at our office in Gazi Mh. Fatih Sultan Mehmet Blvd., Yenimahalle Ankara</b-card-text>
+                         
+                            </div>
+                        </b-collapse>
+                        </div>
+                        <!-- <div no-body class="ul-card__border-radius">
+                        <div header-tag="header" class="p-1"  role="tab">
+                            <b-button class="card-title mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-3 variant="transparent">Accordion 1</b-button>
+                        </div>
+                        <b-collapse id="accordion-3" visible accordion="my-accordion" role="tabpanel">
+                            <div>
+                            <b-card-text>I start opened because 333 <code>visible</code> is <code>true</code></b-card-text>
+                            <b-card-text>{{ text }}</b-card-text>
+                            </div>
+                        </b-collapse>
+                        </div> -->
+
+
+                     
+                    </div>
+                </div>
+          
+            </b-col>
+</div>
+
             </div>
           </div>
         </b-row>

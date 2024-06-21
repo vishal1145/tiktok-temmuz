@@ -2,11 +2,12 @@
   <div
     class="main-header smallflex  align-content-around d-flex flex-row justify-content-between"
   >
-    <div class="nav-logo" @click="clickLogo()" style="cursor: pointer">
+    <div class="nav-logo d-flex flex-row" @click="clickLogo()" style="cursor: pointer;gap: 12px;">
       <img src="@/assets/images/food_nav.png" style="
     width: 89px!important;
 "/>
-    </div>
+   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers">+Add Member</button></div>
+  </div>
 
  
 
@@ -111,7 +112,8 @@
    
  
 
-    <div>
+
+    <div class="d-flex flex-row">   <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">Upload</button></div>
       <b-dropdown
         id="dropdown-1"
         text="Dropdown Button"
@@ -836,6 +838,13 @@ export default {
     moveNext() {
       this.$router.push("/app/mydesk/transaction");
       this.$refs.dropdown.hide();
+    },
+    navigateToUsers() {
+      this.$router.push('/app/mydesk/users');
+    },
+
+    navigateToUsers2() {
+      this.$router.push('/app/mydesk/uploadFile');
     },
     home()
     {
@@ -1597,12 +1606,16 @@ deleteCookie(name) {
     height: 70vh !important;
     width: 100% !important;
   }
+
+
 }
 
 @media screen and (max-width: 578px) {
   .main-header .nav-logo img {
     margin-left: 0 !important;
   }
+
+
  
 }
 
@@ -1612,5 +1625,22 @@ deleteCookie(name) {
 .paddingNoti {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
+}
+
+
+
+@media (max-width: 480px) {
+  .displayNone
+{
+  display:none;
+}
+}
+
+/* For tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+.displayNone
+{
+  display:none;
+}
 }
 </style>

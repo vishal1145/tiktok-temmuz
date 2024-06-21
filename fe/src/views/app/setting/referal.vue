@@ -20,7 +20,7 @@
 
 
                         <div data-v-0307aa70="" 
-     class="bg-white text-gray d-flex w-59 " 
+     class="bg-white text-gray d-flex w-59 flex-wrap " 
      style="overflow-wrap: anywhere">
     <a :href="url"
        target="_blank" 
@@ -129,6 +129,7 @@ export default {
 @media (max-width: 480px) {
     .paddingleftMobile {
         padding-left: 0px !important;
+        
     }
 
     .GappingForMobile
