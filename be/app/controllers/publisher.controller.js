@@ -12,7 +12,7 @@ const {
 } = require("../services/publisher.service");
 
 exports.getAllPublisher = async (req, res) => {
-  const publishers = await getAllPublisher()
+  const publishers = await getAllPublisher(req.body.user_id)
   res.status(200).send({ data: publishers, success: true })
 };
 

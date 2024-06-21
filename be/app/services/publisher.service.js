@@ -7,8 +7,12 @@ const mongoose = require("mongoose");
 const { body } = require("express-validator");
 
 // admin case
-exports.getAllPublisher = async () => {
-  const publishers = await PublisherModel.find().populate({ path: 'user_id', select: '-otp' }).sort({ createdAt: -1 });
+exports.getAllPublisher = async (id) => {
+  let publishers = await PublisherModel.find().populate({ path: 'user_id', select: '-otp' }).sort({ createdAt: -1 });
+  if(id){
+    publishers = await PublisherModel.find({user_id: id}).populate({ path: 'user_id', select: '-otp' }).sort({ createdAt: -1 });
+  }
+
   const d = new Date();
   const present_month = d.getMonth();
   const last_month =  present_month - 1;
