@@ -571,6 +571,40 @@
               placeholder="Select End date"
             ></v2-datepicker>
           </b-col>
+            <b-col md="3">
+            <label for="users-list-verified">Min Earnings</label>
+            <fieldset class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="users-list-amount"
+                placeholder="Enter min earning"
+                style="
+                  color: grey;
+
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchAmount"
+              /></fieldset
+          ></b-col>
+          <b-col md="3">
+            <label for="users-list-verified">Max Earnings</label>
+            <fieldset class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="users-list-amount-max"
+                placeholder="Enter max earning"
+                style="
+                  color: grey;
+
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchMaxAmount"
+              /></fieldset
+          ></b-col>
         </b-row>
       </div>
       <div class="d-flex flex-column gap-5 card">
@@ -724,9 +758,9 @@
                 </div>
               </span>
 
-              <span v-else-if="props.column.field === 'tiktok_username'">
+              <span v-else-if="props.column.field === 'earnings'">
                 <div>
-                  <div>{{ props.row.tiktok_username }}</div>
+                  <div>{{ props.row.earnings }}$</div>
                 </div>
               </span>
             </template>
@@ -753,6 +787,8 @@ export default {
   },
   data() {
     return {
+      searchMaxAmount:'',
+      searchAmount:'',
       phoneInput: null,
       referralUrl: '',
       selectedName: '',
@@ -830,14 +866,14 @@ export default {
             placeholder: 'Contact Number'
           }
         },
-        // {
-        //   label: 'Agency code',
-        //   field: 'agency_center_code',
-        //   filterOptions: {
-        //     enabled: true,
-        //     placeholder: 'Agency Code'
-        //   }
-        // },
+        {
+          label: 'Earnings',
+          field: 'earnings',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Agency Code'
+          }
+        },
         // {
         //   label: 'Diamonds This Month',
         //   field: 'fdf',
@@ -902,17 +938,15 @@ export default {
     }
   },
   mounted() {
-    this.clearFilters()
-    // this.filterData()
-    // this.addCssRule()
+    // this.clearFilters()
 
-    // this.$bvModal.show("modal-congratulations");
-    // document.addEventListener("click", this.closeMegaMenu);
   },
   computed: {
     filteredRows() {
       const query = this.searchTerm.toLowerCase().trim()
-      const select_status = this.selectedStatus
+      const select_status = this.selectedStatus;
+      const amount_data = this.searchAmount.trim()
+      const amount_data_max = this.searchMaxAmount.trim()
 
       return this.faqs.filter(row => {
         const matchesQuery = query
@@ -929,12 +963,16 @@ export default {
         const matchesStatus = select_status
           ? row.status === select_status
           : true
+          const itemAmount = row.earnings
+           const matchesAmount =
+          (amount_data ? itemAmount >= amount_data : true) &&
+          (amount_data_max ? itemAmount <= amount_data_max : true)
         const itemDate = new Date(moment(row.createdAt).format('DD MMM YYYY'))
         const matchesDate =
           (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
           (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
-        return matchesQuery && matchesStatus && matchesDate
+        return matchesQuery && matchesStatus && matchesDate && matchesAmount
       })
     },
 
@@ -946,11 +984,9 @@ export default {
     }
   },
   created() {
-    this.getAllUsers()
-    this.clearFilters()
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-
+     this.clearFilters()
     this.fetchPublisher()
     this.getProfileDetails()
   },
@@ -1130,8 +1166,6 @@ export default {
           url = 'user/get-all-members-publishers/' + this.user_id
         }
 
-        // url = 'publisher/get-all'
-
         const response = await new Promise((resolve, reject) => {
           this.$apiService
             .getCall(url)
@@ -1154,7 +1188,7 @@ export default {
               e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
             })
             this.faqs = paymentData
-            this.filteredFaqs = paymentData
+            // this.filteredFaqs = paymentData
           }
         }
         this.loader = false
@@ -1554,7 +1588,7 @@ export default {
       this.$apiService
         .getCall(`auth/user/${this.user_id}`)
         .then(res => {
-          console.log(res)
+        
           // if (res.error) {
           //     this.loader = false
           //     this.$toaster.makeToast('warning', 'Fail to fetch user data')

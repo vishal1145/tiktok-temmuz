@@ -91,7 +91,7 @@
             ref="startDate"
             v-model="startDate"
             :picker-options="{
-              disabledDate: time => time.getTime() > new Date().getTime()
+              disabledDate: (time) => time.getTime() > new Date().getTime(),
             }"
             @change="changeStartDate"
             placeholder="Select Start date"
@@ -106,13 +106,51 @@
             ref="endDate"
             v-model="endDate"
             :picker-options="{
-              disabledDate: time =>
-                time.getTime() < new Date(this.startDate).getTime()
+              disabledDate: (time) =>
+                time.getTime() < new Date(this.startDate).getTime(),
             }"
             :disabled="this.startDate ? false : true"
             @change="changeEndDate"
             placeholder="Select End date"
           ></v2-datepicker>
+        </b-col>
+        <b-col md="3">
+          <b-row>
+            <b-col md="6">
+              <label for="users-list-verified">Min Earnings</label>
+              <fieldset class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="users-list-amount"
+                  placeholder="Enter min earning"
+                  style="
+                    color: grey;
+
+                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                    background-color: rgb(135 131 131 / 0%);
+                  "
+                  v-model="searchAmount"
+                /></fieldset
+            ></b-col>
+            <b-col md="6">
+              <label for="users-list-verified">Max Earnings</label>
+              <fieldset class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="users-list-amount-max"
+                  placeholder="Enter max earning"
+                  style="
+                    color: grey;
+
+                    border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                    background-color: rgb(135 131 131 / 0%);
+                  "
+                  v-model="searchMaxAmount"
+                /></fieldset
+            ></b-col>
+          </b-row>
         </b-col>
       </b-row>
     </div>
@@ -165,15 +203,15 @@
           :line-numbers="false"
           :pagination-options="{
             enabled: true,
-            mode: 'records'
+            mode: 'records',
           }"
           styleClass="tableOne vgt-table"
           :selectOptions="{
             enabled: false,
-            selectionInfoClass: 'table-alert__box'
+            selectionInfoClass: 'table-alert__box',
           }"
           :sort-options="{
-            enabled: false
+            enabled: false,
           }"
           :rows="filteredRows"
         >
@@ -225,50 +263,52 @@
 </template>
 
 <script>
-import moment from 'moment'
-import message from '../../../message'
-import { VueEditor } from 'vue2-editor'
-import VueDocumentEditor from 'vue-document-editor'
+import moment from "moment";
+import message from "../../../message";
+import { VueEditor } from "vue2-editor";
+import VueDocumentEditor from "vue-document-editor";
 export default {
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Profile'
+    title: "Profile",
   },
   components: {
     // VueEditor,
     // VueDocumentEditor,
   },
-  data () {
+  data() {
     return {
-      startDate: '',
-      endDate: '',
-      searchTerm: '',
-      creatorId: '',
-      getUserName: '',
-      userId: '',
-      userimage: '',
+      searchAmount: "",
+      searchMaxAmount: "",
+      startDate: "",
+      endDate: "",
+      searchTerm: "",
+      creatorId: "",
+      getUserName: "",
+      userId: "",
+      userimage: "",
       loader: false,
-      flexDivDisplay: 'flex!important',
+      flexDivDisplay: "flex!important",
 
       rows: [],
       columns: [
         {
-          label: 'Affiliated With',
-          field: 'affiliated_with'
+          label: "Affiliated With",
+          field: "affiliated_with",
         },
         {
-          label: 'Diamonds This Month',
-          field: 'diamond_show'
+          label: "Diamonds This Month",
+          field: "diamond_show",
         },
 
         {
-          label: 'Earnings This Month',
-          field: 'earning_show'
+          label: "Earnings This Month",
+          field: "earning_show",
         },
-        { label: 'Date', field: 'as_of_date' }
+        { label: "Date", field: "as_of_date" },
       ],
-      backgroundImage: require('@/assets/images/food.png')
-    }
+      backgroundImage: require("@/assets/images/food.png"),
+    };
   },
 
   computed: {
@@ -277,10 +317,12 @@ export default {
     //     backgroundImage: `url(${this.backgroundImage})`
     //   }
     // },
-    filteredRows () {
-      const query = this.searchTerm.toLowerCase().trim()
+    filteredRows() {
+      const query = this.searchTerm.toLowerCase().trim();
+      const amount_data = this.searchAmount.trim();
+      const amount_data_max = this.searchMaxAmount.trim();
 
-      return this.rows.filter(row => {
+      return this.rows.filter((row) => {
         const matchesQuery = query
           ? (row.as_of_date && row.as_of_date.toLowerCase().includes(query)) ||
             (row.creator_inf &&
@@ -291,120 +333,124 @@ export default {
               String(row.earning).toLowerCase().includes(query)) ||
             (row.affiliated_with &&
               row.affiliated_with.toLowerCase().includes(query))
-          : true
+          : true;
+        const itemAmount = row.earning;
+        const matchesAmount =
+          (amount_data ? itemAmount >= amount_data : true) &&
+          (amount_data_max ? itemAmount <= amount_data_max : true);
 
-        const itemDate = new Date(row.as_of_date)
+        const itemDate = new Date(row.as_of_date);
         const matchesDate =
           (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
-          (this.endDate ? itemDate <= new Date(this.endDate) : true)
+          (this.endDate ? itemDate <= new Date(this.endDate) : true);
 
-        return matchesQuery && matchesDate
-      })
-    }
+        return matchesQuery && matchesDate && matchesAmount;
+      });
+    },
   },
-  created () {
+  created() {
     // this.userId = this.$route.query.uid
     // this.creatorId = this.$route.query.cid
-    this.getUserName = this.$route.query.userName
+    this.getUserName = this.$route.query.userName;
 
-    this.getCreatorsData()
-    this.clearFilters()
+    this.getCreatorsData();
+    this.clearFilters();
   },
   methods: {
-    clearFilters () {
-      ;(this.searchTerm = ''), (this.startDate = ''), (this.endDate = '')
+    clearFilters() {
+      (this.searchTerm = ""), (this.startDate = ""), (this.endDate = "");
     },
-    formatPrice (value) {
-      let val = (value / 1).toFixed(0).replace('.', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
-    getTotalBalance () {
-      this.loader = true
+    getTotalBalance() {
+      this.loader = true;
       this.$apiService
         .getCall(`totalBalance/?userId=${this.userId}`)
-        .then(res => {
+        .then((res) => {
           if (!res.apidata.isError) {
             if (res.apidata.total_balance >= 0) {
-              this.totalBalance = res.apidata.total_balance
+              this.totalBalance = res.apidata.total_balance;
             } else {
-              this.totalBalance = 0.0
+              this.totalBalance = 0.0;
             }
             if (res.apidata.security_balance >= 0) {
-              this.securityBalance = res.apidata.security_balance
+              this.securityBalance = res.apidata.security_balance;
             } else {
-              this.securityBalance = 0.0
+              this.securityBalance = 0.0;
             }
             if (res.apidata.wallet_balance >= 0) {
-              this.userBalance = res.apidata.wallet_balance
+              this.userBalance = res.apidata.wallet_balance;
             } else {
-              this.userBalance = 0.0
+              this.userBalance = 0.0;
             }
             if (res.apidata.referral_balance >= 0) {
-              this.referralBalance = res.apidata.referral_balance
+              this.referralBalance = res.apidata.referral_balance;
             } else {
-              this.referralBalance = 0.0
+              this.referralBalance = 0.0;
             }
           } else {
-            this.securityBalance = 0.0
-            this.totalBalance = 0.0
-            this.userBalance = 0.0
-            this.referralBalance = 0.0
+            this.securityBalance = 0.0;
+            this.totalBalance = 0.0;
+            this.userBalance = 0.0;
+            this.referralBalance = 0.0;
           }
 
-          this.loader = false
+          this.loader = false;
         })
-        .catch(error => {
-          this.userBalance = 0.0
-          this.securityBalance = 0.0
-          this.totalBalance = 0.0
-          this.referralBalance = 0.0
+        .catch((error) => {
+          this.userBalance = 0.0;
+          this.securityBalance = 0.0;
+          this.totalBalance = 0.0;
+          this.referralBalance = 0.0;
           // this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false
-        })
+          this.loader = false;
+        });
     },
-    changeStartDate (date) {
-      this.startDate = moment(date).format('DD MMM YYYY') //
+    changeStartDate(date) {
+      this.startDate = moment(date).format("DD MMM YYYY"); //
     },
-    changeEndDate (date) {
-      this.endDate = moment(date).format('DD MMM YYYY')
+    changeEndDate(date) {
+      this.endDate = moment(date).format("DD MMM YYYY");
     },
-    toggleFlexDiv () {
+    toggleFlexDiv() {
       this.flexDivDisplay =
-        this.flexDivDisplay === 'flex!important'
-          ? 'none!important'
-          : 'flex!important' // Toggle the display property
+        this.flexDivDisplay === "flex!important"
+          ? "none!important"
+          : "flex!important"; // Toggle the display property
     },
-    getCreatorsData () {
-      this.loader = true
+    getCreatorsData() {
+      this.loader = true;
       // var reqData = {
       //   creator_id: this.creatorId,
       //   user_id: this.userId
       // }
       this.$apiService
         .postCall(`publisher/get-creator-details?username=${this.getUserName}`)
-        .then(res => {
-          console.log(res)
-          let rowData = []
+        .then((res) => {
+          console.log(res);
+          let rowData = [];
 
           if (res.apidata.length > 0) {
-            rowData = res.apidata
-            rowData.forEach(value => {
+            rowData = res.apidata;
+            rowData.forEach((value) => {
               value.as_of_date = value.as_of_date
-                ? moment(value.as_of_date).format('DD MMM YYYY')
-                : ''
-            })
+                ? moment(value.as_of_date).format("DD MMM YYYY")
+                : "";
+            });
           }
-          this.rows = rowData
+          this.rows = rowData;
 
-          this.loader = false
+          this.loader = false;
         })
-        .catch(error => {
-          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-          this.loader = false
-        })
-    }
-  }
-}
+        .catch((error) => {
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+          this.loader = false;
+        });
+    },
+  },
+};
 </script>
 <style scoped>
 #loader {
@@ -430,19 +476,19 @@ export default {
 }
 
 .fa-chevron-circle-down {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }
 
 .fa-refresh {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }
 
 .fa-times {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }

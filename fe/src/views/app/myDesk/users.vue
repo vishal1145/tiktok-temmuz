@@ -348,7 +348,7 @@
           </div>
         </div>
 
-        <b-row class="px-3 pb-3 pt-2 mt-1"   :style="{ display: flexDivDisplay }">
+        <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
           <b-col md="3" class="">
             <label for="users-list-search">Search</label>
             <fieldset class="form-group">
@@ -367,8 +367,40 @@
               />
             </fieldset>
           </b-col>
-        
+          <b-col md="3">
+            <label for="users-list-verified">Min Earnings</label>
+            <fieldset class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="users-list-amount"
+                placeholder="Enter min earning"
+                style="
+                  color: grey;
 
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchAmount"
+              /></fieldset
+          ></b-col>
+          <b-col md="3">
+            <label for="users-list-verified">Max Earnings</label>
+            <fieldset class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="users-list-amount-max"
+                placeholder="Enter max earning"
+                style="
+                  color: grey;
+
+                  border: 1px solid rgba(128, 128, 128, 0.32) !important;
+                  background-color: rgb(135 131 131 / 0%);
+                "
+                v-model="searchMaxAmount"
+              /></fieldset
+          ></b-col>
         </b-row>
       </div>
     </div>
@@ -415,12 +447,12 @@
           :line-numbers="false"
           :pagination-options="{
             enabled: true,
-            mode: 'records'
+            mode: 'records',
           }"
           styleClass="tableOne vgt-table"
           :selectOptions="{
             enabled: false,
-            selectionInfoClass: 'table-alert__box'
+            selectionInfoClass: 'table-alert__box',
           }"
           :rows="filteredRows"
         >
@@ -455,7 +487,8 @@
 
                 <!-- <div>{{ props.row.contact_number }}</div> -->
               </div>
-            </span>  <span v-else-if="props.column.field === 'earnings'">
+            </span>
+            <span v-else-if="props.column.field === 'earnings'">
               <div class="d-flex flex-row">
                 {{ props.row.earnings }}
 
@@ -513,65 +546,64 @@
 </template>
 
 <script>
-import moment from 'moment'
-import message from '../../../message'
-import Multiselect from 'vue-multiselect'
+import moment from "moment";
+import message from "../../../message";
+import Multiselect from "vue-multiselect";
 
 // import { VueEditor } from "vue2-editor";
 // import VueDocumentEditor from 'vue-document-editor'
 export default {
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Users'
+    title: "Users",
   },
   components: {
     // VueEditor,
     // VueDocumentEditor
-    multiselect: Multiselect
+    multiselect: Multiselect,
   },
   computed: {
-
-
     filteredRows() {
-      alert
-  const query = this.searchTerm.toLowerCase().trim();
-  console.log("query", query);
-  console.log("rowandar", this.rows);
+      const query = this.searchTerm.toLowerCase().trim();
+      const amount_data = this.searchAmount.trim();
+      const amount_data_max = this.searchMaxAmount.trim();
 
-  return this.rows.filter(row => {
-    const matchesQuery = query ? (
-      (row.tiktok_username && row.tiktok_username.toLowerCase().includes(query)) ||
-      (row.name && row.surname.toLowerCase().includes(query)) ||
-      (row.contact_number && String(row.contact_number).toLowerCase().includes(query)) ||
-      (row.earnings && String(row.earnings).toLowerCase().includes(query)) ||
-      (row.diamonds && String(row.diamonds).toLowerCase().includes(query)) 
-    ) : true;
+      return this.rows.filter((row) => {
+        const matchesQuery = query
+          ? (row.tiktok_username &&
+              row.tiktok_username.toLowerCase().includes(query)) ||
+            (row.name && row.surname.toLowerCase().includes(query)) ||
+            (row.contact_number &&
+              String(row.contact_number).toLowerCase().includes(query)) ||
+            (row.earnings &&
+              String(row.earnings).toLowerCase().includes(query)) ||
+            (row.diamonds && String(row.diamonds).toLowerCase().includes(query))
+          : true;
+        const itemAmount = row.earnings;
+        const matchesAmount =
+          (amount_data ? itemAmount >= amount_data : true) &&
+          (amount_data_max ? itemAmount <= amount_data_max : true);
 
-
-
-    return matchesQuery ;
-  });
-}
-
-
-
-
+        return matchesQuery && matchesAmount;
+      });
+    },
   },
 
-  data () {
+  data() {
     return {
-      filterStatus: 'Approved',
-      searchTerm: '',
+      filterStatus: "Approved",
+      searchTerm: "",
       rows: [],
-     
+      searchMaxAmount: "",
+      searchTerm: "",
       showAddModal: false,
       pageReloaded: false,
       showEditModal: false,
-      logo: require('@/assets/images/faces/17.jpg'),
+      logo: require("@/assets/images/faces/17.jpg"),
       use_id: null,
-      matchUser: '',
+      matchUser: "",
       allUsers: [],
-      role: '',
+      role: "",
       selected: null,
       aadharFront: null,
       aadharBack: null,
@@ -588,71 +620,72 @@ export default {
 
       columns: [
         {
-          label: 'TikTok Name',
-          field: 'tiktok_username',
+          label: "TikTok Name",
+          field: "tiktok_username",
           filterOptions: {
             enabled: true,
-            placeholder: 'Search TikTok'
-          }
+            placeholder: "Search TikTok",
+          },
         },
         {
-          label: 'Name',
-          field: 'name',
+          label: "Name",
+          field: "name",
           filterOptions: {
             enabled: true,
-            placeholder: 'Search name'
-          }
+            placeholder: "Search name",
+          },
         },
         {
-          label: 'Contact Number',
-          field: 'contact_number',
+          label: "Contact Number",
+          field: "contact_number",
           filterOptions: {
             enabled: true,
-            placeholder: 'Search Number'
-          }
+            placeholder: "Search Number",
+          },
         },
         {
-          label: 'Diamonds This Month',
-          field: 'diamonds',
+          label: "Diamonds This Month",
+          field: "diamonds",
           filterOptions: {
             enabled: true,
-            placeholder: 'Diamonds This Month'
-          }
-        },  {
-          label: 'Earnings This Month ($)',
-          field: 'earnings',
+            placeholder: "Diamonds This Month",
+          },
+        },
+        {
+          label: "Earnings This Month ($)",
+          field: "earnings",
           filterOptions: {
             enabled: true,
-            placeholder: 'Earnings This Month ($)'
-          }
+            placeholder: "Earnings This Month ($)",
+          },
         },
         {
           label: "Commission rate's",
-          field: 'show_commission',
+          field: "show_commission",
           filterOptions: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
 
         {
-          label: 'Action',
-          field: 'button',
+          label: "Action",
+          field: "button",
           filterOptions: {
-            enabled: false
-          }
-        }
+            enabled: false,
+          },
+        },
       ],
       rows: [],
       originalRows: [],
       form: {
-        templateId: '',
-        name: '',
-        content: ''
+        templateId: "",
+        name: "",
+        content: "",
       },
-      phoneNumber: '',
-      userName: '',
-      userSurName: '',
-      tikTokUserName: '',
+      phoneNumber: "",
+      userName: "",
+      userSurName: "",
+      tikTokUserName: "",
       updateId: null,
       phoneNumberfield: null,
       getphoneNumber: null,
@@ -665,391 +698,390 @@ export default {
       isEdit: false,
       loader: false,
       isHide: false,
-      flexDivDisplay: 'flex!important',
-      matchUser: '',
+      flexDivDisplay: "flex!important",
+      matchUser: "",
 
-      name: '',
-      contact_number: '',
-      email: '',
+      name: "",
+      contact_number: "",
+      email: "",
       updateloader: false,
-      secondValue: '',
-      firstValue: '',
-      thirdValue: '',
-      getUid: '',
-      getfirstValue: '',
-      getsecondValue: ''
-    }
+      secondValue: "",
+      firstValue: "",
+      thirdValue: "",
+      getUid: "",
+      getfirstValue: "",
+      getsecondValue: "",
+    };
   },
-  created () {
-    this.getAllUsers()
-    this.getAllTransaction()
+  created() {
+    this.getAllUsers();
+    this.getAllTransaction();
 
-    this.role = parsedUser.data.role
-    this.originalRows = [...this.rows]
+    this.role = parsedUser.data.role;
+    this.originalRows = [...this.rows];
 
     // this.reloadPageOnce();
   },
   methods: {
-    openAddModal () {
-      this.showAddModal = true
+    openAddModal() {
+      this.showAddModal = true;
       setTimeout(() => {
-        const phoneInputField = document.querySelector('#phone')
+        const phoneInputField = document.querySelector("#phone");
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: 'in',
+          initialCountry: "in",
           utilsScript:
-            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-        })
-      }, 200)
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+      }, 200);
     },
-    closeModal () {
-      this.isEdit = false
-      this.phoneNumber = ''
+    closeModal() {
+      this.isEdit = false;
+      this.phoneNumber = "";
 
-      this.userName = ''
-      this.userSurName = ''
-      this.tikTokUserName = ''
-      this.showAddModal = false // Set showAddModal to false to hide the modal
+      this.userName = "";
+      this.userSurName = "";
+      this.tikTokUserName = "";
+      this.showAddModal = false; // Set showAddModal to false to hide the modal
     },
-    reloadPageOnce () {
+    reloadPageOnce() {
       if (!this.pageReloaded) {
-        window.location.reload()
-        this.pageReloaded = true
+        window.location.reload();
+        this.pageReloaded = true;
       }
     },
 
-    clickEdit (data) {
-      this.updateId = data._id
-      this.getphoneNumber = data.contact_number
+    clickEdit(data) {
+      this.updateId = data._id;
+      this.getphoneNumber = data.contact_number;
 
-      this.getuserName = data.name
-      this.getuserSurName = data.surname
-      this.gettikTokUserName = data.tiktok_username
+      this.getuserName = data.name;
+      this.getuserSurName = data.surname;
+      this.gettikTokUserName = data.tiktok_username;
 
-      this.showEditModal = true
+      this.showEditModal = true;
 
       setTimeout(() => {
-        const phoneInputField = document.querySelector('#phone')
+        const phoneInputField = document.querySelector("#phone");
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: 'in',
+          initialCountry: "in",
           utilsScript:
-            'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-        })
-      }, 200)
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+      }, 200);
     },
 
-    checkLength (event) {
+    checkLength(event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
-        event.preventDefault()
+        event.preventDefault();
       }
     },
-    getcheckLength (event) {
+    getcheckLength(event) {
       if (this.getphoneNumber.toString().length >= 10 && event.keyCode !== 8) {
-        event.preventDefault()
+        event.preventDefault();
       }
     },
 
-    clickAddRates (data) {
-      this.getUid = data._id
-      this.firstValue = data.first_commission
-      this.secondValue = data.second_commission
-      this.thirdValue = data.third_commission
-      this.$bvModal.show('modal-add-rates')
+    clickAddRates(data) {
+      this.getUid = data._id;
+      this.firstValue = data.first_commission;
+      this.secondValue = data.second_commission;
+      this.thirdValue = data.third_commission;
+      this.$bvModal.show("modal-add-rates");
     },
-    clickCancle () {
-      this.$bvModal.hide('modal-add-rates')
+    clickCancle() {
+      this.$bvModal.hide("modal-add-rates");
     },
-    clickAddButton () {
+    clickAddButton() {
       if (this.firstValue && this.secondValue && this.thirdValue) {
-        this.updateloader = true
+        this.updateloader = true;
         let reqData = {
           first_commission: this.firstValue,
           second_commission: this.secondValue,
           third_commission: this.thirdValue,
-          _id: this.getUid
-        }
+          _id: this.getUid,
+        };
         this.$apiService
-          .postCall('auth/member-update-commission/', reqData)
-          .then(res => {
+          .postCall("auth/member-update-commission/", reqData)
+          .then((res) => {
             if (!res.error) {
               this.$toaster.makeToast(
-                'success',
-                'Commission update successfully'
-              )
-              this.$bvModal.hide('modal-add-rates')
-              this.firstValue = ''
-              this.secondValue = ''
-              this.thirdValue = ''
-              this.getAllUsers()
-              this.updateloader = false
+                "success",
+                "Commission update successfully"
+              );
+              this.$bvModal.hide("modal-add-rates");
+              this.firstValue = "";
+              this.secondValue = "";
+              this.thirdValue = "";
+              this.getAllUsers();
+              this.updateloader = false;
             } else {
-              this.updateloader = false
-              this.$toaster.makeToast('warning', 'Commission update failed')
+              this.updateloader = false;
+              this.$toaster.makeToast("warning", "Commission update failed");
             }
           })
-          .catch(error => {
-            this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
+          .catch((error) => {
+            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
 
-            this.updateloader = false
-          })
+            this.updateloader = false;
+          });
       } else {
-        this.$toaster.makeToast('warning', 'All filed is required')
+        this.$toaster.makeToast("warning", "All filed is required");
       }
     },
-    validateInputSec (event) {
-      const key = event.key
-      const value = this.secondValue
+    validateInputSec(event) {
+      const key = event.key;
+      const value = this.secondValue;
       if (
-        key === 'Backspace' ||
-        key === 'ArrowLeft' ||
-        key === 'ArrowRight' ||
-        key === 'Tab' ||
-        key === 'Delete'
+        key === "Backspace" ||
+        key === "ArrowLeft" ||
+        key === "ArrowRight" ||
+        key === "Tab" ||
+        key === "Delete"
       ) {
-        return
+        return;
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault()
-        return
+        event.preventDefault();
+        return;
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10)
+      const newValue = parseInt(value + key, 10);
       if (newValue > 100) {
-        event.preventDefault()
+        event.preventDefault();
       }
     },
-    validateInput (event) {
-      const key = event.key
-      const value = this.firstValue
+    validateInput(event) {
+      const key = event.key;
+      const value = this.firstValue;
       if (
-        key === 'Backspace' ||
-        key === 'ArrowLeft' ||
-        key === 'ArrowRight' ||
-        key === 'Tab' ||
-        key === 'Delete'
+        key === "Backspace" ||
+        key === "ArrowLeft" ||
+        key === "ArrowRight" ||
+        key === "Tab" ||
+        key === "Delete"
       ) {
-        return
+        return;
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault()
-        return
+        event.preventDefault();
+        return;
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10)
+      const newValue = parseInt(value + key, 10);
       if (newValue > this.secondValue) {
-        event.preventDefault()
+        event.preventDefault();
       }
     },
 
-    validateInputThird (event) {
-      const key = event.key
-      const value = this.thirdValue
+    validateInputThird(event) {
+      const key = event.key;
+      const value = this.thirdValue;
       if (
-        key === 'Backspace' ||
-        key === 'ArrowLeft' ||
-        key === 'ArrowRight' ||
-        key === 'Tab' ||
-        key === 'Delete'
+        key === "Backspace" ||
+        key === "ArrowLeft" ||
+        key === "ArrowRight" ||
+        key === "Tab" ||
+        key === "Delete"
       ) {
-        return
+        return;
       }
       if (!/^\d$/.test(key)) {
-        event.preventDefault()
-        return
+        event.preventDefault();
+        return;
       }
 
       // Allow input if the current value plus the new digit is <= 100
-      const newValue = parseInt(value + key, 10)
+      const newValue = parseInt(value + key, 10);
       if (newValue > 100) {
-        event.preventDefault()
+        event.preventDefault();
       }
     },
 
-    formSubmitEditMember () {
+    formSubmitEditMember() {
       if (!this.phoneNumberfield.isValidNumber()) {
-        this.$toaster.makeToast('warning', 'Invalid number')
-        return
+        this.$toaster.makeToast("warning", "Invalid number");
+        return;
       }
-      this.getphoneNumber = this.phoneNumberfield.getNumber()
+      this.getphoneNumber = this.phoneNumberfield.getNumber();
 
-      if (this.getphoneNumber.startsWith('+')) {
-        this.getphoneNumber = this.getphoneNumber.slice(1)
+      if (this.getphoneNumber.startsWith("+")) {
+        this.getphoneNumber = this.getphoneNumber.slice(1);
       }
-      this.imgLoader = true
+      this.imgLoader = true;
       let requestData = {
         contact_number: this.getphoneNumber,
-        role: 'user',
+        role: "user",
         name: this.getuserName,
         surname: this.getuserSurName,
         tiktok_username: this.gettikTokUserName,
         _id: this.updateId,
         bank: {
-        full_name: "",
-        identity_citizenship_no: "",
-        bank_name: "",
-        iban: ""
-    }
-      }
+          full_name: "",
+          identity_citizenship_no: "",
+          bank_name: "",
+          iban: "",
+        },
+      };
 
       this.$apiService
-        .postCall('auth/member-update', requestData)
-        .then(user => {
+        .postCall("auth/member-update", requestData)
+        .then((user) => {
           if (user.error) {
-            this.imgLoader = false
-            this.$toaster.makeToast('warning', user.message)
+            this.imgLoader = false;
+            this.$toaster.makeToast("warning", user.message);
           } else {
-            this.imgLoader = false
-            this.$toaster.makeToast('success', 'User Update successfully')
-            this.showEditModal = false
-            this.getAllUsers()
+            this.imgLoader = false;
+            this.$toaster.makeToast("success", "User Update successfully");
+            this.showEditModal = false;
+            this.getAllUsers();
           }
         })
         .catch(function (error) {
-          this.$toaster.makeToast('warning', 'Error: server error')
-          this.imgLoader = false
+          this.$toaster.makeToast("warning", "Error: server error");
+          this.imgLoader = false;
 
-          this.$store.commit('setError', { message: error })
-        })
+          this.$store.commit("setError", { message: error });
+        });
     },
-    formSubmitDeleteMember (data) {
+    formSubmitDeleteMember(data) {
       this.$swal({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        type: 'warning',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then(result => {
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
         if (result.isConfirmed) {
-          this.loader = true
+          this.loader = true;
 
           this.$apiService
             .getCall(`auth/member-delete/${data._id}`)
-            .then(user => {
-              this.loader = false
+            .then((user) => {
+              this.loader = false;
               if (user.error) {
-                this.$toaster.makeToast('warning', user.message)
+                this.$toaster.makeToast("warning", user.message);
               } else {
-                this.showEditModal = false
+                this.showEditModal = false;
 
-                this.getAllUsers()
+                this.getAllUsers();
                 setTimeout(() => {
                   this.$toaster.makeToast(
-                    'success',
-                    'User deleted successfully'
-                  )
-                }, 1000)
+                    "success",
+                    "User deleted successfully"
+                  );
+                }, 1000);
               }
             })
-            .catch(error => {
-              this.$toaster.makeToast('warning', 'Error: server error')
-              this.loader = false
-              this.$store.commit('setError', { message: error })
-            })
+            .catch((error) => {
+              this.$toaster.makeToast("warning", "Error: server error");
+              this.loader = false;
+              this.$store.commit("setError", { message: error });
+            });
         }
-      })
+      });
     },
 
-    formSubmitAddMember () {
+    formSubmitAddMember() {
       if (!this.phoneNumberfield.isValidNumber()) {
-        this.$toaster.makeToast('warning', 'Invalid number')
-        return
+        this.$toaster.makeToast("warning", "Invalid number");
+        return;
       }
-      this.phoneNumber = this.phoneNumberfield.getNumber()
+      this.phoneNumber = this.phoneNumberfield.getNumber();
 
-      if (this.phoneNumber.startsWith('+')) {
-        this.phoneNumber = this.phoneNumber.slice(1)
+      if (this.phoneNumber.startsWith("+")) {
+        this.phoneNumber = this.phoneNumber.slice(1);
       }
       if (!this.userName || !this.userSurName || !this.tikTokUserName) {
-        this.$toaster.makeToast('warning', 'All Field is required')
-        return
+        this.$toaster.makeToast("warning", "All Field is required");
+        return;
       }
-      this.imgLoader = true
+      this.imgLoader = true;
 
       let requestData = {
         contact_number: this.phoneNumber,
-        role: 'user',
+        role: "user",
         name: this.userName,
         surname: this.userSurName,
-        tiktok_username: this.tikTokUserName
-      }
+        tiktok_username: this.tikTokUserName,
+      };
 
       this.$apiService
-        .postCall('auth/tiktok-login', requestData)
-        .then(user => {
+        .postCall("auth/tiktok-login", requestData)
+        .then((user) => {
           if (user.error) {
-            this.imgLoader = false
-            this.$toaster.makeToast('warning', user.message)
+            this.imgLoader = false;
+            this.$toaster.makeToast("warning", user.message);
           } else {
-            this.imgLoader = false
-            this.$toaster.makeToast('success', 'User create successfully')
-            this.phoneNumber = ''
+            this.imgLoader = false;
+            this.$toaster.makeToast("success", "User create successfully");
+            this.phoneNumber = "";
 
-            this.userName = ''
-            this.userSurName = ''
-            this.tikTokUserName = ''
-            this.showAddModal = false
-            this.getAllUsers()
+            this.userName = "";
+            this.userSurName = "";
+            this.tikTokUserName = "";
+            this.showAddModal = false;
+            this.getAllUsers();
           }
         })
         .catch(function (error) {
-          this.$toaster.makeToast('warning', 'Error: server error')
-          this.imgLoader = false
+          this.$toaster.makeToast("warning", "Error: server error");
+          this.imgLoader = false;
 
-          this.$store.commit('setError', { message: error })
-        })
+          this.$store.commit("setError", { message: error });
+        });
     },
 
-    toggleFlexDiv () {
+    toggleFlexDiv() {
       this.flexDivDisplay =
-        this.flexDivDisplay === 'flex!important'
-          ? 'none!important'
-          : 'flex!important' // Toggle the display property
+        this.flexDivDisplay === "flex!important"
+          ? "none!important"
+          : "flex!important"; // Toggle the display property
     },
 
-    clearFilters () {
-
-      this.searchTerm = ''     
-       this.getAllUsers()
+    clearFilters() {
+      this.searchTerm = "";
+      this.getAllUsers();
     },
-    openModal12 () {
+    openModal12() {
       // Set the flag to true to show the modal
-      this.showEditModal = true
+      this.showEditModal = true;
     },
-    clickUserName (id) {
-      this.$router.push('/app/mydesk/memberPage?id=' + id)
+    clickUserName(id) {
+      this.$router.push("/app/mydesk/memberPage?id=" + id);
     },
 
-    closeEditModal () {
+    closeEditModal() {
       // Set the flag to false to hide the modal
-      this.showEditModal = false
+      this.showEditModal = false;
     },
-    openModal (rowData) {
-      this.aadharFront = rowData.aadhar_card
-      this.aadharBack = rowData.back_aadhar_card
-      this.divinglicense = rowData.driving_lincense
-      this.divinglicenseBack = rowData.back_driving_lincense
-      this.passportBack = rowData.back_passport
-      this.passport = rowData.passport
+    openModal(rowData) {
+      this.aadharFront = rowData.aadhar_card;
+      this.aadharBack = rowData.back_aadhar_card;
+      this.divinglicense = rowData.driving_lincense;
+      this.divinglicenseBack = rowData.back_driving_lincense;
+      this.passportBack = rowData.back_passport;
+      this.passport = rowData.passport;
 
-      this.isModalOpen = true
+      this.isModalOpen = true;
     },
-    vueDocuments (rowData) {
-      this.popUpWindow = true
-    },
-
-    handleChange (user) {
-      debugger
-
-      const matchedRows = this.rows.filter(row => row.name === user)
-
-      this.rows = matchedRows
+    vueDocuments(rowData) {
+      this.popUpWindow = true;
     },
 
-    clickViewUsers (id) {
-      this.$router.push('/app/myDesk/usersProfile?id=' + id)
+    handleChange(user) {
+      debugger;
+
+      const matchedRows = this.rows.filter((row) => row.name === user);
+
+      this.rows = matchedRows;
+    },
+
+    clickViewUsers(id) {
+      this.$router.push("/app/myDesk/usersProfile?id=" + id);
     },
     // clickDownload() {
     //   const url='https://c8.alamy.com/comp/EE0F4R/crying-baby-with-dummy-EE0F4R.jpg';
@@ -1061,24 +1093,24 @@ export default {
     //   document.body.removeChild(link);
     // },
 
-    clickUnBlock (userId) {
-      this.loader = true
+    clickUnBlock(userId) {
+      this.loader = true;
       const reqData = {
-        accessStatus: 'False'
-      }
+        accessStatus: "False",
+      };
       this.$apiService
         .postCall(`account/blockUnblockUserApi/?id=${userId}`, reqData)
-        .then(res => {
+        .then((res) => {
           if (!res.apidata.isError) {
-            this.$toaster.makeToast('success', 'User  successfully unblocked')
-            this.getAllUsers()
-            this.loader = false
+            this.$toaster.makeToast("success", "User  successfully unblocked");
+            this.getAllUsers();
+            this.loader = false;
           }
         })
-        .catch(error => {
-          this.loader = false
-          this.$toaster.makeToast('warning', 'Have Server error')
-        })
+        .catch((error) => {
+          this.loader = false;
+          this.$toaster.makeToast("warning", "Have Server error");
+        });
     },
     // getfilterdata () {
     //   if (!this.searchTerm) {
@@ -1097,154 +1129,153 @@ export default {
     //     )
     //   })
     // },
-    getAllUsers () {
-      this.loader = true
+    getAllUsers() {
+      this.loader = true;
       this.$apiService
-        .getCall('user/get-all-members')
-        .then(response => {
+        .getCall("user/get-all-members")
+        .then((response) => {
           if (
             response &&
             response.isError === false &&
             response.apidata &&
             response.apidata.data
           ) {
-            const userData = response.apidata.data
-            this.rows = userData
-          
+            const userData = response.apidata.data;
+            this.rows = userData;
           } else {
-            this.$toaster.makeToast('warning', 'Failed to fetch user data')
+            this.$toaster.makeToast("warning", "Failed to fetch user data");
           }
-          this.loader = false
+          this.loader = false;
         })
-        .catch(error => {
-          console.error('Error fetching user data:', error)
-          this.$toaster.makeToast('error', 'Error fetching user data')
-          this.loader = false
-        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          this.$toaster.makeToast("error", "Error fetching user data");
+          this.loader = false;
+        });
     },
-    generateID () {
-      this.clearform()
-      this.generateIDloader = true
-      let randomString = ''
-      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    generateID() {
+      this.clearform();
+      this.generateIDloader = true;
+      let randomString = "";
+      let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
       for (let i = 0; i < 7; i++) {
         randomString += characters.charAt(
           Math.floor(Math.random() * characters.length)
-        )
+        );
       }
-      this.form.templateId = randomString
-      this.generateIDloader = false
+      this.form.templateId = randomString;
+      this.generateIDloader = false;
     },
-    submit () {
-      this.submitloader = true
+    submit() {
+      this.submitloader = true;
       if (!this.form.name || !this.form.content || !this.form.templateId) {
-        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
-        this.submitloader = false
-        return
+        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+        this.submitloader = false;
+        return;
       }
       this.$apiService
-        .postCall('add_by_company', this.form)
-        .then(res => {
+        .postCall("add_by_company", this.form)
+        .then((res) => {
           if (res.apidata.status) {
-            this.$toaster.makeToast('warning', message.ERROR_TEMPLATE_MESSAGE)
-            this.submitloader = false
+            this.$toaster.makeToast("warning", message.ERROR_TEMPLATE_MESSAGE);
+            this.submitloader = false;
           } else {
-            this.$toaster.makeToast('success', message.ADD_TEMPLATE_MESSAGE)
-            this.getTemplateData()
-            this.clearform()
+            this.$toaster.makeToast("success", message.ADD_TEMPLATE_MESSAGE);
+            this.getTemplateData();
+            this.clearform();
           }
         })
-        .catch(error => {
-          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-        })
+        .catch((error) => {
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+        });
     },
-    cancel () {
-      this.clearform()
+    cancel() {
+      this.clearform();
     },
-    update () {
-      this.submitloader = true
+    update() {
+      this.submitloader = true;
       if (!this.form.name || !this.form.content || !this.form.templateId) {
-        this.$toaster.makeToast('warning', message.VALIDATION_MESSAGE)
-        this.submitloader = false
-        return
+        this.$toaster.makeToast("warning", message.VALIDATION_MESSAGE);
+        this.submitloader = false;
+        return;
       }
       this.$apiService
-        .postCall('editTemplate', this.form)
-        .then(res => {
-          this.$toaster.makeToast('success', message.EDIT_TEMPLATE_MESSAGE)
-          this.getTemplateData()
-          this.clearform()
+        .postCall("editTemplate", this.form)
+        .then((res) => {
+          this.$toaster.makeToast("success", message.EDIT_TEMPLATE_MESSAGE);
+          this.getTemplateData();
+          this.clearform();
         })
-        .catch(error => {
-          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-        })
+        .catch((error) => {
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+        });
     },
-    editTemplate (id) {
-      this.isEdit = false
+    editTemplate(id) {
+      this.isEdit = false;
 
       this.$apiService
-        .postCall('getTemplate', { _id: id })
-        .then(res => {
-          this.form = res.apidata
-          this.$bvModal.show('modal-lg')
+        .postCall("getTemplate", { _id: id })
+        .then((res) => {
+          this.form = res.apidata;
+          this.$bvModal.show("modal-lg");
         })
 
-        .catch(error => {
-          this.$toaster.makeToast('warning', message.ERROR_MESSAGE)
-        })
-      this.isEdit = true
+        .catch((error) => {
+          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
+        });
+      this.isEdit = true;
     },
-    clickBlock (userId) {
+    clickBlock(userId) {
       this.$swal({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to block this!",
-        type: 'warning',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, blocked it!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, blocked it!",
       })
-        .then(result => {
+        .then((result) => {
           if (result.value) {
-            this.$swal('User Blocked!', 'User has been Blocked.', 'success')
+            this.$swal("User Blocked!", "User has been Blocked.", "success");
             const reqData = {
-              accessStatus: 'True'
-            }
+              accessStatus: "True",
+            };
             this.$apiService
               .postCall(`account/blockUnblockUserApi/?id=${userId}`, reqData)
-              .then(res => {
+              .then((res) => {
                 if (!res.apidata.isError) {
                   this.$toaster.makeToast(
-                    'success',
-                    'User successfully blocked'
-                  )
-                  this.getAllUsers()
-                  this.loader = false
+                    "success",
+                    "User successfully blocked"
+                  );
+                  this.getAllUsers();
+                  this.loader = false;
                 }
-              })
+              });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.$toaster.makeToast(
-            'warning',
+            "warning",
             "User can't blocked! Srever failed"
-          )
-        })
+          );
+        });
     },
-    clearform () {
-      this.form = {}
-      this.isEdit = false
-      this.submitloader = false
-      this.generateIDloader = false
-      this.$bvModal.hide('modal-lg')
-    }
+    clearform() {
+      this.form = {};
+      this.isEdit = false;
+      this.submitloader = false;
+      this.generateIDloader = false;
+      this.$bvModal.hide("modal-lg");
+    },
     //     clearFilters() {
     //   this.selected ="Select User"
     //   this.use_id = null;
     // },
-  }
-}
+  },
+};
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
@@ -1344,19 +1375,19 @@ export default {
 }
 
 .fa-chevron-circle-down {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }
 
 .fa-refresh {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }
 
 .fa-times {
-  content: '\f13a';
+  content: "\f13a";
   color: #808080cf;
   width: 20px;
 }
