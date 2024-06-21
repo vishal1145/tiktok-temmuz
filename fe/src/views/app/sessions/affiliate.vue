@@ -150,7 +150,7 @@
     <b-col lg="12" md="12" class="px-0">
                 <div  class="">
                     <div role="tablist">
-                      <div no-body class="ul-card__border-radius">
+                      <div no-body class="ul-card__border-radius my-2 mt-2" style="padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
     <div header-tag="header" class="py-1" role="tab">
       <b-button
         class="pw mb-0 px-0 py-0 widthAllAround"
@@ -158,7 +158,7 @@
         href="#"
         v-b-toggle.accordion-1
         variant="transparent"
-        style="overflow-anchor: none; padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;"
+        style="overflow-anchor: none;"
       >
         <i v-if="isAccordionOpen" class="fa fa-minus" aria-hidden="true" style="margin-right: 8px;"></i>
         <i v-else class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i>
@@ -175,7 +175,7 @@
   </div>
 
 
-  <div no-body class="ul-card__border-radius">
+  <div no-body class="ul-card__border-radius" style=" padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
     <div header-tag="header" class="py-1" role="tab">
       <b-button
         class="pw mb-0 px-0 py-0 widthAllAround"
@@ -183,7 +183,7 @@
         href="#"
         v-b-toggle.accordion-2
         variant="transparent"
-        style="overflow-anchor: none;  padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;"
+        style="overflow-anchor: none; "
       >
         <i v-if="isAccordionOpen1" class="fa fa-minus" aria-hidden="true" style="margin-right: 8px;"></i>
         <i v-else class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i>
@@ -1065,7 +1065,7 @@ h6,
 
 .widthAllAround
 {
-  width:340px;
+  width:320px;
 }
 
 .fa-plus {
