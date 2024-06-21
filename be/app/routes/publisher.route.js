@@ -16,7 +16,7 @@ const {
 router.post("/create", createPublisher);
 router.post("/update-publisher-status/:id", updatePublisherStatus);
 router.post("/delete/:id", deletePublisher);
-router.get("/get-all", getAllPublisher);
+router.post("/get-all", getAllPublisher);
 router.post("/update/:id", updatePublisher);
 router.post("/can-update", canUpdatePublisher);
 router.get("/get-member", getMember);
