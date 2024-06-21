@@ -114,9 +114,8 @@
             placeholder="Select End date"
           ></v2-datepicker>
         </b-col>
+
         <b-col md="3">
-          <b-row>
-            <b-col md="6">
               <label for="users-list-verified">Min Earnings</label>
               <fieldset class="form-group">
                 <input
@@ -133,7 +132,7 @@
                   v-model="searchAmount"
                 /></fieldset
             ></b-col>
-            <b-col md="6">
+            <b-col md="3">
               <label for="users-list-verified">Max Earnings</label>
               <fieldset class="form-group">
                 <input
@@ -150,8 +149,8 @@
                   v-model="searchMaxAmount"
                 /></fieldset
             ></b-col>
-          </b-row>
-        </b-col>
+   
+       
       </b-row>
     </div>
 

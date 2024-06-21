@@ -763,6 +763,11 @@
                   <div>{{ props.row.earnings }}$</div>
                 </div>
               </span>
+              <span v-else-if="props.column.field === 'user_id.tiktok_username'">
+                <div>
+                  <div>{{ props.row.user_id.tiktok_username}}</div>
+                </div>
+              </span>
             </template>
           </vue-good-table>
         </div>
@@ -872,6 +877,15 @@ export default {
           filterOptions: {
             enabled: true,
             placeholder: 'Agency Code'
+          }
+        },
+
+        {
+          label: 'Affiliate',
+          field: 'user_id.tiktok_username',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'Affiliate'
           }
         },
         // {
@@ -1155,49 +1169,91 @@ export default {
         event.preventDefault()
       }
     },
+    // async fetchPublisher() {
+    //   this.loader = true
+    //   this.user_id 
+    //   try {
+    //     var url = ''
+
+    //     if (this.role == 'admin') {
+    //       url = 'publisher/get-all' 
+    //     } else {
+    //       url = 'publisher/get-all' 
+    //     }
+
+    //     const response = await new Promise((resolve, reject) => {
+    //       this.$apiService
+    //         .postCall(url)
+    //         .then(data => resolve(data))
+    //         .catch(error => reject(error))
+    //     })
+
+    //     if (response.error) {
+    //       this.$toaster.makeToast('warning', response.message)
+    //     } else {
+    //       if (response.apidata.msg) {
+    //         this.faqs = []
+    //       } else {
+    //         const paymentData = response.apidata.data
+    //         // this.filteredFaqs = response.apidata.data
+    //         // this.filteredFaqs = this.faqs
+    //         // this.ForDropwDow = this.faqs
+    //         paymentData.reverse()
+    //         paymentData.forEach(e => {
+    //           e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
+    //         })
+    //         this.faqs = paymentData
+    //         // this.filteredFaqs = paymentData
+    //       }
+    //     }
+    //     this.loader = false
+    //   } catch (error) {
+    //     this.loader = false
+    //     console.error(error)
+    //     this.$toaster.makeToast('warning', 'Error: Server Error')
+    //   }
+    // },
+
     async fetchPublisher() {
-      this.loader = true
-      try {
-        var url = ''
+  this.loader = true
+  try {
+    // Get role from localStorage
+    this.role = localStorage.getItem('role')
 
-        if (this.role == 'admin') {
-          url = 'publisher/get-all'
-        } else {
-          url = 'user/get-all-members-publishers/' + this.user_id
-        }
+    // Determine if the user is an admin
+    const isAdmin = this.role === 'admin'
+    
+    // Set user_id based on whether the user is an admin
+    const req = {
+      user_id: isAdmin ? '' : this.user_id
+    }
 
-        const response = await new Promise((resolve, reject) => {
-          this.$apiService
-            .getCall(url)
-            .then(data => resolve(data))
-            .catch(error => reject(error))
+    console.log("id", this.user_id)
+    const res = await this.$apiService.postCall('/publisher/get-all', req)
+
+    if (res.error) {
+      this.$toaster.makeToast('warning', res.message)
+    } else {
+      if (res.apidata.msg) {
+        this.faqs = []
+      } else {
+        const paymentData = res.apidata.data
+        paymentData.reverse()
+        paymentData.forEach(e => {
+          e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
         })
-
-        if (response.error) {
-          this.$toaster.makeToast('warning', response.message)
-        } else {
-          if (response.apidata.msg) {
-            this.faqs = []
-          } else {
-            const paymentData = response.apidata.data
-            // this.filteredFaqs = response.apidata.data
-            // this.filteredFaqs = this.faqs
-            // this.ForDropwDow = this.faqs
-            paymentData.reverse()
-            paymentData.forEach(e => {
-              e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
-            })
-            this.faqs = paymentData
-            // this.filteredFaqs = paymentData
-          }
-        }
-        this.loader = false
-      } catch (error) {
-        this.loader = false
-        console.error(error)
-        this.$toaster.makeToast('warning', 'Error: Server Error')
+        this.faqs = paymentData
       }
-    },
+    }
+  } catch (error) {
+    console.error(error)
+    this.$toaster.makeToast('warning', 'Error: Server Error')
+  } finally {
+    this.loader = false
+  }
+}
+
+,
     handelUserField() {
       this.searchUser = this.faqs.filter(user =>
         user.user_name.toLowerCase().includes(this.publisherName.toLowerCase())

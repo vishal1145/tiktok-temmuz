@@ -18,9 +18,9 @@
     </nav>
 
     <div
-      class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody pb-48 align-items-center "
+      class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody "
     >
-      <div class="row pt-2 justify-content-center paddingMObile" style="
+      <div class="row justify-content-center paddingMObile" style="
      height: 80vh;
 ">
     
@@ -150,29 +150,55 @@
     <b-col lg="12" md="12" class="px-0">
                 <div  class="">
                     <div role="tablist">
-                        <div no-body class="ul-card__border-radius">
-                        <div header-tag="header" class="py-1"  role="tab">
-                            <b-button class=" pw mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-1 variant="transparent">What industries do you specialize in?</b-button>
-                        </div>
-                        <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-                            <div>
-                            <b-card-text class="px-2" style="overflow-anchor: none;font-size: 11px;">While we serve clients across different industries, our expertise extends particularly well to consumer brands, entertainment, fashion, and lifestyle sectors.</b-card-text>
-                        
-                            </div>
-                        </b-collapse>
-                        </div>
-                        <div no-body class="ul-card__border-radius">
-                        <div header-tag="header" class="py-0"  role="tab">
-                            <b-button class=" pw mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-2 variant="transparent" style="    margin-top: 0px !important;
-">What are your office hours for visits?</b-button>
-                        </div>
-                        <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
-                            <div>
-                            <b-card-text class="px-2" style="overflow-anchor: none;font-size: 11px;">You can visit us on weekdays from 10:00 to 17:00 at our office in Gazi Mh. Fatih Sultan Mehmet Blvd., Yenimahalle Ankara</b-card-text>
-                         
-                            </div>
-                        </b-collapse>
-                        </div>
+                      <div no-body class="ul-card__border-radius">
+    <div header-tag="header" class="py-1" role="tab">
+      <b-button
+        class="pw mb-0 px-0 py-0 widthAllAround"
+        block
+        href="#"
+        v-b-toggle.accordion-1
+        variant="transparent"
+        style="overflow-anchor: none; padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;"
+      >
+        <i v-if="isAccordionOpen" class="fa fa-minus" aria-hidden="true" style="margin-right: 8px;"></i>
+        <i v-else class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i>
+        What industries do you specialize in?
+      </b-button>
+    </div>
+    <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel" @shown="isAccordionOpen = true" @hidden="isAccordionOpen = false"  class="widthAllAround">
+      <div>
+        <p class="card-text px-2 " style="overflow-anchor: none; font-size: 11px;">
+          While we serve clients across different industries, our expertise extends particularly well to consumer brands, entertainment, fashion, and lifestyle sectors.
+        </p>
+      </div>
+    </b-collapse>
+  </div>
+
+
+  <div no-body class="ul-card__border-radius">
+    <div header-tag="header" class="py-1" role="tab">
+      <b-button
+        class="pw mb-0 px-0 py-0 widthAllAround"
+        block
+        href="#"
+        v-b-toggle.accordion-2
+        variant="transparent"
+        style="overflow-anchor: none;  padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;"
+      >
+        <i v-if="isAccordionOpen1" class="fa fa-minus" aria-hidden="true" style="margin-right: 8px;"></i>
+        <i v-else class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i>
+        What are your office hours for visits?
+      </b-button>
+    </div>
+    <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel" @shown="isAccordionOpen1 = true" @hidden="isAccordionOpen1= false"  class="widthAllAround">
+      <div>
+        <p class="card-text px-2 " style="overflow-anchor: none; font-size: 11px;">
+          You can visit us on weekdays from 10:00 to 17:00 at our office in Gazi Mh. Fatih Sultan Mehmet Blvd., Yenimahalle Ankara
+        </p>
+      </div>
+    </b-collapse>
+  </div>
+                     
                         <!-- <div no-body class="ul-card__border-radius">
                         <div header-tag="header" class="p-1"  role="tab">
                             <b-button class="card-title mb-0 px-0 py-0" block href="#" v-b-toggle.accordion-3 variant="transparent">Accordion 1</b-button>
@@ -450,6 +476,8 @@ export default {
 
   data () {
     return {
+      isAccordionOpen1:false,
+      isAccordionOpen: false,
       fName: '',
       email: '',
       bgImage: require('@/assets/images/back_ground.png'),
@@ -910,6 +938,7 @@ export default {
 </script>
 
 <style >
+
 .phone-input .iti {
   width: 100%;
 }
@@ -968,7 +997,7 @@ form {
 }
 
 .pw {
-  margin-top: 4px !important;
+
 
   color: #6f6b7d;
   font-size: 0.82rem;
@@ -1023,7 +1052,7 @@ h6,
   background-size: cover; /* This will ensure the gif covers the entire background */
   width: 100vw; /* Make sure the width covers the whole viewport */
   height: 100vh; /* Make sure the height covers the whole viewport */
-  padding: 16px 0;
+
 }
 .form-control {
     border: initial;
@@ -1033,6 +1062,20 @@ h6,
     color: #111827;
 }
 
+
+.widthAllAround
+{
+  width:340px;
+}
+
+.fa-plus {
+    content: "\f067";
+    color: #f59e0b;
+}
+.fa-minus {
+    content: "\f067";
+    color: #f59e0b;
+}
 
 .btn-primary1 {
     color: #fff;
@@ -1071,6 +1114,12 @@ b, strong {
     flex: 0 0 70.33333%;
     max-width: 95.33333%;
 }
+
+
+.widthAllAround
+{
+  width:300px;
+}
 }
 @media (max-width: 500px) {
   
@@ -1080,6 +1129,11 @@ b, strong {
     -ms-flex: 0 0 33.33333%;
     flex: 0 0 100.33333%;
 
+}
+
+.widthAllAround
+{
+  width:300px;
 }
 }
 

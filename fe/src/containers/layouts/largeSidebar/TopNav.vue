@@ -6,7 +6,7 @@
       <img src="@/assets/images/food_nav.png" style="
     width: 89px!important;
 "/>
-   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers">+Add Member</button></div>
+   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers"><i class="fa fa-plus" aria-hidden="true"></i>  &nbsp;Add Member</button></div>
   </div>
 
  

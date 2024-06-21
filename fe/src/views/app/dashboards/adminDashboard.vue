@@ -114,10 +114,8 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col md="6">
-        <div class="card mb-24" style="
-    height: 225px;
-">
+      <b-col md="6" class="pb-3">
+        <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
             <div class="card-title">Top 5 Diamonds Members this Month</div>
             <vue-good-table
@@ -140,10 +138,8 @@
           </div>
         </div>
       </b-col>
-      <b-col md="6">
-        <div class="card mb-24" style="
-    height: 225px;
-">
+      <b-col md="6" class="pb-3">
+        <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
             <div class="card-title">Top 5 Earnings Members This Month ($)</div>
             <vue-good-table
@@ -173,10 +169,8 @@
         </div>
       </b-col>
 
-      <b-col md="6">
-        <div class="card mb-24" style="
-    height: 225px;
-">
+      <b-col md="6" class="pb-3">
+        <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
             <div class="card-title">
               Top 5 Creators Most Diamonds This Month
@@ -202,10 +196,8 @@
         </div>
       </b-col>
 
-      <b-col md="6">
-        <div class="card mb-24" style="
-    height: 225px;
-">
+      <b-col md="6" class="pb-3">
+        <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
             <div class="card-title">Top 5 Member with Most Creators</div>
             <vue-good-table
