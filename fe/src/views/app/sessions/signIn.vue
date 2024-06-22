@@ -1,7 +1,7 @@
 <template>
-
-
-  <section class="row justify-content-center gifBody">
+<!-- 
+<transition name="fade">   -->
+   <section class="row justify-content-center gifBody">
         <div class="col-xl-8 col-11 d-flex justify-content-center">
             <div class="card mb-0 m-auto">
                 <div class="row m-0"        style=" 
@@ -12,11 +12,28 @@
                     </div>
                     <div class="col-lg-6 col-12 p-0 marginformobile"  style=" 
     background-color: rgba(255,255,255,255);
-">
+">    <div class="d-flex flex-row justify-content-end">
+  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32">
+  <template #button-content>
+    <i class="fa fa-globe" aria-hidden="true"></i> {{ $t('Language') }}
+  </template>
+  <b-dropdown-item @click="changeLang('en')">
+    <i class="flag-icon flag-icon-us"></i> English
+  </b-dropdown-item>
+  <b-dropdown-item @click="changeLang('tr')">
+    <i class="flag-icon flag-icon-tr"></i> Türkçe
+  </b-dropdown-item>
+</b-dropdown>
+
+
+              
+              </div>
                       <div>
         <div v-if="activeChild === 1">
           <div class="">
             <div class="row">
+            
+           
               <div class="col-md-12">
                 <div class="p-4 px-5 ">
                   <div class="auth-logo text-left mb-30 d-none">
@@ -569,6 +586,9 @@
             </div>
         </div>
     </section>
+    
+    <!-- </transition> -->
+
 
 
 
@@ -584,6 +604,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 import { required, minLength } from 'vuelidate/lib/validators'
 import { mapGetters, mapActions } from 'vuex'
 import message from '../../../message'
+import i18n, { changeLanguage } from '../../../lang/lang';
 // import TopNav from '../../../containers/layouts/largeSidebar/TopNav.vue'
 
 export default {
@@ -595,6 +616,7 @@ export default {
   components: { vSelect, Timer },
   data () {
     return {
+      showContent:true,
       timerClass: 'd-none',
       timerClass: 'd-flex',
 
@@ -851,6 +873,15 @@ export default {
   },
 
   methods: {
+    changeLang(lang) {
+      if (this.currentLang !== lang) {
+        this.showContent = false;  // Hide the content to trigger the transition
+        setTimeout(() => {
+          changeLanguage(lang);
+          this.currentLang = lang;
+          this.showContent = true;  // Show the content after changing the language
+        }, 500);  // Adjust the delay to match the transition duration
+      }},
     ...mapActions(['login']),
     // TimerPause() {
 
@@ -1872,5 +1903,41 @@ export default {
 img {
     max-width: 80%;
 }
+}
+#dropdown-1__BV_toggle_
+{
+    border: 1px solid #8080803d;
+    padding-left: 20px !important;
+    padding-right: 30px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+/* .fade-enter-active, .fade-leave-active {
+  transition:  ease-in-out 0.2s, background-color 0.5s ease-in-out 0.2s;
+}
+
+.fade-enter, .fade-leave-to  {
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.fade-enter-active {
+  background-color: rgb(229, 214, 238);
+}
+
+.fade-leave-active {
+  background-color: rgb(229, 214, 238); 
+} */
+
+
+.fa-globe:before {
+  content: "\f0ac";
+    margin-right: 6px;
+    color: #00000087;
+}
+
+.dropdown-item {
+    padding: 0.42rem 0.5rem;
 }
 </style>

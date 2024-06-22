@@ -113,9 +113,19 @@
  
 
 
-    <div class="d-flex flex-row">   <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
+    <div class="d-flex flex-row">  <div class="m-auto pr-2" >  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32 m-auto">
+  <template #button-content>
+    <i class="fa fa-globe" aria-hidden="true"></i> {{ $t('Language') }}
+  </template>
+  <b-dropdown-item @click="changeLang('en')">
+    <i class="flag-icon flag-icon-us"></i> English
+  </b-dropdown-item>
+  <b-dropdown-item @click="changeLang('tr')">
+    <i class="flag-icon flag-icon-tr"></i> Türkçe
+  </b-dropdown-item>
+</b-dropdown></div>  <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
       <b-dropdown
-        id="dropdown-1"
+        id="dropdown-2"
         text="Dropdown Button"
         class="m-md-2 user align-self-end"
         toggle-class="text-decoration-none"
@@ -703,6 +713,8 @@
 </template>
 <script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
+import i18n, { changeLanguage } from '../../../lang/lang';
+
 // import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 import message from "../../../message";
@@ -839,6 +851,15 @@ export default {
       this.$router.push("/app/mydesk/transaction");
       this.$refs.dropdown.hide();
     },
+    changeLang(lang) {
+      if (this.currentLang !== lang) {
+        this.showContent = false;  // Hide the content to trigger the transition
+        setTimeout(() => {
+          changeLanguage(lang);
+          this.currentLang = lang;
+          this.showContent = true;  // Show the content after changing the language
+        }, 500);  // Adjust the delay to match the transition duration
+      }},
     navigateToUsers() {
       this.$router.push('/app/mydesk/users');
     },
@@ -1646,5 +1667,48 @@ deleteCookie(name) {
 
 .btn {
     padding: 0.5rem 1.25rem!important;
+}
+
+
+#dropdown-1__BV_toggle_
+{
+    border: 1px solid #8080803d;
+    padding-left: 20px !important;
+    padding-right: 30px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+#dropdown-2
+{
+  border: none;
+
+}
+
+/* .fade-enter-active, .fade-leave-active {
+  transition:  ease-in-out 0.2s, background-color 0.5s ease-in-out 0.2s;
+}
+
+.fade-enter, .fade-leave-to  {
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.fade-enter-active {
+  background-color: rgb(229, 214, 238);
+}
+
+.fade-leave-active {
+  background-color: rgb(229, 214, 238); 
+} */
+
+
+.fa-globe:before {
+  content: "\f0ac";
+    margin-right: 6px;
+    color: #00000087;
+}
+
+.dropdown-item {
+    padding: 0.42rem 0.5rem;
 }
 </style>

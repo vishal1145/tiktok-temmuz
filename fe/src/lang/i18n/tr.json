@@ -158,7 +158,8 @@
     "Cancel":"İptal etmek",
     "Payment Request Sent Successfully":"Ödeme Talebi Başarıyla Gönderildi",
     "Please enter a cancel reason with at least 10 characters":"Lütfen en az 10 karakterden oluşan bir iptal nedeni girin",
-    "Payment status Rejected successfully": "Ödeme durumu başarıyla reddedildi"
+    "Payment status Rejected successfully": "Ödeme durumu başarıyla reddedildi",
+    "Language":"Dil"
 
     
   
