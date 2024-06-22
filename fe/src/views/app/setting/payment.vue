@@ -15,14 +15,15 @@
     >
       <b-row class="">
         <b-col>
-          <label style="font-size: 20px"> Withdraw </label>
+          <label style="font-size: 20px"> {{ $t('Withdraw') }}</label>
         </b-col>
         <b-col md="12" class="d-none">
-          <b-form-group label="User Name" label-for="input-user-name">
+          <b-form-group              :label="$t('User Name')"
+ label-for="input-user-name">
             <b-form-input
               v-model="userName"
               required
-              placeholder="User Name"
+             :placeholder="$t('User Name')"
               style="height: 34px"
               type="text"
               id="input-user-name"
@@ -30,11 +31,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Amount" label-for="input-amount">
+          <b-form-group   :label="$t('Amount')" label-for="input-amount">
             <b-form-input
               v-model="amount"
               required
-              placeholder="Amount"
+              :placeholder="$t('Amount')"
+             
               style="height: 34px"
               type="number"
               id="input-amount"
@@ -55,11 +57,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Notes" label-for="input-notes">
+          <b-form-group  :label="$t('Notes')" label-for="input-notes">
             <b-form-textarea
               v-model="notes"
               required
-              placeholder="Notes"
+               :placeholder="$t('Notes')"
+           
               style="height: 44px"
               id="input-notes"
             ></b-form-textarea>
@@ -72,10 +75,11 @@
               :disabled="isSubmitting"
               class="btn btn-primary mr-2"
             >
-              Submit
+             {{ $t('Submit') }}
             </button>
             <b-button v-if="!imgLoader" class="" @click="closeModal()">
-              Close
+              {{ $t('Close') }}
+
             </b-button>
           </div>
         </b-col>
@@ -228,7 +232,7 @@
             class="fa fa-exclamation-triangle text-danger mb-3"
             aria-hidden="true"
           >
-            Reason for cancellation:
+             {{ $t('Reason for cancellation:') }}
           </i>
         </b-col>
 
@@ -237,7 +241,8 @@
             <b-form-textarea
               v-model="cancelReasonText"
               required
-              placeholder="Reason for cancellation"
+              
+              :placeholder="$t('Reason for cancellation')"
               style="height: 100px"
             ></b-form-textarea>
           </b-form-group>
@@ -245,12 +250,12 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <div class="spinner spinner-primary mr-3" v-if="updateloader"></div>
-            <b-button class="mr-2" @click="clickCancle()">Cancel</b-button>
+            <b-button class="mr-2" @click="clickCancle()">  {{ $t('Cancel') }}</b-button>
             <b-button
               class=""
               variant="primary ripple"
               @click="clickRejectButton()"
-              >ok</b-button
+              > {{ $t('ok') }} </b-button
             >
           </div>
         </b-col>
@@ -291,7 +296,7 @@
                 class="card-title"
                 style="margin: 0px; background-color: white; color: #000000c4"
               >
-                Filters
+              {{ $t('Filters') }}
               </h4>
               <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
               <div class="heading-elements">
@@ -328,13 +333,14 @@
               :style="{ display: flexDivDisplay }"
             >
               <b-col md="3"
-                ><label for="users-list-search">User Name</label>
+                ><label for="users-list-search">  {{ $t('User Name') }}</label>
                 <fieldset class="form-group">
                   <input
                     type="text"
                     class="form-control"
                     id="users-list-search"
-                    placeholder="Search user name"
+                   
+                    :placeholder="$t('Search user name')" 
                     style="
                       color: grey;
 
@@ -345,7 +351,7 @@
                   /></fieldset
               ></b-col>
               <b-col md="3"
-                ><label for="users-list-status">Status</label>
+                ><label for="users-list-status"> {{ $t('Status') }}</label>
                 <fieldset class="form-group">
                   <select
                     v-model="selectedStatus"
@@ -366,13 +372,14 @@
                 </fieldset></b-col
               >
               <b-col md="3">
-                <label for="users-list-verified">Min Amount</label>
+                <label for="users-list-verified">{{ $t('Min Amount') }}</label>
                 <fieldset class="form-group">
                   <input
                     type="number"
                     class="form-control"
                     id="users-list-amount"
-                    placeholder="Enter min amount"
+     
+                    :placeholder="$t('Enter min amount')" 
                     style="
                       color: grey;
 
@@ -383,13 +390,14 @@
                   /></fieldset
               ></b-col>
               <b-col md="3">
-                <label for="users-list-verified">Max Amount</label>
+                <label for="users-list-verified">{{ $t('Max Amount') }}</label>
                 <fieldset class="form-group">
                   <input
                     type="number"
                     class="form-control"
                     id="users-list-amount-max"
-                    placeholder="Enter max amount"
+            
+                    :placeholder="$t('Enter max amount')" 
                     style="
                       color: grey;
 
@@ -411,7 +419,8 @@
                     disabledDate: time => time.getTime() > new Date().getTime()
                   }"
                   @change="changeStartDate"
-                  placeholder="Select Start date"
+            
+:placeholder="$t('Select Start Date')" 
                 ></v2-datepicker>
               </b-col>
               <b-col md="3" class="">
@@ -426,7 +435,8 @@
                   }"
                   :disabled="this.startDate ? false : true"
                   @change="changeEndDate"
-                  placeholder="Select End date"
+             
+:placeholder="$t('Select End Date')" 
                 ></v2-datepicker>
               </b-col>
             </b-row>
@@ -438,15 +448,15 @@
               <div class="col-7">
                 <div class="card-body text-nowrap">
                   <h5 class="card-title mb-0">
-                    Congratulations {{ this.loginUserName }}! 🎉
+                        {{ $t('Congratulations') }}&nbsp;{{ this.loginUserName }}! 🎉
                   </h5>
-                  <p class="">Best seller of the month</p>
+                  <p class="">{{ $t('Best seller of the month') }}</p>
                   <h4 class="text-primary mb-1">$&nbsp;{{ totalWithDraw }}</h4>
                   <a
                     class="btn btn-primary waves-effect waves-light"
                     style="color: white; padding-top: 3px; padding-bottom: 3px"
                     @click="openWithdrawModal"
-                    >Withdraw</a
+                    > {{ $t('Withdraw') }} </a
                   >
                 </div>
               </div>
@@ -476,7 +486,7 @@
           class="card-title"
           style="margin: 0px; background-color: white; color: #000000c4"
         >
-          Payment
+             {{ $t('Payment') }}
         </h4>
         <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
         <div class="heading-elements">
@@ -668,107 +678,92 @@ export default {
       isModalOpen: false,
       columnsForAdmin: [
         {
-          label: 'User Name',
+          label: this.$t('User Name'),
           field: 'full_name',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name'
+            placeholder: this.$t('User Name')
           }
         },
         {
-          label: 'Request Date',
+          label: this.$t('Request Date'),
           field: 'request_date',
           filterOptions: {
             enabled: true,
-            placeholder: 'Request Date'
+            placeholder: this.$t('Request Date')
           }
         },
         {
-          label: 'Amount',
+          label: this.$t('Amount'),
           field: 'amount',
           filterOptions: {
             enabled: true,
-            placeholder: 'Amount'
+            placeholder: this.$t('Amount')
           }
         },
-        // {
-        //   label: 'Status',
-        //   field: 'status',
-        //   filterOptions: {
-        //     enabled: true,
-        //     placeholder: 'Status'
-        //   }
-        // },
         {
-          label: 'Notes',
+          label: this.$t('Notes'),
           field: 'notes',
           filterOptions: {
             enabled: true,
-            placeholder: 'Notes'
+            placeholder: this.$t('Notes')
           }
         },
         {
-          label: 'Reason',
+          label: this.$t('Reason'),
           field: 'reason',
           filterOptions: {
             enabled: true,
-            placeholder: 'reason'
+            placeholder: this.$t('Reason')
           }
         },
         {
-          label: 'Action',
+          label: this.$t('Action'),
           field: 'action'
         }
       ],
       columnsForRegularUser: [
         {
-          label: 'Request Date',
+          label: this.$t('Request Date'),
           field: 'request_date',
           filterOptions: {
             enabled: true,
-            placeholder: 'Request Date'
+            placeholder: this.$t('Request Date')
           }
         },
         {
-          label: 'Amount',
+          label: this.$t('Amount'),
           field: 'amount',
           filterOptions: {
             enabled: true,
-            placeholder: 'Amount'
+            placeholder: this.$t('Amount')
           }
         },
-
         {
-          label: 'Notes',
+          label: this.$t('Notes'),
           field: 'notes',
           filterOptions: {
             enabled: true,
-            placeholder: 'Notes'
+            placeholder: this.$t('Notes')
           }
         },
-
         {
-          label: 'Reason',
+          label: this.$t('Reason'),
           field: 'reason',
           filterOptions: {
             enabled: true,
-            placeholder: 'reason'
+            placeholder: this.$t('Reason')
           }
         },
         {
-          label: 'Status',
+          label: this.$t('Status'),
           field: 'status',
           filterOptions: {
             enabled: true,
-            placeholder: 'Status'
+            placeholder: this.$t('Status')
           }
         }
-        // {
-        //   label: "Action",
-        //   field: "action"
-        // }
       ],
-
       rows: [],
       originalRows: [],
       form: {
@@ -801,8 +796,9 @@ export default {
         enabled: true,
         mode: 'recordsPerPage',
         perPageDropdown: [10, 20, 50],
-        nextLabel: 'Next',
-        prevLabel: 'Previous'
+    
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
       }
     }
   },
@@ -859,10 +855,8 @@ export default {
       if (this.cancelReasonText && this.cancelReasonText.length >= 10) {
         this.deletePublisher()
       } else {
-        this.$toaster.makeToast(
-          'warning',
-          'Please enter a cancel reason with at least 10 characters'
-        )
+        this.$toaster.makeToast('warning', this.$t('Please enter a cancel reason with at least 10 characters'));
+
       }
     },
     changeStartDate (date) {
@@ -899,10 +893,8 @@ export default {
         )
 
         this.loader = false
-        this.$toaster.makeToast(
-          'success',
-          ' Payment status Approved successfully'
-        )
+        this.$toaster.makeToast('success', this.$t('Payment status Approved successfully'));
+
         this.getAllUsers()
       } catch (error) {
         this.loader = false
@@ -928,10 +920,8 @@ export default {
         )
 
         this.loader = false
-        this.$toaster.makeToast(
-          'success',
-          ' Payment status Rejected successfully'
-        )
+        this.$toaster.makeToast('success', this.$t('Payment status Rejected successfully'));
+
         this.$bvModal.hide('modal-cancelReason')
         this.cancelReasonText = ''
         this.getAllUsers()
@@ -1085,10 +1075,9 @@ export default {
         .postCall('transition/payments', user) // Assuming the endpoint for creating a user is "transition/payments" and user data is passed as the payload
         .then(response => {
           if (response && response.isError === false) {
-            this.$toaster.makeToast(
-              'success',
-              'Payment Request Sent Successfully'
-            )
+     
+            this.$toaster.makeToast('success', this.$t( 'Payment Request Sent Successfully'));
+
             this.closeModal12()
             this.loader = false
             this.amount = ''
@@ -1096,7 +1085,7 @@ export default {
             this.getAllUsers()
             // Optionally, update UI or perform other actions if needed
           } else {
-            this.$toaster.makeToast('warning', 'Payment Request Sent Fail')
+            this.$toaster.makeToast('warning', this.$t('Payment Request Sent Fail'));
           }
         })
         .catch(error => {
@@ -1116,10 +1105,14 @@ export default {
         .deleteCall(`transition/payments/${userId}`) // Assuming the endpoint for deleting a user by ID is "transition/payments/:id"
         .then(response => {
           if (response && response.isError === false) {
-            this.$toaster.makeToast('success', 'User deleted successfully')
+            this.$toaster.makeToast('success', this.$t('User deleted successfully'));
+
+           
             // Optionally, update UI or perform other actions if needed
           } else {
-            this.$toaster.makeToast('warning', 'Failed to delete user')
+        
+            this.$toaster.makeToast('warning', this.$t('Failed to delete user'));
+
           }
         })
         .catch(error => {

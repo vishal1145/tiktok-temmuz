@@ -15,13 +15,15 @@
       <b-row class="">
         <b-col md="12">
           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-            Add Creators
+               {{ $t('Add Creators') }}
           </label>
           <!-- <button @click="launchConfetti">Launch Confetti</button> -->
         </b-col>
         <b-col md="12" v-if="role == 'admin'">
           <b-form-group
-            label="Select Member"
+     
+        :label="$t('Select Member')"
+
             class="w-100"
             label-for="input-title"
           >
@@ -69,13 +71,13 @@
         </b-col>
         <b-col md="12">
           <b-form-group
-            label="TikTok Username"
+        :label="$t('TikTok User Name')"
             label-for="input-tiktok-username"
           >
             <b-form-input
               v-model="tiktok_username"
               required
-              placeholder="TikTok username"
+          :placeholder="$t('TikTok User Name')"
               type="text"
               id="input-tiktok-username"
               maxlength="25"
@@ -85,7 +87,9 @@
         <b-col md="12">
           <div class="phone-input">
             <b-form-group
-              label="Contact Number"
+
+        :label="$t('Contact Number')"
+
               label-for="input-contact-number"
             >
               <!-- <b-form-input
@@ -102,7 +106,9 @@
                 type="tel"
                 name="phone"
                 maxlength="11"
-                placeholder="Enter Mobile Number"
+               
+        :placeholder="$t('Enter Mobile Number')"
+
 
               ></b-form-input>
             </b-form-group>
@@ -148,11 +154,11 @@
         <b-col>
           <div style="display: flex" class="justify-content-end">
             <b-button v-if="role != 'admin'" class="mr-2" @click="copyUrl()">
-              Copy Referral Link
+                {{ $t('Copy Referral Link') }}
             </b-button>
             <div class="d-flex justify-content-end">
               <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()">
-                Close
+                {{ $t('Close') }}
               </b-button>
               <b-button
                 v-if="!imgLoader"
@@ -160,7 +166,8 @@
                 variant="primary ripple"
                 @click="addPublisher()"
               >
-                Add
+              {{ $t('Add') }}
+                
               </b-button>
               <div
                 class="spinner spinner-primary imgloader"
@@ -184,15 +191,17 @@
       <b-row class="">
         <b-col md="12">
           <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-            Update Creators
+               {{ $t('Update Creators') }}
+          
           </label>
         </b-col>
         <b-col md="12" class="d-none">
-          <b-form-group label="First Name" label-for="input-first-name">
+          <b-form-group  :label="$t('First name')" label-for="input-first-name">
             <b-form-input
               v-model="getFirstName"
               required
-              placeholder="First name"
+              :placeholder="$t('First name')" 
+      
               style="
                 height: 43px;
                 background-color: white;
@@ -223,11 +232,12 @@
         </b-col>
 
         <b-col md="12">
-          <b-form-group label="TikTok User Name" label-for="input-last-name">
+          <b-form-group :label="$t('TikTok User Name')" label-for="input-last-name">
             <b-form-input
               v-model="getTikTok"
               required
-              placeholder="TikTok User Name"
+              :placeholder="$t('TikTok User Name')"
+  
               style="
                 height: 43px;
                 background-color: white;
@@ -253,11 +263,12 @@
           </b-form-group>
         </b-col> -->
         <b-col md="12" class="d-none">
-          <b-form-group label="Contact number" label-for="input-title">
+          <b-form-group    :label="$t('Contact Number')" label-for="input-title">
             <b-form-input
               v-model="getphoneNumber"
               required
-              placeholder="Contact number"
+            
+              :placeholder="$t('Contact Number')" 
               @keydown="checkLengthPhoneEdt"
               style="
                 height: 43px;
@@ -272,7 +283,8 @@
         <b-col md="12">
           <div class="phone-input">
             <b-form-group
-              label="Contact Number"
+            :label="$t('Contact Number')"
+
               label-for="input-contact-number"
             >
               <!-- <b-form-input
@@ -288,7 +300,8 @@
                 id="phone"
                 type="tel"
                 name="phone"
-                placeholder="Enter Mobile Number"
+                 :placeholder="$t('Enter Mobile Number')"
+             
 
                 v-model="getphoneNumber"
                 maxlength="15"
@@ -353,14 +366,14 @@
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
             <b-button v-if="!imgLoader" class="mr-2" @click="closeModalEdit()"
-              >Close</b-button
+              >{{ $t('Close') }}</b-button
             >
             <b-button
               v-if="!imgLoader"
               class=""
               variant="primary ripple"
               @click="editPublisher()"
-              >Update</b-button
+              >{{ $t('Update') }}</b-button
             >
             <div
               class="spinner spinner-primary imgloader d-none"
@@ -470,7 +483,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Filters
+            {{ $t('Filters') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <div class="heading-elements">
@@ -501,13 +514,14 @@
         </div>
         <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
           <b-col md="3" class="">
-            <label for="users-list-search">Search</label>
+         
+            <label for="users-list-search">   {{ $t('Search') }} </label>
             <fieldset class="form-group">
               <input
                 type="text"
                 class="form-control"
                 id="users-list-search"
-                placeholder="Search..."
+:placeholder="$t('Search...')" 
                 style="
                   color: grey;
                   padding-bottom: 7px;
@@ -519,7 +533,7 @@
             </fieldset>
           </b-col>
           <b-col md="3" class="">
-            <label for="users-list-verified">Action</label>
+            <label for="users-list-verified">  {{ $t('Action') }}</label>
             <fieldset class="form-group">
               <select
                 class="form-control"
@@ -532,7 +546,7 @@
                 "
                 v-model="selectedStatus"
               >
-                <option value="">All</option>
+                <option value="">{{ $t('All') }}</option>
                 <option value="Approved">Approved</option>
                 <option value="Rejected">Rejected</option>
                 <option value="Waiting Approval">Waiting Approval</option>
@@ -544,7 +558,7 @@
           </b-col>
 
           <b-col md="3" class="d-flex flex-column">
-            <label for="users-list-search">Select Start Date</label>
+            <label for="users-list-search"> {{ $t('Select Start Date') }}</label>
 
             <v2-datepicker
               class="for-date-picker"
@@ -555,11 +569,13 @@
                 disabledDate: time => time.getTime() > new Date().getTime()
               }"
               @change="changeStartDate"
-              placeholder="Select Start date"
+
+:placeholder="$t('Select Start Date')" 
+
             ></v2-datepicker>
           </b-col>
           <b-col md="3" class="d-flex flex-column">
-            <label for="users-list-search">Select End Date</label>
+            <label for="users-list-search">{{ $t('Select End Date') }}</label>
 
             <v2-datepicker
               class="for-date-picker"
@@ -572,17 +588,19 @@
               }"
               :disabled="this.startDate ? false : true"
               @change="changeEndDate"
-              placeholder="Select End date"
+              :placeholder="$t('Select End Date')" 
+
             ></v2-datepicker>
           </b-col>
             <b-col md="3">
-            <label for="users-list-verified">Min Earnings</label>
+            <label for="users-list-verified"> {{ $t('Min Earnings') }}</label>
             <fieldset class="form-group">
               <input
                 type="number"
                 class="form-control"
                 id="users-list-amount"
-                placeholder="Enter min earning"
+              :placeholder="$t('Min Earnings')" 
+
                 style="
                   color: grey;
 
@@ -593,13 +611,15 @@
               /></fieldset
           ></b-col>
           <b-col md="3">
-            <label for="users-list-verified">Max Earnings</label>
+            <label for="users-list-verified">{{ $t('Max Earnings') }}</label>
             <fieldset class="form-group">
               <input
                 type="number"
                 class="form-control"
                 id="users-list-amount-max"
-                placeholder="Enter max earning"
+              :placeholder="$t('Max Earnings')" 
+
+             
                 style="
                   color: grey;
 
@@ -620,7 +640,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Creators
+               {{ $t('Creators') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <div class="heading-elements">
@@ -638,8 +658,8 @@
                   color: #000000a8;
                   border: 1px solid gray;
                 "
-              >
-                Add New
+              > 
+                   {{ $t('Add New') }}
               </button>
               <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
     cursor: pointer;
@@ -852,44 +872,58 @@ export default {
         //   sortable: false
         // },
         {
-          label: 'Date',
+          label: this.$t('Date'),
           field: 'createdAt',
           filterOptions: {
             enabled: true,
-            placeholder: 'Date'
+         
+            placeholder: this.$t('Date'),
           }
         },
         {
-          label: 'TikTok Name',
+         
+          label: this.$t('TikTok Name'),
           field: 'tiktok_username',
           filterOptions: {
             enabled: true,
-            placeholder: 'User Name'
+            placeholder: this.$t('TikTok Name'),
+
           }
         },
         {
-          label: 'Contact number',
+          label: this.$t('Contact Number'),
+
+     
           field: 'contact_number',
           filterOptions: {
             enabled: true,
-            placeholder: 'Contact Number'
+         
+            placeholder: this.$t('Contact Number'),
+
           }
         },
         {
-          label: 'Earnings',
+          label: this.$t('Earnings'),
+
           field: 'earnings',
           filterOptions: {
             enabled: true,
-            placeholder: 'Agency Code'
+     
+            placeholder: this.$t('Earnings'),
           }
         },
 
         {
-          label: 'Affiliate',
+          
+
+          label: this.$t('Affiliate'),
+
           field: 'user_id.tiktok_username',
           filterOptions: {
             enabled: true,
-            placeholder: 'Affiliate'
+           
+            placeholder: this.$t('Affiliate'),
+
           }
         },
         // {
@@ -905,23 +939,35 @@ export default {
         // },
 
         {
+
+          label: this.$t('Status'),
+
           label: 'Status',
           field: 'status',
           filterOptions: {
             enabled: true,
-            placeholder: 'Status'
+          
+            placeholder: this.$t('Status'),
+
           }
         },
         {
-          label: 'Reason',
+
+          label: this.$t('Reason'),
+
+      
           field: 'reason',
           filterOptions: {
             enabled: true,
-            placeholder: 'Reason'
+        
+            placeholder: this.$t('Reason'),
+
           }
         },
         {
-          label: 'Actions',
+
+          label: this.$t('Actions'),
+
           sortable: false,
           field: 'actions',
           width: '150px',
@@ -937,8 +983,10 @@ export default {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
-        nextLabel: 'Next', // Custom label for the next button
-        prevLabel: 'Previous' // Custom label for the previous button
+ 
+
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
       },
       first_name: '',
       last_name: '',
@@ -1455,7 +1503,8 @@ export default {
             //this.$bvModal.show('modal-show-referralUrl')
             //this.$toaster.makeToast('success', 'Referral create successfully')
             //if (this.role === 'admin') {
-            this.$toaster.makeToast('success', 'Data added successfully')
+              this.$toaster.makeToast('success', this.$t('Data added successfully'));
+
             // this.launchConfetti()
             //}
           }
@@ -1465,7 +1514,8 @@ export default {
             this.tiktokres.error.response.data.message.keyPattern
               .tiktok_username === 1
           ) {
-            this.$toaster.makeToast('warning', 'TikTok username already exists')
+            this.$toaster.makeToast('warning', this.$t('TikTok username already exists'));
+
           } else {
             this.$toaster.makeToast('warning', 'Error: Server Error')
           }

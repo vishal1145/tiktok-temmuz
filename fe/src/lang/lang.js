@@ -3,7 +3,7 @@ import VueI18n from 'vue-i18n';
 
 Vue.use(VueI18n);
 
-const DEFAULT_LANG = 'en'; // Default language
+const DEFAULT_LANG = 'tr'; // Default language
 
 const locales = {
   en: require('./i18n/en.json'),

@@ -12,7 +12,7 @@
         <Referal />
       </div>
 
-      <b-card title="Profile" class="for-profile">
+      <b-card :title="$t('Profile')" class="for-profile">
         <b-form>
           <b-row class="my-3">
             <!-- <img
@@ -144,7 +144,8 @@
                     variant="primary ripple"
                     @click="chooseImage()"
                   >
-                    Change Picture</b-button
+                  {{ $t('Change Picture') }}
+                   </b-button
                   >
                 </b-col>
               </div>
@@ -153,26 +154,28 @@
           </b-row>
           <b-row>
             <b-col md="6">
-              <b-form-group label="First Name" label-for="input-1">
+              <b-form-group   :label="$t('First Name')" label-for="input-1">
                 <b-form-input
                   v-model="userName"
                   type="text"
                   required
                   maxlength="20"
-                  placeholder="First Namedfdf"
+
+                  :placeholder="$t('First Name')"
                   v-on:keypress="isLetter($event)"
                 ></b-form-input>
               </b-form-group>
             </b-col>
 
             <b-col md="6">
-              <b-form-group label="Last Name" label-for="input-1">
+              <b-form-group  :label="$t('Last Name')" label-for="input-1">
                 <b-form-input
                   v-model="surName"
                   type="text"
                   maxlength="20"
                   required
-                  placeholder="Last Name"
+                   :placeholder="$t('Last Name')"
+ 
                   v-on:keypress="isLetter($event)"
                 ></b-form-input>
               </b-form-group>
@@ -180,43 +183,48 @@
           </b-row>
           <b-row>
             <b-col md="6 mb-25">
-              <b-form-group label="Tiktok Name" label-for="input-3">
+              <b-form-group  :label="$t('Tiktok Name')" label-for="input-3">
                 <b-form-input
                   v-model="tictocName"
                   type="text"
                   disabled
                   required
-                  placeholder="Enter tictoc user name"
+                  :placeholder="$t('Tiktok Name')"
+
+                
                 ></b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="6 mb-25">
-              <b-form-group label="Phone Number" label-for="input-3">
+              <b-form-group  :label="$t('Phone Number')"  label-for="input-3">
                 <b-form-input
                   v-model="phoneNumber"
                   type="number"
                   disabled
                   @keydown="checkLength"
                   required
-                  placeholder="Enter phone number"
+                   :placeholder="$t('Enter phone number')"
+          
                 ></b-form-input>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row class="">
             <b-col>
-              <label style="font-size: 20px"> Bank account details </label>
+              <label style="font-size: 20px">     {{ $t('Bank account details') }}</label>
             </b-col>
             <b-col md="12" class="">
               <b-form-group
-                label="Full Name:
-"
+               
+                   :label="$t('Full Name:')"
                 label-for="input-user-name"
               >
                 <b-form-input
                   v-model="userFullName"
                   required
-                  placeholder="Must be the same as the name of the bank account holder."
+                  
+                   :placeholder="$t('Must be the same as the name of the bank account holder.')"
+
                   type="text"
                   maxlength="17"
                   id="input-user-name"
@@ -225,13 +233,16 @@
             </b-col>
             <b-col md="12">
               <b-form-group
-                label="Identity Citizenship No"
+              :label="$t('Identity Citizenship No')"
+
                 label-for="input-citizenship"
               >
                 <b-form-input
                   v-model="citizenshipNo"
                   required
-                  placeholder="Enter Citizenship No"
+              
+                  :placeholder="$t('Identity Citizenship No')"
+
                   type="number"
                   @keydown="checkLengthCitizen"
                   id="input-citizenship"
@@ -240,11 +251,13 @@
               <!-- @keydown="validateInputAmount" -->
             </b-col>
             <b-col md="12" class="">
-              <b-form-group label="Bank Name" label-for="input-bankName">
+            
+              <b-form-group   :label="$t('Bank Name')"  label-for="input-bankName" >
                 <b-form-input
                   v-model="bankName"
                   required
-                  placeholder="Enter Bank Name"
+                   :placeholder="$t('Bank Name')"
+                 
                   type="text"
                   maxlength="17"
                   id="input-bankName"
@@ -253,11 +266,12 @@
             </b-col>
 
             <b-col md="12">
-              <b-form-group label="IBAN No" label-for="input-idbn">
+              <b-form-group   :label="$t('IBAN No')" label-for="input-idbn">
                 <b-form-input
                   v-model="idbnNo"
                   required
-                  placeholder="Enter IDBN No"
+               
+                  :placeholder="$t('IDBN No')"
                   type="text"
                   id="input-idbn"
                   maxlength="20"
@@ -343,7 +357,7 @@
                 v-if="!updateloader"
                 variant="primary ripple"
                 @click="updateUser"
-                >Update</b-button
+                >     {{ $t('Update') }}</b-button
               >
             </b-col>
           </b-row>

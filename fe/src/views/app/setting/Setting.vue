@@ -3,18 +3,19 @@
     <b-row>
       <b-col md="10">
         <div class="font-weight-bold fa-2x text-light">
-          Default Commission Rates
+         {{ $t('Default Commission Rates') }}
         </div>
       </b-col>
     </b-row>
     <hr class="mt-1" />
     <b-row>
       <b-col md="4">
-        <b-form-group label="0-3.000.000 diamonds %1" label-for="input-firstValue">
+        <b-form-group    :label="$t('0-3.000.000 diamonds %1')"  label-for="input-firstValue">
           <b-form-input
             v-model="firstValue"
             required
-            placeholder="Enter value in %"
+   
+            :placeholder="$t('Enter value in %')" 
             type="number"
             class="form-control"
            style="height: 34px"
@@ -25,11 +26,12 @@
         </b-form-group>
       </b-col>
       <b-col md="4" class="">
-        <b-form-group label="3.000.000 - 5.000.000 = diamonds %2" label-for="input-secondValue">
+        <b-form-group :label="$t('3.000.000 - 5.000.000 = diamonds %2')"  label-for="input-secondValue">
           <b-form-input
             v-model="secondValue"
             required
-            placeholder="Enter value in %"
+            :placeholder="$t('Enter value in %')" 
+            
             type="number"
             style="height: 34px"
             class="form-control"
@@ -39,11 +41,11 @@
         </b-form-group>
       </b-col>
       <b-col md="4" class="">
-        <b-form-group label="5.000.000+ diamonds %3" label-for="input-thirdValue">
+        <b-form-group  :label="$t('5.000.000+ diamonds %3')" label-for="input-thirdValue">
           <b-form-input
             v-model="thirdValue"
             required
-            placeholder="Enter value in %"
+            :placeholder="$t('Enter value in %')" 
             type="number"
             style="height: 34px"
             class="form-control"
@@ -59,7 +61,8 @@
           variant="primary ripple"
           class="mb-2 btnSmall"
           @click="clickCommission()"
-          >Update</b-button
+          >        {{ $t('Update') }}
+         </b-button
         >
       </b-col>
     </b-row>

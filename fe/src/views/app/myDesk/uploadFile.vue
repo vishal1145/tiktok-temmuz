@@ -67,7 +67,7 @@
               ></i>
             </span> -->
             <span
-              >Upload File <i class="fa fa-plus ml-2" aria-hidden="true"></i
+              >  {{ $t('Upload File') }}<i class="fa fa-plus ml-2" aria-hidden="true"></i
             ></span>
             <!-- <input type="file" ref="fileInput" style="display:none;" @change="handleFileUpload" accept=".xlsx, .xls"> -->
           </h4>
@@ -99,7 +99,8 @@
           </div>
         </div>
         <div class="d-flex flex-row card-body flex-wrap">
-          <b-form-group label="As Of Date" label-for="input-date">
+          <b-form-group   
+          :label="$t('As Of Date')" label-for="input-date">
             <b-form-input
               @change="handelDate"
               type="date"
@@ -109,7 +110,8 @@
             ></b-form-input>
           </b-form-group>
           <b-form-group
-            label="Select File"
+
+              :label="$t('Select File')"
             label-for="input-images"
             class="GappingForMobile"
           >
@@ -117,7 +119,8 @@
               class="ul-cursor--pointer"
               @change="handleFileUpload"
               accept=".xlsx, .xls"
-              placeholder="Choose files or drop them here"
+      
+              :placeholder="$t('Choose files or drop them here')" 
               drop-placeholder="Drop files here..."
             ></b-form-file>
           </b-form-group>
@@ -127,7 +130,7 @@
               @click="saveExcelData()"
               style="height: 33px;margin-top: 12px;"
              
-              >Upload</b-button
+              > {{ $t('Upload') }}</b-button
             >
           </div>
 
@@ -174,7 +177,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Uploaded File
+            {{ $t('Upload File') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <!-- <div class="heading-elements">
@@ -301,12 +304,14 @@ export default {
       selectDate: null,
       columns: [
         {
-          label: 'As Of Date',
+       
+          label: this.$t('As Of Date'),
           field: 'date',
           sortable: false
         },
         {
-          label: 'File',
+   
+          label: this.$t('File'),
           field: 'excel_url_show',
           sortable: false
         }
@@ -328,8 +333,10 @@ export default {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
-        nextLabel: 'Next', // Custom label for the next button
-        prevLabel: 'Previous' // Custom label for the previous button
+ 
+
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
       }
     }
   },
@@ -385,7 +392,8 @@ export default {
             this.uplodedFile = response.apidata.url
 
             this.fetchExcelData()
-            this.$toaster.makeToast('success', 'File upload successfully')
+            this.$toaster.makeToast('success', this.$t('File upload successfully'));
+
           }
         } catch (error) {
           this.loader = false
@@ -395,7 +403,8 @@ export default {
 
         // this.readFile(file)
       } else {
-        this.$toaster.makeToast('warning', 'Please select a file and date')
+        this.$toaster.makeToast('warning', this.$t('Please select a file and date'));
+
       }
     },
     clickView (id) {},

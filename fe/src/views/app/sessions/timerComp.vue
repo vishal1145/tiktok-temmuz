@@ -2,14 +2,14 @@
     <div class="d-flex flex-row justify-content-between">
    
       <div  class="align-self-center btn pw px-1" > 
-<span>Don't receive the OTP?&nbsp;</span>
+<span>{{ $t("Don't receive the OTP?") }}&nbsp;</span>
 
 
 
 <a >
           <span class=" px-1 pw" style="
     color: #a855f7;
-"  v-if="timeLeft <= 0 && !isWaiting" @click="repeatTimer" >Resend</span>
+"  v-if="timeLeft <= 0 && !isWaiting" @click="repeatTimer" >{{ $t("Resend") }} </span>
         </a>
       <!-- <span  class=" px-1 pw"> Resend</span> -->
       </div>

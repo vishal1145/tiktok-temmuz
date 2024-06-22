@@ -272,7 +272,7 @@
               <b-row style="align-items: center">
                 <div>
                   <div class="ul-card-widget__head-label">
-                    <h5 class="card-title px-3 pb-2 mb-0">Earning Summary</h5>
+                    <h5 class="card-title px-3 pb-2 mb-0">  {{ $t('Earning Summary') }}</h5>
                   </div>
                 </div>
                 <!-- <b-col md="6" class="text-md-right">
@@ -297,8 +297,8 @@
                   >
                     <i class="i-Money-2"></i>
                     <div class="content">
-                      <p class="text-muted mt-2 mb-0" style="width: 120px">
-                        Diamonds Revenue
+                      <p class="text-muted mt-2 mb-0" >
+                        {{ $t('Diamonds Revenue') }}
                       </p>
                       <p
                         class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -323,8 +323,8 @@
                   >
                     <i class="i-Wallet"></i>
                     <div class="content">
-                      <p class="text-muted mt-2 mb-0" style="width: 112px">
-                        Earnings Revenue
+                      <p class="text-muted mt-2 mb-0" >
+                          {{ $t('Earnings Revenue') }}
                       </p>
                       <p
                         class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
@@ -356,7 +356,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Filters
+          {{ $t('Filters') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <div class="heading-elements">
@@ -390,13 +390,13 @@
           :style="{ display: flexDivDisplay }"
         >
           <b-col md="3">
-            <label for="users-list-search">Search</label>
+            <label for="users-list-search">{{ $t('Search') }}</label>
             <fieldset class="form-group">
               <input
                 type="text"
                 class="form-control"
                 id="users-list-search"
-                placeholder="Search..."
+                :placeholder="$t('Search...')" 
                 style="
                   color: grey;
                   padding-bottom: 7px;
@@ -408,7 +408,7 @@
             </fieldset>
           </b-col>
           <b-col md="3" class="col-sm-6 col-lg-3 d-flex flex-column">
-            <label for="users-list-search">Select start date</label>
+            <label for="users-list-search"> {{ $t('Select Start Date') }}</label>
 
             <v2-datepicker
               class="for-date-picker"
@@ -419,11 +419,11 @@
                 disabledDate: time => time.getTime() > new Date().getTime()
               }"
               @change="changeStartDate"
-              placeholder="Select Start date"
+              :placeholder="$t('Select Start Date')" 
             ></v2-datepicker>
           </b-col>
           <b-col md="3" class="d-flex flex-column">
-            <label for="users-list-search">Select end date</label>
+            <label for="users-list-search">{{ $t('Select End Date') }}</label>
 
             <v2-datepicker
               class="for-date-picker"
@@ -436,7 +436,7 @@
               }"
               :disabled="this.startDate ? false : true"
               @change="changeEndDate"
-              placeholder="Select End date"
+              :placeholder="$t('Select End Date')" 
             ></v2-datepicker>
           </b-col>
         </b-row>
@@ -446,11 +446,12 @@
           class="col-12 col-sm-6 col-lg-3 paddingzero"
           style="padding-right: 0px"
         >
-          <label for="users-list-verified">Select User</label>
+          <label for="users-list-verified">{{ $t('Select User') }}</label>
           <fieldset class="form-group">
             <multiselect
               v-model="selectedName"
-              placeholder="Select User"
+              :placeholder="$t('Select User')" 
+      
               :options="[...allUsers]"
               :multiple="false"
               :limit="1"
@@ -717,56 +718,68 @@ export default {
 
         // },
         {
-          label: 'Date',
+  
+          label: this.$t('Date'),
           field: 'as_of_date',
-          filterOptions: { enabled: true, placeholder: 'Search...' }
+          filterOptions: { enabled: true, placeholder: this.$t('Date') }
         },
 
         {
-          label: 'Username',
+         
+          label: this.$t('Username'),
           field: 'creator_inf',
           filterOptions: {
             enabled: true,
-            placeholder: 'Username'
+            placeholder: this.$t('Date')
           }
         },
         {
-          label: 'Valid days this month',
+
+          label: this.$t('Valid days this month'),
           field: 'valid_days_this_month',
           filterOptions: {
             enabled: true,
-            placeholder: 'Search...'
+            placeholder: this.$t('Search...')
           }
         },
         {
-          label: 'Live duration this month',
+          label: this.$t('Live duration this month'),
+          
+        
           field: 'live_duration_this_month',
-          filterOptions: { enabled: true, placeholder: 'Search...' }
+          filterOptions: { enabled: true,  placeholder: this.$t('Search...') }
         },
 
         {
-          label: 'Diamonds this month',
+          label: this.$t('Diamonds this month'),
+         
           field: 'diamonds_this_month',
           filterOptions: {
             enabled: true,
-            placeholder: 'Search...'
+        
+            placeholder: this.$t('Search...')
           }
         },
         {
-          label: 'Earning',
+          label: this.$t('Earning'),
+
           field: 'earning',
           filterOptions: {
             enabled: true,
-            placeholder: 'Search...'
+          
+            placeholder: this.$t('Search...')
           }
         },
 
         {
-          label: 'Achieved (%)',
+          label: this.$t('Achieved (%)'),
+          
+
           field: 'percentage_achieved',
           filterOptions: {
             enabled: true,
-            placeholder: 'Search...'
+          
+            placeholder: this.$t('Search...')
           }
         }
       ],
@@ -774,8 +787,10 @@ export default {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
-        nextLabel: 'Next', // Custom label for the next button
-        prevLabel: 'Previous' // Custom label for the previous button
+      
+    
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
       }
     }
   },
@@ -1608,5 +1623,20 @@ imgloader {
   .my3 {
     margin-top: 1rem !important;
   }
+}
+
+.card-icon-bg .card-body .content {
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    max-width: 100%;
 }
 </style>

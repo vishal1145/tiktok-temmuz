@@ -2,7 +2,7 @@
   <!-- ============ Body content start ============= -->
   <div class="main-content">
     <!-- <breadcumb :page="'Version 1'" :folder="'Dashboard'" /> -->
-    <div class="font-weight-bold fa-2x text-light">Dashboard</div>
+    <div class="font-weight-bold fa-2x text-light">   {{ $t('Dashboard') }}</div>
     <hr class="mt-1" />
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
     <b-row>
@@ -14,7 +14,7 @@
         >
           <i class="i-Add-User"></i>
           <div class=" marginForCArd">
-            <p class="text-muted mt-2 mb-0">Member</p>
+            <p class="text-muted mt-2 mb-0"> {{ $t('Member') }} </p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickMember()"
@@ -30,7 +30,7 @@
         >
           <i class="i-Add-User"></i>
           <div class=" marginForCArd">
-            <p class="text-muted mt-2 mb-0">Creators</p>
+            <p class="text-muted mt-2 mb-0"> {{ $t('Creators') }}</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickCreators()"
@@ -54,7 +54,7 @@
               <p class="text-muted mb-0">Trip Amount</p>
               <p class="mb-0 text-primary pl-1">₹ {{ trip_amount }}</p>
             </div> -->
-            <p class="text-muted mt-2 mb-0">Payment Request</p>
+            <p class="text-muted mt-2 mb-0"> {{ $t('Payment Request') }}</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickPayment()"
@@ -70,7 +70,7 @@
         >
           <i class="i-Add-User"></i>
           <div class=" marginForCArd">
-            <p class="text-muted mt-2 mb-0" >Pending Member Requests</p>
+            <p class="text-muted mt-2 mb-0" >{{ $t('Pending Member Requests') }}</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickMember()"
@@ -86,7 +86,7 @@
         >
           <i class="i-Add-User"></i>
           <div class=" marginForCArd">
-            <p class="text-muted mt-2 mb-0">Pending Creators</p>
+            <p class="text-muted mt-2 mb-0"> {{ $t('Pending Creators') }}</p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickCreators()"
@@ -102,7 +102,7 @@
         >
           <i class="i-Coins"></i>
           <div class=" marginForCArd">
-            <p class="text-muted mt-2 mb-0">Total Diamonds This Month</p>
+            <p class="text-muted mt-2 mb-0">{{ $t('Total Diamonds This Month') }} </p>
             <p
               class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer"
               @click="clickCreators()"
@@ -117,7 +117,7 @@
       <b-col md="6" class="pb-3">
         <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
-            <div class="card-title">Top 5 Diamonds Members this Month</div>
+            <div class="card-title">{{ $t('Top 5 Diamonds Members this Month') }} </div>
             <vue-good-table
               :columns="diamondColumns"
               :line-numbers="true"
@@ -141,7 +141,7 @@
       <b-col md="6" class="pb-3">
         <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
-            <div class="card-title">Top 5 Earnings Members This Month ($)</div>
+            <div class="card-title"> {{ $t('Top 5 Earnings Members This Month ($)') }}</div>
             <vue-good-table
               :columns="earningsColumns"
               :line-numbers="true"
@@ -173,7 +173,7 @@
         <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
             <div class="card-title">
-              Top 5 Creators Most Diamonds This Month
+               {{ $t('Top 5 Creators Most Diamonds This Month') }}
             </div>
             <vue-good-table
               :columns="creatorColumns"
@@ -199,7 +199,7 @@
       <b-col md="6" class="pb-3">
         <div class="card mb-24" style="height: 100%;">
           <div class="card-body">
-            <div class="card-title">Top 5 Member with Most Creators</div>
+            <div class="card-title"> {{ $t('Top 5 Member with Most Creators') }}</div>
             <vue-good-table
               :columns="mostCreatorDataColumns"
               :line-numbers="true"
@@ -260,20 +260,20 @@ export default {
       creatorsData: [],
       mostCreatorData: [],
       diamondColumns: [
-        { label: 'Name', field: 'username' },
-        { label: 'Diamonds', field: 'diamonds' }
+        {  label: this.$t('Name'), field: 'username' },
+        { label: this.$t('Diamonds'), field: 'diamonds' }
       ],
       earningsColumns: [
-        { label: 'Name', field: 'username' },
-        { label: 'Earnings', field: 'earnings_show' }
+        { label: this.$t('Name'), field: 'username' },
+        { label: this.$t('Earnings'), field: 'earnings_show' }
       ],
       creatorColumns: [
-        { label: 'Name', field: 'username' },
-        { label: 'Diamonds', field: 'diamonds' }
+        { label: this.$t('Name'), field: 'username' },
+        { label: this.$t('Diamonds'), field: 'diamonds' }
       ],
       mostCreatorDataColumns: [
-        { label: 'Name', field: 'username' },
-        { label: 'creators', field: 'creators' }
+        {  label: this.$t('Name'), field: 'username' },
+        { label: this.$t('creators'), field: 'creators' }
       ]
     }
   },

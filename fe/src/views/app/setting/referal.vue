@@ -7,13 +7,16 @@
                 <div class="col-7">
                     <div class="card-body text-nowrap px-0">
                         <h5 class="card-title mb-0">
-                            Congratulations {{ this.loginUserName }}! 🎉
+                            
+                            {{ $t('Congratulations') }} {{ this.loginUserName }}! 🎉
                         </h5>
 
-                        <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile fontforALL" >
-                     <span style="
+                        <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile fontforALL" style="
     font-size: 11px;
-">  Thank you for being awesome and sharing our </span>     <span class=""> platform with others! Below is your unique referral link: </span>     
+" >
+                     <span style="
+
+">   {{ $t('Thank you for being awesome and sharing our') }}   </span>     <span class="">  {{ $t('platform with others! Below is your unique referral link:') }} </span>     
                         </p>
 
 
@@ -93,7 +96,8 @@ export default {
         .then(() => {
           this.copied = true;
           this.$emit('notify', 'URL copied to clipboard!');
-          this.$toaster.makeToast('success', 'URL copied to clipboard!')
+          this.$toaster.makeToast('success', this.$t('URL copied to clipboard!'));
+
         })
         .catch(err => {
           console.error('Could not copy text: ', err);
@@ -115,7 +119,7 @@ export default {
 
 .fontforALL
 {
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .GappingForMobile

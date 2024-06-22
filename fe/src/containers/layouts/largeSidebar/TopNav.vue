@@ -6,7 +6,7 @@
       <img src="@/assets/images/food_nav.png" style="
     width: 89px!important;
 "/>
-   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers"><i class="fa fa-plus" aria-hidden="true"></i>  &nbsp;Add Member</button></div>
+   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers"><i class="fa fa-plus" aria-hidden="true"></i>  &nbsp;   {{ $t('Add Members') }}</button></div>
   </div>
 
  
@@ -113,7 +113,7 @@
  
 
 
-    <div class="d-flex flex-row">   <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">Upload</button></div>
+    <div class="d-flex flex-row">   <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
       <b-dropdown
         id="dropdown-1"
         text="Dropdown Button"
@@ -191,7 +191,7 @@
         class="dropdown-item align-items-baseline d-flex dropdown-item flex-row"  style="cursor: pointer;gap: 16px;"
 
     >
-    <i class="nav-icon i-Home1"></i>Home
+    <i class="nav-icon i-Home1"></i>{{ $t('Home') }}
     </a>
     <a
         v-if="isAdmin === 'user'"
@@ -199,7 +199,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
 
     >
-    <i class="nav-icon i-Male-21"></i> Profile
+    <i class="nav-icon i-Male-21"></i> {{ $t('Profile') }}
     </a>
     <a
         v-if="isAdmin === 'user' || isAdmin === 'admin'"
@@ -207,7 +207,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
       
     >
-    <i class="nav-icon i-Business-ManWoman"></i>Creators
+    <i class="nav-icon i-Business-ManWoman"></i>   {{ $t('Creators') }}
     </a>
     <a
         v-if="isAdmin === 'user' || isAdmin === 'admin'"
@@ -215,7 +215,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
     
     >
-    <i class="nav-icon i-Dollar-Sign"></i>Payment Request
+    <i class="nav-icon i-Dollar-Sign"></i> {{ $t('Payment Request') }}
     </a>
     <a
         v-if="isAdmin === 'admin'"
@@ -223,7 +223,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
     
     >
-    <i class="nav-icon i-Add-File"></i>Upload
+    <i class="nav-icon i-Add-File"></i> {{ $t('Upload') }}
     </a>
     <a
         v-if="isAdmin === 'admin'"
@@ -231,7 +231,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
    
     >
-    <i class="nav-icon i-Data-Transfer"></i>Setting
+    <i class="nav-icon i-Data-Transfer"></i>{{ $t('Setting') }}
     </a>
  
     <a
@@ -240,7 +240,7 @@
         class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
 
     >
-    <i class="nav-icon i-Money-Bag"></i> Earning
+    <i class="nav-icon i-Money-Bag"></i> {{ $t('Earning') }}
     </a>
     <!-- <a
         v-if="isAdmin === 'user'"
@@ -269,7 +269,7 @@
 </div>
 
           <a class="dropdown-item" href="#"  @click.prevent="logoutUser"
-            >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
+            >{{ $t('Sign out') }}<i class="fa fa-sign-out pl-2" aria-hidden="true"></i
           ></a>
         </div>
       </b-dropdown>
@@ -1642,5 +1642,9 @@ deleteCookie(name) {
 {
   display:none;
 }
+}
+
+.btn {
+    padding: 0.5rem 1.25rem!important;
 }
 </style>

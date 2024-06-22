@@ -13,15 +13,16 @@
       centered
     >
       <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Add Members
+  {{ $t('Add Members') }}
       </label>
       <b-row class="">
         <b-col md="12">
-          <b-form-group label="First Name" label-for="input-name">
+          <b-form-group   :label="$t('First Name')" label-for="input-name">
             <b-form-input
               v-model="userName"
               required
-              placeholder="First Name"
+     
+               :placeholder="$t('First Name')"
               style="height: 34px"
               type="text"
               id="input-name"
@@ -30,11 +31,13 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Last Name" label-for="input-title">
+          <b-form-group    :label="$t('Last Name')" label-for="input-title">
             <b-form-input
               v-model="userSurName"
               required
-              placeholder="Last Name"
+           
+              :placeholder="$t('Last Name')"
+    
               style="height: 34px"
               type="text"
               id="input-name"
@@ -43,11 +46,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="TikTok Name" label-for="input-title">
+          <b-form-group    :label="$t('TikTok User Name')" label-for="input-title">
             <b-form-input
               v-model="tikTokUserName"
               required
-              placeholder="TikTok Username"
+                  :placeholder="$t('TikTok User Name')"
+    
               style="height: 34px"
               type="text"
               id="input-name"
@@ -72,7 +76,9 @@
         <b-col md="12">
           <div class="phone-input">
             <b-form-group
-              label="Contact Number"
+          
+        :label="$t('Contact Number')"
+
               label-for="input-contact-number"
             >
               <!-- <b-form-input
@@ -88,7 +94,10 @@
                 id="phone"
                 type="tel"
                 name="phone"
-                placeholder="Enter Mobile Number"
+            
+
+        :placeholder="$t('Enter Mobile Number')"
+
 
                 maxlength="11"
               ></b-form-input>
@@ -99,14 +108,14 @@
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
             <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
-              >Close</b-button
+              >  {{ $t('Close') }}</b-button
             >
             <b-button
               v-if="!imgLoader"
               class="mb-2"
               variant="primary ripple"
               @click="formSubmitAddMember()"
-              >Add</b-button
+              >  {{ $t('Add') }}</b-button
             >
             <div
               class="spinner spinner-primary imgloader"
@@ -126,15 +135,16 @@
       centered
     >
       <label class="pt-2 pb-1" style="font-size: 20px; margin: 0px">
-        Update Members
+          {{ $t('Update Members') }}
       </label>
       <b-row class="">
         <b-col md="12">
-          <b-form-group label="Enter name" label-for="input-title">
+          <b-form-group  :label="$t('First Name')" label-for="input-title">
             <b-form-input
               v-model="getuserName"
               required
-              placeholder="Enter name"
+              :placeholder="$t('First Name')"
+
               style="height: 34px"
               type="text"
               id="input-name"
@@ -142,11 +152,12 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="Enter surname" label-for="input-title">
+          <b-form-group :label="$t('Last Name')" label-for="input-title">
             <b-form-input
               v-model="getuserSurName"
               required
-              placeholder="Enter surname"
+              :placeholder="$t('Last Name')"
+
               style="height: 34px"
               type="text"
               id="input-name"
@@ -154,11 +165,11 @@
           </b-form-group>
         </b-col>
         <b-col md="12">
-          <b-form-group label="TikTok Name" label-for="input-title">
+          <b-form-group :label="$t('TikTok User Name')" label-for="input-title">
             <b-form-input
               v-model="gettikTokUserName"
               required
-              placeholder="Enter TikTok username"
+           :placeholder="$t('TikTok User Name')"
               style="height: 34px"
               type="text"
               id="input-name"
@@ -182,7 +193,7 @@
         <b-col md="12">
           <div class="phone-input">
             <b-form-group
-              label="Contact Number"
+    :label="$t('Contact Number')"
               label-for="input-contact-number"
             >
               <!-- <b-form-input
@@ -198,7 +209,7 @@
                 id="phone"
                 type="tel"
                 name="phone"
-                placeholder="Enter Mobile Number"
+        :placeholder="$t('Enter Mobile Number')"
 
                 v-model="getphoneNumber"
                 maxlength="15"
@@ -209,14 +220,14 @@
         <b-col>
           <div class="d-flex justify-content-end px-0">
             <b-button v-if="!imgLoader" class="mr-2" @click="closeEditModal()"
-              >Close</b-button
+              >  {{ $t('Close') }}</b-button
             >
             <b-button
               v-if="!imgLoader"
               class=""
               variant="primary ripple"
               @click="formSubmitEditMember()"
-              >Update</b-button
+              > {{ $t('Update') }}</b-button
             >
             <div
               class="spinner spinner-primary imgloader"
@@ -322,7 +333,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Filters
+          {{ $t('Filters') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <div class="heading-elements">
@@ -354,13 +365,14 @@
 
         <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
           <b-col md="3" class="">
-            <label for="users-list-search">Search</label>
+            <label for="users-list-search"> {{ $t('Search') }} </label>
             <fieldset class="form-group">
               <input
                 type="text"
                 class="form-control"
                 id="users-list-search"
-                placeholder="Search..."
+                :placeholder="$t('Search...')" 
+
                 style="
                   color: grey;
                   padding-bottom: 7px;
@@ -372,13 +384,13 @@
             </fieldset>
           </b-col>
           <b-col md="3">
-            <label for="users-list-verified">Min Earnings</label>
+            <label for="users-list-verified"> {{ $t('Min Earnings') }}</label>
             <fieldset class="form-group">
               <input
                 type="number"
                 class="form-control"
                 id="users-list-amount"
-                placeholder="Enter min earning"
+                :placeholder="$t('Min Earnings')" 
                 style="
                   color: grey;
 
@@ -389,13 +401,13 @@
               /></fieldset
           ></b-col>
           <b-col md="3">
-            <label for="users-list-verified">Max Earnings</label>
+            <label for="users-list-verified">{{ $t('Max Earnings') }}</label>
             <fieldset class="form-group">
               <input
                 type="number"
                 class="form-control"
                 id="users-list-amount-max"
-                placeholder="Enter max earning"
+                :placeholder="$t('Max Earnings')" 
                 style="
                   color: grey;
 
@@ -419,7 +431,7 @@
           class="card-title"
           style="margin: 0px; background-color: white; color: #000000c4"
         >
-          Members
+          {{ $t('Members') }}
         </h4>
 
         <div class="heading-elements">
@@ -440,7 +452,7 @@
               "
             >
               <span class="ul-btn__icon d-none"><i class="i-Gear-2"></i></span>
-              <span class="ul-btn__text ml-1">Add New</span>
+              <span class="ul-btn__text ml-1">    {{ $t('Add New') }} </span>
             </b-button>
           </ul>
         </div>
@@ -449,10 +461,7 @@
         <vue-good-table
           :columns="columns"
           :line-numbers="false"
-          :pagination-options="{
-            enabled: true,
-            mode: 'records',
-          }"
+           :pagination-options="paginationOptions"
           styleClass="tableOne vgt-table"
           :selectOptions="{
             enabled: false,
@@ -621,64 +630,72 @@ export default {
       // totalBalance: "",
       // securityBalance: "",
       isModalOpen: false,
-
       columns: [
-        {
-          label: "TikTok Name",
-          field: "tiktok_username",
-          filterOptions: {
-            enabled: true,
-            placeholder: "Search TikTok",
-          },
-        },
-        {
-          label: "Name",
-          field: "name",
-          filterOptions: {
-            enabled: true,
-            placeholder: "Search name",
-          },
-        },
-        {
-          label: "Contact Number",
-          field: "contact_number",
-          filterOptions: {
-            enabled: true,
-            placeholder: "Search Number",
-          },
-        },
-        {
-          label: "Diamonds This Month",
-          field: "diamonds",
-          filterOptions: {
-            enabled: true,
-            placeholder: "Diamonds This Month",
-          },
-        },
-        {
-          label: "Earnings This Month ($)",
-          field: "earnings",
-          filterOptions: {
-            enabled: true,
-            placeholder: "Earnings This Month ($)",
-          },
-        },
-        {
-          label: "Commission rate's",
-          field: "show_commission",
-          filterOptions: {
-            enabled: false,
-          },
-        },
+  {
+    label: this.$t('TikTok Name'),
+    field: "tiktok_username",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Search TikTok'),
+    },
+  },
+  {
+    label: this.$t('Name'),
+    field: "name",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Search name'),
+    },
+  },
+  {
+    label: this.$t('Contact Number'),
+    field: "contact_number",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Search Number'),
+    },
+  },
+  {
+    label: this.$t('Diamonds This Month'),
+    field: "diamonds",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Diamonds This Month'),
+    },
+  },
+  {
+    label: this.$t('Earnings This Month ($)'),
+    field: "earnings",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Earnings This Month ($)'),
+    },
+  },
+  {
+    label: this.$t("Commission rate's"),
+    field: "show_commission",
+    filterOptions: {
+      enabled: false,
+    },
+  },
+  {
+    label: this.$t('Action'),
+    field: "button",
+    filterOptions: {
+      enabled: false,
+    },
+  },
+],
+paginationOptions: {
+        enabled: true,
+        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
+        perPageDropdown: [10, 20, 50], // Set options for number of records per page
+ 
 
-        {
-          label: "Action",
-          field: "button",
-          filterOptions: {
-            enabled: false,
-          },
-        },
-      ],
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      },
+
       rows: [],
       originalRows: [],
       form: {
@@ -937,7 +954,8 @@ export default {
             this.$toaster.makeToast("warning", user.message);
           } else {
             this.imgLoader = false;
-            this.$toaster.makeToast("success", "User Update successfully");
+            this.$toaster.makeToast("success", this.$t("User Update successfully"));
+
             this.showEditModal = false;
             this.getAllUsers();
           }
@@ -951,14 +969,15 @@ export default {
     },
     formSubmitDeleteMember(data) {
       this.$swal({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
+  title: this.$t("Are you sure?"),
+  text: this.$t("You won't be able to revert this!"),
+  type: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: this.$t("Yes, delete it!"),
+})
+.then((result) => {
         if (result.isConfirmed) {
           this.loader = true;
 
@@ -973,10 +992,8 @@ export default {
 
                 this.getAllUsers();
                 setTimeout(() => {
-                  this.$toaster.makeToast(
-                    "success",
-                    "User deleted successfully"
-                  );
+                  this.$toaster.makeToast("success", this.$t("User deleted successfully"));
+
                 }, 1000);
               }
             })
@@ -1021,7 +1038,8 @@ export default {
             this.$toaster.makeToast("warning", user.message);
           } else {
             this.imgLoader = false;
-            this.$toaster.makeToast("success", "User create successfully");
+            this.$toaster.makeToast("success", this.$t("User create successfully"));
+
             this.phoneNumber = "";
 
             this.userName = "";

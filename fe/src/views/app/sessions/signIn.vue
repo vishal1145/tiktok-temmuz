@@ -23,8 +23,8 @@
                     <img :src="logo" />
                   </div>
 
-                  <h3 class="mb-1 hw">Welcome to Temmuz! 👋</h3>
-                  <p class="mb-3 pw">Sign Up or Login to get started</p>
+                  <h3 class="mb-1 hw">{{ $t('Welcome to Temmuz! 👋') }}</h3>
+                  <p class="mb-3 pw">{{ $t('Sign Up or Login to get started') }}</p>
                   <b-form
                     @submit.prevent="formSubmit"
                     id="firstForm"
@@ -33,14 +33,16 @@
                     <b-form-group class="text-12 pw mb-1" >
                       <div class="phone-input">
                         <b-form-group
-                          label="Contact Number"
+                         :label="$t('Contact Number')"
+     
                           label-for="input-contact-number"
                         >
                           <b-form-input
                             class="form-control"
                             id="phone"
                             type="tel"
-                            placeholder="Enter Mobile Number"
+                                :placeholder="$t('Enter Mobile Number')"
+                        
                              name="phone"
                              maxlength="11"
                           ></b-form-input>
@@ -86,16 +88,16 @@
                   </b-form>
 
                   <p class="pw text-center pt-2 mb-0" v-if="isShowPhone">
-                    By continue you are agree to Temmuz
+                    {{ $t('By continue you are agree to Temmuz') }}
                   </p>
 
                   <p class="text-center pw" v-if="isShowPhone">
                     <a href="auth-register-cover.html">
-                      <span>Term of Use &nbsp;</span>
+                      <span>{{ $t('Term of Use') }}  &nbsp;</span>
                     </a>
                     <span>and &nbsp;</span>
                     <a href="auth-register-cover.html">
-                      <span>Privacy Policy</span>
+                      <span>   {{ $t('Privacy Policy') }}</span>
                     </a>
                   </p>
 
@@ -1030,7 +1032,9 @@ export default {
             //   this.timerClass = 'd-flex';
             // },1000);
           } else {
-            this.$toaster.makeToast('success', 'OTP sent successfully')
+            // this.$toaster.makeToast('success', 'OTP sent successfully')
+            this.$toaster.makeToast('success', this.$t('OTP sent successfully'));
+
             //         setTimeout(() => {
             //   this.timerClass = 'd-flex';
             // }, 1000);
@@ -1066,10 +1070,12 @@ export default {
         .then(user => {
           if (user.error) {
             this.loader = false
-            this.$toaster.makeToast('warning', 'Invalid otp try again')
+            this.$toaster.makeToast('warning', this.$t('Invalid otp try again'));
+
+            // this.$toaster.makeToast('warning', 'Invalid otp try again')
           } else {
             this.loader = false
-            this.$toaster.makeToast('success', 'Login successfully')
+            this.$toaster.makeToast('success', this.$t('Login successfully'));
             localStorage.setItem('accesstoken', user.apidata.access_token)
             localStorage.setItem('role', user.apidata.role)
             localStorage.setItem('user_id', user.apidata.user_id)
@@ -1125,7 +1131,10 @@ export default {
             this.$toaster.makeToast('warning', 'otp send fail')
           } else {
             this.loader = false
-            this.$toaster.makeToast('success', 'Otp send successfully')
+            // this.$toaster.makeToast('success', 'Otp send successfully')
+            this.$toaster.makeToast('success', this.$t('Otp send successfully'));
+
+            
           }
         })
         .catch(function (error) {
@@ -1166,7 +1175,8 @@ export default {
           } else {
             this.loader = false
             // this.TimerPause()
-            this.$toaster.makeToast('success', 'OTP sent successfully')
+            this.$toaster.makeToast('success', this.$t('Otp send successfully'));
+
             this.timerClass = 'd-none'
 
             const isMemberExists = user.apidata.isMemberExists

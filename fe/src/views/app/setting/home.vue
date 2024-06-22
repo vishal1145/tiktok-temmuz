@@ -187,7 +187,7 @@
             <b-row style="align-items: center">
               <b-col md="6">
                 <div class="ul-card-widget__head-label">
-                  <h5 class="card-title">Finance Summary</h5>
+                  <h5 class="card-title">     {{ $t('Finance Summary') }}</h5>
                 </div>
               </b-col>
               <!-- <b-col md="6" class="text-md-right">
@@ -212,9 +212,7 @@
         >
           <i class="i-Money-2"></i>
           <div class="content">
-            <p class="text-muted mt-2 mb-0" style="
-    width: 120px;
-">Diamonds Revenue</p>
+            <p class="text-muted mt-2 mb-0" >  {{ $t('Diamonds Revenue') }}</p>
             <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >{{totalDiamondData}}</p>
           </div>
         </b-card>
@@ -235,9 +233,7 @@
         >
           <i class="i-Wallet"></i>
           <div class="content">
-            <p class="text-muted mt-2 mb-0" style="
-    width: 112px;
-">Earnings Revenue</p>
+            <p class="text-muted mt-2 mb-0">  {{ $t('Earnings Revenue') }}</p>
             <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" style="
     width: 78px;
 ">$ &nbsp;{{totalEarningData}}</p>
@@ -730,10 +726,8 @@ export default {
                 .tiktok_username === 1
             ) {
               this.popupLoader = false;
-              this.$toaster.makeToast(
-                'warning',
-                'TikTok username already exists'
-              )
+              this.$toaster.makeToast('warning', this.$t('TikTok username already exists'));
+
             } else {
               this.$toaster.makeToast(
                 'warning',
@@ -755,7 +749,8 @@ export default {
             this.tiktokres.error.response.data.message.keyPattern
               .tiktok_username === 1
           ) {
-            this.$toaster.makeToast('warning', 'TikTok username already exists')
+            this.$toaster.makeToast('warning', this.$t('TikTok username already exists'));
+
           } else {
             this.$toaster.makeToast('warning', 'Error: Server Error')
           }
@@ -1026,6 +1021,21 @@ table.vgt-table td {
     gap: 12px;
 
 }
+}
+
+.card-icon-bg .card-body .content {
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    max-width: 100%;
 }
 
 

@@ -20,7 +20,7 @@
     <div
       class="main-div d-flex flex-row justify-content-between overflow-hidden gifBody "
     >
-      <div class="row justify-content-center paddingMObile" style="
+      <div class="row justify-content-center paddingMObile w-100" style="
      padding-bottom: 10px;
 ">
     
