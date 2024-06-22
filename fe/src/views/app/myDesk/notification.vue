@@ -60,10 +60,10 @@ export default {
         "4 hii this mass inf. you for jhghj..",
       ],
       columns: [
-        // {
-        //   label: "Title",
-        //   field: "title",
-        // },
+        {
+          label: "Title",
+          field: "title",
+        },
         {
           label: "Notifications",
           field: "body",
@@ -79,6 +79,9 @@ export default {
       submitStatus: null,
       successMessage: false,
       errorMessage: false,
+      user_id:'',
+      role:''
+
     };
   },
   created() {
@@ -87,37 +90,56 @@ export default {
     // this.role = parsedUser.data.role;
     this.userId = parsedUser.data.id;
     // this.validationId = this.$route.query._id;
-    this.getNotificationData();
+    this.AllNotification();
+  },
+
+  mounted() {
+    this.AllNotification();
   },
   methods: {
-    getNotificationData() {
+  
+    
+    async AllNotification() {
+    
       this.loader = true;
-      this.$apiService
-        .getCall("notification/?userId=" + this.userId)
-        .then((res) => {
-          if (!res.error) {
-            this.rows = res.apidata;
-            this.rows.forEach((element) => {
-              element.created_at = element.created_at
-                ? moment(element.created_at).format("DD MMM YYYY h:mm A")
-                : "";
-            });
-            this.loader = false;
-          } else {
-            this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-            this.loader = false;
-          }
+  this.user_id = localStorage.getItem('user_id');
+  this.role = localStorage.getItem('role');
+  
 
-          this.loader = false;
-        })
-        .catch((error) => {
-          console.log(error)
-          this.$toaster.makeToast("warning", message.ERROR_MESSAGE);
-          this.loader = false;
-        });
-    },
+  let requestData = {};
+
+  if (this.role === 'user') {
+    requestData.user_id = this.user_id;
+  } else if (this.role === 'admin') {
+    requestData.user_id = ''; 
+  }
+
+
+  try {
+    const res = await this.$apiService.postCall(
+      `group_messages/all-messages`,
+      requestData
+    );
+
+    if (res.error) {
+      this.loader = false;
+      this.$toaster.makeToast("warning", res.message);
+    } else {
+      this.loader = false;
+      console.log("notificationInner", res); // Log the response received
+      this.rows = res.apidata.data; // Assign response data to a variable
+    }
+  } catch (error) {
+    this.loader = false;
+    this.$toaster.makeToast("warning", "Error: server error");
+    this.$store.commit("setError", { message: error });
+  }
+}
   },
 };
+
+
+
 </script>
 <style>
 #loader {

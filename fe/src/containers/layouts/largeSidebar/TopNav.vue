@@ -10,110 +10,227 @@
   </div>
 
  
-
-
-
-    <!-- <div
-      class="onlyFormobileView"
-      
-    >
-      <b-dropdown
-        id="dropdown-1"
-        text="Dropdown Button"
-        class="m-md-2 user align-self-end"
-        toggle-class="text-decoration-none"
-        no-caret
-        variant="link"
-        ref="dropdown"
-      >
-        <template slot="button-content">
-          <img
-            :src="userLogo"
-            style="
-              object-fit: cover;
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
-             
-            "
-            alt
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          />
-        </template>
-
-        <div class="dropdown-menu-right" aria-labelledby="userDropdown">
-          <div class="dropdown-header">
-            <i class="fa fa-user" aria-hidden="true"
-              ><span class="ml-2" style="font-size: 0.813rem">{{
-                this.userName
-              }}</span></i
-            >
-          </div>
-          
-          <a class="dropdown-item">
-            <li class="nav-item" data-item="profiledata" :data-submenu="false">
-              <router-link
-                tag="a"
-                class
-                to="/app/profiledata/profile"
-                @click.prevent="hideDropdown()"
-              >
-                <a class="nav-item-hold" href="#" @click="hideDropdown()">
-                 
-                  <span class="nav-text" style="color: black">{{
-                    $t("Profile")
-                  }}</span>
-                </a>
-                <div class="triangle"></div>
-              </router-link></li
-          ></a>
-
-          <div >
-            <a
-              @click.prevent="moveNext"
-              class="dropdown-item"
-              style="cursor: pointer"
-              >Transaction</a
-            >
-
-            <a class="dropdown-item" href="#" @click.prevent="clickBookingCar()"
-              >Booking</a
-            >
-            
-          </div>
-
-          <a class="dropdown-item" href="#" @click.prevent="logoutUser"
-            >Sign out <i class="fa fa-sign-out pl-2" aria-hidden="true"></i
-          ></a>
-        </div>
-      </b-dropdown>
-    </div>  -->
-    <!-- <div class="onlyFormobileView">
+    <div class="d-flex flex-row">  
+  
       <div
-        v-if="
-          userName !== null &&
-          userName !== undefined &&
-          role !== 'Admin' &&
-          notificationData
-        "
+      class="header-part-right hiddenWallet"
+    
+    >
+      <!-- Full screen toggle -->
+
+      <!-- <i
+        class="i-Full-Screen header-icon d-none d-sm-inline-block"
+        @click="handleFullScreen"
+      ></i> -->
+      <!-- <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen></i> -->
+      <!-- Grid menu Dropdown -->
+
+      <!-- <div class="dropdown">
+        <b-dropdown
+          id="dropdown"
+          text="Dropdown Button"
+          class="m-md-2"
+          toggle-class="text-decoration-none"
+          no-caret
+          variant="link"
+        >
+          <template slot="button-content">
+            <i
+              class="i-Safe-Box text-muted header-icon"
+              role="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            ></i>
+          </template>
+          <div class="menu-icon-grid">
+            <router-link tag="a" class to="/app/homes/home.v1">
+              <a href="#" style="color: black">
+                <i class="nav-icon i-Clock-3"></i> Home
+              </a>
+            </router-link>
+
+            <router-link tag="a" class to="/app/mydesk/mydesk">
+              <a href="#" style="color: black; width: 100px">
+                <i class="nav-icon i-Shop-4"></i> My Desk
+              </a>
+            </router-link>
+
+            <router-link tag="a" class to="/app/mydesk/template">
+              <a href="#" style="color: black">
+                <i class="nav-icon i-Shop-4"></i>Template
+              </a>
+            </router-link>
+
+            <router-link tag="a" class to="/app/accounts/Branding">
+              <a href="#" style="color: black">
+                <i class="nav-icon i-Library"></i>Account
+              </a>
+            </router-link>
+
+            <router-link tag="a" class to="/app/setting/api">
+              <a href="#" style="color: black">
+                <i class="nav-icon i-Library"></i>Setting
+              </a>
+            </router-link>
+
+            <router-link tag="a" class to="/app/mydesk/activitylogs">
+              <a href="#" style="color: black; width: px">
+                <i class="nav-icon i-Library"></i>Activity Logs
+              </a>
+            </router-link>
+            <router-link tag="a" class to="/app/mydesk/activitylogs">
+              <a class="nav-item-hold" href="#">
+                <i class="nav-icon i-Shop-4"></i>
+                <span class="nav-text">{{ $t("Activity Logs") }}</span>
+              </a>
+
+              <div class="triangle"></div>
+            </router-link>
+
+            <a href="#"> <i class="i-Checked-User"></i> Sessions </a>
+            <a href="#"> <i class="i-Ambulance"></i> Support </a>
+          </div>
+        </b-dropdown>
+      </div> -->
+
+      <div
+     
         @click="clickNotification()"
         class="position-relative ul-cursor--pointer mr-2"
       >
         <i class="fa fa-bell fa-2x text-warning" aria-hidden="true"></i>
         <div class="for-icon position-absolute text-center">
           <strong class="text-10 text-white">{{
-            notificationData.length
+            notificationAllDATA.length
           }}</strong>
         </div>
       </div>
-    </div> -->
-   
- 
+      <div
+        class="d-flex justify-content-center align-content-center"
+      
+      >
+        <div class="mr-2 align-self-center">
+          <!-- <i class="fa fa-car mr-2 text-primary" aria-hidden="true"></i> -->
+          <!-- <a
+            class="text-primary"
+            @click="clickBookCar()"
+            style="text-decoration: underline !important; cursor: pointer"
+          >
+          Book Car</a
+          > -->
+     
+          
+        </div>
+        <div class="">
+     
+        
+        </div>
+      </div>
+
+      <!-- Notificaiton -->
+
+      <div class="dropdown">
+        <b-dropdown
+          id="dropdown-1"
+          text="Dropdown Button"
+          class="m-md-2 badge-top-container"
+          toggle-class="text-decoration-none"
+          no-caret
+          variant="link"
+          v-if="scrollHide"
+        >
+          <template slot="button-content" v-if="scrollHide">
+            <span class="badge badge-primary">3</span>
+            <i class="i-Bell text-muted header-icon"></i>
+          </template>
+          <!-- Notification dropdown -->
+          <vue-perfect-scrollbar
+            :settings="{ suppressScrollX: true, wheelPropagation: false }"
+            :class="{ open: getSideBarToggleProperties.isSideNavOpen }"
+            ref="myData"
+            class="dropdown-menu-right rtl-ps-none notification-dropdown ps scroll"
+            v-if="scrollHide"
+          >
+            <!-- <div class="dropdown-menu-right rtl-ps-none notification-dropdown"> -->
+            <div class="dropdown-item d-flex">
+              <div class="notification-icon">
+                <i class="i-Speach-Bubble-6 text-primary mr-1"></i>
+              </div>
+              <div class="notification-details flex-grow-1">
+                <p class="m-0 d-flex align-items-center">
+                  <span>New message</span>
+                  <!-- <span class="badge badge-pill badge-primary ml-1 mr-1">new</span> -->
+                  <span class="flex-grow-1"></span>
+                  <span class="text-small text-muted ml-auto">10 sec ago</span>
+                </p>
+                <p class="text-small text-muted m-0">
+                  James: Hey! are you busy?
+                </p>
+              </div>
+            </div>
+            <div class="dropdown-item d-flex">
+              <div class="notification-icon">
+                <i class="i-Receipt-3 text-success mr-1"></i>
+              </div>
+              <div class="notification-details flex-grow-1">
+                <p class="m-0 d-flex align-items-center">
+                  <span>New order received</span>
+                  <!-- <span class="badge badge-pill badge-success ml-1 mr-1">new</span> -->
+                  <span class="flex-grow-1"></span>
+                  <span class="text-small text-muted ml-auto">2 hours ago</span>
+                </p>
+                <p class="text-small text-muted m-0">1 Headphone, 3 iPhone x</p>
+              </div>
+            </div>
+            <div class="dropdown-item d-flex">
+              <div class="notification-icon">
+                <i class="i-Empty-Box text-danger mr-1"></i>
+              </div>
+              <div class="notification-details flex-grow-1">
+                <p class="m-0 d-flex align-items-center">
+                  <span>Product out of stock</span>
+                  <!-- <span class="badge badge-pill badge-danger ml-1 mr-1">3</span> -->
+                  <span class="flex-grow-1"></span>
+                  <span class="text-small text-muted ml-auto"
+                    >10 hours ago</span
+                  >
+                </p>
+                <p class="text-small text-muted m-0">
+                  Headphone E67, R98, XL90, Q77
+                </p>
+              </div>
+            </div>
+            <div class="dropdown-item d-flex">
+              <div class="notification-icon">
+                <i class="i-Data-Power text-success mr-1"></i>
+              </div>
+              <div class="notification-details flex-grow-1">
+                <p class="m-0 d-flex align-items-center">
+                  <span>Server Up!</span>
+              
+                  <span class="flex-grow-1"></span>
+                  <span class="text-small text-muted ml-auto"
+                    >14 hours ago</span
+                  >
+                </p>
+                <p class="text-small text-muted m-0">
+                  Server rebooted successfully
+                </p>
+              </div>
+            </div>
+            <!-- </div> -->
+          </vue-perfect-scrollbar>
+        </b-dropdown>
+      </div>
+      <!-- Notificaiton End -->
+
+  
+    </div>
 
 
-    <div class="d-flex flex-row">  <div class="m-auto pr-2" >  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32 m-auto">
+      <div class="m-auto pr-2" >  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32 m-auto">
   <template #button-content>
     <i class="fa fa-globe" aria-hidden="true"></i> {{ $t('Language') }}
   </template>
@@ -123,7 +240,8 @@
   <b-dropdown-item @click="changeLang('tr')">
     <i class="flag-icon flag-icon-tr"></i> Türkçe
   </b-dropdown-item>
-</b-dropdown></div>  <div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
+</b-dropdown></div>  
+<div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
       <b-dropdown
         id="dropdown-2"
         text="Dropdown Button"
@@ -294,20 +412,23 @@
     >
       <template #modal-title>
         <div class="d-flex justify-content-between">
-          Notification
+          <div class="d-flex flex-row ">   Notification
           <p
-            class="text-primary ul-cursor--pointer text-decoration-underline ml-12"
+            class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0"
             style="text-decoration: underline"
             @click="clickSeeMore()"
           >
             See more
-          </p>
+          </p></div>
+          <div class="paddingLaptop"><button class="btn btn-primary" style=" padding: 5px 10px!important;"  @click="clickNotificationAdd()">Add Message</button> </div>
+
+        
         </div>
       </template>
       <b-row class="p-2">
-        <b-col v-if="notificationData.length > 0">
+        <b-col v-if="notificationAllDATA.length > 0">
           <div
-            v-for="(data, index) in notificationData"
+            v-for="(data, index) in notificationAllDATA"
             :key="index"
             class="mt-2 paddingNoti"
           >
@@ -315,11 +436,11 @@
               <b-col>
                 <div class="d-flex flex-column border-bottom">
                   <div>
-                    <!-- <p
+                    <p
                       class="font-weight-600 text-14 m-0 textColour text-gray-600"
                     >
                       {{ data.title }}
-                    </p> -->
+                    </p> 
                     <!-- {{
                         data.body.length > 42
                           ? data.body.slice(0, 42) + "..."
@@ -343,6 +464,123 @@
         </b-col>
       </b-row>
     </b-modal>
+
+    <b-modal
+      id="modal-attachment-notification-Add"
+      size="md"
+      hide-footer
+      title="Notification"
+      scrollable
+    >
+    <b-row class="">
+        <b-col md="12">
+          <b-form-group   :label="$t('Title')" label-for="input-name">
+            <b-form-input
+              v-model="title"
+              required
+     
+               :placeholder="$t('Title')"
+              style="height: 34px"
+              type="text"
+              id="input-name"
+              maxlength="20"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group    :label="$t('Body')" label-for="input-title">
+            <b-form-input
+              v-model="userSurName"
+              required
+           
+              :placeholder="$t('Body')"
+    
+              style="height: 34px"
+              type="text"
+              id="input-name"
+              maxlength="20"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col md="12">
+          <b-form-group    label-for="input-title">
+            <div><label class="typo__label">Select Member</label>
+    <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name"
+                 track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+    <pre class="language-json"><code>{{ value }}</code></pre>
+  </div>
+          </b-form-group>
+        </b-col>
+        <!-- <b-col md="12" class="px-0">
+          <b-form-group label="Contact number" label-for="input-title">
+            <b-form-input
+              v-model="phoneNumber"
+              required
+              placeholder="Phone number"
+              style="height: 34px"
+              type="number"
+              @keydown="checkLength"
+              id="input-phoneNumber"
+            ></b-form-input>
+          </b-form-group>
+        </b-col> -->
+
+        <b-col md="12">
+          <div class="phone-input">
+            <b-form-group
+          
+        :label="$t('Contact Number')"
+
+              label-for="input-contact-number"
+            >
+              <!-- <b-form-input
+           v-model="contact_number"
+           required
+           placeholder="Contact number"
+           type="number"
+           @keydown="checkLengthPhone"
+           id="input-contact-number"
+         ></b-form-input> -->
+              <b-form-input
+                class="form-control border-0"
+                id="phone"
+                type="tel"
+                name="phone"
+            
+
+        :placeholder="$t('Enter Mobile Number')"
+
+
+                maxlength="11"
+              ></b-form-input>
+            </b-form-group>
+          </div>
+        </b-col>
+        <b-col>
+          <div class="d-flex justify-content-end">
+            <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
+            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
+              >  {{ $t('Close') }}</b-button
+            >
+            <b-button
+              v-if="!imgLoader"
+              class="mb-2"
+              variant="primary ripple"
+              @click="formSubmitAddMember()"
+              >  {{ $t('Add') }}</b-button
+            >
+            <div
+              class="spinner spinner-primary imgloader"
+              v-if="imgLoader"
+            ></div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+
+
+
     <b-modal
       id="modal-signIn"
       title="Sign In"
@@ -712,6 +950,7 @@
   <!-- header top menu end -->
 </template>
 <script>
+import Multiselect from 'vue-multiselect'
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import i18n, { changeLanguage } from '../../../lang/lang';
 
@@ -731,10 +970,20 @@ export default {
   components: {
     Sidebar,
     searchComponent,
+    Multiselect
   },
 
   data() {
     return {
+
+      value: [
+        {name: 'Javascript', code: 'js'}
+      ],
+      options: [
+        {name: 'Vue.js', code: 'vu'},
+        {name: 'Javascript', code: 'js'},
+        {name: 'Open Source', code: 'os'}
+      ],
       img: img,
      
       referral: "",
@@ -789,6 +1038,9 @@ export default {
       notFound: false,
       id: null,
       isAdmin:'',
+      user_id:'',
+      role:'',
+      notificationAllDATA:''
     };
   },
   validations: {
@@ -831,6 +1083,7 @@ export default {
     // document.addEventListener("click", this.closeMegaMenu);
   },
   created() {
+    this.AllNotification();
     var storedUser = localStorage.getItem("role"); 
 
 // var parsedUser = JSON.parse(storedUser);
@@ -846,12 +1099,21 @@ export default {
   },
 
   methods: {
+    addTag (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      }
+      this.options.push(tag)
+      this.value.push(tag)
+    }
+  ,
     ...mapActions(["login"]),
     moveNext() {
       this.$router.push("/app/mydesk/transaction");
       this.$refs.dropdown.hide();
     },
-    changeLang(lang) {
+        changeLang(lang) {
       if (this.currentLang !== lang) {
         this.showContent = false;  // Hide the content to trigger the transition
         setTimeout(() => {
@@ -966,6 +1228,11 @@ export default {
     clickNotification() {
       // this.$router.push("/app/myDesk/notification");
       this.$bvModal.show("modal-attachment-notification");
+    },
+    clickNotificationAdd() {
+      // this.$router.push("/app/myDesk/notification");
+      this.$bvModal.show("modal-attachment-notification-Add");
+      this.$bvModal.hide("modal-attachment-notification");
     },
     clickSeeMore() {
       this.$bvModal.hide("modal-attachment-notification");
@@ -1442,11 +1709,49 @@ deleteCookie(name) {
         // console.log("4");
       }
     },
+
+    async AllNotification() {
+      this.user_id = localStorage.getItem('user_id');
+  this.role = localStorage.getItem('role');
+  this.loader = true;
+
+  let requestData = {};
+
+  if (this.role === 'user') {
+    requestData.user_id = this.user_id;
+  } else if (this.role === 'admin') {
+    requestData.user_id = ''; 
+  }
+
+
+  try {
+    const res = await this.$apiService.postCall(
+      `group_messages/all-messages`,
+      requestData
+    );
+
+    if (res.error) {
+      this.loader = false;
+      this.$toaster.makeToast("warning", res.message);
+    } else {
+      this.loader = false;
+      console.log("notification", res); // Log the response received
+      this.notificationAllDATA = res.apidata.data; // Assign response data to a variable
+    }
+  } catch (error) {
+    this.loader = false;
+    this.$toaster.makeToast("warning", "Error: server error");
+    this.$store.commit("setError", { message: error });
+  }
+}
+
   },
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style>
+
 
 .referral-link {
   font-style: italic;
@@ -1547,7 +1852,10 @@ deleteCookie(name) {
   /* padding-left: 80px; */
   /* margin-right: 90px; */
 }
-
+.paddingLaptop
+{
+  padding-left: 160px;
+}
 .dropdown-toggle::after {
   position: absolute;
   top: calc(50% - 4px);
@@ -1635,7 +1943,10 @@ deleteCookie(name) {
   .main-header .nav-logo img {
     margin-left: 0 !important;
   }
-
+  .paddingLaptop
+{
+  padding-left: 22px;
+}
 
  
 }
@@ -1655,6 +1966,10 @@ deleteCookie(name) {
 {
   display:none;
 }
+.paddingLaptop
+{
+  padding-left: 22px;
+}
 }
 
 /* For tablets (481px to 768px) */
@@ -1662,6 +1977,10 @@ deleteCookie(name) {
 .displayNone
 {
   display:none;
+}
+.paddingLaptop
+{
+  padding-left: 22px;
 }
 }
 
@@ -1710,5 +2029,9 @@ deleteCookie(name) {
 
 .dropdown-item {
     padding: 0.42rem 0.5rem;
+}
+.language-json
+{
+  display:none
 }
 </style>
