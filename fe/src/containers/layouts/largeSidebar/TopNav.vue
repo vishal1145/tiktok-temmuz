@@ -409,8 +409,13 @@
       hide-footer
       title="Notification"
       scrollable
+      style="
+    padding: 0rem!important;
+"
     >
-      <template #modal-title>
+      <template #modal-title style="
+    padding: 0rem!important;
+">
         <div class="d-flex justify-content-between pw">
       
           <div class="d-flex flex-row ">   Notification
@@ -427,18 +432,31 @@
           >
             <b-row>
               <b-col>
-                <div class="d-flex flex-column border-bottom">
+                <div class="d-flex flex-column px-0 border-bottom">
+                  <div class="d-flex flex-row">
+                       <div class="pr-3">
+                        <img
+            :src="userLogo"
+            style="
+              object-fit: cover;
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+             
+            "
+            alt
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          
+          />
+                  </div>
                   <div>
                     <p
                       class="font-weight-600 text-14 m-0 textColour text-gray-600"
                     >
                       {{ data.title }}
                     </p> 
-                    <!-- {{
-                        data.body.length > 42
-                          ? data.body.slice(0, 42) + "..."
-                          : data.body
-                      }} -->
                     <p class="font-weight-300 text-12 m-0 text-gray-800">
                       {{ data.body }}
                     </p>
@@ -447,6 +465,8 @@
                   <div class="align-self-end text-gray-500 text-10 pb-1">
                     {{ data.created_at }}
                   </div>
+                  </div>
+               
                 </div>
               </b-col>
             </b-row>
@@ -2040,5 +2060,11 @@ deleteCookie(name) {
 .language-json
 {
   display:none
+}
+
+#modal-attachment-notification___BV_modal_body_
+
+{
+  padding: 0rem!important;
 }
 </style>
