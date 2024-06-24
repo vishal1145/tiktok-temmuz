@@ -1050,15 +1050,8 @@ h6,
 .gifBody {
   background: url('../../../assets/reference-link-page-background_360.gif') no-repeat center center fixed;
 
-  background-size: cover; /* This will ensure the gif covers the entire background */
-  width: 100vw; /* Make sure the width covers the whole viewport */
-  height: 100vh; /* Make sure the height covers the whole viewport */
-
-
-
-    /* height: 100vh; */
-    padding-top: 10px;
-    padding-bottom: 10px !important;
+  background-size: cover;
+  width: 100vw; 
 
 }
 .form-control {
