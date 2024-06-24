@@ -403,93 +403,81 @@
       </b-dropdown>
   </div>
 
-    <b-modal
-      id="modal-attachment-notification"
-      size="md"
-      hide-footer
-      title="Notification"
-      scrollable
-      style="
-    padding: 0rem!important;
-"
-    >
-      <template #modal-title style="
-    padding: 0rem!important;
-">
-        <div class="d-flex justify-content-between pw">
-      
-          <div class="d-flex flex-row ">   Notification
-        </div>
-        
-        </div>
-      </template>
-      <b-row class="">
-        <b-col v-if="notificationAllDATA.length > 0">
-          <div
-            v-for="(data, index) in notificationAllDATA"
-            :key="index"
-            class="mt-2 paddingNoti"
-          >
-            <b-row>
-              <b-col>
-                <div class="d-flex flex-column px-0 border-bottom">
-                  <div class="d-flex flex-row justify-content-between">
-                    <div class="d-flex flex-row">
-                          <div class="pr-3">
-                        <img
-            :src="userLogo"
-            style="
-              object-fit: cover;
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
-             
-            "
-            alt
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          
-          />
-                  </div>
-                  <div>
-                    <p
-                      class="font-weight-600 text-14 m-0 textColour text-gray-600"
-                    >
-                      {{ data.title }}
-                    </p> 
-                    <p class="font-weight-300 text-12 m-0 text-gray-800">
-                      {{ data.body }}
-                    </p>
-                  </div>
+  <b-modal
+  id="modal-attachment-notification"
+  size="md"
+  hide-footer
+  title="Notification"
+  style="padding: 0rem!important;"
+>
+  <template #modal-title style="padding: 0rem!important;">
+    <div class="d-flex justify-content-between pw fixed-header">
+      <div class="d-flex flex-row">    {{ $t('Notification') }}</div>
+    </div>
+  </template>
+  <div class="modal-body-scrollable">
+    <b-row>
+      <b-col v-if="notificationAllDATA.length > 0">
+        <div
+          v-for="(data, index) in notificationAllDATA"
+          :key="index"
+          class="mt-2 paddingNoti"
+        >
+          <b-row>
+            <b-col>
+              <div class="d-flex flex-column px-0 border-bottom">
+                <div class="d-flex flex-row justify-content-between">
+                  <div class="d-flex flex-row">
+                    <div class="pr-3">
+                      <img
+                        :src="userLogo"
+                        style="
+                          object-fit: cover;
+                          width: 35px;
+                          height: 35px;
+                          border-radius: 50%;
+                        "
+                        alt
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      />
                     </div>
-                   
-
+                    <div>
+                      <p
+                        class="font-weight-600 text-14 m-0 textColour text-gray-600"
+                      >
+                        {{ data.title }}
+                      </p>
+                      <p class="font-weight-300 text-12 m-0 text-gray-800">
+                        {{ data.body }}
+                      </p>
+                    </div>
+                  </div>
                   <div class="align-self-end text-gray-500 text-10 pb-1">
                     {{ data.createdAt }}
                   </div>
-                  </div>
-               
                 </div>
-              </b-col>
-            </b-row>
-          </div>
-          <div class="d-flex flex-row ">   
+              </div>
+            </b-col>
+          </b-row>
+        </div>
+        <div class="d-flex flex-row">
           <p
             class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0 my-2"
             style="text-decoration: underline"
             @click="clickSeeMore()"
           >
-            See more
-          </p></div>
-       
-        </b-col>
-        
-        <b-col v-else class="text-center">
-          <div>No notification</div>
-        </b-col>
-      </b-row>
-    </b-modal>
+              {{ $t('See more') }}
+          </p>
+        </div>
+      </b-col>
+      <b-col v-else class="text-center">
+        <div>  {{ $t('No notification') }}</div>
+      </b-col>
+    </b-row>
+  </div>
+</b-modal>
 
     <b-modal
       id="modal-attachment-notification-Add"
@@ -2083,5 +2071,19 @@ deleteCookie(name) {
     padding-right: 0.5rem !important;
     padding-left: 0.5rem !important;
     padding-top: 0.5rem !important;
+}
+
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+.modal-body-scrollable {
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x:hidden
 }
 </style>

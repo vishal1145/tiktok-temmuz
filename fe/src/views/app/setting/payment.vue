@@ -676,7 +676,51 @@ export default {
       // totalBalance: "",
       // securityBalance: "",
       isModalOpen: false,
-      columnsForAdmin: [
+    
+  
+      rows: [],
+      originalRows: [],
+      form: {
+        templateId: '',
+        name: '',
+        content: ''
+      },
+      generateIDloader: false,
+      submitloader: false,
+      isEdit: false,
+      loader: false,
+      isHide: false,
+      flexDivDisplay: 'flex!important',
+      matchUser: '',
+
+      name: '',
+      contact_number: '',
+      email: '',
+
+      userName: '', // Initialize userName variable
+      amount: '',
+      status: '',
+      notes: '',
+      UserID: '',
+      rejectedId: '',
+
+      filteredFaqs: [],
+      loginUserName: '',
+      paginationOptions: {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+    
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      }
+    }
+  },
+
+  computed: {
+
+    columnsForAdmin() {
+      return  [
         {
           label: this.$t('User Name'),
           field: 'full_name',
@@ -721,8 +765,10 @@ export default {
           label: this.$t('Action'),
           field: 'action'
         }
-      ],
-      columnsForRegularUser: [
+      ];},
+
+      columnsForRegularUser() {
+        return  [
         {
           label: this.$t('Request Date'),
           field: 'request_date',
@@ -763,47 +809,7 @@ export default {
             placeholder: this.$t('Status')
           }
         }
-      ],
-      rows: [],
-      originalRows: [],
-      form: {
-        templateId: '',
-        name: '',
-        content: ''
-      },
-      generateIDloader: false,
-      submitloader: false,
-      isEdit: false,
-      loader: false,
-      isHide: false,
-      flexDivDisplay: 'flex!important',
-      matchUser: '',
-
-      name: '',
-      contact_number: '',
-      email: '',
-
-      userName: '', // Initialize userName variable
-      amount: '',
-      status: '',
-      notes: '',
-      UserID: '',
-      rejectedId: '',
-
-      filteredFaqs: [],
-      loginUserName: '',
-      paginationOptions: {
-        enabled: true,
-        mode: 'recordsPerPage',
-        perPageDropdown: [10, 20, 50],
-    
-        nextLabel: this.$t('Next'),
-        prevLabel: this.$t('Previous'),
-      }
-    }
-  },
-
-  computed: {
+      ];},
     filteredRows () {
       const query = this.searchTerm.toLowerCase().trim()
       const amount_data = this.searchAmount.trim()

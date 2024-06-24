@@ -576,61 +576,8 @@ export default {
     multiselect: Multiselect,
   },
   computed: {
-    filteredRows() {
-      const query = this.searchTerm.toLowerCase().trim();
-      const amount_data = this.searchAmount.trim();
-      const amount_data_max = this.searchMaxAmount.trim();
-
-      return this.rows.filter((row) => {
-        const matchesQuery = query
-          ? (row.tiktok_username &&
-              row.tiktok_username.toLowerCase().includes(query)) ||
-            (row.name && row.surname.toLowerCase().includes(query)) ||
-            (row.contact_number &&
-              String(row.contact_number).toLowerCase().includes(query)) ||
-            (row.earnings &&
-              String(row.earnings).toLowerCase().includes(query)) ||
-            (row.diamonds && String(row.diamonds).toLowerCase().includes(query))
-          : true;
-        const itemAmount = row.earnings;
-        const matchesAmount =
-          (amount_data ? itemAmount >= amount_data : true) &&
-          (amount_data_max ? itemAmount <= amount_data_max : true);
-
-        return matchesQuery && matchesAmount;
-      });
-    },
-  },
-
-  data() {
-    return {
-      filterStatus: "Approved",
-      searchTerm: "",
-      rows: [],
-      searchMaxAmount: "",
-      searchAmount: "",
-      showAddModal: false,
-      pageReloaded: false,
-      showEditModal: false,
-      logo: require("@/assets/images/faces/17.jpg"),
-      use_id: null,
-      matchUser: "",
-      allUsers: [],
-      role: "",
-      selected: null,
-      aadharFront: null,
-      aadharBack: null,
-      divinglicense: null,
-      divinglicenseBack: null,
-      passportBack: null,
-      passport: null,
-      isView: false,
-      // userBalance: "",
-      // referralBalance: "",
-      // totalBalance: "",
-      // securityBalance: "",
-      isModalOpen: false,
-      columns: [
+    columns() {
+      return [
   {
     label: this.$t('TikTok Name'),
     field: "tiktok_username",
@@ -685,7 +632,62 @@ export default {
       enabled: false,
     },
   },
-],
+];},
+    filteredRows() {
+      const query = this.searchTerm.toLowerCase().trim();
+      const amount_data = this.searchAmount.trim();
+      const amount_data_max = this.searchMaxAmount.trim();
+
+      return this.rows.filter((row) => {
+        const matchesQuery = query
+          ? (row.tiktok_username &&
+              row.tiktok_username.toLowerCase().includes(query)) ||
+            (row.name && row.surname.toLowerCase().includes(query)) ||
+            (row.contact_number &&
+              String(row.contact_number).toLowerCase().includes(query)) ||
+            (row.earnings &&
+              String(row.earnings).toLowerCase().includes(query)) ||
+            (row.diamonds && String(row.diamonds).toLowerCase().includes(query))
+          : true;
+        const itemAmount = row.earnings;
+        const matchesAmount =
+          (amount_data ? itemAmount >= amount_data : true) &&
+          (amount_data_max ? itemAmount <= amount_data_max : true);
+
+        return matchesQuery && matchesAmount;
+      });
+    },
+  },
+
+  data() {
+    return {
+      filterStatus: "Approved",
+      searchTerm: "",
+      rows: [],
+      searchMaxAmount: "",
+      searchAmount: "",
+      showAddModal: false,
+      pageReloaded: false,
+      showEditModal: false,
+      logo: require("@/assets/images/faces/17.jpg"),
+      use_id: null,
+      matchUser: "",
+      allUsers: [],
+      role: "",
+      selected: null,
+      aadharFront: null,
+      aadharBack: null,
+      divinglicense: null,
+      divinglicenseBack: null,
+      passportBack: null,
+      passport: null,
+      isView: false,
+      // userBalance: "",
+      // referralBalance: "",
+      // totalBalance: "",
+      // securityBalance: "",
+      isModalOpen: false,
+
 paginationOptions: {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'

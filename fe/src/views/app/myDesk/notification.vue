@@ -182,7 +182,7 @@
             >
               <button
              @click="clickNotificationAdd()"
-                class="btn btn-primary mb-3"
+                class="btn btn-primary "
                 style="
                   padding-top: 2px;
                   padding-bottom: 2px;
@@ -364,6 +364,8 @@ export default {
     Multiselect
   },
 
+
+
   data() {
     return {
       title:'',
@@ -386,51 +388,7 @@ export default {
         "3 hii this mass inf. you forjjg ..",
         "4 hii this mass inf. you for jhghj..",
       ],
-      columns: [
-     
-
-
-        {
-
-label: this.$t('Title'),
-
-field: 'title',
-filterOptions: {
-  enabled: true,
-
-  placeholder: this.$t('Title'),
-
-}
-},
-{
-
-label: this.$t('Notifications'),
-
-
-field: 'body',
-filterOptions: {
-  enabled: true,
-
-  placeholder: this.$t('Notifications'),
-
-}
-},
-{
-
-label: this.$t('Date/time'),
-
-
-field: 'createdAt',
-filterOptions: {
-  enabled: true,
-
-  placeholder: this.$t('Date/time'),
-
-}
-},
-
-
-      ],
+  
       paginationOptions: {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
@@ -457,6 +415,53 @@ filterOptions: {
   },
   computed:
   {
+
+    columns() {
+      return  [
+     
+
+
+     {
+
+label: this.$t('Title'),
+
+field: 'title',
+filterOptions: {
+enabled: true,
+
+placeholder: this.$t('Title'),
+
+}
+},
+{
+
+label: this.$t('Notifications'),
+
+
+field: 'body',
+filterOptions: {
+enabled: true,
+
+placeholder: this.$t('Notifications'),
+
+}
+},
+{
+
+label: this.$t('Date/time'),
+
+
+field: 'createdAt',
+filterOptions: {
+enabled: true,
+
+placeholder: this.$t('Date/time'),
+
+}
+},
+
+
+   ];},
     filteredRows() {
 
       const query = this.searchTerm.toLowerCase().trim()

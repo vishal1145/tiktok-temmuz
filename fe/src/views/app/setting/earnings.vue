@@ -711,7 +711,31 @@ export default {
       uplodedImages: '',
       images: null,
       isEdit: false,
-      columns: [
+ 
+      paginationOptions: {
+        enabled: true,
+        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
+        perPageDropdown: [10, 20, 50], // Set options for number of records per page
+      
+    
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      }
+    }
+  },
+  // mounted () {
+  //   this.clearFilters()
+  // },
+  computed: {
+    //     isDataEmpty() {
+    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
+    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
+    //     }
+    // ,
+
+
+    columns() {
+        return [
         // {
         //   label: 'Icons',
         //   field: 'show_img'
@@ -782,27 +806,7 @@ export default {
             placeholder: this.$t('Search...')
           }
         }
-      ],
-      paginationOptions: {
-        enabled: true,
-        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
-        perPageDropdown: [10, 20, 50], // Set options for number of records per page
-      
-    
-        nextLabel: this.$t('Next'),
-        prevLabel: this.$t('Previous'),
-      }
-    }
-  },
-  // mounted () {
-  //   this.clearFilters()
-  // },
-  computed: {
-    //     isDataEmpty() {
-    //       const { dates, diamonds, earnings } = this.yearAreaWidget;
-    //       return dates.length === 0 && diamonds.length === 0 && earnings.length === 0;
-    //     }
-    // ,
+      ];},
     filteredRows () {
       const query = this.searchTerm.toLowerCase().trim()
       const selectName = this.selectedName

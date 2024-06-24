@@ -865,7 +865,38 @@ export default {
       uplodedImages: '',
       images: null,
       isEdit: false,
-      columns: [
+     
+      paginationOptions: {
+        enabled: true,
+        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
+        perPageDropdown: [10, 20, 50], // Set options for number of records per page
+ 
+
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      },
+      first_name: '',
+      last_name: '',
+      tiktok_username: '',
+      contact_number: '',
+      agency_center_code: '',
+      icon: '',
+      ForDropwDow: [],
+      getFirstName: '',
+      getLastName: '',
+      getTikTok: '',
+      tiktokres: {},
+      selectedStatus: '',
+      searchTerm: ''
+    }
+  },
+  mounted() {
+    // this.clearFilters()
+
+  },
+  computed: {
+    columns() {
+      return[
         // {
         //   label: 'Icons',
         //   field: 'show_img',
@@ -978,36 +1009,7 @@ export default {
             `
           }
         }
-      ],
-      paginationOptions: {
-        enabled: true,
-        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
-        perPageDropdown: [10, 20, 50], // Set options for number of records per page
- 
-
-        nextLabel: this.$t('Next'),
-        prevLabel: this.$t('Previous'),
-      },
-      first_name: '',
-      last_name: '',
-      tiktok_username: '',
-      contact_number: '',
-      agency_center_code: '',
-      icon: '',
-      ForDropwDow: [],
-      getFirstName: '',
-      getLastName: '',
-      getTikTok: '',
-      tiktokres: {},
-      selectedStatus: '',
-      searchTerm: ''
-    }
-  },
-  mounted() {
-    // this.clearFilters()
-
-  },
-  computed: {
+      ];},
     filteredRows() {
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus;
@@ -1067,7 +1069,8 @@ export default {
       if (newDate) {
         this.fetchPublisher()
       }
-    }
+    },
+ 
   },
 
   methods: {
