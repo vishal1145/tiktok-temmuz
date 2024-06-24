@@ -409,7 +409,6 @@
           </b-col>
           <b-col md="3" class="col-sm-6 col-lg-3 d-flex flex-column">
             <label for="users-list-search"> {{ $t('Select Start Date') }}</label>
-
             <v2-datepicker
               class="for-date-picker"
               lang="en"
@@ -419,12 +418,15 @@
                 disabledDate: time => time.getTime() > new Date().getTime()
               }"
               @change="changeStartDate"
-              :placeholder="$t('Select Start Date')" 
+
+:placeholder="$t('Select Start Date')" 
+
             ></v2-datepicker>
           </b-col>
           <b-col md="3" class="d-flex flex-column">
             <label for="users-list-search">{{ $t('Select End Date') }}</label>
 
+ 
             <v2-datepicker
               class="for-date-picker"
               lang="en"
@@ -437,14 +439,16 @@
               :disabled="this.startDate ? false : true"
               @change="changeEndDate"
               :placeholder="$t('Select End Date')" 
+
             ></v2-datepicker>
           </b-col>
         </b-row>
 
         <div
-          v-if="showChart"
+          v-if="role != 'user'"
           class="col-12 col-sm-6 col-lg-3 paddingzero"
           style="padding-right: 0px"
+          
         >
           <label for="users-list-verified">{{ $t('Select User') }}</label>
           <fieldset class="form-group">
@@ -459,7 +463,7 @@
             ></multiselect>
           </fieldset>
         </div>
-        <div class="col-12 col-sm-6 col-lg-3 paddingzero" style="display: none">
+        <!-- <div class="col-12 col-sm-6 col-lg-3 paddingzero" style="display: none">
           <label for="start-date">Start Date</label>
           <input
             type="date"
@@ -477,7 +481,7 @@
             v-model="endDate"
             class="form-control"
           />
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -678,8 +682,7 @@ export default {
 
       rows: [],
       flexDivDisplay: 'flex!important',
-      startDate: '',
-      endDate: '',
+ 
       searchTerm: '',
       filterStatus: '',
       faqs: [],
@@ -827,16 +830,16 @@ export default {
               row.percentage_achieved.toLowerCase().includes(query))
           : true
 
-        // Check if the selected name matches the creator_inf
+       
         const matchName = selectName
           ? row.creator_inf === selectName.creator_inf
           : true
-        const itemDate = new Date(row.createdAt)
+          const itemDate = new Date(moment(row.as_of_date).format('DD MMM YYYY'))
         const matchesDate =
           (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
           (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
-        // Return true if both conditions are met
+       
         return matchesQuery && matchName && matchesDate
       })
     },
@@ -1121,6 +1124,8 @@ export default {
       this.searchTerm = ''
       this.filterStatus = ''
       this.selectedName = ''
+      this.startDate=''
+      this.endDate=''
       this.getEarningData()
     },
     onSearchTermChange (event) {
@@ -1200,11 +1205,16 @@ export default {
           else {
             const userData = response.apidata.data
             userData.forEach(e => {
-              e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY')
+              e.as_of_date = moment(e.as_of_date).format('DD MMM YYYY h:mm A')
             })
+
+            
             this.rows = userData
             console.log(userData)
             this.allUsers = userData
+
+
+
           }
         })
         .catch(error => {
@@ -1474,6 +1484,13 @@ export default {
     },
     closeModalEdit () {
       this.showAddModalEdit = false // Set showAddModal to false to hide the modal
+    },
+
+    changeStartDate(date) {
+      this.startDate = moment(date).format('DD MMM YYYY') //
+    },
+    changeEndDate(date) {
+      this.endDate = moment(date).format('DD MMM YYYY')
     },
 
     addCssRule () {

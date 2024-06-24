@@ -89,7 +89,7 @@
             </fieldset>
           </b-col>
 
-          <b-col md="3" class="d-none flex-column">
+          <b-col md="3" class="d-flex flex-column">
             <label for="users-list-search"> {{ $t('Select Start Date') }}</label>
 
             <v2-datepicker
@@ -106,7 +106,7 @@
 
             ></v2-datepicker>
           </b-col>
-          <b-col md="3" class="d-none flex-column">
+          <b-col md="3" class="d-flex flex-column">
             <label for="users-list-search">{{ $t('Select End Date') }}</label>
 
             <v2-datepicker
@@ -368,6 +368,8 @@ export default {
 
   data() {
     return {
+      startDate:'',
+      endDate:'',
       title:'',
       body:'',
       selectedUsers: [],
@@ -472,9 +474,12 @@ placeholder: this.$t('Date/time'),
             (row.title &&
               row.title.toLowerCase().includes(query))
           : true
+          const itemDate = new Date(moment(row.createdAt).format('DD MMM YYYY'))
+        const matchesDate =
+          (this.startDate ? itemDate >= new Date(this.startDate) : true) &&
+          (this.endDate ? itemDate <= new Date(this.endDate) : true)
 
-
-        return matchesQuery 
+        return matchesQuery && matchesDate
       })
     },
     displaySelectedUsers() {
