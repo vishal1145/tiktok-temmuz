@@ -6,6 +6,6 @@ const messageSchema = new mongoose.Schema({
   sender_id: { type: String },
   target_id: [{ type: String }],
   for_all: { type: Boolean },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("message", messageSchema);
