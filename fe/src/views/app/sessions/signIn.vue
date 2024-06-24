@@ -13,9 +13,9 @@
                     <div class="col-lg-6 col-12 p-0 marginformobile"  style=" 
     background-color: rgba(255,255,255,255);
 ">    <div class="d-flex flex-row justify-content-end">
-  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32">
+  <b-dropdown id="dropdown-1" :text="dropdownText" class="m-md-2 btn32">
   <template #button-content>
-    <i class="fa fa-globe" aria-hidden="true"></i> {{ $t('Language') }}
+    <i class="fa fa-globe" aria-hidden="true"></i> {{ dropdownText }}
   </template>
   <b-dropdown-item @click="changeLang('en')">
     <i class="flag-icon flag-icon-us"></i> English
@@ -616,6 +616,7 @@ export default {
   components: { vSelect, Timer },
   data () {
     return {
+      currentLang:'tr',
       showContent:true,
       timerClass: 'd-none',
       timerClass: 'd-flex',
@@ -867,6 +868,9 @@ export default {
         this.currentIndex,
         this.currentIndex + this.numToShow
       )
+    },
+    dropdownText() {
+      return this.currentLang === 'en' ? 'English' : 'Türkçe';
     },
 
     ...mapGetters(['loggedInUser', 'loading', 'error'])
@@ -1906,11 +1910,12 @@ img {
 }
 #dropdown-1__BV_toggle_
 {
-    border: 1px solid #8080803d;
+  border: 1px solid #80808000;
     padding-left: 20px !important;
     padding-right: 30px !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
+    box-shadow: none;
 }
 
 /* .fade-enter-active, .fade-leave-active {

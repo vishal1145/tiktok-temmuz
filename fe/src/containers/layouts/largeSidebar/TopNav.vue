@@ -230,9 +230,9 @@
     </div>
 
 
-      <div class="m-auto pr-2" >  <b-dropdown id="dropdown-1" :text="$t('Language')" class="m-md-2 btn32 m-auto">
+      <div class="m-auto pr-2" >  <b-dropdown id="dropdown-1" :text="dropdownText" class="m-md-2 btn32 m-auto">
   <template #button-content>
-    <i class="fa fa-globe" aria-hidden="true"></i> {{ $t('Language') }}
+    <i class="fa fa-globe" aria-hidden="true"></i>  {{ dropdownText }}
   </template>
   <b-dropdown-item @click="changeLang('en')">
     <i class="flag-icon flag-icon-us"></i> English
@@ -411,21 +411,14 @@
       scrollable
     >
       <template #modal-title>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between pw">
+      
           <div class="d-flex flex-row ">   Notification
-          <p
-            class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0"
-            style="text-decoration: underline"
-            @click="clickSeeMore()"
-          >
-            See more
-          </p></div>
-          <div class="paddingLaptop"><button class="btn btn-primary" style=" padding: 5px 10px!important;"  @click="clickNotificationAdd()">Add Message</button> </div>
-
+        </div>
         
         </div>
       </template>
-      <b-row class="p-2">
+      <b-row class="">
         <b-col v-if="notificationAllDATA.length > 0">
           <div
             v-for="(data, index) in notificationAllDATA"
@@ -458,7 +451,17 @@
               </b-col>
             </b-row>
           </div>
+              <div class="d-flex flex-row ">   
+          <p
+            class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0 my-2"
+            style="text-decoration: underline"
+            @click="clickSeeMore()"
+          >
+            See more
+          </p></div>
+       
         </b-col>
+        
         <b-col v-else class="text-center">
           <div>No notification</div>
         </b-col>
@@ -975,7 +978,7 @@ export default {
 
   data() {
     return {
-
+      currentLang: 'tr',
       value: [
         {name: 'Javascript', code: 'js'}
       ],
@@ -1096,6 +1099,9 @@ export default {
   computed: {
     ...mapGetters(["getSideBarToggleProperties"]),
     ...mapGetters(["loggedInUser", "loading", "error"]),
+    dropdownText() {
+      return this.currentLang === 'en' ? 'English' : 'Türkçe';
+    },
   },
 
   methods: {
@@ -1991,11 +1997,12 @@ deleteCookie(name) {
 
 #dropdown-1__BV_toggle_
 {
-    border: 1px solid #8080803d;
+  border: 1px solid #80808000;
     padding-left: 20px !important;
     padding-right: 30px !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
+    box-shadow: none;
 }
 #dropdown-2
 {

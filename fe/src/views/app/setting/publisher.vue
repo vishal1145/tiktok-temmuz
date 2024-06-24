@@ -1083,7 +1083,7 @@ export default {
       setTimeout(() => {
         const phoneInputField = document.querySelector('#phone')
         this.phoneInput = window.intlTelInput(phoneInputField, {
-          initialCountry: 'in',
+          initialCountry: 'tr',
           utilsScript:
             'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
         })
@@ -1445,9 +1445,7 @@ export default {
         this.loader = true
         try {
           let requestData = {
-            user_id:
-              this.role == 'admin'
-                ? this.selectedUserId
+            user_id:       this.role == 'admin' ? this.selectedUserId
                 : localStorage.getItem('user_id'),
             tiktok_username: this.tiktok_username,
             contact_number: this.contact_number
