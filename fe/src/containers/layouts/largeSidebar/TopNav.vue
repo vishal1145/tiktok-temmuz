@@ -433,8 +433,9 @@
             <b-row>
               <b-col>
                 <div class="d-flex flex-column px-0 border-bottom">
-                  <div class="d-flex flex-row">
-                       <div class="pr-3">
+                  <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-row">
+                          <div class="pr-3">
                         <img
             :src="userLogo"
             style="
@@ -461,9 +462,11 @@
                       {{ data.body }}
                     </p>
                   </div>
+                    </div>
+                   
 
                   <div class="align-self-end text-gray-500 text-10 pb-1">
-                    {{ data.created_at }}
+                    {{ data.createdAt }}
                   </div>
                   </div>
                
@@ -471,7 +474,7 @@
               </b-col>
             </b-row>
           </div>
-              <div class="d-flex flex-row ">   
+          <div class="d-flex flex-row ">   
           <p
             class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0 my-2"
             style="text-decoration: underline"
@@ -973,6 +976,7 @@
   <!-- header top menu end -->
 </template>
 <script>
+
 import Multiselect from 'vue-multiselect'
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import i18n, { changeLanguage } from '../../../lang/lang';
@@ -1762,7 +1766,16 @@ deleteCookie(name) {
     } else {
       this.loader = false;
       console.log("notification", res); // Log the response received
-      this.notificationAllDATA = res.apidata.data; // Assign response data to a variable
+    const paymentData = res.apidata.data;
+      paymentData.forEach(e => {
+  
+                e.createdAt = moment(e.createdAt).format(
+                  'DD MMM YYYY h:mm A'
+                )
+              })
+
+              this.notificationAllDATA  = paymentData
+      // Assign response data to a variable
     }
   } catch (error) {
     this.loader = false;
@@ -2065,6 +2078,10 @@ deleteCookie(name) {
 #modal-attachment-notification___BV_modal_body_
 
 {
-  padding: 0rem!important;
+  padding: 0rem !important;
+    padding-bottom: 1rem !important;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-top: 0.5rem !important;
 }
 </style>

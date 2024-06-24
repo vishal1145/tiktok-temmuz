@@ -220,7 +220,12 @@
 
               <span v-else-if="props.column.field === 'title'">
                 <div>
-                  <div>{{ props.row.title }}$</div>
+                  <div>{{ props.row.title }}</div>
+                </div>
+              </span>
+              <span v-else-if="props.column.field === 'createdAt'">
+                <div>
+                  <div>{{ props.row.createdAt }}</div>
                 </div>
               </span>
         
@@ -415,7 +420,7 @@ filterOptions: {
 label: this.$t('Date/time'),
 
 
-field: 'created_at',
+field: 'createdAt',
 filterOptions: {
   enabled: true,
 
@@ -663,8 +668,16 @@ filterOptions: {
       this.$toaster.makeToast("warning", res.message);
     } else {
       this.loader = false;
-      console.log("notificationInner", res); // Log the response received
-      this.rows = res.apidata.data; // Assign response data to a variable
+      console.log("notificationInner", res); 
+      const paymentData = res.apidata.data; 
+      paymentData.forEach(e => {
+              
+                e.createdAt = moment(e.createdAt).format(
+                  'DD MMM YYYY h:mm A'
+                )
+              })
+
+              this.rows = paymentData
       
     }
   } catch (error) {
