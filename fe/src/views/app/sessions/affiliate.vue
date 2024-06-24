@@ -1054,6 +1054,12 @@ h6,
   width: 100vw; /* Make sure the width covers the whole viewport */
   height: 100vh; /* Make sure the height covers the whole viewport */
 
+
+
+    /* height: 100vh; */
+    padding-top: 10px;
+    padding-bottom: 10px !important;
+
 }
 .form-control {
     border: initial;
@@ -1106,7 +1112,7 @@ b, strong {
 @media (max-width: 900px) {
   .paddingMObile {
     padding-left: 48px !important;
-    padding-right: 48px !important;
+    padding-right: 28px !important;
   }
 
   .col-md-4 {
