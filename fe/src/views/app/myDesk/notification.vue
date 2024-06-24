@@ -262,7 +262,7 @@
         </b-col>
         <b-col md="12">
           <b-form-group    :label="$t('Body')" label-for="input-title">
-            <b-form-input
+            <b-textarea
               v-model="body"
               required
            
@@ -272,7 +272,7 @@
               type="text"
               id="input-name"
               maxlength="20"
-            ></b-form-input>
+            ></b-textarea>
           </b-form-group>
         </b-col>
         <b-col md="12">
@@ -595,6 +595,11 @@ placeholder: this.$t('Date/time'),
 
 
     formSubmitAddMember() {
+
+      if (!this.title|| !this.body ) {
+        this.$toaster.makeToast("warning", "All Field is required");
+        return;
+      }
   debugger
   this.user_id = localStorage.getItem('user_id');
   this.role = localStorage.getItem('role');
