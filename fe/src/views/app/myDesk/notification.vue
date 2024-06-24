@@ -310,12 +310,12 @@
         <b-col>
           <div class="d-flex justify-content-end">
             <!-- <div class="spinner spinner-primary mr-3" v-if="loader"></div> -->
-            <b-button v-if="!imgLoader" class="mb-2 mr-2" @click="closeModal()"
+            <b-button v-if="!imgLoader" class="mr-2" @click="closeModal()"
               >  {{ $t('Close') }}</b-button
             >
             <b-button
               v-if="!imgLoader"
-              class="mb-2"
+              
               variant="primary ripple"
               @click="formSubmitAddMember()"
               >  {{ $t('Add') }}</b-button
