@@ -458,6 +458,7 @@ filterOptions: {
 enabled: true,
 
 placeholder: this.$t('Date/time'),
+All_ID_For_Message:[]
 
 }
 },
@@ -487,15 +488,15 @@ placeholder: this.$t('Date/time'),
       debugger
       console.log("Selected Users:", this.selectedUsers);
 
-      // Get all keys of the selectedUsers object
+      
       const keys = Object.keys(this.selectedUsers);
 
-      // Case when only one user is selected
+     
       if (keys.length === 1) {
         const user = this.selectedUsers[keys[0]];
-        return user.id; // Assuming id is directly accessible
+        return user.id;
       } 
-      // Case when multiple users are selected
+     
       else if (keys.length > 1) {
         const firstUser = this.selectedUsers[keys[0]];
         return `${firstUser.id} + ${keys.length - 1} others`;
@@ -503,10 +504,10 @@ placeholder: this.$t('Date/time'),
 
 
       const ids = this.selectedUsers.map(obj => obj._id);
-      // Logging extracted ids
+     
       console.log("Extracted Ids:", ids);
 
-      // Return an empty string if no users are selected or handled above cases
+    
       return '';
     }
 ,
@@ -565,6 +566,11 @@ placeholder: this.$t('Date/time'),
       
           this.allUsers = userData
 
+          // console.log("AllUser",this.allUsers)
+
+          this.All_ID_For_Message = userData.map(user => user._id);
+          // console.log("AllId",this.All_ID_For_Message)
+
           const usersWithFullName = userData.map(user => ({
             ...user,
             fullName: `${user.name} ${user.surname}`
@@ -600,7 +606,7 @@ placeholder: this.$t('Date/time'),
         this.$toaster.makeToast("warning", "All Field is required");
         return;
       }
-  debugger
+
   this.user_id = localStorage.getItem('user_id');
   this.role = localStorage.getItem('role');
 
@@ -614,7 +620,7 @@ placeholder: this.$t('Date/time'),
     title: this.title,
     body: this.body,
     sender_id: this.user_id,
-    target_id: IdHai,
+    target_id: IdHai.length === 0 ? this.All_ID_For_Message : IdHai,
     for_all: IdHai.length === 0
   };
 
@@ -707,7 +713,7 @@ toggleFlexDiv() {
       this.flexDivDisplay =
         this.flexDivDisplay === 'flex!important'
           ? 'none!important'
-          : 'flex!important' // Toggle the display property
+          : 'flex!important' 
     },
     clearFilters() {
       this.searchTerm = ''
