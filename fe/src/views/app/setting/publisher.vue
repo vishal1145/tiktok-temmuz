@@ -1448,8 +1448,10 @@ this.faqs = paymentData;
       this.$router.push(`/app/mydesk/creatorPage?userName=${userName}`)
     },
     async addPublisher() {
-      // Check if all required fields are filled
-      // var matchData = this.faqs.filter((e) =>  e.tiktok_username.toString().includes(this.tiktok_username) );
+
+      this.role = localStorage.getItem('role')
+      const user_id = localStorage.getItem('user_id')
+    
 
       if (!this.phoneInput.isValidNumber()) {
         this.$toaster.makeToast('warning', 'Invalid number')
@@ -1461,7 +1463,7 @@ this.faqs = paymentData;
       if (this.contact_number.startsWith('+')) {
         this.contact_number = this.contact_number.slice(1)
       }
-      if (!this.tiktok_username || !this.contact_number || !this.selectedName) {
+      if (!this.tiktok_username || !this.contact_number || (this.role === 'admin' && !this.selectedName)) {
         this.$toaster.makeToast(
           'warning',
           'Please fill in all the required fields'
