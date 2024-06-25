@@ -447,7 +447,7 @@
         <div
           v-if="role != 'user'"
           class="col-12 col-sm-6 col-lg-3 paddingzero"
-          style="padding-right: 0px"
+     
           
         >
           <label for="users-list-verified">{{ $t('Select Creators') }}</label>
