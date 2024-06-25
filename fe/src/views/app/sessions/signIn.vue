@@ -826,7 +826,10 @@ export default {
     // },
     // validationsGroup:['peopleAdd.multipleName']
   },
-  created () {},
+  created () {
+    this.initializeLanguage();
+
+  },
   mounted () {
     setTimeout(() => {
       const phoneInputField = document.querySelector('#phone')
@@ -878,14 +881,29 @@ export default {
 
   methods: {
     changeLang(lang) {
-      if (this.currentLang !== lang) {
-        this.showContent = false;  // Hide the content to trigger the transition
-        setTimeout(() => {
-          changeLanguage(lang);
-          this.currentLang = lang;
-          this.showContent = true;  // Show the content after changing the language
-        }, 500);  // Adjust the delay to match the transition duration
-      }},
+  if (this.currentLang !== lang) {
+    this.showContent = false;  
+    setTimeout(() => {
+      changeLanguage(lang);
+      this.currentLang = lang;
+      this.showContent = true;
+      localStorage.setItem('selectedLanguage', lang);  
+    }, 500); 
+  }
+},
+
+
+initializeLanguage() {
+  const savedLang = localStorage.getItem('selectedLanguage');
+  if (savedLang) {
+    this.currentLang = savedLang;
+    changeLanguage(savedLang);
+  } else {
+    this.currentLang = 'default'; 
+    changeLanguage('default');
+  }
+  this.showContent = true; 
+},
     ...mapActions(['login']),
     // TimerPause() {
 
