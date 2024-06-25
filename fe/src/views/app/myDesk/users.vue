@@ -645,8 +645,6 @@ export default {
             (row.name && row.surname.toLowerCase().includes(query)) ||
             (row.contact_number &&
               String(row.contact_number).toLowerCase().includes(query)) ||
-            (row.earnings &&
-              String(row.earnings).toLowerCase().includes(query)) ||
             (row.diamonds && String(row.diamonds).toLowerCase().includes(query))
           : true;
         const itemAmount = row.earnings;
@@ -751,7 +749,7 @@ paginationOptions: {
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: "tr",
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
@@ -786,7 +784,7 @@ paginationOptions: {
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: "in",
+          initialCountry: "tr",
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
@@ -1444,4 +1442,23 @@ paginationOptions: {
 .phone-input .iti {
   width: 100%;
 }
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+}
+
 </style>

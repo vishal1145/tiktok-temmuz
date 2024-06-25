@@ -766,4 +766,27 @@ imgloader {
     margin-top: 1rem !important;
 }
 }
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+}
 </style>

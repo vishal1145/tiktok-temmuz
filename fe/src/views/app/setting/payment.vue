@@ -408,8 +408,8 @@
                   /></fieldset
               ></b-col>
             </b-row>
-            <b-row class="w-100 px-3 pb-3" :style="{ display: flexDivDisplay }">
-              <b-col md="3" class="col-sm-6 col-lg-3">
+            <b-row class="w-100 px-3 pb-3 " :style="{ display: flexDivDisplay }">
+              <b-col md="3" class="col-sm-6 col-lg-3 paddingBottom">
                 <v2-datepicker
                   class="for-date-picker"
                   lang="en"
@@ -1585,5 +1585,29 @@ export default {
   background: #f3f4f6;
   border: 1px solid #9ca3af00;
   color: #111827;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+.paddingBottom{
+    padding-bottom: 0.5rem !important;
+}
 }
 </style>

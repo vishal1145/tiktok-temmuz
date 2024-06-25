@@ -450,11 +450,11 @@
           style="padding-right: 0px"
           
         >
-          <label for="users-list-verified">{{ $t('Select User') }}</label>
+          <label for="users-list-verified">{{ $t('Select Creators') }}</label>
           <fieldset class="form-group">
             <multiselect
               v-model="selectedName"
-              :placeholder="$t('Select User')" 
+              :placeholder="$t('Select Creators')" 
       
               :options="[...allUsers]"
               :multiple="false"
@@ -1598,8 +1598,8 @@ imgloader {
 
 @media only screen and (max-width: 600px) {
   .paddingzero {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 44px;
+    padding-left: 18px;
   }
 }
 
@@ -1631,6 +1631,26 @@ imgloader {
   }
 }
 
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+}
+
 /* For tablets (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .paddingleftMobile {
@@ -1660,4 +1680,25 @@ imgloader {
     align-items: flex-start;
     max-width: 100%;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+}
+
 </style>

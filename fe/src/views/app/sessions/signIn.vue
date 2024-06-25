@@ -104,7 +104,7 @@
                     </div>
                   </b-form>
 
-                  <p class="pw text-center pt-2 mb-0" v-if="isShowPhone">
+                  <p class="pw text-center pt-2 mb-0 widthFoall" v-if="isShowPhone">
                     {{ $t('By continue you are agree to Temmuz') }}
                   </p>
 
@@ -1953,7 +1953,11 @@ img {
   background-color: rgb(229, 214, 238); 
 } */
 
+.widthFoall
+{
+  width: 355px;
 
+}
 .fa-globe:before {
   content: "\f0ac";
     margin-right: 6px;
@@ -1963,4 +1967,13 @@ img {
 .dropdown-item {
     padding: 0.42rem 0.5rem;
 }
+
+@media only screen and (max-width: 600px) {
+
+.widthFoall
+{
+  width: 279px;
+}
+}
+
 </style>

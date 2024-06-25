@@ -787,9 +787,9 @@
                   <div>{{ props.row.earnings }}$</div>
                 </div>
               </span>
-              <span v-else-if="props.column.field === 'user_id.tiktok_username'">
+              <span v-else-if="props.column.field === 'affiliate'">
                 <div>
-                  <div>{{ props.row.user_id.tiktok_username}}</div>
+                  <div>{{ props.row.affiliate}}</div>
                 </div>
               </span>
             </template>
@@ -865,6 +865,7 @@ export default {
       uplodedImages: '',
       images: null,
       isEdit: false,
+
      
       paginationOptions: {
         enabled: true,
@@ -895,121 +896,110 @@ export default {
 
   },
   computed: {
+
     columns() {
-      return[
-        // {
-        //   label: 'Icons',
-        //   field: 'show_img',
-        //   sortable: false
-        // },
-        {
-          label: this.$t('Date'),
-          field: 'createdAt',
-          filterOptions: {
-            enabled: true,
-         
-            placeholder: this.$t('Date'),
-          }
-        },
-        {
-         
-          label: this.$t('TikTok Name'),
-          field: 'tiktok_username',
-          filterOptions: {
-            enabled: true,
-            placeholder: this.$t('TikTok Name'),
+      return [
 
-          }
-        },
-        {
-          label: this.$t('Contact Number'),
+{
+  label: this.$t('Date'),
+  field: 'createdAt',
+  filterOptions: {
+    enabled: true,
+ 
+    placeholder: this.$t('Date'),
+  },
+  width:'150px'
+},
+{
+ 
+  label: this.$t('TikTok Name'),
+  field: 'tiktok_username',
+  filterOptions: {
+    enabled: true,
+    placeholder: this.$t('TikTok Name'),
 
-     
-          field: 'contact_number',
-          filterOptions: {
-            enabled: true,
-         
-            placeholder: this.$t('Contact Number'),
+  },
+   width:'180px'
+},
+{
+  label: this.$t('Contact Number'),
 
-          }
-        },
-        {
-          label: this.$t('Earnings'),
 
-          field: 'earnings',
-          filterOptions: {
-            enabled: true,
-     
-            placeholder: this.$t('Earnings'),
-          }
-        },
+  field: 'contact_number',
+  filterOptions: {
+    enabled: true,
+ 
+    placeholder: this.$t('Contact Number'),
 
-        {
-          
+  }
+},
+{
+  label: this.$t('Earnings'),
 
-          label: this.$t('Affiliate'),
+  field: 'earnings',
+  filterOptions: {
+    enabled: true,
 
-          field: 'user_id.tiktok_username',
-          filterOptions: {
-            enabled: true,
-           
-            placeholder: this.$t('Affiliate'),
+    placeholder: this.$t('Earnings'),
+  }
+},
 
-          }
-        },
-        // {
-        //   label: 'Diamonds This Month',
-        //   field: 'fdf',
-        //   filterOptions: { enabled: true, placeholder: 'search..' }
-        // },
+{
+  
 
-        // {
-        //   label: 'Partner',
-        //   field: 'dfsd',
-        //   filterOptions: { enabled: true, placeholder: 'search..' }
-        // },
+  label: this.$t('Affiliate'),
 
-        {
+  field: 'affiliate',
+  filterOptions: {
+    enabled: true,
+   
+    placeholder: this.$t('Affiliate'),
 
-          label: this.$t('Status'),
+  }
+},
 
-          label: 'Status',
-          field: 'status',
-          filterOptions: {
-            enabled: true,
-          
-            placeholder: this.$t('Status'),
+{
 
-          }
-        },
-        {
+  label: this.$t('Status'),
 
-          label: this.$t('Reason'),
+ 
+  field: 'status',
+  filterOptions: {
+    enabled: true,
+  
+    placeholder: this.$t('Status'),
 
-      
-          field: 'reason',
-          filterOptions: {
-            enabled: true,
-        
-            placeholder: this.$t('Reason'),
+  }
+},
+{
 
-          }
-        },
-        {
+  label: this.$t('Reason'),
 
-          label: this.$t('Actions'),
 
-          sortable: false,
-          field: 'actions',
-          width: '150px',
-          formatFn: () => {
-            return `
-              <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-              <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
-            `
-          }
-        }
-      ];},
+  field: 'reason',
+  filterOptions: {
+    enabled: true,
+
+    placeholder: this.$t('Reason'),
+
+  }
+},
+{
+
+  label: this.$t('Actions'),
+
+  sortable: false,
+  field: 'actions',
+  width: '150px',
+  formatFn: () => {
+    return `
+      <span class="btn mr-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+      <span class="btn"><i class="fa fa-trash" aria-hidden="true"></i></span>
+    `
+  }
+}
+];},
+   
     filteredRows() {
       const query = this.searchTerm.toLowerCase().trim()
       const select_status = this.selectedStatus;
@@ -1057,6 +1047,7 @@ export default {
      this.clearFilters()
     this.fetchPublisher()
     this.getProfileDetails()
+    this.getAllUsers()
   },
 
   watch: {
@@ -1164,6 +1155,7 @@ export default {
     //   }))
     // },
     async getAllUsers() {
+    
       this.loader = true
       try {
         const response = await this.$apiService.getCall('user/get-all-members')
@@ -1184,6 +1176,7 @@ export default {
 
           this.rows = usersWithFullName
           this.allUsers = usersWithFullName
+          
         } else {
           this.$toaster.makeToast('warning', 'Failed to fetch user data')
         }
@@ -1270,6 +1263,7 @@ export default {
     // },
 
     async fetchPublisher() {
+      
   this.loader = true
   try {
     // Get role from localStorage
@@ -1292,12 +1286,40 @@ export default {
       if (res.apidata.msg) {
         this.faqs = []
       } else {
-        const paymentData = res.apidata.data
-        paymentData.reverse()
-        paymentData.forEach(e => {
-          e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
-        })
-        this.faqs = paymentData
+        console.log("Start of script");
+
+const paymentData = res.apidata.data;
+console.log("paymetBefore", paymentData);
+
+paymentData.reverse();
+
+paymentData.forEach((e, index) => {
+  console.log(`Processing index ${index}`, e);
+
+  // Check if createdAt is a valid date
+  if (moment(e.createdAt).isValid()) {
+    e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A');
+    console.log(`Formatted createdAt for index ${index}`, e.createdAt);
+  } else {
+    console.error(`Invalid date at index ${index}`, e.createdAt);
+  }
+
+  // Check if user_id and tiktok_username exist
+  if (e.user_id && e.user_id.tiktok_username) {
+    e.affiliate = e.user_id.tiktok_username;
+    // console.log(`Added affiliate for index ${index}`, e.affiliate);
+  } else {
+    // console.error(`Missing user_id or tiktok_username at index ${index}`, e.user_id);
+  }
+});
+
+// console.log("After", paymentData);
+
+this.faqs = paymentData;
+// console.log("faqs set", this.faqs);
+
+
+
       }
     }
   } catch (error) {
@@ -1439,7 +1461,7 @@ export default {
       if (this.contact_number.startsWith('+')) {
         this.contact_number = this.contact_number.slice(1)
       }
-      if (!this.tiktok_username || !this.contact_number) {
+      if (!this.tiktok_username || !this.contact_number || !this.selectedName) {
         this.$toaster.makeToast(
           'warning',
           'Please fill in all the required fields'
@@ -1834,10 +1856,22 @@ imgloader {
   width: 20px;
 }
 @media only screen and (max-width: 600px) {
-  .paddingzero {
-    padding-right: 0px;
-    padding-left: 0px;
-  }
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
 }
 
 .badge-success {
