@@ -1199,6 +1199,8 @@ export default {
       this.startDate = '' // Reset start date
       this.endDate = '' // Reset end date
       this.selectedStatus = '' // Reset status filter
+        this.searchAmount='',
+      this.searchMaxAmount=''
       this.fetchPublisher()
     },
 

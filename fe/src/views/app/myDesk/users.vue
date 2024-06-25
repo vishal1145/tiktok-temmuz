@@ -1066,6 +1066,8 @@ paginationOptions: {
 
     clearFilters() {
       this.searchTerm = "";
+      this.searchAmount='',
+      this.searchMaxAmount=''
       this.getAllUsers();
     },
     openModal12() {

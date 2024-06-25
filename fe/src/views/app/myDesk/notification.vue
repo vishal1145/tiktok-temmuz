@@ -717,6 +717,8 @@ toggleFlexDiv() {
     },
     clearFilters() {
       this.searchTerm = ''
+      this.startDate = '' // Reset start date
+      this.endDate = '' // Reset end date
     
       this.fetchPublisher()
     },
