@@ -353,11 +353,12 @@ export default {
     this.getUserName = this.$route.query.userName;
 
     this.getCreatorsData();
-    this.clearFilters();
+    
   },
   methods: {
     clearFilters() {
-      (this.searchTerm = ""), (this.startDate = ""), (this.endDate = "");
+      // (this.searchTerm = ""), (this.startDate = ""), (this.endDate = "");
+      window.location.reload();
     },
     formatPrice(value) {
       let val = (value / 1).toFixed(0).replace(".", ",");
@@ -490,5 +491,33 @@ export default {
   content: "\f13a";
   color: #808080cf;
   width: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  margin:0px;
+
+}
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
+}
+
+.paddingBottom{
+    padding-bottom: 0.5rem !important;
+}
 }
 </style>

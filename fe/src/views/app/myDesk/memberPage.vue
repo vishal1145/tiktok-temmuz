@@ -6,7 +6,7 @@
     >
       Member
     </div>
-    <hr class="mt-1" />
+    <hr class="mt-1 " />
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div class="card user-profile o-hidden mb-30">
@@ -453,5 +453,16 @@ display:none;
 justify-content: space-between;
   display: flex;
   flex-direction: row;
-}}
+  margin:0px;
+
+}
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
+}
+
+.paddingBottom{
+    padding-bottom: 0.5rem !important;
+}
+}
 </style>

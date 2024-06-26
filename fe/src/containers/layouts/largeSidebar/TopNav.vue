@@ -6,7 +6,7 @@
       <img src="@/assets/images/food_nav.png" style="
     width: 89px!important;
 "/>
-   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primary displayNone"   @click="navigateToUsers"><i class="fa fa-plus" aria-hidden="true"></i>  &nbsp;   {{ $t('Add Members') }}</button></div>
+   <div v-if="isAdmin === 'admin'" ><button class="btn btn-primaryPurole displayNone"   @click="navigateToUsers"><i class="fa fa-plus" aria-hidden="true"></i>  &nbsp;   {{ $t('Add Members') }}</button></div>
   </div>
 
  
@@ -100,7 +100,7 @@
         @click="clickNotification()"
         class="position-relative ul-cursor--pointer mr-2"
       >
-        <i class="fa fa-bell fa-2x text-warning" aria-hidden="true"></i>
+        <i class="fa fa-bell fa-2x text-warning Dnone" aria-hidden="true"></i>
         <div class="for-icon position-absolute text-center d-none">
           <strong class="text-10 text-white">{{
             notificationAllDATA.length
@@ -241,7 +241,7 @@
     <i class="flag-icon flag-icon-tr"></i> Türkçe
   </b-dropdown-item>
 </b-dropdown></div>  
-<div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primary displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
+<div class="m-auto" v-if="isAdmin === 'admin'"><button class="btn btn-primaryPurole displayNone"  @click="navigateToUsers2">   {{ $t('Upload') }}</button></div>
       <b-dropdown
         id="dropdown-2"
         text="Dropdown Button"
@@ -369,6 +369,14 @@
 
     >
     <i class="nav-icon i-Money-Bag"></i> {{ $t('Earning') }}
+    </a>
+    <a
+        v-if="isAdmin === 'user' || isAdmin === 'admin'"
+        @click.prevent="notification"
+        class="dropdown-item align-items-baseline d-flex flex-row" style="cursor: pointer;gap: 16px;"
+
+    >
+    <i class="nav-icon i-Inbox-Empty"></i> {{ $t('Notification') }}
     </a>
     <!-- <a
         v-if="isAdmin === 'user'"
@@ -1206,7 +1214,11 @@ initializeLanguage() {
       this.$router.push("/app/setting/earnings");
       this.$refs.dropdown.hide();
     },
-
+    notification()
+    {
+      this.$router.push("/app/myDesk/notification");
+      this.$refs.dropdown.hide();
+    },
     dashboard()
     {
       this.$router.push("/app/dashboards/adminDashboard");
@@ -2020,6 +2032,11 @@ deleteCookie(name) {
 {
   padding-left: 22px;
 }
+
+.Dnone
+{
+  display:none
+}
 }
 
 /* For tablets (481px to 768px) */
@@ -2108,5 +2125,17 @@ deleteCookie(name) {
   max-height: 50vh;
   overflow-y: auto;
   overflow-x:hidden
+}
+
+.btn-primaryPurole {
+    color: #a855f7;
+    background-color: #a855f70f;
+    /* border-color: #a855f7; */
+    border-color: white;
+}
+
+.fa-bell:before {
+    content: "\f0f3";
+    color: #80008042;
 }
 </style>
