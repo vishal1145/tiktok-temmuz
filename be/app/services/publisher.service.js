@@ -55,9 +55,11 @@ exports.getAllPublisher = async (id) => {
     publisher = publisher.toObject();
     if (diamondsDict.hasOwnProperty(tiktokUsername)) {
       diamonds = diamondsDict[tiktokUsername];
+      publisher.diamonds = diamonds;
       publisher.earnings = calculateEarningFun(publisher.user_id.first_commission, publisher.user_id.second_commission, publisher.user_id.third_commission, diamonds)
     } else {
-      publisher.earnings = 0
+      publisher.earnings = 0;
+      publisher.diamonds = 0;
     }
     return publisher;
   });
