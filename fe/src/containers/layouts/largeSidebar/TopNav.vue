@@ -101,7 +101,7 @@
         class="position-relative ul-cursor--pointer mr-2"
       >
         <i class="fa fa-bell fa-2x text-warning" aria-hidden="true"></i>
-        <div class="for-icon position-absolute text-center">
+        <div class="for-icon position-absolute text-center d-none">
           <strong class="text-10 text-white">{{
             notificationAllDATA.length
           }}</strong>
@@ -472,8 +472,15 @@
           </p>
         </div>
       </b-col>
-      <b-col v-else class="text-center">
+      <b-col v-else class="text-center d-flex align-items-center justify-content-between px-4">
         <div>  {{ $t('No notification') }}</div>
+        <p
+            class="text-primary ul-cursor--pointer text-decoration-underline ml-12 mb-0 my-2"
+            style="text-decoration: underline"
+            @click="clickSeeMore()"
+          >
+              {{ $t('See more') }}
+          </p>
       </b-col>
     </b-row>
   </div>

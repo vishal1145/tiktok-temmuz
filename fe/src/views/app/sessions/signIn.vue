@@ -40,8 +40,8 @@
                     <img :src="logo" />
                   </div>
 
-                  <h3 class="mb-1 hw">{{ $t('Welcome to Temmuz! 👋') }}</h3>
-                  <p class="mb-3 pw">{{ $t('Sign Up or Login to get started') }}</p>
+                  <h3 class="mb-1 hw widthFoall" >{{ $t('Welcome to Temmuz! 👋') }}</h3>
+                  <p class="mb-2 pw">{{ $t('Sign Up or Login to get started') }}</p>
                   <b-form
                     @submit.prevent="formSubmit"
                     id="firstForm"

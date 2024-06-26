@@ -1121,12 +1121,13 @@ export default {
       this.filterData()
     },
     clearFilters () {
-      this.searchTerm = ''
-      this.filterStatus = ''
-      this.selectedName = ''
-      this.startDate=''
-      this.endDate=''
-      this.getEarningData()
+      // this.searchTerm = ''
+      // this.filterStatus = ''
+      // this.selectedName = ''
+      // this.startDate=''
+      // this.endDate=''
+      // this.getEarningData()
+      window.location.reload()
     },
     onSearchTermChange (event) {
       this.searchTerm = event.target.value
@@ -1681,7 +1682,6 @@ justify-content: space-between;
     max-width: 100%;
 }
 
-
 @media only screen and (max-width: 600px) {
 
 .footer__navigation__page-info[data-v-347cbcfa] {
@@ -1697,8 +1697,16 @@ display:none;
 justify-content: space-between;
   display: flex;
   flex-direction: row;
-}
+  margin:0px;
 
 }
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
+}
 
+.paddingBottom{
+    padding-bottom: 0.5rem !important;
+}
+}
 </style>

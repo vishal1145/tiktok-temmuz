@@ -641,8 +641,8 @@ export default {
 
   data () {
     return {
-      startDate: '',
-      endDate: '',
+      startDate: null,
+      endDate: null,
       updateloader: false,
       userFullName: '',
       citizenshipNo: '',
@@ -1206,13 +1206,14 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     clearFilters () {
-      ;(this.searchTerm = ''),
-        (this.searchAmount = ''),
-        (this.selectedStatus = ''),
-        (this.searchMaxAmount = ''),
-        (this.startDate = ''),
-        (this.endDate = '')
-      this.getAllUsers()
+      // ;(this.searchTerm = ''),
+      //   (this.searchAmount = ''),
+      //   (this.selectedStatus = ''),
+      //   (this.searchMaxAmount = ''),
+      //   this.$refs.startDate.clearDate();
+      //   this.$refs.endDate.clearDate();
+      // this.getAllUsers()
+      window.location.reload()
     },
 
     closeModal () {
@@ -1590,6 +1591,9 @@ export default {
 
 
 
+
+
+
 @media only screen and (max-width: 600px) {
 
 .footer__navigation__page-info[data-v-347cbcfa] {
@@ -1605,7 +1609,14 @@ display:none;
 justify-content: space-between;
   display: flex;
   flex-direction: row;
+  margin:0px;
+
 }
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
+}
+
 .paddingBottom{
     padding-bottom: 0.5rem !important;
 }

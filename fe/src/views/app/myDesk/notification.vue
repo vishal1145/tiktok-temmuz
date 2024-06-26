@@ -778,8 +778,13 @@ display:none;
 justify-content: space-between;
   display: flex;
   flex-direction: row;
-}
+  margin:0px;
 
+}
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
+}
 }
 
 </style>

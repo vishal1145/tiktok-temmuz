@@ -822,8 +822,8 @@ export default {
       referralUrl: '',
       selectedName: '',
       allUsers: [],
-      startDate: 'Select Start Date',
-      endDate: 'Select End Date',
+      startDate: null,
+      endDate: null,
       rows: [],
       updateloader: false,
       selectedUserName: null,
@@ -1044,7 +1044,7 @@ export default {
   created() {
     this.user_id = localStorage.getItem('user_id')
     this.role = localStorage.getItem('role')
-     this.clearFilters()
+    
     this.fetchPublisher()
     this.getProfileDetails()
     this.getAllUsers()
@@ -1194,15 +1194,23 @@ export default {
           ? 'none!important'
           : 'flex!important' // Toggle the display property
     },
-    clearFilters() {
-      this.searchTerm = ''
-      this.startDate = '' // Reset start date
-      this.endDate = '' // Reset end date
-      this.selectedStatus = '' // Reset status filter
-        this.searchAmount='',
-      this.searchMaxAmount=''
-      this.fetchPublisher()
-    },
+     clearFilters() {
+
+  // this.searchTerm = '';     
+  // this.selectedStatus = null; 
+  // this.searchAmount = null;
+  // this.searchMaxAmount = null;
+
+  // if (this.$refs.startDate) {
+  //   this.$refs.startDate.clearDate();
+  // }
+  // if (this.$refs.endDate) {
+  //   this.$refs.endDate.clearDate();
+  // }
+  // this.fetchPublisher();
+  window.location.reload()
+}
+,
 
     checkLength(event) {
       if (this.phoneNumber.toString().length >= 10 && event.keyCode !== 8) {
@@ -1874,6 +1882,12 @@ display:none;
 justify-content: space-between;
   display: flex;
   flex-direction: row;
+  margin:0px;
+
+}
+.vgt-wrap__footer .footer__navigation > button:first-of-type {
+   
+    margin: 0px;
 }
 
 }

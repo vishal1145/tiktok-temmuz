@@ -10,7 +10,7 @@
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
 
     <div class="card user-profile o-hidden mb-30">
-      <div class="header-cover bg-gray-300"></div>
+      <div class=""></div>
       <div class="user-info">
         <img
           class="profile-picture avatar-lg mb-2"
@@ -164,15 +164,15 @@ export default {
           field: 'contact_number'
         },
 
-        {
-          label: 'Diamonds This Month',
-          field: 'diamond'
-        },
+        // {
+        //   label: 'Diamonds This Month',
+        //   field: 'diamond'
+        // },
 
-        {
-          label: 'Partner',
-          field: 'price'
-        },
+        // {
+        //   label: 'Partner',
+        //   field: 'price'
+        // },
 
         {
           label: 'Status',
@@ -350,4 +350,40 @@ export default {
   color: #ffffff;
   padding-left: 3px;
 }
+
+.user-profile .user-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: -70px;
+    z-index: 9;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+.footer__navigation__page-info[data-v-347cbcfa] {
+display:none;
+}
+.footer__row-count 
+{
+display:none;
+}
+.footer__navigation
+{
+  width: 100%;
+justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}}
 </style>
