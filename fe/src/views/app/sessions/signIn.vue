@@ -4,9 +4,7 @@
    <section class="row justify-content-center gifBody">
         <div class="col-xl-8 col-11 d-flex justify-content-center">
             <div class="card mb-0 m-auto">
-                <div class="row m-0"        style=" 
-    background-color: rgba(239,242,247,255);
-">
+                <div class="row m-0"        style="background-color: rgb(239, 242, 247);height: 350px;">
                     <div class="col-lg-6 text-center align-self-center px-1 py-0">
                         <img   :src="logo" width="400px;" alt="branding logo">
                     </div>
