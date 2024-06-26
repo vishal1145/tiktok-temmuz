@@ -732,6 +732,7 @@ paginationOptions: {
       getUid: "",
       getfirstValue: "",
       getsecondValue: "",
+      countryCode:'tr'
     };
   },
   created() {
@@ -778,13 +779,14 @@ paginationOptions: {
       this.getuserName = data.name;
       this.getuserSurName = data.surname;
       this.gettikTokUserName = data.tiktok_username;
+      this.countryCode = data.country_code
 
       this.showEditModal = true;
 
       setTimeout(() => {
         const phoneInputField = document.querySelector("#phone");
         this.phoneNumberfield = window.intlTelInput(phoneInputField, {
-          initialCountry: "tr",
+          initialCountry: this.countryCode,
           utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
@@ -921,6 +923,8 @@ paginationOptions: {
     },
 
     formSubmitEditMember() {
+
+  
       if (!this.phoneNumberfield.isValidNumber()) {
         this.$toaster.makeToast("warning", "Invalid number");
         return;
@@ -930,8 +934,10 @@ paginationOptions: {
       if (this.getphoneNumber.startsWith("+")) {
         this.getphoneNumber = this.getphoneNumber.slice(1);
       }
+      const countryCode = this.phoneNumberfield.j;
       this.imgLoader = true;
       let requestData = {
+        country_code:countryCode,
         contact_number: this.getphoneNumber,
         role: "user",
         name: this.getuserName,
@@ -945,6 +951,7 @@ paginationOptions: {
           iban: "",
         },
       };
+     
 
       this.$apiService
         .postCall("auth/member-update", requestData)
@@ -1007,6 +1014,12 @@ paginationOptions: {
     },
 
     formSubmitAddMember() {
+      // console.log("this.phoneNumberfield",this.phoneNumberfield)
+
+       this.countryCode = this.phoneNumberfield.j;
+      // console.log("this.phoneNumberfield22",countryCode)
+
+    
       if (!this.phoneNumberfield.isValidNumber()) {
         this.$toaster.makeToast("warning", "Invalid number");
         return;
@@ -1028,6 +1041,8 @@ paginationOptions: {
         name: this.userName,
         surname: this.userSurName,
         tiktok_username: this.tikTokUserName,
+        country_code:this.countryCode
+        
       };
 
       this.$apiService
