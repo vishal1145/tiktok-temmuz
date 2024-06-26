@@ -716,11 +716,12 @@ toggleFlexDiv() {
           : 'flex!important' 
     },
     clearFilters() {
-      this.searchTerm = ''
-      this.startDate = '' // Reset start date
-      this.endDate = '' // Reset end date
+      // this.searchTerm = ''
+      // this.startDate = '' // Reset start date
+      // this.endDate = '' // Reset end date
     
-      this.fetchPublisher()
+      // this.fetchPublisher()
+      window.location.reload();
     },
 
   },
