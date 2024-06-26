@@ -58,7 +58,7 @@
                 :sort-options="{
                   enabled: false
                 }"
-                :rows="rows"
+                :rows="faqs"
               >
                 <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field === 'audio_url'">
@@ -149,7 +149,7 @@ export default {
       userimage: '',
       loader: false,
 
-      rows: [],
+      faqs: [],
       commonColumns: [
         {
           label: 'Date',
@@ -164,15 +164,15 @@ export default {
           field: 'contact_number'
         },
 
-        // {
-        //   label: 'Diamonds This Month',
-        //   field: 'diamond'
-        // },
+        {
+          label: 'Diamonds This Month',
+          field: 'diamonds'
+        },
 
-        // {
-        //   label: 'Partner',
-        //   field: 'price'
-        // },
+        {
+          label: 'Partner',
+          field: 'affiliate'
+        },
 
         {
           label: 'Status',
@@ -209,44 +209,112 @@ export default {
       let val = (value / 1).toFixed(0).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
-    async fetchPublisher () {
+    // async fetchPublisher () {
+    //   this.loader = true
+    //   try {
+    //     var url = ''
+
+    //     url = 'user/get-all-members-publishers/' + this.userId
+
+    //     // url = 'publisher/get-all'
+
+    //     const response = await new Promise((resolve, reject) => {
+    //       this.$apiService
+    //         .getCall(url)
+    //         .then(data => resolve(data))
+    //         .catch(error => reject(error))
+    //     })
+
+    //     if (response.error) {
+    //       this.$toaster.makeToast('warning', response.message)
+    //     } else {
+    //       if (response.apidata.msg) {
+    //         this.rows = []
+    //       } else {
+    //         const paymentData = response.apidata.data
+    //         // this.filteredFaqs = response.apidata.data
+    //         // this.filteredFaqs = this.faqs
+    //         // this.ForDropwDow = this.faqs
+
+    //         paymentData.forEach(e => {
+    //           e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
+    //         })
+    //         this.rows = paymentData
+    //       }
+    //     }
+    //     this.loader = false
+    //   } catch (error) {
+    //     this.loader = false
+    //     console.error(error)
+    //     this.$toaster.makeToast('warning', 'Error: Server Error')
+    //   }
+    // },
+
+    async fetchPublisher() {
+      
       this.loader = true
       try {
-        var url = ''
+        // Get role from localStorage
+        this.role = localStorage.getItem('role')
+    
+        // Determine if the user is an admin
 
-        url = 'user/get-all-members-publishers/' + this.userId
-
-        // url = 'publisher/get-all'
-
-        const response = await new Promise((resolve, reject) => {
-          this.$apiService
-            .getCall(url)
-            .then(data => resolve(data))
-            .catch(error => reject(error))
-        })
-
-        if (response.error) {
-          this.$toaster.makeToast('warning', response.message)
+        
+        // Set user_id based on whether the user is an admin
+        const req = {
+          user_id:  this.userId
+        }
+    
+        console.log("id", this.user_id)
+        const res = await this.$apiService.postCall('/publisher/get-all', req)
+    
+        if (res.error) {
+          this.$toaster.makeToast('warning', res.message)
         } else {
-          if (response.apidata.msg) {
-            this.rows = []
+          if (res.apidata.msg) {
+            this.faqs = []
           } else {
-            const paymentData = response.apidata.data
-            // this.filteredFaqs = response.apidata.data
-            // this.filteredFaqs = this.faqs
-            // this.ForDropwDow = this.faqs
-
-            paymentData.forEach(e => {
-              e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A')
-            })
-            this.rows = paymentData
+            console.log("Start of script");
+    
+    const paymentData = res.apidata.data;
+    console.log("paymetBefore", paymentData);
+    
+    paymentData.reverse();
+    
+    paymentData.forEach((e, index) => {
+      console.log(`Processing index ${index}`, e);
+    
+      // Check if createdAt is a valid date
+      if (moment(e.createdAt).isValid()) {
+        e.createdAt = moment(e.createdAt).format('DD MMM YYYY h:mm A');
+        console.log(`Formatted createdAt for index ${index}`, e.createdAt);
+      } else {
+        console.error(`Invalid date at index ${index}`, e.createdAt);
+      }
+    
+      // Check if user_id and tiktok_username exist
+      if (e.user_id && e.user_id.tiktok_username) {
+        e.affiliate = e.user_id.tiktok_username;
+        // console.log(`Added affiliate for index ${index}`, e.affiliate);
+      } else {
+        // console.error(`Missing user_id or tiktok_username at index ${index}`, e.user_id);
+      }
+    });
+    
+    // console.log("After", paymentData);
+    
+    this.faqs = paymentData;
+    // console.log("faqs set", this.faqs);
+    
+    
+    
           }
         }
-        this.loader = false
       } catch (error) {
-        this.loader = false
         console.error(error)
         this.$toaster.makeToast('warning', 'Error: Server Error')
+      } finally {
+        this.loader = false
       }
     },
     getProfileDetails () {
