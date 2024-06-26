@@ -837,7 +837,11 @@ const routes = [
         name: "signIn",
         component: () => import("./views/app/sessions/signIn"),
       },
-
+      {
+        path: "landingPage",
+        name: "landingPage",
+        component: () => import("./views/app/sessions/landingPage"),
+      },
       {
         path: "walletoffers",
         name: "walletoffers",
