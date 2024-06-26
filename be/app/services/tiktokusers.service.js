@@ -87,6 +87,7 @@ exports.memberUpdate = async (body) => {
       name: body.name,
       surname: body.surname,
       tiktok_username: body.tiktok_username,
+      country_code: body.country_code,
       bank: {
         full_name: body.bank.full_name,
         identity_citizenship_no: body.bank.identity_citizenship_no,

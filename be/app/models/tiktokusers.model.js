@@ -11,6 +11,7 @@ const memberSchema = new mongoose.Schema({
   first_commission: { type: String },
   second_commission: { type: String },
   third_commission: { type: String },
+  country_code:{ type: String },
   bank: {
     full_name: { type: String },
     identity_citizenship_no: { type: String },
