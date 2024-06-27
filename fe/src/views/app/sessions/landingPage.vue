@@ -1,24 +1,42 @@
 <template style="
 background-color: #f8f4fc;
 ">
-    <div class="container pw" style="
-    background-color: #f8f4fc85;
-    &quot;&quot;;
-">
+    <div class="container pw" >
       <!-- Header Section -->
-      <div class="header d-flex flex-row justify-content-end">
-        <span class="logo d-none">@Tiktok Temmuz</span>
-        <button class="join-now"  @click="joinNow">Join Now</button>
+      <div class="header d-flex flex-row ">
+ 
+<div>
+  <div class="nav-logo d-flex flex-row" @click="clickLogo()" style="cursor: pointer;gap: 12px;">
+      <img src="@/assets/images/food_nav.png" style="
+    width: 89px!important;
+"/>
+   
+  </div>
+</div>
+<div>        <span class="logo"> 
+          <b-dropdown id="dropdown-1" :text="dropdownText" class="btn32">
+  <template #button-content>
+    <i class="fa fa-globe" aria-hidden="true"></i> {{ dropdownText }}
+  </template>
+  <b-dropdown-item @click="changeLang('en')">
+    <i class="flag-icon flag-icon-us"></i> English
+  </b-dropdown-item>
+  <b-dropdown-item @click="changeLang('tr')">
+    <i class="flag-icon flag-icon-tr"></i> Türkçe
+  </b-dropdown-item>
+</b-dropdown></span>     <button class="join-now"  @click="joinNow">{{ $t('Join Now') }}</button></div>
+
+    
       </div>
       <!-- Main Content Section -->
       <div class="content">
         <div class="text-section">
-          <h2>MAKE YOUR CONTENT TODAY</h2>
-          <h1>TikTok LIVE Official Agency Partner <span>Temmuz Agency</span> </h1>
-          <p>
-            If you are a TikTok publisher or want to become a publisher, you can attract the attention of millions of people on TikTok with July Agency and increase your earnings up to ten times.
-          </p>
-          <button class="join-now"  @click="joinNow">Join Now</button>
+          <h2>{{ $t('MAKE YOUR CONTENT TODAY') }}</h2>
+          <h1> {{ $t('TikTok LIVE Official Agency Partner') }}<span> {{ $t('Temmuz Agency') }}</span> </h1>
+          <p> 
+            {{ $t('If you are a TikTok publisher or want to become a publisher, you can attract the attention of millions of people on TikTok with July Agency and increase your earnings up to ten times.') }}
+            </p>  
+          <button class="join-now"  @click="joinNow"> {{ $t('Join Now') }}</button>
         </div>
         <div class="image-section ImageDisplayNone">
           <img src="https://temmuzajans.com/wp-content/uploads/2023/05/tiktok-ajansi-yayinci-kazanci.jpg" alt="Influencer Image" />
@@ -26,7 +44,7 @@ background-color: #f8f4fc;
       </div>
       <!-- New Section -->
       <div class="offer-section">
-        <h2>Our TikTok Agency Staff</h2>
+        <h2> {{ $t('Our TikTok Agency Staff') }}</h2>
         <!-- <div class="cards">
           <div class="card">
           <div class="d-flex flex-row align-items-baseline" style="
@@ -63,7 +81,7 @@ background-color: #f8f4fc;
         <div class="card-container d-flex flex-row flex-wrap justify-content-between px30ONlyMObie" style="
     gap: 22px;
 ">
-    <div v-for="profile in profiles" :key="profile.name" class="card">
+    <div v-for="profile in profiles" :key="profile.name" class="card32">
       <div class="card-body">
         <div class="d-flex flex-row" style="gap: 14px;">
           <div>
@@ -73,9 +91,23 @@ background-color: #f8f4fc;
             <h2 class="mx-0">{{ profile.name }}</h2>
             <p class="mx-0">{{ profile.title }}</p>
             <div class="d-flex flex-row justify-content-start social-links">
+
+              <a v-for="link in profile.socialLinks" :key="link.name" :href="link.url" target="_blank" rel="noopener noreferrer">
+            <!-- <img :src="link.icon" :alt="link.name" class="social-icon"/> -->
+
+            <i :class="link.icon"></i>
+          </a>
+<!-- 
+      <i class="i-Instagram"></i>
+              <i class="i-Facebook"></i>
+              <i class="i-Youtube"></i>
+              <i class="i-Tumblr"></i> -->
+
+
+<!-- 
               <a v-for="link in profile.socialLinks" :key="link.name" :href="link.url" target="_blank" rel="noopener noreferrer">
                 <img :src="link.icon" :alt="link.name" />
-              </a>
+              </a> -->
             </div>
           </div>
         </div>
@@ -90,8 +122,9 @@ background-color: #f8f4fc;
         
         <div class="px-4 d-flex flex-row flex-wrap pw px-2 ">
           <div class="d-flex flex-column justify-content-center pr-4 width65">
-            <h2>About July TikTok Agency</h2>
-            Founded by Actor and Manager Temmuz Karikutal, our company has been serving as an acting agency in the television and cinema industry and sending actors to many successful projects. As of March 2023, our company has now been serving TikTok publishers as an Official TikTok Agency Partner.
+            <h2> {{ $t('About July TikTok Agency') }}</h2>
+            {{ $t('Founded by Actor and Manager Temmuz Karikutal, our company has been serving as an acting agency in the television and cinema industry and sending actors to many successful projects. As of March 2023, our company has now been serving TikTok publishers as an Official TikTok Agency Partner.') }}
+            
           </div>
           <div class="image-section ImageDisplayNone">
           <img src="https://temmuzajans.com/wp-content/uploads/2023/01/asian-businessmen-businesswomen-meeting-brainstorming-ideas-about-creative-web-design-planning-application-developing-template-layout-mobile-phone-project-working-together-small-office-768x432.webp" alt="Influencer Image" />
@@ -110,97 +143,59 @@ background-color: #f8f4fc;
   </template>
   
   <script>
+  import i18n, { changeLanguage } from '../../../lang/lang';
   export default {
     name: "ContentCampaign",
     data() {
     return {
+      currentLang:'tr',
+
       profiles: [
         {
           profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/05/temmuzk.jpg',
           name: 'July Cartoon',
           title: 'Player & Manager',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@username',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/username',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/username',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
-          ]
-        },
-        {
-          profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/06/survivor-aysu-keskin-tiktok.jpg',
-          name: 'Jane Doe',
-          title: 'Artist & Creator',
-          socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@janedoe',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/janedoe',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/janedoe',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
-          ]
+        { name: "Instagram", url: "https://www.instagram.com/temmuzk", icon: "i-Instagram" },
+       
+     
+        { name: "TikTok", url: "https://www.tiktok.com/@temmuzk", icon: "i-Tumblr" },
+        { name: "Facebook", url: "https://www.facebook.com/temmuzk", icon: "i-Facebook" },
+      ]
         },
         {
           profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/05/sedayildiz.jpg',
-          name: 'John Smith',
-          title: 'Developer & Blogger',
+          name: 'Seda Yıldız',
+          title: 'Actor',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.tiktok.com/@seda_yildiz62", icon: "i-Instagram" },
+      
+     
+        { name: "TikTok", url: "https://www.tiktok.com/@seda_yildiz62", icon: "i-Tumblr" },
+        { name: "Facebook", url: "https://www.facebook.com/profile.php?id=100009396572906", icon: "i-Facebook" },
           ]
+        },
+        {
+         
+          profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/06/survivor-aysu-keskin-tiktok.jpg',
+          name: 'Aysu Keskin',
+          title: 'Basketball Player',
+          socialLinks: [
+        { name: "Instagram", url: "https://www.instagram.com/aysukeskin.23/", icon: "i-Instagram" },
+
+     
+        { name: "TikTok", url: "https://www.tiktok.com/@aysukeskin23", icon: "i-Tumblr" }
+      ]
         },
         {
           profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/08/buraksarimola-768x872.jpg',
           name: 'Burak Sarımola',
           title: 'Actor',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.instagram.com/buraksarimola", icon: "i-Instagram" },
+
+     
+        { name: "TikTok", url: "http://www.tiktok.com/@buraksarimola", icon: "i-Tumblr" }
           ]
         },
         {
@@ -208,21 +203,13 @@ background-color: #f8f4fc;
           name: 'Cüneyt Tek',
           title: 'Singer',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.facebook.com/cuneyt.tek.7", icon: "i-Instagram" },
+            { name: "TikTok", url: "http://www.tiktok.com/@cuneyttek", icon: "i-Tumblr" },
+        { name: "Facebook", url: "https://www.facebook.com/temmuzk", icon: "i-Facebook" },
+        { name: "Youtube", url: "https://www.youtube.com/@cuneyttek4245", icon: "i-Youtube" },
+
+     
+       
           ]
         }
       ,
@@ -231,21 +218,9 @@ background-color: #f8f4fc;
           name: 'Asena Demirbağ',
           title: 'Survivor 2023 ',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.instagram.com/asenademirbag/", icon: "i-Instagram" },
+            { name: "TikTok", url: "http://tiktok.com/@asenaademirbag", icon: "i-Tumblr" },
+    
           ]
         },
         {
@@ -253,74 +228,69 @@ background-color: #f8f4fc;
           name: 'Necmi Yapıcı',
           title: 'Actor',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "http://www.instagram.com/necmiyapici", icon: "i-Instagram" },
+            { name: "TikTok", url: "https://www.tiktok.com/@necmiyapici", icon: "i-Tumblr" },
+        { name: "Facebook", url: "https://www.facebook.com/profile.php?id=100009567936502", icon: "i-Facebook" },
+
           ]
         },      {
           profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/05/baris-telli.jpg',
           name: 'Barış Telli',
           title: 'Amputee National',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.instagram.com/baristelliofficial/", icon: "i-Instagram" },
+            { name: "TikTok", url: "https://www.tiktok.com/@baristelliofficial", icon: "i-Tumblr" },
+   
           ]
         },      {
           profileImage: 'https://temmuzajans.com/wp-content/uploads/2023/05/yagmurbanda.jpg',
           name: 'Rain Banda',
           title: 'Survivor 2018',
           socialLinks: [
-            {
-              name: 'TikTok',
-              url: 'https://www.tiktok.com/@johnsmith',
-              icon: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzsmfNPnvuNK4Qwk8vY0CgyLBW0mFFUMXSSQ&s'
-            },
-            {
-              name: 'Instagram',
-              url: 'https://www.instagram.com/johnsmith',
-              icon: 'https://cdn-icons-png.flaticon.com/256/87/87390.png'
-            },
-            {
-              name: 'Facebook',
-              url: 'https://www.facebook.com/johnsmith',
-              icon: 'https://static-00.iconduck.com/assets.00/facebook-icon-2048x2048-rq5u5c3v.png'
-            }
+            { name: "Instagram", url: "https://www.instagram.com/yagmurbanda/", icon: "i-Instagram" },
+            { name: "TikTok", url: "https://www.tiktok.com/@yagmurbanda0", icon: "i-Tumblr" },
+ 
           ]
         },
         
       ]
 
     };
-    },
+    },    computed: {
+    dropdownText() {
+      return this.currentLang === 'en' ? 'English' : 'Türkçe';
+    }
+
+  },
     methods: {
     joinNow() {
       this.$router.push('/app/sessions/signIn');
-    }
+    },
+    changeLang(lang) {
+  if (this.currentLang !== lang) {
+    this.showContent = false;  
+    setTimeout(() => {
+      changeLanguage(lang);
+      this.currentLang = lang;
+      this.showContent = true;
+      localStorage.setItem('selectedLanguage', lang);  
+    }, 500); 
+  }
+},
+
+
+initializeLanguage() {
+  const savedLang = localStorage.getItem('selectedLanguage');
+  if (savedLang) {
+    this.currentLang = savedLang;
+    changeLanguage(savedLang);
+  } else {
+    this.currentLang = 'default'; 
+    changeLanguage('default');
+  }
+  this.showContent = true; 
+},
+
   }
   };
 
@@ -328,7 +298,17 @@ background-color: #f8f4fc;
   
   </script>
   
-  <style scoped>
+  <style >
+  #dropdown-1__BV_toggle_ {
+    border: 1px solid #80808000;
+    padding-left: 20px !important;
+    padding-right: 30px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
   .container {
     font-family: Arial, sans-serif;
     background-color: #fdf1e600;
@@ -416,7 +396,7 @@ background-color: #f8f4fc;
     margin-bottom: 30px;
   }
   
-  .card {
+  .card32 {
   width: 300px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -445,7 +425,7 @@ background-color: #f8f4fc;
 }
 
 .card-body h2 {
-  font-size: 1.5em;
+  font-size: 1.1em;
   margin: 4px;
 }
 
@@ -546,5 +526,33 @@ h1, h2, h3, h4, h5, h6, .card-title, .text-title {
 }
 }
 
+
+
+
+
+.i-Instagram:before {
+    content: "\eaab";
+    font-size: 19px;
+    color: #a855f7b0;
+}
+.i-Facebook:before {
+    content: "\ea9d";
+    font-size: 19px;
+    color: #a855f7b0;
+}
+
+.i-Youtube:before {
+    content: "\ead5";
+    font-size: 19px;
+    color: #a855f7b0;
+}
+
+.i-Tumblr:before {
+    content: "\eac7";
+    font-size: 19px;
+    color: #a855f7b0;}
+
+
+    
   </style>
   
