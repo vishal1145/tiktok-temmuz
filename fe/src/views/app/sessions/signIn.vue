@@ -28,16 +28,12 @@
               </div>
                       <div>
         <div v-if="activeChild === 1">
-          <div class="" style="
-    height: 387px;
-    display: flex;
-    align-items: center;
-">
+          <div class="heightForMoile">
             <div class="row">
             
            
               <div class="col-md-12">
-                <div class="p-4 px-5 ">
+                <div class="p-4">
                   <div class="auth-logo text-left mb-30 d-none">
                     <img :src="logo" />
                   </div>
@@ -1976,6 +1972,20 @@ img {
 {
   width: 279px;
 }
+.heightForMoile
+{
+    height: 307px;
+    display: flex;
+    align-items: center;
+}
+
+}
+
+.heightForMoile
+{
+    height: 387px;
+    display: flex;
+    align-items: center;
 }
 
 </style>

@@ -234,9 +234,7 @@
           <i class="i-Wallet"></i>
           <div class="content">
             <p class="text-muted mt-2 mb-0">  {{ $t('Earnings Revenue') }}</p>
-            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" style="
-    width: 78px;
-">$ &nbsp;{{totalEarningData}}</p>
+            <p class="text-primary text-24 line-height-1 mb-2 ul-cursor--pointer" >$ &nbsp;{{totalEarningData}}</p>
           </div>
         </b-card>
       </b-col>
