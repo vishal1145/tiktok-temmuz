@@ -131,14 +131,13 @@ background-color: #f8f4fc;
         </div>
    
         </div>
-        <div class="partners d-none">
-          <h4>WHO WE HAVE WORKED WITH</h4>
-        
-          <img src="path-to-logo1.png" alt="Logo 1" />
-          <img src="path-to-logo2.png" alt="Logo 2" />
-          <img src="path-to-logo3.png" alt="Logo 3" />
-        </div>
+
       </div>
+      <div class="d-flex flex-column justify-content-center pr-4 w-100">
+        <p class="text-sm text-gray-500 sm:text-center dark:text-gray-400 my-28">© 2023 <a href="#" class="hover:underline" @click="joinNow">Temmuzajans™</a>  {{ $t(' All Rights Reserved.') }}
+        </p>
+          </div>
+ 
     </div>
   </template>
   
