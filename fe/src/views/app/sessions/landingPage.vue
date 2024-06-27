@@ -521,7 +521,7 @@ h1, h2, h3, h4, h5, h6, .card-title, .text-title {
   display: none;
 }
 
-.text-section[data-v-11eb671c][data-v-11eb671c] {
+.text-section {
     width: 100%;
     text-align: left;
 }
@@ -530,7 +530,7 @@ h1, h2, h3, h4, h5, h6, .card-title, .text-title {
   width: 100%;
 }
 
-.container[data-v-11eb671c] {
+.container {
     font-family: Arial, sans-serif;
     background-color: #fdf1e600;
     padding: 20px;
