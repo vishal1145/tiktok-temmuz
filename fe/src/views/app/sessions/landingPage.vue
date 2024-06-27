@@ -521,7 +521,7 @@ h1, h2, h3, h4, h5, h6, .card-title, .text-title {
   display: none;
 }
 
-.text-section[data-v-11eb671c] {
+.text-section[data-v-11eb671c][data-v-11eb671c] {
     width: 100%;
     text-align: left;
 }
