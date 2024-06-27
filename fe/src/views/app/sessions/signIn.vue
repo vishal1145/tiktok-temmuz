@@ -5,7 +5,7 @@
         <div class="col-xl-8 col-11 d-flex justify-content-center">
             <div class="card mb-0 m-auto">
                 <div class="row m-0"        style="background-color: rgb(239, 242, 247);height: 439px;">
-                    <div class="col-lg-6 text-center align-self-center px-1 py-0">
+                    <div class="col-lg-6 text-center align-self-center px-1 paddingZero">
                         <img   :src="logo" width="400px;" alt="branding logo">
                     </div>
                     <div class="col-lg-6 col-12 p-0 marginformobile"  style=" 
@@ -35,7 +35,7 @@
             
            
               <div class="col-md-12">
-                <div class="p-4">
+                <div class="paddingForAll32">
                   <div class="auth-logo text-left mb-30 d-none">
                     <img :src="logo" />
                   </div>
@@ -1974,6 +1974,11 @@ img {
 .dropdown-item {
     padding: 0.42rem 0.5rem;
 }
+.paddingForAll32
+{
+  padding-right: 30px !important;
+  padding-left: 30px !important;
+}
 
 @media only screen and (max-width: 600px) {
 
@@ -1989,8 +1994,22 @@ img {
     padding-left: 12px !important;
     padding-right: 12px !important;
 }
+.paddingForAll32
+{
+  padding-right: 11px !important;
+    padding-left: 11px !important;
+}
+
+.paddingZero
+{
+  padding-top: 20px !important;
+    padding-bottom: 20px !important;
 
 }
+
+}
+
+
 
 
 
