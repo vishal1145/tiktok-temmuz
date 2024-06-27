@@ -333,7 +333,7 @@ background-color: #f8f4fc;
     font-family: Arial, sans-serif;
     background-color: #fdf1e600;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     width: 80%;
     margin: auto;
     text-align: center;
