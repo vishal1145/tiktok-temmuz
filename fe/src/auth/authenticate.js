@@ -14,7 +14,7 @@ export default (to, from, next) => {
   // }
   else{
     // next("/app/sessions/home");
-    next("/app/sessions/signIn");
+    next("/app/sessions/landingPage");
     
 
   }
