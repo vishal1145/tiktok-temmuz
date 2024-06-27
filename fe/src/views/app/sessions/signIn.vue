@@ -29,7 +29,9 @@
                       <div>
         <div v-if="activeChild === 1">
           <div class="heightForMoile">
-            <div class="row">
+            <div class="row" style="
+    width: 100vw;
+">
             
            
               <div class="col-md-12">
@@ -1760,6 +1762,13 @@ initializeLanguage() {
 }
 
 
+.heightForMoile
+{
+    height: 387px !important;
+    display: flex;
+    align-items: center;
+}
+
 
 .select-input:focus,
 .phone-input:focus {
@@ -1974,18 +1983,15 @@ img {
 }
 .heightForMoile
 {
-    height: 307px;
+    height: 307px!important;
     display: flex;
     align-items: center;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
 }
 
 }
 
-.heightForMoile
-{
-    height: 387px;
-    display: flex;
-    align-items: center;
-}
+
 
 </style>
