@@ -5,7 +5,7 @@
    
     position: fixed;
 ">
-        <div class="col-xl-8 col-11 d-flex justify-content-center">
+        <div class="col-xl-8 col-11 d-flex justify-content-center noFlex">
             <div class="card mb-0 m-auto">
                 <div class="row m-0"        style="background-color: rgb(239, 242, 247);height: 439px;">
                     <div class="col-lg-6 text-center align-self-center px-1 paddingZero">
@@ -2011,7 +2011,10 @@ img {
     padding-bottom: 20px !important;
 
 }
-
+.noFlex
+{
+  display: block !important;
+}
 }
 
 
