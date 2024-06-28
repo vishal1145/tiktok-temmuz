@@ -120,7 +120,7 @@ background-color: #f8f4fc;
       <div class="footer">
 
         
-        <div class="px-4 d-flex flex-row flex-wrap pw px-2 ">
+        <div class="pl-3 d-flex flex-row flex-wrap pw ">
           <div class="d-flex flex-column justify-content-center pr-4 width65">
             <h2> {{ $t('About July TikTok Agency') }}</h2>
             {{ $t('Founded by Actor and Manager Temmuz Karikutal, our company has been serving as an acting agency in the television and cinema industry and sending actors to many successful projects. As of March 2023, our company has now been serving TikTok publishers as an Official TikTok Agency Partner.') }}
@@ -396,7 +396,8 @@ initializeLanguage() {
   }
   
   .card32 {
-  width: 300px;
+    width:314px;
+   
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   overflow: hidden;
@@ -519,10 +520,28 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
-.px30ONlyMObie {
-    padding-left: 30px !important;
-    padding-right: 30px !important;
+.card32 {
+
+     width: 350px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.layout-sidebar-large .main-content-wrap {
+    width: 100%;
+    float: right;
+    margin-top: 80px;
+    -webkit-transition: width 0.24s ease-in-out;
+    transition: width 0.24s ease-in-out;
+    padding: 1rem 1rem 0;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    background: #fff;
+}
+
 }
 
 

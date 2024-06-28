@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content pb-3">
     <!-- <b-row>
       <b-cols m="12" md="12" xl="12" lg="12" class="mb-30 px-4 "
         ><div class="font-weight-bold fa-2x text-light">Profile</div></b-cols
@@ -363,7 +363,7 @@
           </b-row>
         </b-form>
       </b-card>
-      <b-card title="Bank Account" class="for-profile" style="display: none">
+      <b-card title="Bank Account" class="for-profile pb-2" style="display: none">
         <!-- <b-form>
           <b-row>
             <b-col md="6">

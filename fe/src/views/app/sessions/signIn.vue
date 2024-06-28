@@ -1,7 +1,10 @@
 <template>
 <!-- 
 <transition name="fade">   -->
-   <section class="row justify-content-center gifBody">
+   <section class="row justify-content-center gifBody" style="
+   
+    position: fixed;
+">
         <div class="col-xl-8 col-11 d-flex justify-content-center">
             <div class="card mb-0 m-auto">
                 <div class="row m-0"        style="background-color: rgb(239, 242, 247);height: 439px;">
@@ -1991,11 +1994,14 @@ img {
 }
 .heightForMoile
 {
-    height: 374px!important;
+    height: 390px!important;
     display: flex;
     align-items: center;
     padding-left: 12px !important;
     padding-right: 12px !important;
+
+    align-items: start;
+    padding-top: 30px;
 }
 .paddingForAll32
 {

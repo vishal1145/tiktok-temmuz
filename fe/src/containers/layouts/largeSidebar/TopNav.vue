@@ -1789,7 +1789,7 @@ deleteCookie(name) {
     } else {
       this.loader = false;
       console.log("notification", res); // Log the response received
-    const paymentData = res.apidata.data;
+    const paymentData = res.apidata.data.reverse();
       paymentData.forEach(e => {
   
                 e.createdAt = moment(e.createdAt).format(

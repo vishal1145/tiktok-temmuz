@@ -150,7 +150,7 @@
     <b-col lg="12" md="12" class="px-0">
                 <div  class="">
                     <div role="tablist">
-                      <div no-body class="ul-card__border-radius my-2 mt-2" style="padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
+                      <div no-body class="ul-card__border-radius my-2 mt-2 widthAllAround300" style="padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
     <div header-tag="header" class="py-1" role="tab">
       <b-button
         class="pw mb-0 px-0 py-0 widthAllAround"
@@ -167,7 +167,7 @@
     </div>
     <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel" @shown="isAccordionOpen = true" @hidden="isAccordionOpen = false"  class="widthAllAround">
       <div>
-        <p class="card-text px-2 " style="overflow-anchor: none; font-size: 11px;">
+        <p class="card-text px-2 paddingForMObile3" style="overflow-anchor: none; font-size: 11px;">
           While we serve clients across different industries, our expertise extends particularly well to consumer brands, entertainment, fashion, and lifestyle sectors.
         </p>
       </div>
@@ -175,7 +175,7 @@
   </div>
 
 
-  <div no-body class="ul-card__border-radius" style=" padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
+  <div no-body class="ul-card__border-radius widthAllAround300" style=" padding: .5rem 1rem!important; border: 1px solid #f59e0b; border-radius: 6px; border-left: 5px solid #f59e0b;">
     <div header-tag="header" class="py-1" role="tab">
       <b-button
         class="pw mb-0 px-0 py-0 widthAllAround"
@@ -192,7 +192,7 @@
     </div>
     <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel" @shown="isAccordionOpen1 = true" @hidden="isAccordionOpen1= false"  class="widthAllAround">
       <div>
-        <p class="card-text px-2 " style="overflow-anchor: none; font-size: 11px;">
+        <p class="card-text px-2 paddingForMObile3 " style="overflow-anchor: none; font-size: 11px;">
           You can visit us on weekdays from 10:00 to 17:00 at our office in Gazi Mh. Fatih Sultan Mehmet Blvd., Yenimahalle Ankara
         </p>
       </div>
@@ -1111,8 +1111,9 @@ b, strong {
   .col-md-4 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 33.33333%;
-    flex: 0 0 70.33333%;
-    max-width: 95.33333%;
+  
+   
+    flex: 0 0 100.33333%;
 }
 
 
@@ -1131,10 +1132,15 @@ b, strong {
 
 }
 
-.widthAllAround
+.widthAllAround300
 {
   width:300px;
 }
+.paddingForMObile3
+{
+  padding-right: 3rem !important;
+}
+
 }
 
 

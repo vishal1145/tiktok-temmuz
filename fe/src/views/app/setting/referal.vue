@@ -8,7 +8,7 @@
                     <div class="card-body text-nowrap px-0">
                         <h5 class="card-title mb-0">
                             
-                            {{ $t('Congratulations') }} {{ this.loginUserName }}! 🎉
+                            {{ $t('Congratulations') }} {{ this.loginUserName.length > 10 ? this.loginUserName.slice(0, 10) + '...' : this.loginUserName }}! 🎉
                         </h5>
 
                         <p class="d-flex flex-row flex-wrap mb-1 GappingForMobile fontforALL" style="
@@ -16,7 +16,7 @@
 " >
                      <span style="
 
-">   {{ $t('Thank you for being awesome and sharing our') }}   </span>     <span class="">  {{ $t('platform with others! Below is your unique referral link:') }} </span>     
+">   {{ $t('Thank you for being awesome and sharing our') }}   </span>     <span class="">  {{ $t('platform with others!') }} </span>   <span class="">  {{ $t('Below is your unique referral link:') }} </span>   
                         </p>
 
 

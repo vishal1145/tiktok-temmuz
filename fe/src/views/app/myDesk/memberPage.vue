@@ -433,7 +433,9 @@ export default {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-top: -70px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-top: 33px;
     z-index: 9;
 }
 
@@ -464,5 +466,7 @@ justify-content: space-between;
 .paddingBottom{
     padding-bottom: 0.5rem !important;
 }
+
+
 }
 </style>

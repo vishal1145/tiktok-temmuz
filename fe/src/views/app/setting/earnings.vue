@@ -386,10 +386,10 @@
           </div>
         </div>
         <b-row
-          class="w-100 px-3 pb-3 pt-2 mt-1"
+          class="w-100 pl-3 pb-3 pt-2 mt-1"
           :style="{ display: flexDivDisplay }"
         >
-          <b-col md="3">
+          <b-col md="3" class="pr-0">
             <label for="users-list-search">{{ $t('Search') }}</label>
             <fieldset class="form-group">
               <input
@@ -407,7 +407,7 @@
               />
             </fieldset>
           </b-col>
-          <b-col md="3" class="col-sm-6 col-lg-3 d-flex flex-column">
+          <b-col md="3" class="col-sm-6 col-lg-3 d-flex flex-column  pr-0">
             <label for="users-list-search"> {{ $t('Select Start Date') }}</label>
             <v2-datepicker
               class="for-date-picker"
@@ -423,7 +423,7 @@
 
             ></v2-datepicker>
           </b-col>
-          <b-col md="3" class="d-flex flex-column">
+          <b-col md="3" class="d-flex flex-column pr-0">
             <label for="users-list-search">{{ $t('Select End Date') }}</label>
 
  
@@ -1599,7 +1599,7 @@ imgloader {
 
 @media only screen and (max-width: 600px) {
   .paddingzero {
-    padding-right: 44px;
+    padding-right: 16px;
     padding-left: 18px;
   }
 }
@@ -1703,6 +1703,18 @@ justify-content: space-between;
 .vgt-wrap__footer .footer__navigation > button:first-of-type {
    
     margin: 0px;
+}
+
+.layout-sidebar-large .main-content-wrap {
+    width: 100%;
+    float: right;
+    margin-top: 80px;
+    -webkit-transition: width 0.24s ease-in-out;
+    transition: width 0.24s ease-in-out;
+    padding: 1rem 1rem 0 !important;
+    position: relative;
+    min-height: calc(100vh - 80px);
+    background: #fff;
 }
 
 .paddingBottom{

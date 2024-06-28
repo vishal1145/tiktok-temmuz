@@ -448,7 +448,7 @@
               <div class="col-7">
                 <div class="card-body text-nowrap">
                   <h5 class="card-title mb-0">
-                        {{ $t('Congratulations') }}&nbsp;{{ this.loginUserName }}! 🎉
+                    {{ $t('Congratulations') }} {{ this.loginUserName.length > 10 ? this.loginUserName.slice(0, 10) + '...' : this.loginUserName }}! 🎉
                   </h5>
                   <p class="">{{ $t('Best seller of the month') }}</p>
                   <h4 class="text-primary mb-1">$&nbsp;{{ totalWithDraw }}</h4>

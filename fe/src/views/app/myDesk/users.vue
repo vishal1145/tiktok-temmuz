@@ -686,16 +686,17 @@ export default {
       // securityBalance: "",
       isModalOpen: false,
 
-paginationOptions: {
+
+
+      paginationOptions: {
         enabled: true,
         mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
         perPageDropdown: [10, 20, 50], // Set options for number of records per page
- 
-
+      
+    
         nextLabel: this.$t('Next'),
         prevLabel: this.$t('Previous'),
       },
-
       rows: [],
       originalRows: [],
       form: {
