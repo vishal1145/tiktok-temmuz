@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row justify-content-between flex-wrap">
    
       <div  class="align-self-center btn pw px-0" > 
 <span>{{ $t("Don't receive the OTP?") }}&nbsp;</span>
