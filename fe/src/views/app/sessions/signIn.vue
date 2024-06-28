@@ -621,7 +621,7 @@ export default {
       timerClass: 'd-none',
       timerClass: 'd-flex',
 
-      CountryCode: '+91',
+       countryCode:'tr',
       PhoneNumber: '',
       countryOptions: [
         { value: '+93', text: '(+93)' }, // Afghanistan
@@ -1058,6 +1058,8 @@ initializeLanguage() {
       ;(this.isShowName = false), (this.isShowOtp = true)
     },
     formSubmittikTokUser () {
+
+      this.countryCode = this.phoneInput.j;
       this.isShowOtp = true
       this.isShowName = false
       this.loader = true
@@ -1072,7 +1074,8 @@ initializeLanguage() {
         role: 'user',
         name: this.userName,
         surname: this.userSurName,
-        tiktok_username: this.tikTokUserName
+        tiktok_username: this.tikTokUserName,
+        country_code:this.countryCode
       }
 
       this.$apiService
@@ -1988,7 +1991,7 @@ img {
 }
 .heightForMoile
 {
-    height: 307px!important;
+    height: 374px!important;
     display: flex;
     align-items: center;
     padding-left: 12px !important;
