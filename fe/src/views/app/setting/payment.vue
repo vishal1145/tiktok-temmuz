@@ -706,18 +706,21 @@ export default {
 
       filteredFaqs: [],
       loginUserName: '',
-      paginationOptions: {
-        enabled: true,
-        mode: 'recordsPerPage',
-        perPageDropdown: [10, 20, 50],
-    
-        nextLabel: this.$t('Next'),
-        prevLabel: this.$t('Previous'),
-      }
+
     }
   },
 
   computed: {
+
+    paginationOptions() {
+      return {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      };
+    },
 
     columnsForAdmin() {
       return  [

@@ -867,15 +867,7 @@ export default {
       isEdit: false,
 
      
-      paginationOptions: {
-        enabled: true,
-        mode: 'recordsPerPage', // Set pagination mode to 'recordsPerPage'
-        perPageDropdown: [10, 20, 50], // Set options for number of records per page
- 
-
-        nextLabel: this.$t('Next'),
-        prevLabel: this.$t('Previous'),
-      },
+  
       first_name: '',
       last_name: '',
       tiktok_username: '',
@@ -896,7 +888,15 @@ export default {
 
   },
   computed: {
-
+    paginationOptions() {
+      return {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      };
+    },
     columns() {
       return [
 
