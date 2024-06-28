@@ -1102,7 +1102,7 @@ b, strong {
     border: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1026px) {
   .paddingMObile {
     padding-left: 48px !important;
     padding-right: 28px !important;
@@ -1116,6 +1116,16 @@ b, strong {
     flex: 0 0 100.33333%;
 }
 
+
+@media (min-width: 768px){
+
+.col-md-4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.33333%;
+ 
+    max-width: 70.33333%;
+}
+}
 
 .widthAllAround
 {
