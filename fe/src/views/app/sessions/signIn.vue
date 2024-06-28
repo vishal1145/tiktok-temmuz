@@ -1926,11 +1926,7 @@ initializeLanguage() {
 }
 
 
-@media (max-width: 480px) {
-  img {
-    max-width: 80%;
-}
-}
+
 /* For tablets (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
 
