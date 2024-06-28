@@ -677,6 +677,7 @@ export default {
       }
 
       this.phoneNumber = this.phoneInput.getNumber()
+      const countryCode = this.phoneInput.j;
 
       if (this.phoneNumber.startsWith('+')) {
         this.phoneNumber = this.phoneNumber.slice(1)
@@ -712,7 +713,8 @@ export default {
               contact_number: this.phoneNumber,
               agency_center_code: this.centerCode,
               tiktok_username: this.tiktokName,
-              icon: this.uplodedImages || null
+              icon: this.uplodedImages || null,
+              country_code:countryCode
             }
             // Assuming you want to make a POST request
             const res = await new Promise((resolve, reject) => {
