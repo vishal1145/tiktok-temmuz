@@ -9,7 +9,7 @@
           class="card-title"
           style="margin: 0px; background-color: white; color: #000000c4"
         >
-          Filters
+          {{ $t('Filters') }}
         </h4>
         <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
         <div class="heading-elements">
@@ -40,13 +40,14 @@
       </div>
       <b-row class="px-3 pb-3 pt-2 mt-1" :style="{ display: flexDivDisplay }">
         <b-col md="3" class="">
-          <label for="users-list-search">Search</label>
+          <label for="users-list-search">    {{ $t('Search') }}</label>
           <fieldset class="form-group">
             <input
               type="text"
               class="form-control"
               id="users-list-search"
-              placeholder="Search..."
+                 :placeholder="$t('Search...')"
+            
               style="
                 color: grey;
                 padding-bottom: 7px;
@@ -83,7 +84,7 @@
           </b-col> -->
 
         <b-col md="3" class="d-flex flex-column">
-          <label for="users-list-search">Select Start Date</label>
+          <label for="users-list-search">   {{ $t('Select Start Date') }}</label>
 
           <v2-datepicker
             class="for-date-picker"
@@ -94,11 +95,13 @@
               disabledDate: (time) => time.getTime() > new Date().getTime(),
             }"
             @change="changeStartDate"
-            placeholder="Select Start date"
+               :placeholder="$t('Select Start date')"
+          
+            
           ></v2-datepicker>
         </b-col>
         <b-col md="3" class="d-flex flex-column">
-          <label for="users-list-search">Select End Date</label>
+          <label for="users-list-search"> {{ $t('Select End Date') }}</label>
 
           <v2-datepicker
             class="for-date-picker"
@@ -111,18 +114,20 @@
             }"
             :disabled="this.startDate ? false : true"
             @change="changeEndDate"
-            placeholder="Select End date"
+     
+                 :placeholder="$t('Select End date')"
           ></v2-datepicker>
         </b-col>
 
         <b-col md="3">
-              <label for="users-list-verified">Min Earnings</label>
+              <label for="users-list-verified">{{ $t('Min Earnings') }}</label>
               <fieldset class="form-group">
                 <input
                   type="number"
                   class="form-control"
                   id="users-list-amount"
-                  placeholder="Enter min earning"
+                       :placeholder="$t('Min Earnings')"
+
                   style="
                     color: grey;
 
@@ -133,13 +138,14 @@
                 /></fieldset
             ></b-col>
             <b-col md="3">
-              <label for="users-list-verified">Max Earnings</label>
+              <label for="users-list-verified"> {{ $t('Max Earnings') }}</label>
               <fieldset class="form-group">
                 <input
                   type="number"
                   class="form-control"
                   id="users-list-amount-max"
-                  placeholder="Enter max earning"
+                
+                            :placeholder="$t('Max Earnings')"
                   style="
                     color: grey;
 
@@ -166,7 +172,7 @@
             class="card-title"
             style="margin: 0px; background-color: white; color: #000000c4"
           >
-            Creators
+             {{ $t('Creators') }}
           </h4>
           <!-- <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a> -->
           <div class="heading-elements">
@@ -185,7 +191,7 @@
                   border: 1px solid gray;
                 "
               >
-                Add New
+                 {{ $t('Add New') }}
               </button>
               <!-- <li><a data-action="close pe-auto"><i class="fa fa-times" aria-hidden="true" style="
     cursor: pointer;
@@ -200,10 +206,7 @@
         <vue-good-table
           :columns="columns"
           :line-numbers="false"
-          :pagination-options="{
-            enabled: true,
-            mode: 'records',
-          }"
+        :pagination-options="paginationOptions"
           styleClass="tableOne vgt-table"
           :selectOptions="{
             enabled: false,
@@ -290,22 +293,7 @@ export default {
       flexDivDisplay: "flex!important",
 
       rows: [],
-      columns: [
-        {
-          label: "Affiliated With",
-          field: "affiliated_with",
-        },
-        {
-          label: "Diamonds This Month",
-          field: "diamond_show",
-        },
-
-        {
-          label: "Earnings This Month",
-          field: "earning_show",
-        },
-        { label: "Date", field: "as_of_date" },
-      ],
+ 
       backgroundImage: require("@/assets/images/food.png"),
     };
   },
@@ -316,6 +304,52 @@ export default {
     //     backgroundImage: `url(${this.backgroundImage})`
     //   }
     // },
+    paginationOptions() {
+      return {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      };
+    },
+
+    columns() {
+      return [
+  {
+    label: this.$t('Affiliated With'),
+    field: "affiliated_with",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Affiliated With'),
+    },
+  },
+  {
+    label: this.$t('Diamonds This Month'),
+    field: "diamond_show",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Diamonds This Month'),
+    },
+  },
+  {
+    label: this.$t('Earnings This Month'),
+    field: "earning_show",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Earnings This Month'),
+    },
+  },
+  {
+    label: this.$t('Date'),
+    field: "as_of_date",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Date'),
+    },
+  },
+  
+];},
     filteredRows() {
       const query = this.searchTerm.toLowerCase().trim();
       const amount_data = this.searchAmount.trim();

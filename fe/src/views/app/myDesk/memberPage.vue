@@ -4,7 +4,7 @@
     <div
       class="font-weight-bold fa-2x text-light d-flex justify-content-between"
     >
-      Member
+   {{ $t('Member') }}
     </div>
     <hr class="mt-1 " />
     <div class="spinner spinner-primary" v-if="loader" id="loader"></div>
@@ -46,10 +46,7 @@
               <vue-good-table
                 :columns="commonColumns"
                 :line-numbers="false"
-                :pagination-options="{
-                  enabled: true,
-                  mode: 'records'
-                }"
+                  :pagination-options="paginationOptions"
                 styleClass="tableOne vgt-table"
                 :selectOptions="{
                   enabled: false,
@@ -150,36 +147,7 @@ export default {
       loader: false,
 
       faqs: [],
-      commonColumns: [
-        {
-          label: 'Date',
-          field: 'createdAt'
-        },
-        {
-          label: 'Tik Tok Name',
-          field: 'tiktok_username'
-        },
-        {
-          label: 'Contact Number',
-          field: 'contact_number'
-        },
 
-        {
-          label: 'Diamonds This Month',
-          field: 'diamonds'
-        },
-
-        {
-          label: 'Partner',
-          field: 'affiliate'
-        },
-
-        {
-          label: 'Status',
-          field: 'status_show'
-        },
-        { label: 'Reason', field: 'reason' }
-      ],
       backgroundImage: require('@/assets/images/food.png'),
       fullName: '',
       tictocName: '',
@@ -192,6 +160,73 @@ export default {
   },
 
   computed: {
+    paginationOptions() {
+      return {
+        enabled: true,
+        mode: 'recordsPerPage',
+        perPageDropdown: [10, 20, 50],
+        nextLabel: this.$t('Next'),
+        prevLabel: this.$t('Previous'),
+      };
+    },
+
+    commonColumns() {
+      return [
+  {
+    label: this.$t('Date'),
+    field: "createdAt",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Date'),
+    },
+  },
+  {
+    label: this.$t('Tik Tok Name'),
+    field: "tiktok_username",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Tik Tok Name'),
+    },
+  },
+  {
+    label: this.$t('Contact Number'),
+    field: "contact_number",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Contact Number'),
+    },
+  },
+  {
+    label: this.$t('Diamonds This Month'),
+    field: "diamonds",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Diamonds This Month'),
+    },
+  },
+  {
+    label: this.$t('Partner'),
+    field: "affiliate",
+    filterOptions: {
+      enabled: true,
+      placeholder: this.$t('Partner'),
+    },
+  },
+  {
+    label: this.$t("Status"),
+    field: "status_show",
+    filterOptions: {
+      enabled: false,
+    },
+  },
+  {
+    label: this.$t('Reason'),
+    field: "reason",
+    filterOptions: {
+      enabled: false,
+    },
+  },
+];},
     headerStyle () {
       return {
         backgroundImage: `url(${this.backgroundImage})`
