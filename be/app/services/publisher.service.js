@@ -130,7 +130,8 @@ exports.updatePublisher = async (id, data) => {
         tiktok_username: data.tiktok_username,
         contact_number: data.contact_number,
         agency_center_code: data.agency_center_code,
-        icon: data.icon
+        icon: data.icon,
+        country_code: data.country_code
       },
     });
     return true;
