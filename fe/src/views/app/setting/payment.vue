@@ -329,7 +329,7 @@
               </div>
             </div>
             <b-row
-              class="w-100 px-3 pt-2 mt-1"
+              class="px-3 pt-2 mt-1"
               :style="{ display: flexDivDisplay }"
             >
               <b-col md="3"
@@ -408,7 +408,7 @@
                   /></fieldset
               ></b-col>
             </b-row>
-            <b-row class="w-100 px-3 pb-3 " :style="{ display: flexDivDisplay }">
+            <b-row class=" px-3 pb-3 " :style="{ display: flexDivDisplay }">
               <b-col md="3" class="col-sm-6 col-lg-3 paddingBottom">
                 <v2-datepicker
                   class="for-date-picker"
