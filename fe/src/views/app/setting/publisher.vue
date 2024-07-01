@@ -816,6 +816,7 @@ export default {
   },
   data() {
     return {
+      countryCode:"tr",
       searchMaxAmount:'',
       searchAmount:'',
       phoneInput: null,
@@ -1288,7 +1289,7 @@ export default {
     }
 
     console.log("id", this.user_id)
-    const res = await this.$apiService.postCall('/publisher/get-all', req)
+    const res = await this.$apiService.postCall('publisher/get-all', req)
 
     if (res.error) {
       this.$toaster.makeToast('warning', res.message)
@@ -1578,6 +1579,8 @@ this.faqs = paymentData;
       }
       this.loader = true
 
+      const countryCode = this.phoneInput.j;
+
       try {
         //const imageUrls = await this.uploadImages();
         let requestData = {
@@ -1586,7 +1589,8 @@ this.faqs = paymentData;
           tiktok_username: this.getTikTok,
           contact_number: this.getphoneNumber,
           agency_center_code: this.getcenterCode,
-          icon: this.uplodedImages
+          icon: this.uplodedImages,
+          country_code:countryCode
 
           // userId: this.user_id
         }
@@ -1624,14 +1628,14 @@ this.faqs = paymentData;
       this.images = data.icon
       this.uplodedImages = data.icon
       this.getTikTok = data.tiktok_username
-      const countryCode = data.country_code
+      this.countryCode = data.country_code
 
       this.showAddModalEdit = true
       const phoneInputField = document.querySelector('#phone')
       setTimeout(() => {
         const phoneInputField = document.querySelector('#phone')
         this.phoneInput = window.intlTelInput(phoneInputField, {
-          initialCountry: countryCode,
+          initialCountry: this.countryCode,
           utilsScript:
             'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
         })
