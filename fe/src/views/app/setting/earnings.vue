@@ -878,6 +878,7 @@ export default {
           : 'flex!important' // Toggle the display property
     },
     getGraphData () {
+      debugger
       this.loader = true
       const user_id = localStorage.getItem('user_id')
       const userRole = localStorage.getItem('role')
@@ -886,6 +887,12 @@ export default {
       if (userRole === 'user') {
         requestBody = {
           _id: user_id
+        }
+      }
+      else
+      {
+        requestBody = {
+          _id: ''
         }
       }
 
@@ -1189,6 +1196,12 @@ export default {
       if (userRole === 'user') {
         requestBody = {
           _id: user_id
+        }
+      }
+      else
+      {
+        requestBody = {
+          _id: ''
         }
       }
       this.loader = true
