@@ -1469,6 +1469,7 @@ this.faqs = paymentData;
       }
 
       this.contact_number = this.phoneInput.getNumber()
+      const countryCode = this.phoneInput.j;
 
       if (this.contact_number.startsWith('+')) {
         this.contact_number = this.contact_number.slice(1)
@@ -1485,7 +1486,8 @@ this.faqs = paymentData;
             user_id:       this.role == 'admin' ? this.selectedUserId
                 : localStorage.getItem('user_id'),
             tiktok_username: this.tiktok_username,
-            contact_number: this.contact_number
+            contact_number: this.contact_number,
+            country_code:countryCode
             // status: 'Pending Registration'
           }
 
@@ -1622,13 +1624,14 @@ this.faqs = paymentData;
       this.images = data.icon
       this.uplodedImages = data.icon
       this.getTikTok = data.tiktok_username
+      const countryCode = data.country_code
 
       this.showAddModalEdit = true
       const phoneInputField = document.querySelector('#phone')
       setTimeout(() => {
         const phoneInputField = document.querySelector('#phone')
         this.phoneInput = window.intlTelInput(phoneInputField, {
-          initialCountry: 'in',
+          initialCountry: countryCode,
           utilsScript:
             'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
         })
